@@ -40,3 +40,4 @@ Scrylytics is an AI-powered analytics and deck optimization platform for collect
 ```bash
 git clone https://github.com/<your-username>/scrylytics.git
 cd scrylytics
+# touch to trigger PR
