@@ -55,8 +55,8 @@ const ParchmentFrame: React.FC<{ title?: string; children: React.ReactNode }> = 
 /* ---------- Chart Renderers ---------- */
 
 const ManaCurveChart = ({ data }: { data: { mana:number; count:number }[] }) => (
-  <ResponsiveContainer width="100%" height={280}>
-    <BarChart data={data}>
+  <ResponsiveContainer width="100%" height={300} minHeight={300}>
+    <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
       <CartesianGrid strokeDasharray="3 3" stroke="#b08b4a" opacity={0.45}/>
       <XAxis dataKey="mana" tick={{ fill: "#5c4320" }} />
       <YAxis tick={{ fill: "#5c4320" }} />
@@ -71,8 +71,8 @@ const ManaCurveChart = ({ data }: { data: { mana:number; count:number }[] }) => 
 const LineMetric = ({
   data, xKey, yKey, label
 }: { data: any[]; xKey: string; yKey: string; label?: string }) => (
-  <ResponsiveContainer width="100%" height={280}>
-    <LineChart data={data}>
+  <ResponsiveContainer width="100%" height={300} minHeight={300}>
+    <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
       <CartesianGrid strokeDasharray="3 3" stroke="#b08b4a" opacity={0.45}/>
       <XAxis dataKey={xKey} tick={{ fill: "#5c4320" }} />
       <YAxis tick={{ fill: "#5c4320" }} />
@@ -84,8 +84,8 @@ const LineMetric = ({
 );
 
 const RoleRadar = ({ data }: { data: { role:string; value:number }[] }) => (
-  <ResponsiveContainer width="100%" height={300}>
-    <RadarChart data={data}>
+  <ResponsiveContainer width="100%" height={320} minHeight={320}>
+    <RadarChart data={data} margin={{ top: 20, right: 20, left: 20, bottom: 20 }}>
       <PolarGrid stroke="#b08b4a" opacity={0.45}/>
       <PolarAngleAxis dataKey="role" tick={{ fill:"#5c4320" }}/>
       <PolarRadiusAxis tick={{ fill:"#5c4320" }}/>
@@ -95,8 +95,8 @@ const RoleRadar = ({ data }: { data: { role:string; value:number }[] }) => (
 );
 
 const AreaInsight = ({ data, xKey, yKey, label }: { data:any[]; xKey:string; yKey:string; label?:string }) => (
-  <ResponsiveContainer width="100%" height={280}>
-    <AreaChart data={data}>
+  <ResponsiveContainer width="100%" height={300} minHeight={300}>
+    <AreaChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
       <CartesianGrid strokeDasharray="3 3" stroke="#b08b4a" opacity={0.45}/>
       <XAxis dataKey={xKey} tick={{ fill:"#5c4320" }}/>
       <YAxis tick={{ fill:"#5c4320" }}/>
@@ -122,27 +122,42 @@ const titleMap: Record<DeckIssueType,string> = {
 
 export const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption, title }) => {
   const renderChart = () => {
-    switch (issue) {
-      case "MANA_CURVE_SKEW":       return <ManaCurveChart data={data as any} />;
-      case "DRAW_INCONSISTENCY":    return <LineMetric data={data} xKey="turn" yKey="cards" label="Cards Drawn" />;
-      case "ROLE_MISMATCH":         return <RoleRadar data={data as any} />;
-      case "WEAK_SYNERGY_CHAINS":   return <AreaInsight data={data} xKey="turn" yKey="chainStrength" label="Chain Strength" />;
-      case "TECH_GAPS":             return <ManaCurveChart data={data as any} />;
-      case "MATCHUP_PAINS":         return <LineMetric data={data} xKey="archetype" yKey="winrate" label="Winrate %" />;
-      case "HAND_SIZE_PRESSURE":    return <AreaInsight data={data} xKey="turn" yKey="handSize" label="Avg Hand Size" />;
-      case "BOARD_TEMPO_GAPS":      return <RoleRadar data={data as any} />;
-      default:                      return <p style={{ color:"#5c4320" }}>No data available.</p>;
+    try {
+      switch (issue) {
+        case "MANA_CURVE_SKEW":       return <ManaCurveChart data={data as any} />;
+        case "DRAW_INCONSISTENCY":    return <LineMetric data={data} xKey="turn" yKey="cards" label="Cards Drawn" />;
+        case "ROLE_MISMATCH":         return <RoleRadar data={data as any} />;
+        case "WEAK_SYNERGY_CHAINS":   return <AreaInsight data={data} xKey="turn" yKey="chainStrength" label="Chain Strength" />;
+        case "TECH_GAPS":             return <ManaCurveChart data={data as any} />;
+        case "MATCHUP_PAINS":         return <LineMetric data={data} xKey="archetype" yKey="winrate" label="Winrate %" />;
+        case "HAND_SIZE_PRESSURE":    return <AreaInsight data={data} xKey="turn" yKey="handSize" label="Avg Hand Size" />;
+        case "BOARD_TEMPO_GAPS":      return <RoleRadar data={data as any} />;
+        default:                      return <p style={{ color:"#5c4320" }}>No data available.</p>;
+      }
+    } catch (error) {
+      console.error('Chart rendering error:', error);
+      return <p style={{ color:"#dc2626", padding:"1rem", backgroundColor:"#fef2f2", borderRadius:"4px" }}>
+        Chart rendering failed. Issue: {issue}, Data: {JSON.stringify(data).slice(0, 100)}...
+      </p>;
     }
   };
 
   return (
     <ParchmentFrame title={title || titleMap[issue]}>
-      {renderChart()}
+      <div style={{ minHeight: "320px" }}>
+        {renderChart()}
+      </div>
       {caption && (
         <p className="mt-3 text-sm italic text-[#5c4320]" style={{ filter:"url(#rough)" }}>
           {caption}
         </p>
       )}
+      {/* Debug info */}
+      <details className="mt-3 text-xs text-gray-500">
+        <summary>Debug Info</summary>
+        <pre>Issue: {issue}, Data points: {data?.length || 0}</pre>
+        <pre>Data sample: {JSON.stringify(data?.slice(0, 2), null, 2)}</pre>
+      </details>
     </ParchmentFrame>
   );
 };

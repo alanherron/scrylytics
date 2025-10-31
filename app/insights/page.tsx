@@ -9,7 +9,11 @@ export default function InsightsPage() {
 
   const deck = PREBUILT_DECKS[selectedIndex];
 
-  const result = useMemo(() => analyzeDeck(deck), [deck]);
+  const result = useMemo(() => {
+    const analysis = analyzeDeck(deck);
+    console.log('Insights analysis result:', { issue: analysis.issue, dataLength: analysis.data?.length, title: analysis.title });
+    return analysis;
+  }, [deck]);
 
   return (
     <div className="max-w-3xl mx-auto p-6 space-y-6">
