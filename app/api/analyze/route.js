@@ -3,6 +3,7 @@
 
 import OpenAI from 'openai';
 import { fetchAllCards, parseDeckCode, validateDeck, getCardSynergies, calculateDeckStats } from '../../../lib/hearthstone.js';
+import { parseMagicDeckList, validateMagicDeck, calculateMagicStats, getMagicSynergies, getCardByName, getCardImageUrl } from '../../../lib/magic.js';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -35,7 +36,7 @@ export async function POST(request) {
 
 async function analyzeDeckWithAI(deckCode, gameType) {
   try {
-    // For Hearthstone, try to parse the deck code and get real data
+    // Parse and analyze deck based on game type
     let deckData = null;
     let validation = null;
 
@@ -46,7 +47,16 @@ async function analyzeDeckWithAI(deckCode, gameType) {
         deckData.stats = calculateDeckStats(deckData);
         deckData.synergies = await getCardSynergies(null, deckData);
       } catch (parseError) {
-        console.warn('Deck parsing failed, proceeding with basic analysis:', parseError);
+        console.warn('Hearthstone deck parsing failed, proceeding with basic analysis:', parseError);
+      }
+    } else if (gameType === 'magic') {
+      try {
+        deckData = parseMagicDeckList(deckCode);
+        validation = validateMagicDeck(deckData);
+        deckData.stats = await calculateMagicStats(deckData);
+        deckData.synergies = getMagicSynergies(deckData);
+      } catch (parseError) {
+        console.warn('Magic deck parsing failed, proceeding with basic analysis:', parseError);
       }
     }
 
@@ -69,7 +79,14 @@ async function analyzeDeckWithAI(deckCode, gameType) {
     });
 
     const analysisText = response.choices[0].message.content;
-    return parseAIAnalysis(analysisText, gameType);
+    const analysis = parseAIAnalysis(analysisText, gameType);
+
+    // Add card images to the analysis
+    if (analysis) {
+      analysis.cardImages = await getCardImages(deckCode, gameType, deckData);
+    }
+
+    return analysis;
 
   } catch (error) {
     console.error('AI analysis failed:', error);
@@ -86,7 +103,7 @@ function createAnalysisPrompt(deckCode, gameType, deckData = null, validation = 
 
     if (deckData) {
       prompt += `Parsed deck data:\n`;
-      prompt += `- Class: ${deckData.hero}\n`;
+      prompt += `- Class: ${deckData.hero || 'Unknown'}\n`;
       prompt += `- Total cards: ${deckData.totalCards}\n`;
       prompt += `- Mana curve: ${JSON.stringify(deckData.stats?.manaCurve || [])}\n`;
       prompt += `- Average cost: ${deckData.stats?.averageCost?.toFixed(1) || 'N/A'}\n`;
@@ -116,10 +133,30 @@ function createAnalysisPrompt(deckCode, gameType, deckData = null, validation = 
 Consider current Hearthstone meta, card interactions, and strategic viability.
 Format your response as JSON with these exact keys: score, grade, strengths (array), weaknesses (array), suggestions (array), synergies (object with arrays)`;
     return prompt;
-  } else {
-    return `Analyze this Magic: The Gathering deck list: ${deckCode}
+  } else if (gameType === 'magic') {
+    let prompt = `Analyze this Magic: The Gathering deck list: ${deckCode}\n\n`;
 
-As an expert Magic analyst, provide detailed analysis including:
+    if (deckData) {
+      prompt += `Parsed deck data:\n`;
+      prompt += `- Format: ${deckData.format}\n`;
+      prompt += `- Total cards: ${deckData.totalCards}\n`;
+      prompt += `- Main deck: ${deckData.mainDeck.length} cards\n`;
+      prompt += `- Sideboard: ${deckData.sideboard.length} cards\n`;
+      prompt += `- Commander: ${deckData.commander.length} cards\n`;
+      prompt += `- Mana curve: ${JSON.stringify(deckData.stats?.manaCurve || [])}\n`;
+      prompt += `- Average CMC: ${deckData.stats?.averageCmc || 'N/A'}\n`;
+      prompt += `- Color distribution: ${JSON.stringify(deckData.stats?.colorDistribution || {})}\n`;
+
+      if (deckData.synergies?.primaryArchetype) {
+        prompt += `- Primary archetype: ${deckData.synergies.primaryArchetype}\n`;
+      }
+
+      if (validation && !validation.valid) {
+        prompt += `\nValidation issues: ${validation.issues.join(', ')}\n`;
+      }
+    }
+
+    prompt += `\nAs an expert Magic analyst, provide detailed analysis including:
 1. Overall score (1-10 scale) for competitive viability
 2. Letter grade (S, A, B, C, D, F) with strategic assessment
 3. Key strengths (3-5 competitive advantages)
@@ -129,7 +166,10 @@ As an expert Magic analyst, provide detailed analysis including:
 
 Consider format legality, mana efficiency, combo potential, and metagame positioning.
 Format your response as JSON with these exact keys: score, grade, strengths (array), weaknesses (array), suggestions (array), synergies (object with arrays)`;
+    return prompt;
   }
+
+  return `${basePrompt}\n\nDeck: ${deckCode}\n\nProvide analysis in the same JSON format.`;
 }
 
 function parseAIAnalysis(analysisText, gameType) {
@@ -184,6 +224,48 @@ function createFallbackAnalysis(text, gameType) {
   if (text.includes('good')) analysis.score = Math.max(analysis.score, 6);
 
   return analysis;
+}
+
+// Get card images for key cards in the deck
+async function getCardImages(deckCode, gameType, deckData) {
+  const cardImages = [];
+
+  try {
+    if (gameType === 'magic' && deckData?.mainDeck) {
+      // For Magic, get images for main deck cards
+      const cardPromises = deckData.mainDeck.slice(0, 10).map(async (card) => {
+        try {
+          const cardData = await getCardByName(card.name);
+          if (cardData && cardData.image_uris) {
+            return {
+              name: card.name,
+              count: card.count,
+              imageUrl: cardData.image_uris.normal
+            };
+          }
+        } catch (error) {
+          console.warn(`Failed to get image for ${card.name}:`, error);
+        }
+        return null;
+      });
+
+      const results = await Promise.all(cardPromises);
+      cardImages.push(...results.filter(Boolean));
+
+    } else if (gameType === 'hearthstone' && deckData?.cards) {
+      // For Hearthstone, we'd need to implement card lookup by ID
+      // For now, return placeholder - in real implementation, use Hearthstone API
+      cardImages.push({
+        name: 'Sample Card',
+        count: 2,
+        imageUrl: 'https://via.placeholder.com/200x300?text=Hearthstone+Card'
+      });
+    }
+  } catch (error) {
+    console.error('Failed to fetch card images:', error);
+  }
+
+  return cardImages;
 }
 
 // Fallback basic analysis (original implementation)

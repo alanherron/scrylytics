@@ -19,7 +19,10 @@ export default function Home() {
           <h2>🧙‍♂️ Decklytics</h2>
           <p>AI deck analyzer — grades, synergies, and optimization suggestions</p>
           <div style={{marginTop:"1rem", fontSize:"0.9rem", opacity:0.8}}>
-            → Analyze your deck now
+            → Supports Hearthstone & Magic: The Gathering
+          </div>
+          <div style={{marginTop:"0.5rem", fontSize:"0.8rem", opacity:0.7}}>
+            Features: Card images, AI analysis, synergy detection
           </div>
         </Link>
 

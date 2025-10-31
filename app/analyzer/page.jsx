@@ -189,6 +189,49 @@ export default function Analyzer() {
                 </div>
               )}
 
+              {/* Card Images Gallery */}
+              {analysis.cardImages && analysis.cardImages.length > 0 && (
+                <div style={{marginBottom:"2rem"}}>
+                  <h4>🖼️ Key Cards</h4>
+                  <div style={{
+                    display:"grid",
+                    gridTemplateColumns:"repeat(auto-fit, minmax(150px, 1fr))",
+                    gap:"1rem",
+                    marginTop:"1rem"
+                  }}>
+                    {analysis.cardImages.slice(0, 8).map((card, index) => (
+                      <div key={index} style={{
+                        textAlign:"center",
+                        padding:"0.5rem",
+                        border:"1px solid #e5e7eb",
+                        borderRadius:"8px",
+                        backgroundColor:"#f9fafb"
+                      }}>
+                        <img
+                          src={card.imageUrl}
+                          alt={card.name}
+                          style={{
+                            width:"100%",
+                            maxWidth:"120px",
+                            height:"auto",
+                            borderRadius:"4px",
+                            marginBottom:"0.5rem"
+                          }}
+                          loading="lazy"
+                        />
+                        <div style={{fontSize:"0.8rem", fontWeight:"500"}}>{card.name}</div>
+                        {card.count && <div style={{fontSize:"0.7rem", color:"#6b7280"}}>×{card.count}</div>}
+                      </div>
+                    ))}
+                  </div>
+                  {analysis.cardImages.length > 8 && (
+                    <p style={{fontSize:"0.9rem", color:"#6b7280", marginTop:"1rem"}}>
+                      And {analysis.cardImages.length - 8} more cards...
+                    </p>
+                  )}
+                </div>
+              )}
+
               {/* Synergies */}
               {analysis.synergies && (
                 <div style={{marginBottom:"2rem"}}>
@@ -206,7 +249,7 @@ export default function Analyzer() {
                       }}>
                         <h5 style={{marginTop:0, textTransform:"capitalize"}}>{type}</h5>
                         <div style={{fontSize:"0.9rem", color:"#6b7280"}}>
-                          {cards.join(", ")}
+                          {Array.isArray(cards) ? cards.join(", ") : cards}
                         </div>
                       </div>
                     ))}
