@@ -25,9 +25,10 @@ Scrylytics is an AI-powered analytics and deck optimization platform for collect
 ## 🚀 **Status: DevOps Pipeline Active**
 
 ✅ **Automated Deployments**: GitHub Actions + Vercel
-✅ **Branch Protection**: main & develop branches protected
+✅ **Branch Protection**: main & develop branches protected (2 reviews required)
 ✅ **Smart Deployments**: Skip logic for docs-only changes
 ✅ **Live Site**: [scrylytics.com](https://www.scrylytics.com)
+✅ **Security**: Linear history, conversation resolution, admin enforcement
 
 ---
 
