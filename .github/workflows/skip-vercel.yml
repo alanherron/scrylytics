@@ -5,6 +5,10 @@ on:
     types: [opened, synchronize, reopened, edited]
   push:
     branches: [main, develop]
+  workflow_call:
+    outputs:
+      should_skip:
+        value: ${{ jobs.skip-vercel.outputs.should_skip }}
 
 jobs:
   skip-vercel:

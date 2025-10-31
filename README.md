@@ -14,20 +14,24 @@ Scrylytics is an AI-powered analytics and deck optimization platform for collect
 
 | Module | Description |
 |---------|-------------|
-| 🧙‍♂️ **Decklytics** | AI deck analyzer — grades, synergies, and optimization suggestions. |
-| ⚔️ **Playlytics** | Game simulation and matchup testing. |
-| 📊 **Metalyzer** | Meta tracking and statistical reports across formats. |
+| 🧙‍♂️ **Decklytics** | AI deck analyzer — grades, synergies, and optimization suggestions. ✅ |
+| 🎴 **Multi-Game Support** | Hearthstone & Magic: The Gathering with card images | ✅ |
+| ⚔️ **Playlytics** | Game simulation and matchup testing. ✅ |
+| 📊 **Metalyzer** | Meta tracking and statistical reports across formats. ✅ |
 | 🔥 **Forge** | Intelligent deck builder powered by generative AI. |
 | 🤖 **Coach AI** | Personalized insights and guided improvements for your decks. |
+| 👤 **User System** | Account management, deck saving, and personal analytics. ✅ |
 
 ---
 
 ## 🚀 **Status: DevOps Pipeline Active**
 
 ✅ **Automated Deployments**: GitHub Actions + Vercel
-✅ **Branch Protection**: main & develop branches protected
+✅ **Branch Protection**: main & develop branches protected (2 reviews required)
 ✅ **Smart Deployments**: Skip logic for docs-only changes
 ✅ **Live Site**: [scrylytics.com](https://www.scrylytics.com)
+✅ **Security**: Linear history, conversation resolution, admin enforcement
+✅ **Testing**: Deployment verification in progress
 
 ---
 
