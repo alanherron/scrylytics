@@ -53,6 +53,7 @@ const TestChart = () => {
 export default function InsightsPage() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [rechartsStatus, setRechartsStatus] = useState('checking');
+  const [pageLoaded, setPageLoaded] = useState(false);
 
   // Check if Recharts is available
   React.useEffect(() => {
@@ -75,12 +76,18 @@ export default function InsightsPage() {
     // Also check window object
     setTimeout(() => {
       console.log('🔍 Window recharts check:', typeof window !== 'undefined' ? 'window available' : 'no window');
-    }, 1000);
+      setPageLoaded(true);
+    }, 100);
   }, []);
 
   const deck = PREBUILT_DECKS[selectedIndex];
 
   const result = useMemo(() => {
+    if (!pageLoaded) {
+      console.log('⏳ Page not loaded yet, skipping analysis');
+      return null;
+    }
+
     console.log('🎲 Insights: Analyzing deck:', { name: deck.name, archetype: deck.archetype });
     const analysis = analyzeDeck(deck);
     console.log('📊 Insights analysis result:', {
@@ -92,25 +99,44 @@ export default function InsightsPage() {
       caption: analysis.caption
     });
     return analysis;
-  }, [deck]);
+  }, [deck, pageLoaded]);
 
-  return (
-    <div className="max-w-3xl mx-auto p-6 space-y-6">
-      {/* SUPER VISIBLE DEBUG BANNER */}
-      <div style={{
-        backgroundColor: "#ff0000",
-        color: "#ffffff",
-        padding: "1rem",
-        borderRadius: "8px",
-        border: "4px solid #000000",
-        fontSize: "1.2rem",
-        fontWeight: "bold",
-        textAlign: "center",
-        marginBottom: "1rem"
-      }}>
-        🚨 DEBUG MODE ACTIVE 🚨<br />
-        Build #13 - Enhanced Chart Debugging
-      </div>
+  // Basic error boundary
+  try {
+    console.log('🔍 InsightsPage: Starting render');
+
+    return (
+      <div className="max-w-3xl mx-auto p-6 space-y-6">
+        {/* BASIC TEST - If you see this, React is working */}
+        <div style={{
+          backgroundColor: "#00ff00",
+          color: "#000000",
+          padding: "1rem",
+          borderRadius: "8px",
+          border: "2px solid #000000",
+          fontSize: "1rem",
+          fontWeight: "bold",
+          textAlign: "center",
+          marginBottom: "1rem"
+        }}>
+          ✅ REACT IS WORKING - Page loaded successfully
+        </div>
+
+        {/* SUPER VISIBLE DEBUG BANNER */}
+        <div style={{
+          backgroundColor: "#ff0000",
+          color: "#ffffff",
+          padding: "1rem",
+          borderRadius: "8px",
+          border: "4px solid #000000",
+          fontSize: "1.2rem",
+          fontWeight: "bold",
+          textAlign: "center",
+          marginBottom: "1rem"
+        }}>
+          🚨 DEBUG MODE ACTIVE 🚨<br />
+          Build #16 - Enhanced Chart Debugging
+        </div>
 
       {/* RECHARTS STATUS */}
       <div style={{
@@ -149,7 +175,22 @@ export default function InsightsPage() {
         </p>
       </header>
 
-      <div className="flex items-center gap-3">
+      {!result && (
+        <div style={{
+          backgroundColor: "#ffff00",
+          border: "2px solid #000000",
+          padding: "1rem",
+          borderRadius: "8px",
+          textAlign: "center",
+          marginBottom: "1rem"
+        }}>
+          <strong>⏳ LOADING...</strong> Waiting for page to initialize
+        </div>
+      )}
+
+      {result && (
+        <>
+          <div className="flex items-center gap-3">
         <label htmlFor="deck" className="text-sm font-medium">Deck</label>
         <select
           id="deck"
@@ -189,6 +230,55 @@ export default function InsightsPage() {
           then generated chart data + a recommendation. Swap decks to see different issues and chart types.
         </p>
       </section>
+        </>
+      )}
     </div>
   );
+  } catch (error) {
+    console.error('💥 InsightsPage: CRASHED during render', error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+
+    return (
+      <div style={{
+        padding: "2rem",
+        backgroundColor: "#ff0000",
+        color: "#ffffff",
+        minHeight: "100vh",
+        textAlign: "center"
+      }}>
+        <h1>🚨 PAGE CRASH DETECTED 🚨</h1>
+        <p style={{ fontSize: "1.2rem", margin: "1rem 0" }}>
+          The insights page crashed during rendering
+        </p>
+        <div style={{
+          backgroundColor: "#ffffff",
+          color: "#000000",
+          padding: "1rem",
+          borderRadius: "8px",
+          margin: "1rem auto",
+          maxWidth: "600px",
+          textAlign: "left"
+        }}>
+          <strong>Error:</strong> {errorMessage}
+          <br />
+          <small>Check browser console (F12) for full error details</small>
+        </div>
+        <div style={{ marginTop: "2rem" }}>
+          <a
+            href="/"
+            style={{
+              backgroundColor: "#ffffff",
+              color: "#ff0000",
+              padding: "0.5rem 1rem",
+              borderRadius: "4px",
+              textDecoration: "none",
+              fontWeight: "bold"
+            }}
+          >
+            ← Back to Home
+          </a>
+        </div>
+      </div>
+    );
+  }
 }
