@@ -120,7 +120,7 @@ export default function InsightsPage() {
         textAlign: "center",
         marginBottom: "1rem"
       }}>
-        ✅ REACT IS WORKING - Build #43 - DYNAMIC IMPORTS FIXED! 📊
+        ✅ REACT IS WORKING - Build #44 - RECHARTS v3.3.0 + STYLING UPGRADE! 🎨📊
       </div>
 
       <header style={{marginBottom:"2rem"}}>
@@ -149,18 +149,25 @@ export default function InsightsPage() {
         </select>
       </div>
 
-      <div style={{
-        backgroundColor: "#ffff00",
-        border: "3px solid #000000",
-        padding: "1rem",
-        marginBottom: "1rem",
-        textAlign: "center"
-      }}>
-        <h3 style={{ color: "#000000", margin: "0 0 0.5rem 0" }}>
-          🧪 Chart Test
-        </h3>
-        <TestChart />
-      </div>
+          <div style={{
+            backgroundColor: "#ecfdf5",
+            border: "3px solid #059669",
+            padding: "1.5rem",
+            marginBottom: "1rem",
+            textAlign: "center",
+            borderRadius: "12px",
+            boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
+          }}>
+            <h3 style={{
+              color: "#065f46",
+              margin: "0 0 1rem 0",
+              fontSize: "1.2rem",
+              fontWeight: "bold"
+            }}>
+              🧪 Recharts v3.3.0 Test
+            </h3>
+            <TestChart />
+          </div>
 
       {result && (
         <div style={{marginTop:"2rem", padding:"2rem", backgroundColor:"#f9fafb", borderRadius:"8px", border:"1px solid #e5e7eb"}}>
@@ -196,11 +203,53 @@ export default function InsightsPage() {
 
           {result && result.issue !== 'ERROR' && (
             <div style={{marginTop:"2rem"}}>
-              <h3>Chart: {result.issue.replace(/_/g, ' ')}</h3>
-              <InsightChart
-                issue={result.issue as any}
-                data={result.data || []}
-              />
+              <div style={{
+                backgroundColor: "#fef7ed",
+                border: "3px solid #d97706",
+                borderRadius: "12px",
+                padding: "2rem",
+                margin: "2rem 0",
+                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+                position: "relative"
+              }}>
+                <div style={{
+                  position: "absolute",
+                  top: "-15px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  backgroundColor: "#fef7ed",
+                  padding: "0.5rem 1.5rem",
+                  borderRadius: "20px",
+                  border: "2px solid #d97706",
+                  fontSize: "1.1rem",
+                  fontWeight: "bold",
+                  color: "#92400e"
+                }}>
+                  📊 {result.issue.replace(/_/g, ' ')} Analysis
+                </div>
+
+                <InsightChart
+                  issue={result.issue as any}
+                  data={result.data || []}
+                />
+
+                <div style={{
+                  marginTop: "1.5rem",
+                  padding: "1rem",
+                  backgroundColor: "#f9fafb",
+                  borderRadius: "8px",
+                  border: "1px solid #e5e7eb"
+                }}>
+                  <p style={{
+                    color: "#6b7280",
+                    fontSize: "0.95rem",
+                    lineHeight: "1.6",
+                    margin: 0
+                  }}>
+                    <strong>Analysis:</strong> {result.caption}
+                  </p>
+                </div>
+              </div>
             </div>
           )}
     </div>
