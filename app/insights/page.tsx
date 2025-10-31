@@ -25,6 +25,22 @@ export default function InsightsPage() {
 
   return (
     <div className="max-w-3xl mx-auto p-6 space-y-6">
+      {/* SUPER VISIBLE DEBUG BANNER */}
+      <div style={{
+        backgroundColor: "#ff0000",
+        color: "#ffffff",
+        padding: "1rem",
+        borderRadius: "8px",
+        border: "4px solid #000000",
+        fontSize: "1.2rem",
+        fontWeight: "bold",
+        textAlign: "center",
+        marginBottom: "1rem"
+      }}>
+        🚨 DEBUG MODE ACTIVE 🚨<br />
+        Build #12 - Enhanced Chart Debugging
+      </div>
+
       <header className="space-y-2">
         <h1 className="text-2xl font-semibold">AI Insights (Parchment Charts)</h1>
         <p className="text-sm opacity-80">

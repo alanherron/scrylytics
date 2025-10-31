@@ -173,6 +173,21 @@ export default function Analyzer() {
 
   return (
     <div style={{padding:"2rem", fontFamily:"system-ui, sans-serif", maxWidth:"1200px", margin:"0 auto"}}>
+      {/* SUPER VISIBLE BUILD INDICATOR */}
+      <div style={{
+        backgroundColor: "#00ff00",
+        color: "#000000",
+        padding: "0.5rem",
+        borderRadius: "4px",
+        border: "2px solid #000000",
+        fontSize: "1rem",
+        fontWeight: "bold",
+        textAlign: "center",
+        marginBottom: "1rem"
+      }}>
+        ✅ Build #{BUILD_NUMBER} Active - Chart Debugging Enabled
+      </div>
+
       {/* Header */}
       <div style={{marginBottom:"2rem"}}>
         <Link href="/" style={{color:"#4f46e5", textDecoration:"none", marginBottom:"1rem", display:"inline-block"}}>
