@@ -235,9 +235,9 @@ const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption, title
     </div>
   );
 
-  const renderChart = () => {
+  const renderChart = (clientReady: boolean) => {
     try {
-      console.log('🎯 Rendering chart for issue:', issue, 'with data:', data);
+      console.log('🎯 Rendering chart for issue:', issue, 'with data:', data, 'clientReady:', clientReady);
 
       // Pre-validate data
       if (!data || !Array.isArray(data)) {
@@ -252,8 +252,8 @@ const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption, title
 
       switch (issue) {
         case "MANA_CURVE_SKEW":
-          console.log('📊 Rendering ManaCurveChart with data:', data);
-          return <ManaCurveChart data={data as { mana:number; count:number }[]} />;
+          console.log('📊 Rendering ManaCurveChart with data:', data, 'clientReady:', clientReady);
+          return <ManaCurveChartRenderer data={data as { mana:number; count:number }[]} isClient={clientReady} />;
         case "DRAW_INCONSISTENCY":
           console.log('📈 Rendering LineMetric for draw consistency');
           return <LineMetric data={data} xKey="turn" yKey="cards" label="Cards Drawn" />;
@@ -265,7 +265,7 @@ const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption, title
           return <AreaInsight data={data} xKey="turn" yKey="chainStrength" label="Chain Strength" />;
         case "TECH_GAPS":
           console.log('🛡️ Rendering ManaCurveChart for tech gaps');
-          return <ManaCurveChart data={data as { mana:number; count:number }[]} />;
+          return <ManaCurveChartRenderer data={data as { mana:number; count:number }[]} isClient={clientReady} />;
         case "MATCHUP_PAINS":
           console.log('⚔️ Rendering LineMetric for matchup pains');
           return <LineMetric data={data} xKey="archetype" yKey="winrate" label="Winrate %" />;
@@ -290,7 +290,7 @@ const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption, title
     <ParchmentFrame title={title || titleMap[issue]}>
       {debugIndicator}
       <div style={{ minHeight: "320px" }}>
-        {renderChart()}
+        {renderChart(isClient)}
       </div>
       {caption && (
         <p className="mt-3 text-sm italic text-[#5c4320]">
