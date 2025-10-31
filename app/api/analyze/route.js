@@ -29,41 +29,21 @@ export async function POST(request) {
       return Response.json(analysis);
     }
 
-    // Always try AI analysis first, fallback to basic if it fails
-    try {
-      const analysis = await analyzeDeckWithAI(deckCode.trim(), gameType);
-      console.log('AI analysis completed successfully');
-      return Response.json(analysis);
-    } catch (aiError) {
-      console.warn('AI analysis failed, falling back to basic:', aiError.message);
-      const analysis = analyzeDeckBasic(deckCode.trim(), gameType);
-      analysis.fallbackReason = 'AI analysis unavailable';
+    // Create initial response with placeholder images
+    const initialAnalysis = await analyzeDeckWithAI(deckCode.trim(), gameType);
+    console.log('AI analysis completed successfully');
 
-      // Still try to get basic card images in development mode
-      try {
-        // Try to parse the deck for card images even if AI failed
-        let parsedDeckData = null;
-        if (gameType === 'magic') {
-          try {
-            parsedDeckData = parseMagicDeckList(deckCode.trim());
-          } catch (parseError) {
-            console.warn('Deck parsing failed for card images:', parseError.message);
-          }
-        } else if (gameType === 'hearthstone') {
-          try {
-            parsedDeckData = await parseDeckCode(deckCode.trim());
-          } catch (parseError) {
-            console.warn('Hearthstone deck parsing failed for card images:', parseError.message);
-          }
-        }
-        analysis.cardImages = await getCardImages(deckCode.trim(), gameType, parsedDeckData);
-      } catch (imageError) {
-        console.warn('Card image fetching also failed:', imageError.message);
-        analysis.cardImages = [];
-      }
+    // Return analysis immediately with placeholder images
+    const placeholderImages = getPlaceholderImages(deckCode.trim(), gameType, initialAnalysis);
+    initialAnalysis.cardImages = placeholderImages;
 
-      return Response.json(analysis);
-    }
+    // Start background loading of real images (don't wait for it)
+    loadRealImagesInBackground(deckCode.trim(), gameType, initialAnalysis).catch(err => {
+      console.warn('Background image loading failed:', err.message);
+    });
+
+    return Response.json(initialAnalysis);
+
   } catch (error) {
     console.error('Deck analysis error:', error.message);
     console.error('Stack:', error.stack);
@@ -404,6 +384,76 @@ async function getCardImages(deckCode, gameType, deckData) {
 
   console.log('Returning', cardImages.length, 'card images');
   return cardImages;
+}
+
+// Get placeholder images for immediate display
+function getPlaceholderImages(deckCode, gameType, analysis) {
+  const placeholders = [];
+
+  // Try to parse deck to get card count
+  let cardCount = 3; // Default fallback
+
+  try {
+    if (gameType === 'hearthstone') {
+      const parsed = parseDeckCode(deckCode);
+      cardCount = Math.min(parsed?.cards?.length || 3, 6);
+    } else if (gameType === 'magic') {
+      const parsed = parseMagicDeckList(deckCode);
+      cardCount = Math.min(parsed?.mainDeck?.length || 3, 6);
+    }
+  } catch (error) {
+    console.warn('Could not parse deck for placeholders:', error.message);
+  }
+
+  // Create placeholder images
+  for (let i = 0; i < cardCount; i++) {
+    placeholders.push({
+      name: `Loading card ${i + 1}...`,
+      count: 1,
+      imageUrl: `https://via.placeholder.com/256x/372?text=Loading...`,
+      isPlaceholder: true,
+      index: i
+    });
+  }
+
+  return placeholders;
+}
+
+// Background loading of real images (doesn't block response)
+async function loadRealImagesInBackground(deckCode, gameType, analysis) {
+  try {
+    console.log('Starting background image loading...');
+
+    // Parse deck data for real images
+    let parsedDeckData = null;
+    if (gameType === 'hearthstone') {
+      parsedDeckData = await parseDeckCode(deckCode);
+    } else if (gameType === 'magic') {
+      parsedDeckData = parseMagicDeckList(deckCode);
+    }
+
+    if (!parsedDeckData) {
+      console.warn('Could not parse deck for background image loading');
+      return;
+    }
+
+    // Load real images with timeout
+    const imageTimeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('Background image loading timed out')), 5000);
+    });
+
+    const realImages = await Promise.race([
+      getCardImages(deckCode, gameType, parsedDeckData),
+      imageTimeoutPromise
+    ]);
+
+    // Update the analysis object with real images
+    // Note: This won't affect the already-sent response, but could be used for caching
+    console.log(`Loaded ${realImages.length} real card images in background`);
+
+  } catch (error) {
+    console.warn('Background image loading failed:', error.message);
+  }
 }
 
 // Fallback basic analysis (original implementation)

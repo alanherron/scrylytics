@@ -12,6 +12,7 @@ export default function Analyzer() {
   const [user, setUser] = useState(null);
   const [deckName, setDeckName] = useState('');
   const [showSaveDialog, setShowSaveDialog] = useState(false);
+  const [imageLoadingStates, setImageLoadingStates] = useState({});
 
   useEffect(() => {
     // Load user data on component mount
@@ -85,11 +86,69 @@ export default function Analyzer() {
       }
 
       setAnalysis(result);
+
+      // Start loading real card images after initial analysis
+      setTimeout(() => loadRealCardImages(result), 100);
+
     } catch (error) {
       console.error('Analysis failed:', error);
       setAnalysis({ error: 'Failed to analyze deck. Please try again.' });
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Handle image loading states
+  const handleImageLoad = (index) => {
+    setImageLoadingStates(prev => ({
+      ...prev,
+      [index]: 'loaded'
+    }));
+  };
+
+  const handleImageError = (index) => {
+    setImageLoadingStates(prev => ({
+      ...prev,
+      [index]: 'error'
+    }));
+  };
+
+  // Load real images after initial analysis
+  const loadRealCardImages = async (currentAnalysis) => {
+    if (!currentAnalysis?.cardImages?.length) return;
+
+    // Find placeholder images and try to load real ones
+    const placeholders = currentAnalysis.cardImages.filter(card => card.isPlaceholder);
+
+    if (placeholders.length === 0) {
+      console.log('No placeholder images to replace');
+      return;
+    }
+
+    console.log(`Loading real images for ${placeholders.length} placeholder cards...`);
+
+    try {
+      // Create a new API call to get updated images with real URLs
+      const response = await fetch('/api/analyze/images', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ deckCode, gameType })
+      });
+
+      if (response.ok) {
+        const imageData = await response.json();
+        if (imageData.cardImages && imageData.cardImages.length > 0) {
+          // Update the analysis with real images
+          setAnalysis(prevAnalysis => ({
+            ...prevAnalysis,
+            cardImages: imageData.cardImages
+          }));
+          console.log('Updated with real card images');
+        }
+      }
+    } catch (error) {
+      console.warn('Failed to load real card images:', error);
+      // Keep placeholders if real loading fails
     }
   };
 
@@ -289,18 +348,38 @@ export default function Analyzer() {
                         borderRadius:"8px",
                         backgroundColor:"#f9fafb"
                       }}>
-                        <img
-                          src={card.imageUrl}
-                          alt={card.name}
-                          style={{
-                            width:"100%",
-                            maxWidth:"120px",
-                            height:"auto",
-                            borderRadius:"4px",
-                            marginBottom:"0.5rem"
-                          }}
-                          loading="lazy"
-                        />
+                        <div style={{ position: "relative" }}>
+                          <img
+                            src={card.imageUrl}
+                            alt={card.name}
+                            onLoad={() => handleImageLoad(index)}
+                            onError={() => handleImageError(index)}
+                            style={{
+                              width:"100%",
+                              maxWidth:"120px",
+                              height:"auto",
+                              borderRadius:"4px",
+                              marginBottom:"0.5rem",
+                              opacity: card.isPlaceholder ? 0.6 : 1,
+                              filter: card.isPlaceholder ? 'blur(1px)' : 'none',
+                              transition: 'opacity 0.3s ease, filter 0.3s ease'
+                            }}
+                            loading="lazy"
+                          />
+                          {card.isPlaceholder && (
+                            <div style={{
+                              position: "absolute",
+                              top: "50%",
+                              left: "50%",
+                              transform: "translate(-50%, -50%)",
+                              color: "#6b7280",
+                              fontSize: "0.7rem",
+                              fontWeight: "500"
+                            }}>
+                              Loading...
+                            </div>
+                          )}
+                        </div>
                         <div style={{fontSize:"0.8rem", fontWeight:"500"}}>{card.name}</div>
                         {card.count && <div style={{fontSize:"0.7rem", color:"#6b7280"}}>×{card.count}</div>}
                       </div>
