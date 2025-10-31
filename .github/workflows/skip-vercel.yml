@@ -4,6 +4,8 @@ on:
   push:
     branches: [ main ]
   pull_request:
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   check:
@@ -16,7 +18,6 @@ jobs:
 
       - name: Detect relevant code changes
         id: diff
-        shell: bash
         run: |
           # If this is the very first commit, don't skip
           if ! git rev-parse --verify HEAD^ >/dev/null 2>&1; then
@@ -24,9 +25,7 @@ jobs:
             exit 0
           fi
 
-          # Files that actually matter for a Next.js deploy:
-          # - app/, src/, components/, public/ assets
-          # - package.json / lockfiles, next.config.js, ts/ js configs
+          # Files that actually matter for a Next.js deploy
           CHANGED="$(git diff --name-only HEAD^ HEAD | \
             grep -E '^(app/|src/|components/|public/|styles/|next\.config\.js|package\.json|package-lock\.json|pnpm-lock\.yaml|yarn\.lock|tsconfig\.json|jsconfig\.json)' || true)"
 
