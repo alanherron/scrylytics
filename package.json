@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "BUILD_NUMBER=$(cat .build-number 2>/dev/null || echo 'dev') next dev",
     "prebuild": "echo $(( $(cat .build-number 2>/dev/null || echo 0) + 1 )) > .build-number",
-    "build": "BUILD_NUMBER=$(cat .build-number) next build",
+    "build": "next build",
     "start": "BUILD_NUMBER=$(cat .build-number 2>/dev/null || echo 'dev') next start",
     "vercel-build": "BUILD_NUMBER=$(cat .build-number 2>/dev/null || echo 'vercel') next build",
     "setup-ci": "bash scripts/setup-ci-cd.sh",

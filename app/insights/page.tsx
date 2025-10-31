@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import InsightChart from "@/components/InsightChart";
+// import InsightChart from "@/components/InsightChart"; // Temporarily disabled
 import { PREBUILT_DECKS, analyzeDeck } from "@/lib/ai/insightEngine";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 
@@ -366,12 +366,29 @@ export default function InsightsPage() {
           🟢 INSIGHT CHART SECTION IS RENDERING! Result: {result ? 'EXISTS' : 'NULL'}
         </div>
 
-        <InsightChart
-          issue={result.issue}
-          data={result.data}
-          caption={result.caption}
-          title={result.title}
-        />
+        {/* TEMPORARILY DISABLED InsightChart */}
+        <div style={{
+          padding: "2rem",
+          backgroundColor: "#f0f0f0",
+          border: "2px solid #333",
+          borderRadius: "8px",
+          textAlign: "center",
+          minHeight: "300px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
+          <h3 style={{ color: "#333", marginBottom: "1rem" }}>
+            📊 Charts Temporarily Disabled
+          </h3>
+          <p style={{ color: "#666", marginBottom: "1rem" }}>
+            Issue: {result.issue}
+          </p>
+          <p style={{ color: "#666", fontSize: "0.8rem" }}>
+            Data points: {result.data?.length}
+          </p>
+        </div>
         {/* DEBUG: Show what data is being passed */}
         <div style={{
           padding: "0.5rem",

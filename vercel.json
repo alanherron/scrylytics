@@ -3,17 +3,6 @@
   "outputDirectory": ".next",
   "framework": "nextjs",
   "regions": ["iad1"],
-  "functions": {
-    "app/**/*.js": {
-      "maxDuration": 30
-    },
-    "app/**/*.jsx": {
-      "maxDuration": 30
-    },
-    "app/api/**/*.js": {
-      "maxDuration": 30
-    }
-  },
   "rewrites": [
     {
       "source": "/api/(.*)",
@@ -51,7 +40,19 @@
   },
   "build": {
     "env": {
-      "NODE_ENV": "production"
+      "NODE_ENV": "production",
+      "BUILD_NUMBER": "31"
+    }
+  },
+  "functions": {
+    "app/**/*.js": {
+      "maxDuration": 30
+    },
+    "app/**/*.jsx": {
+      "maxDuration": 30
+    },
+    "app/api/**/*.js": {
+      "maxDuration": 30
     }
   }
 }
