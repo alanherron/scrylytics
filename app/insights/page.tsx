@@ -55,6 +55,27 @@ export default function InsightsPage() {
   const [rechartsStatus, setRechartsStatus] = useState('checking');
   const [pageLoaded, setPageLoaded] = useState(false);
 
+  // Cache busting - force reload if chunks are outdated
+  React.useEffect(() => {
+    const currentTime = Date.now();
+    const lastLoadTime = localStorage.getItem('insightsPageLoadTime');
+
+    if (!lastLoadTime || (currentTime - parseInt(lastLoadTime)) > 300000) { // 5 minutes
+      console.log('🔄 Cache busting: First load or old cache detected');
+      localStorage.setItem('insightsPageLoadTime', currentTime.toString());
+    }
+
+    // Check if we need to reload due to chunk mismatch
+    const checkChunks = () => {
+      const scripts = document.querySelectorAll('script[src*="/_next/static/chunks/app/insights/"]');
+      if (scripts.length === 0) {
+        console.warn('⚠️ No insights chunks found, page may need reload');
+      }
+    };
+
+    setTimeout(checkChunks, 1000);
+  }, []);
+
   // Check if Recharts is available
   React.useEffect(() => {
     console.log('🔍 Checking Recharts availability...');
@@ -135,7 +156,24 @@ export default function InsightsPage() {
           marginBottom: "1rem"
         }}>
           🚨 DEBUG MODE ACTIVE 🚨<br />
-          Build #16 - Enhanced Chart Debugging
+          Build #19 - Cache Busting Added
+          <br />
+          <button
+            onClick={() => window.location.reload(true)}
+            style={{
+              backgroundColor: "#ffffff",
+              color: "#ff0000",
+              border: "2px solid #000000",
+              padding: "0.5rem 1rem",
+              borderRadius: "4px",
+              fontSize: "0.9rem",
+              fontWeight: "bold",
+              cursor: "pointer",
+              marginTop: "0.5rem"
+            }}
+          >
+            🔄 Hard Reload (Fix Cache Issues)
+          </button>
         </div>
 
       {/* RECHARTS STATUS */}
