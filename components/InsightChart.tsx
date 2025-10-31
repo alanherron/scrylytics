@@ -108,9 +108,9 @@ export default function InsightChart({ issue, data }: Props) {
 
       case "radar":
         const radarData = data.map(item => ({
-          subject: `Mana ${item.mana}`,
-          value: item.count,
-          fullMark: Math.max(...data.map(d => d.count)) + 2
+          subject: item.role || item.subject || `Item ${data.indexOf(item) + 1}`,
+          value: item.value || item.count || 0,
+          fullMark: Math.max(...data.map(d => d.value || d.count || 0)) + 2
         }));
         return (
           <RadarChart data={radarData}>
