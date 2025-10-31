@@ -1,5 +1,11 @@
-// Basic deck analysis API for Scrylytics
-// This provides AI-powered deck analysis for Hearthstone and Magic: The Gathering
+// AI-powered deck analysis API for Scrylytics
+// Uses OpenAI GPT-4 for intelligent deck analysis
+
+import OpenAI from 'openai';
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 export async function POST(request) {
   try {
@@ -9,8 +15,15 @@ export async function POST(request) {
       return Response.json({ error: 'Deck code is required' }, { status: 400 });
     }
 
-    // Analyze the deck based on game type
-    const analysis = await analyzeDeck(deckCode.trim(), gameType);
+    if (!process.env.OPENAI_API_KEY) {
+      // Fallback to basic analysis if no API key
+      console.warn('No OpenAI API key found, using basic analysis');
+      const analysis = analyzeDeckBasic(deckCode.trim(), gameType);
+      return Response.json(analysis);
+    }
+
+    // Use AI for advanced analysis
+    const analysis = await analyzeDeckWithAI(deckCode.trim(), gameType);
 
     return Response.json(analysis);
   } catch (error) {
@@ -19,110 +32,145 @@ export async function POST(request) {
   }
 }
 
-async function analyzeDeck(deckCode, gameType) {
-  // Basic deck parsing and analysis
-  // This is a simplified implementation - expand with real AI/ML models later
+async function analyzeDeckWithAI(deckCode, gameType) {
+  try {
+    const prompt = createAnalysisPrompt(deckCode, gameType);
 
-  if (gameType === 'hearthstone') {
-    return analyzeHearthstoneDeck(deckCode);
-  } else if (gameType === 'magic') {
-    return analyzeMagicDeck(deckCode);
-  } else {
-    throw new Error('Unsupported game type');
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4',
+      messages: [
+        {
+          role: 'system',
+          content: `You are an expert ${gameType} deck analyst. Analyze the provided deck and return a JSON response with detailed analysis including score, strengths, weaknesses, suggestions, and synergies. Be constructive and helpful.`
+        },
+        {
+          role: 'user',
+          content: prompt
+        }
+      ],
+      temperature: 0.7,
+      max_tokens: 1500
+    });
+
+    const analysisText = response.choices[0].message.content;
+    return parseAIAnalysis(analysisText, gameType);
+
+  } catch (error) {
+    console.error('AI analysis failed:', error);
+    // Fallback to basic analysis
+    return analyzeDeckBasic(deckCode, gameType);
   }
 }
 
-function analyzeHearthstoneDeck(deckCode) {
-  // Basic Hearthstone deck analysis
-  // In a real implementation, this would decode the deck code and analyze cards
+function createAnalysisPrompt(deckCode, gameType) {
+  if (gameType === 'hearthstone') {
+    return `Analyze this Hearthstone deck code: ${deckCode}
 
-  const analysis = {
-    score: 0,
-    grade: 'Analyzing...',
-    strengths: [],
-    weaknesses: [],
-    suggestions: [],
-    synergies: {}
-  };
+Please provide a detailed analysis including:
+1. Overall score (1-10 scale)
+2. Letter grade (S, A, B, C, D, F)
+3. Key strengths (3-5 points)
+4. Major weaknesses (2-4 points)
+5. Specific improvement suggestions (3-5 actionable items)
+6. Card synergies grouped by type (minions, spells, weapons, hero powers)
 
-  // Simple heuristic analysis based on deck code characteristics
-  const codeLength = deckCode.length;
-
-  // Basic scoring logic (simplified)
-  if (codeLength > 100) {
-    analysis.score = 8;
-    analysis.grade = 'Excellent deck structure';
-    analysis.strengths.push('Good card diversity');
-    analysis.strengths.push('Balanced mana curve');
-    analysis.suggestions.push('Consider adding more removal');
-  } else if (codeLength > 50) {
-    analysis.score = 6;
-    analysis.grade = 'Decent foundation';
-    analysis.strengths.push('Basic structure in place');
-    analysis.weaknesses.push('Limited card pool');
-    analysis.suggestions.push('Add more win conditions');
+Format your response as JSON with these exact keys: score, grade, strengths (array), weaknesses (array), suggestions (array), synergies (object with arrays)`;
   } else {
-    analysis.score = 4;
-    analysis.grade = 'Needs improvement';
-    analysis.weaknesses.push('Insufficient cards');
-    analysis.weaknesses.push('Weak strategy');
-    analysis.suggestions.push('Rebuild with more cards');
-    analysis.suggestions.push('Focus on a clear win condition');
+    return `Analyze this Magic: The Gathering deck list: ${deckCode}
+
+Please provide a detailed analysis including:
+1. Overall score (1-10 scale)
+2. Letter grade (S, A, B, C, D, F)
+3. Key strengths (3-5 points)
+4. Major weaknesses (2-4 points)
+5. Specific improvement suggestions (3-5 actionable items)
+6. Card synergies grouped by type (creatures, spells, lands, artifacts, enchantments, planeswalkers)
+
+Format your response as JSON with these exact keys: score, grade, strengths (array), weaknesses (array), suggestions (array), synergies (object with arrays)`;
+  }
+}
+
+function parseAIAnalysis(analysisText, gameType) {
+  try {
+    // Try to extract JSON from the response
+    const jsonMatch = analysisText.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      const parsed = JSON.parse(jsonMatch[0]);
+      return validateAnalysis(parsed, gameType);
+    }
+
+    // If no JSON found, create a structured response from text
+    return createFallbackAnalysis(analysisText, gameType);
+
+  } catch (error) {
+    console.error('Failed to parse AI response:', error);
+    return analyzeDeckBasic('', gameType); // Fallback
+  }
+}
+
+function validateAnalysis(analysis, gameType) {
+  // Ensure required fields exist
+  const required = ['score', 'grade', 'strengths', 'weaknesses', 'suggestions', 'synergies'];
+
+  for (const field of required) {
+    if (!(field in analysis)) {
+      console.warn(`Missing field: ${field}, using fallback`);
+      return analyzeDeckBasic('', gameType);
+    }
   }
 
-  // Mock synergies based on typical Hearthstone archetypes
-  analysis.synergies = {
-    'minions': ['Sample Minion 1', 'Sample Minion 2'],
-    'spells': ['Sample Spell 1', 'Sample Spell 2'],
-    'weapons': ['Sample Weapon'],
-    'heroes': ['Sample Hero Power']
-  };
+  // Ensure score is a number
+  analysis.score = Math.max(1, Math.min(10, Number(analysis.score) || 5));
+
+  // Ensure arrays exist
+  analysis.strengths = Array.isArray(analysis.strengths) ? analysis.strengths : [];
+  analysis.weaknesses = Array.isArray(analysis.weaknesses) ? analysis.weaknesses : [];
+  analysis.suggestions = Array.isArray(analysis.suggestions) ? analysis.suggestions : [];
+
+  // Ensure synergies is an object
+  analysis.synergies = typeof analysis.synergies === 'object' ? analysis.synergies : {};
 
   return analysis;
 }
 
-function analyzeMagicDeck(deckCode) {
-  // Basic Magic: The Gathering deck analysis
+function createFallbackAnalysis(text, gameType) {
+  // Extract information from text response if JSON parsing fails
+  const analysis = analyzeDeckBasic('', gameType);
+
+  // Try to enhance with text content
+  if (text.includes('excellent') || text.includes('great')) analysis.score = Math.max(analysis.score, 8);
+  if (text.includes('good')) analysis.score = Math.max(analysis.score, 6);
+
+  return analysis;
+}
+
+// Fallback basic analysis (original implementation)
+function analyzeDeckBasic(deckCode, gameType) {
   const analysis = {
-    score: 0,
-    grade: 'Analyzing...',
-    strengths: [],
-    weaknesses: [],
-    suggestions: [],
-    synergies: {}
+    score: 5,
+    grade: 'Basic Analysis',
+    strengths: ['Deck structure appears sound'],
+    weaknesses: ['Advanced analysis requires AI'],
+    suggestions: ['Consider upgrading to AI-powered analysis'],
+    synergies: gameType === 'hearthstone' ? {
+      'minions': ['Various minions'],
+      'spells': ['Various spells'],
+      'weapons': ['Weapon cards'],
+      'heroes': ['Hero powers']
+    } : {
+      'creatures': ['Various creatures'],
+      'spells': ['Various spells'],
+      'lands': ['Various lands'],
+      'artifacts': ['Various artifacts']
+    }
   };
 
-  // Simple analysis based on deck list format
-  const lines = deckCode.split('\n').filter(line => line.trim());
-  const cardCount = lines.length;
-
-  if (cardCount >= 60) {
-    analysis.score = 8;
-    analysis.grade = 'Tournament ready';
-    analysis.strengths.push('Proper deck size');
-    analysis.strengths.push('Legal for most formats');
-  } else if (cardCount >= 40) {
+  // Basic heuristic improvements
+  if (deckCode.length > 50) {
     analysis.score = 6;
-    analysis.grade = 'Casual viable';
-    analysis.strengths.push('Playable deck');
-    analysis.weaknesses.push('Below tournament size');
-    analysis.suggestions.push('Add more cards to reach 60');
-  } else {
-    analysis.score = 3;
-    analysis.grade = 'Incomplete deck';
-    analysis.weaknesses.push('Too few cards');
-    analysis.weaknesses.push('Not tournament legal');
-    analysis.suggestions.push('Add more cards');
-    analysis.suggestions.push('Consider deck construction basics');
+    analysis.grade = 'Decent Structure';
+    analysis.strengths.push('Good card diversity');
   }
-
-  // Mock synergies for Magic
-  analysis.synergies = {
-    'creatures': ['Sample Creature 1', 'Sample Creature 2'],
-    'spells': ['Sample Instant', 'Sample Sorcery'],
-    'lands': ['Sample Land 1', 'Sample Land 2'],
-    'artifacts': ['Sample Artifact']
-  };
 
   return analysis;
 }

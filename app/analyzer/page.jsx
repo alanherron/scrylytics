@@ -121,10 +121,24 @@ export default function Analyzer() {
             <div>
               <h3 style={{color:"#dc2626", marginTop:0}}>❌ Analysis Error</h3>
               <p>{analysis.error}</p>
+              {analysis.grade === 'Basic Analysis' && (
+                <div style={{marginTop:"1rem", padding:"1rem", backgroundColor:"#fef3c7", borderRadius:"4px"}}>
+                  <p style={{margin:0, fontSize:"0.9rem"}}>
+                    <strong>💡 Note:</strong> AI analysis requires OpenAI API key configuration.
+                    Currently showing basic heuristic analysis.
+                  </p>
+                </div>
+              )}
             </div>
           ) : (
             <div>
-              <h3 style={{marginTop:0}}>📊 Deck Analysis Results</h3>
+              <h3 style={{marginTop:0}}>
+                📊 Deck Analysis Results
+                {analysis.grade === 'Basic Analysis' ? ' 🤖' : ' 🧙‍♂️'}
+                <span style={{fontSize:"0.8rem", fontWeight:"normal", marginLeft:"0.5rem", color:"#6b7280"}}>
+                  {analysis.grade === 'Basic Analysis' ? '(Basic Analysis)' : '(AI-Powered Analysis)'}
+                </span>
+              </h3>
 
               {/* Deck Score */}
               <div style={{marginBottom:"2rem"}}>
