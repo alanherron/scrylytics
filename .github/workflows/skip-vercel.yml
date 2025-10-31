@@ -1,0 +1,50 @@
+name: Skip Vercel Deploy if No Code Changes
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (shallow clone with parent commit)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect relevant code changes
+        id: diff
+        shell: bash
+        run: |
+          # If this is the very first commit, don't skip
+          if ! git rev-parse --verify HEAD^ >/dev/null 2>&1; then
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Files that actually matter for a Next.js deploy:
+          # - app/, src/, components/, public/ assets
+          # - package.json / lockfiles, next.config.js, ts/ js configs
+          CHANGED="$(git diff --name-only HEAD^ HEAD | \
+            grep -E '^(app/|src/|components/|public/|styles/|next\.config\.js|package\.json|package-lock\.json|pnpm-lock\.yaml|yarn\.lock|tsconfig\.json|jsconfig\.json)' || true)"
+
+          if [ -z "$CHANGED" ]; then
+            echo "No relevant changes detected."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Relevant changes:"
+            echo "$CHANGED"
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Stop early (no deploy-worthy changes)
+        if: steps.diff.outputs.skip == 'true'
+        run: |
+          echo "🟡 Skipping deploy steps — no app code changed."
+          exit 0
+
+      - name: Proceed (deploy-worthy changes present)
+        if: steps.diff.outputs.skip != 'true'
+        run: echo "✅ App changes detected — Vercel can deploy this push."
