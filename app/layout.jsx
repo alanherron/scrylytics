@@ -1,3 +1,4 @@
+import '../styles/colors.css'
 export const metadata = { title: "Scrylytics", description: "Where magic meets machine learning." };
 export default function RootLayout({ children }) {
   return (

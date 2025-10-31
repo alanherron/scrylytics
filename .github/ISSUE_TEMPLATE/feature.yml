@@ -1,0 +1,29 @@
+name: Feature
+description: Add a feature with trackable tasks
+labels: ["feature"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options: [Library, Deckbuilder, AI, Infra, Design, Docs]
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options: [P0, P1, P2, P3]
+      default: 2
+  - type: textarea
+    id: spec
+    attributes:
+      label: Spec
+      description: User story, acceptance criteria, edge cases
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Tasks
+      value: |
+        - [ ] Code
+        - [ ] Tests
+        - [ ] Review
+        - [ ] Docs
