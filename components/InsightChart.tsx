@@ -242,49 +242,6 @@ export const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption
         return <DebugPanel data={data} issue={issue} error="Empty data array" />;
       }
 
-      // TEMPORARILY DISABLE COMPLEX CHARTS TO TEST REACT ERROR
-      console.log('🎯 TEMPORARILY DISABLED: Would render chart for issue:', issue);
-
-      return (
-        <div style={{
-          padding: "2rem",
-          backgroundColor: "#f0f0f0",
-          border: "2px solid #333",
-          borderRadius: "8px",
-          textAlign: "center",
-          minHeight: "300px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center"
-        }}>
-          <h3 style={{ color: "#333", marginBottom: "1rem" }}>
-            📊 Chart Temporarily Disabled
-          </h3>
-          <p style={{ color: "#666", marginBottom: "1rem" }}>
-            Issue: {issue}
-          </p>
-          <p style={{ color: "#666", fontSize: "0.8rem" }}>
-            Data points: {data.length}
-          </p>
-          <div style={{
-            backgroundColor: "#fff",
-            padding: "1rem",
-            borderRadius: "4px",
-            marginTop: "1rem",
-            fontSize: "0.7rem",
-            textAlign: "left",
-            maxWidth: "400px"
-          }}>
-            <strong>Raw Data:</strong>
-            <pre style={{ marginTop: "0.5rem", fontSize: "0.6rem" }}>
-              {JSON.stringify(data.slice(0, 5), null, 1)}
-            </pre>
-          </div>
-        </div>
-      );
-
-      /* ORIGINAL CODE COMMENTED OUT
       switch (issue) {
         case "MANA_CURVE_SKEW":
           console.log('📊 Rendering ManaCurveChart with data:', data);
@@ -314,7 +271,6 @@ export const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption
           console.error('❓ Unknown issue type:', issue);
           return <DebugPanel data={data} issue={issue} error={`Unknown issue type: ${issue}`} />;
       }
-      */
     } catch (error) {
       console.error('💥 Chart rendering CRASHED:', error, { issue, data, stack: error instanceof Error ? error.stack : 'No stack' });
       const errorMessage = error instanceof Error ? error.message : String(error);
