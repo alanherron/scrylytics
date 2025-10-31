@@ -29,6 +29,7 @@ Scrylytics is an AI-powered analytics and deck optimization platform for collect
 ✅ **Smart Deployments**: Skip logic for docs-only changes
 ✅ **Live Site**: [scrylytics.com](https://www.scrylytics.com)
 ✅ **Security**: Linear history, conversation resolution, admin enforcement
+✅ **Testing**: Deployment verification in progress
 
 ---
 
