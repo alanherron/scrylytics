@@ -1,30 +1,11 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
-
-// Dynamic import for Recharts to avoid SSR issues
-const RechartsComponents = React.lazy(() =>
-  import("recharts").then(module => ({
-    ResponsiveContainer: module.ResponsiveContainer,
-    BarChart: module.BarChart,
-    Bar: module.Bar,
-    LineChart: module.LineChart,
-    Line: module.Line,
-    RadarChart: module.RadarChart,
-    Radar: module.Radar,
-    PolarGrid: module.PolarGrid,
-    PolarAngleAxis: module.PolarAngleAxis,
-    PolarRadiusAxis: module.PolarRadiusAxis,
-    CartesianGrid: module.CartesianGrid,
-    XAxis: module.XAxis,
-    YAxis: module.YAxis,
-    Tooltip: module.Tooltip,
-    Legend: module.Legend,
-    AreaChart: module.AreaChart,
-    Area: module.Area,
-    LabelList: module.LabelList
-  }))
-);
+import { useEffect, useRef, useState } from 'react';
+import {
+  ResponsiveContainer, BarChart, Bar, LineChart, Line, RadarChart, Radar,
+  PolarGrid, PolarAngleAxis, PolarRadiusAxis, XAxis, YAxis, Tooltip,
+  CartesianGrid, LabelList, Legend, AreaChart, Area
+} from 'recharts';
 
 export type DeckIssueType =
   | "MANA_CURVE_SKEW"
@@ -64,26 +45,6 @@ const ParchmentFrame: React.FC<{ title?: string; children: React.ReactNode }> = 
     <div>{children}</div>
   </div>
 );
-
-/* ---------- Chart Renderers ---------- */
-
-const ManaCurveChart = ({ data }: { data: { mana:number; count:number }[] }) => {
-  console.log('📊 ManaCurveChart CALLED with data:', data);
-
-  if (!data || !Array.isArray(data) || data.length === 0) {
-    console.error('❌ ManaCurveChart: Invalid data', { data, type: typeof data, isArray: Array.isArray(data) });
-    return <FallbackChart data={data} type="bar" title="Mana Curve (Fallback)" />;
-  }
-
-  try {
-    console.log('✅ ManaCurveChart: Attempting Recharts render');
-
-    return <ManaCurveChartRenderer data={data} isClient={isClient} />;
-  } catch (error) {
-    console.error('💥 ManaCurveChart: Recharts FAILED, using fallback', error);
-    return <FallbackChart data={data} type="bar" title="Mana Curve (Recharts Failed)" error={error} />;
-  }
-};
 
 // Fallback Chart Component
 const FallbackChart: React.FC<{ data: any; type: string; title: string; error?: any }> = ({ data, type, title, error }) => (
@@ -203,20 +164,27 @@ const titleMap: Record<DeckIssueType,string> = {
   BOARD_TEMPO_GAPS: "Board Tempo/Presence by Turn"
 };
 
+type Datum = { mana: string | number; count: number };
+
 const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption, title }) => {
-  const [isClient, setIsClient] = useState(false);
+  // avoid hydration mismatch & zero-size
+  const [mounted, setMounted] = useState(false);
+  const hostRef = useRef<HTMLDivElement>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   useEffect(() => {
-    setIsClient(true);
+    if (!hostRef.current) return;
+    // If container is hidden/0px initially, watch until it has size
+    const ro = new ResizeObserver(() => {
+      const el = hostRef.current!;
+      const hasSize = el.clientWidth > 0 && el.clientHeight > 0;
+      if (hasSize) setReady(true);
+    });
+    ro.observe(hostRef.current);
+    return () => ro.disconnect();
   }, []);
-
-  console.log('🔍 InsightChart RENDER START:', {
-    issue,
-    dataLength: data?.length,
-    dataType: typeof data,
-    dataSample: data?.slice(0, 2),
-    title
-  });
 
   // VISUAL DEBUG INDICATOR - If you see this purple box, InsightChart is rendering!
   const debugIndicator = (
@@ -235,62 +203,47 @@ const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption, title
     </div>
   );
 
-  const renderChart = (clientReady: boolean) => {
-    try {
-      console.log('🎯 Rendering chart for issue:', issue, 'with data:', data, 'clientReady:', clientReady);
+  if (!mounted) return null;
 
-      // Pre-validate data
-      if (!data || !Array.isArray(data)) {
-        console.error('❌ Invalid data format:', { data, type: typeof data, isArray: Array.isArray(data) });
-        return <FallbackChart data={data} type="bar" title="Invalid Data Format" />;
-      }
-
-      if (data.length === 0) {
-        console.warn('⚠️ Empty data array:', { issue });
-        return <FallbackChart data={data} type="bar" title="Empty Data Array" />;
-      }
-
-      switch (issue) {
-        case "MANA_CURVE_SKEW":
-          console.log('📊 Rendering ManaCurveChart with data:', data, 'clientReady:', clientReady);
-          return <ManaCurveChartRenderer data={data as { mana:number; count:number }[]} isClient={clientReady} />;
-        case "DRAW_INCONSISTENCY":
-          console.log('📈 Rendering LineMetric for draw consistency');
-          return <LineMetric data={data} xKey="turn" yKey="cards" label="Cards Drawn" />;
-        case "ROLE_MISMATCH":
-          console.log('🎯 Rendering RoleRadar for strategy mismatch');
-          return <RoleRadar data={data as { role:string; value:number }[]} />;
-        case "WEAK_SYNERGY_CHAINS":
-          console.log('🌊 Rendering AreaInsight for synergy chains');
-          return <AreaInsight data={data} xKey="turn" yKey="chainStrength" label="Chain Strength" />;
-        case "TECH_GAPS":
-          console.log('🛡️ Rendering ManaCurveChart for tech gaps');
-          return <ManaCurveChartRenderer data={data as { mana:number; count:number }[]} isClient={clientReady} />;
-        case "MATCHUP_PAINS":
-          console.log('⚔️ Rendering LineMetric for matchup pains');
-          return <LineMetric data={data} xKey="archetype" yKey="winrate" label="Winrate %" />;
-        case "HAND_SIZE_PRESSURE":
-          console.log('🃏 Rendering AreaInsight for hand pressure');
-          return <AreaInsight data={data} xKey="turn" yKey="handSize" label="Avg Hand Size" />;
-        case "BOARD_TEMPO_GAPS":
-          console.log('⏱️ Rendering RoleRadar for tempo gaps');
-          return <RoleRadar data={data as { role:string; value:number }[]} />;
-        default:
-          console.error('❓ Unknown issue type:', issue);
-          return <FallbackChart data={data} type="bar" title="Unknown Issue Type" />;
-      }
-    } catch (error) {
-      console.error('💥 Chart rendering CRASHED:', error, { issue, data, stack: error instanceof Error ? error.stack : 'No stack' });
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      return <FallbackChart data={data} type="bar" title={`Chart Error: ${errorMessage}`} />;
-    }
-  };
+  // Defensive checks
+  const safeData = Array.isArray(data) ? data : [];
+  const hasData = safeData.length > 0 && 'mana' in (safeData[0] || {}) && 'count' in (safeData[0] || {});
 
   return (
     <ParchmentFrame title={title || titleMap[issue]}>
       {debugIndicator}
-      <div style={{ minHeight: "320px" }}>
-        {renderChart(isClient)}
+      <div
+        ref={hostRef}
+        style={{
+          width: '100%',
+          minHeight: 320,
+        }}
+      >
+        {ready && hasData ? (
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={safeData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#b08b4a" opacity={0.45}/>
+              <XAxis dataKey="mana" tick={{ fill: "#5c4320" }} />
+              <YAxis tick={{ fill: "#5c4320" }} allowDecimals={false} />
+              <Tooltip contentStyle={{ background:"#fff8e6", border:"1px solid #c7a96f" }} />
+              <Bar dataKey="count" fill="#8c6d2f" radius={[6,6,0,0]}>
+                <LabelList dataKey="count" position="top" fill="#5c4320" />
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        ) : (
+          <div
+            style={{
+              height: 320,
+              display: 'grid',
+              placeItems: 'center',
+              fontSize: 14,
+              opacity: 0.7,
+            }}
+          >
+            {hasData ? 'Loading chart…' : 'No data to display'}
+          </div>
+        )}
       </div>
       {caption && (
         <p className="mt-3 text-sm italic text-[#5c4320]">
@@ -307,62 +260,5 @@ const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption, title
   );
 };
 
-// Separate component for ManaCurveChart that can access isClient
-const ManaCurveChartRenderer: React.FC<{ data: any[]; isClient: boolean }> = ({ data, isClient }) => {
-  // Only render Recharts on client side
-  if (!isClient) {
-    return (
-      <div style={{
-        padding: "2rem",
-        backgroundColor: "#f0f0f0",
-        border: "2px dashed #ccc",
-        borderRadius: "8px",
-        textAlign: "center",
-        minHeight: "300px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
-      }}>
-        <div>
-          <div style={{ fontSize: "1.2rem", marginBottom: "0.5rem" }}>📊</div>
-          <div>Loading chart...</div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <Suspense fallback={
-      <div style={{
-        padding: "2rem",
-        backgroundColor: "#f0f0f0",
-        border: "2px dashed #ccc",
-        borderRadius: "8px",
-        textAlign: "center",
-        minHeight: "300px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
-      }}>
-        <div>
-          <div style={{ fontSize: "1.2rem", marginBottom: "0.5rem" }}>⏳</div>
-          <div>Loading Recharts...</div>
-        </div>
-      </div>
-    }>
-      <RechartsComponents.ResponsiveContainer width="100%" height={300}>
-        <RechartsComponents.BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-          <RechartsComponents.CartesianGrid strokeDasharray="3 3" stroke="#b08b4a" opacity={0.45}/>
-          <RechartsComponents.XAxis dataKey="mana" tick={{ fill: "#5c4320" }} />
-          <RechartsComponents.YAxis tick={{ fill: "#5c4320" }} />
-          <RechartsComponents.Tooltip contentStyle={{ background:"#fff8e6", border:"1px solid #c7a96f" }} />
-          <RechartsComponents.Bar dataKey="count" fill="#8c6d2f" radius={[6,6,0,0]}>
-            <RechartsComponents.LabelList dataKey="count" position="top" fill="#5c4320" />
-          </RechartsComponents.Bar>
-        </RechartsComponents.BarChart>
-      </RechartsComponents.ResponsiveContainer>
-    </Suspense>
-  );
-};
 
 export default InsightChart;
