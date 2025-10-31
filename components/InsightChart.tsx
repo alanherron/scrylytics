@@ -69,9 +69,7 @@ const ManaCurveChart = ({ data }: { data: { mana:number; count:number }[] }) => 
         </div>
         <div style={{ border: "2px solid #ff0000", minHeight: "350px", backgroundColor: "#f0f0f0" }}>
           <ResponsiveContainer width="100%" height={300} minHeight={300}>
-            {console.log('🎯 ResponsiveContainer rendering with data:', data)}
             <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-              {console.log('🎯 BarChart rendering')}
               <CartesianGrid strokeDasharray="3 3" stroke="#b08b4a" opacity={0.45}/>
               <XAxis dataKey="mana" tick={{ fill: "#5c4320" }} />
               <YAxis tick={{ fill: "#5c4320" }} />
@@ -208,7 +206,7 @@ const titleMap: Record<DeckIssueType,string> = {
   BOARD_TEMPO_GAPS: "Board Tempo/Presence by Turn"
 };
 
-export const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption, title }) => {
+const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption, title }) => {
   console.log('🔍 InsightChart RENDER START:', {
     issue,
     dataLength: data?.length,
@@ -217,25 +215,20 @@ export const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption
     title
   });
 
-  // TEMPORARY: Just return a simple test to verify component is called
-  return (
+  // VISUAL DEBUG INDICATOR - If you see this purple box, InsightChart is rendering!
+  const debugIndicator = (
     <div style={{
-      padding: "2rem",
-      backgroundColor: "#ff6b35",
+      padding: "0.5rem",
+      backgroundColor: "#8b5cf6",
       color: "#ffffff",
-      border: "4px solid #000000",
-      borderRadius: "8px",
-      margin: "2rem 0",
-      fontSize: "1.2rem",
+      border: "2px solid #000000",
+      borderRadius: "4px",
+      marginBottom: "1rem",
+      fontSize: "0.8rem",
       fontWeight: "bold",
       textAlign: "center"
     }}>
-      🎯 InsightChart IS BEING CALLED!<br/>
-      Issue: {issue}<br/>
-      Data items: {data?.length || 0}<br/>
-      Data: {JSON.stringify(data?.slice(0, 2))}<br/>
-      <br/>
-      If you see this ORANGE box, the component is working!
+      🟣 InsightChart COMPONENT IS RENDERING! Issue: {issue}, Data: {data?.length || 0} items
     </div>
   );
 
@@ -245,13 +238,13 @@ export const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption
 
       // Pre-validate data
       if (!data || !Array.isArray(data)) {
-        console.error('❌ Invalid data format:', { data, issue, dataType: typeof data, isArray: Array.isArray(data) });
-        return <DebugPanel data={data} issue={issue} error="Invalid data format" />;
+        console.error('❌ Invalid data format:', { data, type: typeof data, isArray: Array.isArray(data) });
+        return <FallbackChart data={data} type="bar" title="Invalid Data Format" />;
       }
 
       if (data.length === 0) {
         console.warn('⚠️ Empty data array:', { issue });
-        return <DebugPanel data={data} issue={issue} error="Empty data array" />;
+        return <FallbackChart data={data} type="bar" title="Empty Data Array" />;
       }
 
       switch (issue) {
@@ -272,7 +265,7 @@ export const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption
           return <ManaCurveChart data={data as { mana:number; count:number }[]} />;
         case "MATCHUP_PAINS":
           console.log('⚔️ Rendering LineMetric for matchup pains');
-          return <LineMetric data={data} xKey="turn" yKey="winrate" label="Winrate %" />;
+          return <LineMetric data={data} xKey="archetype" yKey="winrate" label="Winrate %" />;
         case "HAND_SIZE_PRESSURE":
           console.log('🃏 Rendering AreaInsight for hand pressure');
           return <AreaInsight data={data} xKey="turn" yKey="handSize" label="Avg Hand Size" />;
@@ -281,12 +274,12 @@ export const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption
           return <RoleRadar data={data as { role:string; value:number }[]} />;
         default:
           console.error('❓ Unknown issue type:', issue);
-          return <DebugPanel data={data} issue={issue} error={`Unknown issue type: ${issue}`} />;
+          return <FallbackChart data={data} type="bar" title="Unknown Issue Type" />;
       }
     } catch (error) {
       console.error('💥 Chart rendering CRASHED:', error, { issue, data, stack: error instanceof Error ? error.stack : 'No stack' });
       const errorMessage = error instanceof Error ? error.message : String(error);
-      return <DebugPanel data={data} issue={issue} error={errorMessage} />;
+      return <FallbackChart data={data} type="bar" title={`Chart Error: ${errorMessage}`} />;
     }
   };
 
@@ -310,73 +303,5 @@ export const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption
     </ParchmentFrame>
   );
 };
-
-// Debug Panel Component
-const DebugPanel: React.FC<{ data: any; issue: string; error: string }> = ({ data, issue, error }) => (
-  <div style={{
-    padding: "1.5rem",
-    backgroundColor: "#fef3c7",
-    border: "2px solid #f59e0b",
-    borderRadius: "8px",
-    fontFamily: "monospace",
-    fontSize: "0.85rem"
-  }}>
-    <h4 style={{ color: "#92400e", margin: "0 0 1rem 0", fontSize: "1rem" }}>
-      🐛 Chart Debug Panel
-    </h4>
-
-    <div style={{ marginBottom: "1rem" }}>
-      <strong style={{ color: "#7c2d12" }}>Issue:</strong> {issue}
-    </div>
-
-    <div style={{ marginBottom: "1rem" }}>
-      <strong style={{ color: "#7c2d12" }}>Error:</strong>
-      <span style={{ color: "#dc2626", backgroundColor: "#fef2f2", padding: "0.25rem 0.5rem", borderRadius: "4px", marginLeft: "0.5rem" }}>
-        {error}
-      </span>
-    </div>
-
-    <div style={{ marginBottom: "1rem" }}>
-      <strong style={{ color: "#7c2d12" }}>Data Type:</strong> {typeof data}
-    </div>
-
-    <div style={{ marginBottom: "1rem" }}>
-      <strong style={{ color: "#7c2d12" }}>Data Length:</strong> {Array.isArray(data) ? data.length : 'N/A'}
-    </div>
-
-    <div style={{ marginBottom: "1rem" }}>
-      <strong style={{ color: "#7c2d12" }}>Data Sample:</strong>
-      <pre style={{
-        backgroundColor: "#f9fafb",
-        padding: "0.5rem",
-        borderRadius: "4px",
-        border: "1px solid #e5e7eb",
-        fontSize: "0.75rem",
-        overflow: "auto",
-        maxHeight: "120px"
-      }}>
-        {JSON.stringify(data, null, 2)}
-      </pre>
-    </div>
-
-    <div style={{ marginBottom: "1rem" }}>
-      <strong style={{ color: "#7c2d12" }}>Expected Data Format:</strong>
-      <div style={{ marginTop: "0.25rem", fontSize: "0.75rem", color: "#6b7280" }}>
-        {issue === "MANA_CURVE_SKEW" && "Array of {mana: number, count: number}[]"}
-        {issue === "DRAW_INCONSISTENCY" && "Array of {turn: number, cards: number}[]"}
-        {issue === "ROLE_MISMATCH" && "Array of {role: string, value: number}[]"}
-        {issue === "WEAK_SYNERGY_CHAINS" && "Array of {turn: number, chainStrength: number}[]"}
-        {issue === "TECH_GAPS" && "Array of {mana: number, count: number}[]"}
-        {issue === "MATCHUP_PAINS" && "Array of {archetype: string, winrate: number}[]"}
-        {issue === "HAND_SIZE_PRESSURE" && "Array of {turn: number, handSize: number}[]"}
-        {issue === "BOARD_TEMPO_GAPS" && "Array of {role: string, value: number}[]"}
-      </div>
-    </div>
-
-    <div style={{ fontSize: "0.75rem", color: "#6b7280", borderTop: "1px solid #e5e7eb", paddingTop: "0.5rem" }}>
-      💡 Check browser console for detailed Recharts error messages
-    </div>
-  </div>
-);
 
 export default InsightChart;
