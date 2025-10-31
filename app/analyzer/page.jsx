@@ -21,6 +21,10 @@ export default function Analyzer() {
         body: JSON.stringify({ deckCode, gameType })
       });
 
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+      }
+
       const result = await response.json();
       setAnalysis(result);
     } catch (error) {
