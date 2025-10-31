@@ -16,10 +16,11 @@ Scrylytics is an AI-powered analytics and deck optimization platform for collect
 |---------|-------------|
 | 🧙‍♂️ **Decklytics** | AI deck analyzer — grades, synergies, and optimization suggestions. ✅ |
 | 🎴 **Multi-Game Support** | Hearthstone & Magic: The Gathering with card images | ✅ |
-| ⚔️ **Playlytics** | Game simulation and matchup testing. |
-| 📊 **Metalyzer** | Meta tracking and statistical reports across formats. |
+| ⚔️ **Playlytics** | Game simulation and matchup testing. ✅ |
+| 📊 **Metalyzer** | Meta tracking and statistical reports across formats. ✅ |
 | 🔥 **Forge** | Intelligent deck builder powered by generative AI. |
 | 🤖 **Coach AI** | Personalized insights and guided improvements for your decks. |
+| 👤 **User System** | Account management, deck saving, and personal analytics. ✅ |
 
 ---
 

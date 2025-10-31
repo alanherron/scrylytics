@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { VERSION, BUILD_DATE } from '../../lib/version.js';
 
@@ -9,6 +9,50 @@ export default function Analyzer() {
   const [analysis, setAnalysis] = useState(null);
   const [loading, setLoading] = useState(false);
   const [gameType, setGameType] = useState('hearthstone');
+  const [user, setUser] = useState(null);
+  const [deckName, setDeckName] = useState('');
+  const [showSaveDialog, setShowSaveDialog] = useState(false);
+
+  useEffect(() => {
+    // Load user data on component mount
+    if (typeof window !== 'undefined') {
+      loadUserData();
+    }
+  }, []);
+
+  const loadUserData = async () => {
+    try {
+      const { getCurrentUser } = await import('../../lib/auth/user.js');
+      const currentUser = getCurrentUser();
+      setUser(currentUser);
+    } catch (error) {
+      console.warn('Failed to load user data:', error);
+    }
+  };
+
+  const saveDeck = async () => {
+    if (!user || !analysis || !deckName.trim()) return;
+
+    try {
+      const { saveDeck } = await import('../../lib/auth/user.js');
+      const deckData = {
+        gameType,
+        deckCode: deckCode.trim(),
+        analysis,
+        stats: analysis.detailedAnalysis || {}
+      };
+
+      const savedDeck = saveDeck(deckData, deckName.trim());
+      if (savedDeck) {
+        setShowSaveDialog(false);
+        setDeckName('');
+        alert('Deck saved successfully!');
+      }
+    } catch (error) {
+      console.error('Failed to save deck:', error);
+      alert('Failed to save deck. Please try again.');
+    }
+  };
 
   const analyzeDeck = async () => {
     if (!deckCode.trim()) return;
@@ -26,6 +70,20 @@ export default function Analyzer() {
       }
 
       const result = await response.json();
+
+      // Save analysis to user profile if user exists
+      if (typeof window !== 'undefined') {
+        try {
+          const { getCurrentUser, saveAnalysis } = await import('../../lib/auth/user.js');
+          const user = getCurrentUser();
+          if (user && result.score) {
+            saveAnalysis(result, `Analysis ${new Date().toLocaleDateString()}`);
+          }
+        } catch (error) {
+          console.warn('Failed to save analysis:', error);
+        }
+      }
+
       setAnalysis(result);
     } catch (error) {
       console.error('Analysis failed:', error);
@@ -137,13 +195,32 @@ export default function Analyzer() {
             </div>
           ) : (
             <div>
-              <h3 style={{marginTop:0}}>
-                📊 Deck Analysis Results
-                {analysis.grade === 'Basic Analysis' ? ' 🤖' : ' 🧙‍♂️'}
-                <span style={{fontSize:"0.8rem", fontWeight:"normal", marginLeft:"0.5rem", color:"#6b7280"}}>
-                  {analysis.grade === 'Basic Analysis' ? '(Basic Analysis)' : '(AI-Powered Analysis)'}
-                </span>
-              </h3>
+              <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"1rem"}}>
+                <h3 style={{margin:0}}>
+                  📊 Deck Analysis Results
+                  {analysis.grade === 'Basic Analysis' ? ' 🤖' : ' 🧙‍♂️'}
+                  <span style={{fontSize:"0.8rem", fontWeight:"normal", marginLeft:"0.5rem", color:"#6b7280"}}>
+                    {analysis.grade === 'Basic Analysis' ? '(Basic Analysis)' : '(AI-Powered Analysis)'}
+                  </span>
+                </h3>
+
+                {user && analysis.score && (
+                  <button
+                    onClick={() => setShowSaveDialog(true)}
+                    style={{
+                      backgroundColor:"#16a34a",
+                      color:"white",
+                      border:"none",
+                      padding:"0.5rem 1rem",
+                      borderRadius:"4px",
+                      fontSize:"0.9rem",
+                      cursor:"pointer"
+                    }}
+                  >
+                    💾 Save Deck
+                  </button>
+                )}
+              </div>
 
               {/* Deck Score */}
               <div style={{marginBottom:"2rem"}}>
@@ -316,6 +393,78 @@ export default function Analyzer() {
           </div>
         </div>
       </div>
+
+      {/* Save Deck Dialog */}
+      {showSaveDialog && (
+        <div style={{
+          position:"fixed",
+          top:0,
+          left:0,
+          right:0,
+          bottom:0,
+          backgroundColor:"rgba(0,0,0,0.5)",
+          display:"flex",
+          alignItems:"center",
+          justifyContent:"center",
+          zIndex:1000
+        }}>
+          <div style={{
+            backgroundColor:"white",
+            padding:"2rem",
+            borderRadius:"8px",
+            maxWidth:"400px",
+            width:"90%"
+          }}>
+            <h3 style={{marginTop:0}}>💾 Save Deck</h3>
+            <p>Save this deck to your personal collection.</p>
+
+            <input
+              type="text"
+              value={deckName}
+              onChange={(e) => setDeckName(e.target.value)}
+              placeholder="Enter deck name"
+              style={{
+                width:"100%",
+                padding:"0.75rem",
+                border:"1px solid #d1d5db",
+                borderRadius:"4px",
+                fontSize:"1rem",
+                marginBottom:"1rem"
+              }}
+            />
+
+            <div style={{display:"flex", gap:"1rem", justifyContent:"flex-end"}}>
+              <button
+                onClick={() => setShowSaveDialog(false)}
+                style={{
+                  backgroundColor:"#6b7280",
+                  color:"white",
+                  border:"none",
+                  padding:"0.5rem 1rem",
+                  borderRadius:"4px",
+                  cursor:"pointer"
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={saveDeck}
+                disabled={!deckName.trim()}
+                style={{
+                  backgroundColor:"#16a34a",
+                  color:"white",
+                  border:"none",
+                  padding:"0.5rem 1rem",
+                  borderRadius:"4px",
+                  cursor: !deckName.trim() ? "not-allowed" : "pointer"
+                }}
+              >
+                Save Deck
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Version Footer */}
       <footer style={{

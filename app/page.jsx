@@ -1,9 +1,46 @@
+'use client';
+
 import Link from 'next/link';
 import { VERSION, BUILD_DATE } from '../lib/version.js';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      loadUserData();
+    }
+  }, []);
+
+  const loadUserData = async () => {
+    try {
+      const { getCurrentUser } = await import('../lib/auth/user.js');
+      const currentUser = getCurrentUser();
+      setUser(currentUser);
+    } catch (error) {
+      console.warn('Failed to load user data:', error);
+    }
+  };
+
   return (
     <main style={{padding:"2rem", fontFamily:"system-ui, sans-serif"}}>
+      <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"1rem"}}>
+        <div></div>
+        {user && (
+          <Link href="/dashboard" style={{
+            color:"#4f46e5",
+            textDecoration:"none",
+            fontSize:"0.9rem",
+            padding:"0.5rem 1rem",
+            border:"1px solid #4f46e5",
+            borderRadius:"4px"
+          }}>
+            🎮 {user.username}'s Dashboard
+          </Link>
+        )}
+      </div>
+
       <h1>🔮 Scrylytics</h1>
       <p>AI-powered analytics and deck optimization for collectible card games.</p>
 
@@ -27,31 +64,37 @@ export default function Home() {
           </div>
         </Link>
 
-        <div style={{
+        <Link href="/playlitics" style={{
+          display:"block",
           padding:"2rem",
-          border:"2px solid #e5e7eb",
+          border:"2px solid #4f46e5",
           borderRadius:"8px",
-          color:"#6b7280"
+          textDecoration:"none",
+          color:"#4f46e5",
+          transition:"all 0.2s"
         }}>
           <h2>⚔️ Playlytics</h2>
           <p>Game simulation and matchup testing</p>
           <div style={{marginTop:"1rem", fontSize:"0.9rem", opacity:0.8}}>
-            Coming soon...
+            → Analyze deck matchups now
           </div>
-        </div>
+        </Link>
 
-        <div style={{
+        <Link href="/metalyzer" style={{
+          display:"block",
           padding:"2rem",
-          border:"2px solid #e5e7eb",
+          border:"2px solid #4f46e5",
           borderRadius:"8px",
-          color:"#6b7280"
+          textDecoration:"none",
+          color:"#4f46e5",
+          transition:"all 0.2s"
         }}>
           <h2>📊 Metalyzer</h2>
-          <p>Meta tracking and statistical reports</p>
+          <p>Meta tracking and statistical reports across formats.</p>
           <div style={{marginTop:"1rem", fontSize:"0.9rem", opacity:0.8}}>
-            Coming soon...
+            → View meta trends now
           </div>
-        </div>
+        </Link>
       </div>
 
       {/* Version Footer */}
