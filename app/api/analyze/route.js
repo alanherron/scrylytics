@@ -323,15 +323,26 @@ async function getCardImages(deckCode, gameType, deckData) {
 
     } else if (gameType === 'hearthstone' && deckData?.cards) {
       console.log('Processing Hearthstone deck with', deckData.cards.length, 'cards');
-      // For Hearthstone, show first few cards with placeholders
-      // TODO: Implement Hearthstone card image API
+      // Use HearthstoneJSON art API for real card images
       const hearthstoneCards = deckData.cards.slice(0, 6);
       for (const card of hearthstoneCards) {
-        cardImages.push({
-          name: card.name || 'Unknown Card',
-          count: card.count || 1,
-          imageUrl: `https://via.placeholder.com/200x300?text=${encodeURIComponent(card.name || 'Hearthstone Card')}`
-        });
+        if (card.id) {
+          // Use HearthstoneJSON render API for card images
+          const imageUrl = `https://art.hearthstonejson.com/v1/render/latest/enUS/256x/${card.id}.png`;
+          cardImages.push({
+            name: card.name || 'Unknown Card',
+            count: card.count || 1,
+            imageUrl: imageUrl
+          });
+          console.log(`Added Hearthstone image for ${card.name}: ${imageUrl}`);
+        } else {
+          // Fallback to placeholder if no ID
+          cardImages.push({
+            name: card.name || 'Unknown Card',
+            count: card.count || 1,
+            imageUrl: `https://via.placeholder.com/256x/372?text=${encodeURIComponent(card.name || 'Hearthstone Card')}`
+          });
+        }
       }
     } else {
       console.warn('No deck data available for card images:', { gameType, hasMainDeck: !!deckData?.mainDeck, hasCards: !!deckData?.cards });
