@@ -319,14 +319,17 @@ async function getCardImages(deckCode, gameType, deckData) {
       }
 
     } else if (gameType === 'hearthstone' && deckData?.cards) {
-      console.log('Processing Hearthstone deck');
-      // For Hearthstone, we'd need to implement card lookup by ID
-      // For now, return placeholder - in real implementation, use Hearthstone API
-      cardImages.push({
-        name: 'Sample Hearthstone Card',
-        count: 2,
-        imageUrl: 'https://via.placeholder.com/200x300?text=Hearthstone+Card'
-      });
+      console.log('Processing Hearthstone deck with', deckData.cards.length, 'cards');
+      // For Hearthstone, show first few cards with placeholders
+      // TODO: Implement Hearthstone card image API
+      const hearthstoneCards = deckData.cards.slice(0, 6);
+      for (const card of hearthstoneCards) {
+        cardImages.push({
+          name: card.name || 'Unknown Card',
+          count: card.count || 1,
+          imageUrl: `https://via.placeholder.com/200x300?text=${encodeURIComponent(card.name || 'Hearthstone Card')}`
+        });
+      }
     } else {
       console.warn('No deck data available for card images:', { gameType, hasMainDeck: !!deckData?.mainDeck, hasCards: !!deckData?.cards });
     }
