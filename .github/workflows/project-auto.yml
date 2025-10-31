@@ -20,7 +20,7 @@ jobs:
         uses: actions/add-to-project@v0.5.0
         with:
           project-url: https://github.com/users/alanherron/projects/2
-          github-token: ${{ secrets.GITHUB_TOKEN }}name: Project Auto
+          github-token: ${{ secrets.PROJECTS_TOKEN }}name: Project Auto
 on:
   issues:
     types: [opened, reopened]
