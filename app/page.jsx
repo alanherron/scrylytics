@@ -95,6 +95,22 @@ export default function Home() {
             → View meta trends now
           </div>
         </Link>
+
+        <Link href="/insights" style={{
+          display:"block",
+          padding:"2rem",
+          border:"2px solid #4f46e5",
+          borderRadius:"8px",
+          textDecoration:"none",
+          color:"#4f46e5",
+          transition:"all 0.2s"
+        }}>
+          <h2>📈 AI Insights</h2>
+          <p>Visual deck analysis with parchment-style charts and AI recommendations.</p>
+          <div style={{marginTop:"1rem", fontSize:"0.9rem", opacity:0.8}}>
+            → Explore deck insights now
+          </div>
+        </Link>
       </div>
 
       {/* Version Footer */}
