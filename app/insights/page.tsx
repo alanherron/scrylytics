@@ -120,7 +120,7 @@ export default function InsightsPage() {
         textAlign: "center",
         marginBottom: "1rem"
       }}>
-        ✅ REACT IS WORKING - Build #40 - CHARTS FINALLY WORKING! 🎉
+        ✅ REACT IS WORKING - Build #41 - SIMPLIFIED CHART RENDERING! 📊
       </div>
 
       <header style={{marginBottom:"2rem"}}>
