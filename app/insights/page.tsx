@@ -131,7 +131,7 @@ export default function InsightsPage() {
       return analysis;
     } catch (error) {
       console.error('💥 Error in analyzeDeck:', error);
-      return { error: 'Analysis failed', issue: 'MANA_CURVE_SKEW' as const, data: [], caption: 'Failed to analyze deck' };
+      return { error: 'Analysis failed', issue: 'MANA_CURVE_SKEW' as const, data: [], caption: 'Failed to analyze deck', title: 'Analysis Error' };
     }
   }, [deck]); // REMOVED pageLoaded dependency
 
