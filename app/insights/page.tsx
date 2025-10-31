@@ -104,23 +104,36 @@ export default function InsightsPage() {
   const deck = PREBUILT_DECKS[selectedIndex];
 
   const result = useMemo(() => {
-    if (!pageLoaded) {
-      console.log('⏳ Page not loaded yet, skipping analysis');
+    console.log('🎲 useMemo triggered:', { pageLoaded, deckName: deck?.name });
+
+    // TEMPORARILY REMOVE pageLoaded CHECK TO FORCE ANALYSIS
+    // if (!pageLoaded) {
+    //   console.log('⏳ Page not loaded yet, skipping analysis');
+    //   return null;
+    // }
+
+    if (!deck) {
+      console.log('⏳ Deck not available yet, skipping analysis');
       return null;
     }
 
-    console.log('🎲 Insights: Analyzing deck:', { name: deck.name, archetype: deck.archetype });
-    const analysis = analyzeDeck(deck);
-    console.log('📊 Insights analysis result:', {
-      issue: analysis.issue,
-      dataLength: analysis.data?.length,
-      dataType: typeof analysis.data,
-      dataSample: analysis.data?.slice(0, 3),
-      title: analysis.title,
-      caption: analysis.caption
-    });
-    return analysis;
-  }, [deck, pageLoaded]);
+    try {
+      console.log('🎲 Insights: Analyzing deck:', { name: deck.name, archetype: deck.archetype });
+      const analysis = analyzeDeck(deck);
+      console.log('📊 Insights analysis result:', {
+        issue: analysis.issue,
+        dataLength: analysis.data?.length,
+        dataType: typeof analysis.data,
+        dataSample: analysis.data?.slice(0, 3),
+        title: analysis.title,
+        caption: analysis.caption
+      });
+      return analysis;
+    } catch (error) {
+      console.error('💥 Error in analyzeDeck:', error);
+      return { error: 'Analysis failed', issue: 'ERROR', data: [], caption: 'Failed to analyze deck' };
+    }
+  }, [deck]); // REMOVED pageLoaded dependency
 
   // Basic error boundary
   try {
@@ -211,6 +224,18 @@ export default function InsightsPage() {
         <TestChart />
       </div>
 
+      {/* DEBUG STATE INDICATOR */}
+      <div style={{
+        backgroundColor: "#ffcccc",
+        border: "2px solid #000000",
+        padding: "0.5rem",
+        marginBottom: "1rem",
+        fontSize: "0.8rem",
+        textAlign: "center"
+      }}>
+        🔍 DEBUG: pageLoaded={String(pageLoaded)}, result={result ? 'EXISTS' : 'NULL'}, deck={deck?.name || 'NONE'}
+      </div>
+
       <header className="space-y-2">
         <h1 className="text-2xl font-semibold">AI Insights (Parchment Charts)</h1>
         <p className="text-sm opacity-80">
@@ -228,6 +253,8 @@ export default function InsightsPage() {
           marginBottom: "1rem"
         }}>
           <strong>⏳ LOADING...</strong> Waiting for page to initialize
+          <br />
+          <small>If this persists, charts are blocked by initialization</small>
         </div>
       )}
 
