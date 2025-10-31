@@ -232,31 +232,35 @@ async function getCardImages(deckCode, gameType, deckData) {
 
   try {
     if (gameType === 'magic' && deckData?.mainDeck) {
-      // For Magic, get images for main deck cards
-      const cardPromises = deckData.mainDeck.slice(0, 10).map(async (card) => {
+      // For Magic, get images for up to 6 key cards to avoid timeouts
+      const keyCards = deckData.mainDeck.slice(0, 6);
+
+      for (const card of keyCards) {
         try {
+          // Add a small delay between requests to be respectful to the API
+          if (cardImages.length > 0) {
+            await new Promise(resolve => setTimeout(resolve, 100));
+          }
+
           const cardData = await getCardByName(card.name);
-          if (cardData && cardData.image_uris) {
-            return {
+          if (cardData && cardData.image_uris?.normal) {
+            cardImages.push({
               name: card.name,
               count: card.count,
               imageUrl: cardData.image_uris.normal
-            };
+            });
           }
         } catch (error) {
           console.warn(`Failed to get image for ${card.name}:`, error);
+          // Continue with other cards even if one fails
         }
-        return null;
-      });
-
-      const results = await Promise.all(cardPromises);
-      cardImages.push(...results.filter(Boolean));
+      }
 
     } else if (gameType === 'hearthstone' && deckData?.cards) {
       // For Hearthstone, we'd need to implement card lookup by ID
       // For now, return placeholder - in real implementation, use Hearthstone API
       cardImages.push({
-        name: 'Sample Card',
+        name: 'Sample Hearthstone Card',
         count: 2,
         imageUrl: 'https://via.placeholder.com/200x300?text=Hearthstone+Card'
       });
