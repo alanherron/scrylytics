@@ -35,38 +35,38 @@ const ParchmentFrame: React.FC<{ title?: string; children: React.ReactNode }> = 
     boxShadow: "inset 0 0 0 1px rgba(115,74,18,0.25), 0 10px 30px rgba(0,0,0,0.15)",
     borderRadius: "1.25rem"
   }}>
-    {/* Hand-drawn jitter + grain */}
-    <svg width="0" height="0" className="absolute">
-      <filter id="rough" x="-10%" y="-10%" width="120%" height="120%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="1" result="noise"/>
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.6"/>
-      </filter>
-    </svg>
     {title && (
       <div className="mb-3">
-        <h3 className="text-lg font-bold" style={{ color: "#5c4320", filter: "url(#rough)" }}>{title}</h3>
+        <h3 className="text-lg font-bold" style={{ color: "#5c4320" }}>{title}</h3>
         <div className="h-1 w-24 bg-[#c7a96f] rounded-full" />
       </div>
     )}
-    <div style={{ filter: "url(#rough)" }}>{children}</div>
+    <div>{children}</div>
   </div>
 );
 
 /* ---------- Chart Renderers ---------- */
 
-const ManaCurveChart = ({ data }: { data: { mana:number; count:number }[] }) => (
-  <ResponsiveContainer width="100%" height={300} minHeight={300}>
-    <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-      <CartesianGrid strokeDasharray="3 3" stroke="#b08b4a" opacity={0.45}/>
-      <XAxis dataKey="mana" tick={{ fill: "#5c4320" }} />
-      <YAxis tick={{ fill: "#5c4320" }} />
-      <Tooltip contentStyle={{ background:"#fff8e6", border:"1px solid #c7a96f" }} />
-      <Bar dataKey="count" fill="#8c6d2f" radius={[6,6,0,0]}>
-        <LabelList dataKey="count" position="top" fill="#5c4320" />
-      </Bar>
-    </BarChart>
-  </ResponsiveContainer>
-);
+const ManaCurveChart = ({ data }: { data: { mana:number; count:number }[] }) => {
+  console.log('ManaCurveChart rendering with data:', data);
+  if (!data || !Array.isArray(data) || data.length === 0) {
+    return <p style={{ color: "#dc2626" }}>No data available for ManaCurveChart</p>;
+  }
+
+  return (
+    <ResponsiveContainer width="100%" height={300} minHeight={300}>
+      <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#b08b4a" opacity={0.45}/>
+        <XAxis dataKey="mana" tick={{ fill: "#5c4320" }} />
+        <YAxis tick={{ fill: "#5c4320" }} />
+        <Tooltip contentStyle={{ background:"#fff8e6", border:"1px solid #c7a96f" }} />
+        <Bar dataKey="count" fill="#8c6d2f" radius={[6,6,0,0]}>
+          <LabelList dataKey="count" position="top" fill="#5c4320" />
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
+  );
+};
 
 const LineMetric = ({
   data, xKey, yKey, label
@@ -121,23 +121,38 @@ const titleMap: Record<DeckIssueType,string> = {
 };
 
 export const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption, title }) => {
+  console.log('InsightChart rendering:', { issue, dataLength: data?.length, dataType: typeof data });
+
   const renderChart = () => {
     try {
+      console.log('Rendering chart for issue:', issue);
       switch (issue) {
-        case "MANA_CURVE_SKEW":       return <ManaCurveChart data={data as any} />;
-        case "DRAW_INCONSISTENCY":    return <LineMetric data={data} xKey="turn" yKey="cards" label="Cards Drawn" />;
-        case "ROLE_MISMATCH":         return <RoleRadar data={data as any} />;
-        case "WEAK_SYNERGY_CHAINS":   return <AreaInsight data={data} xKey="turn" yKey="chainStrength" label="Chain Strength" />;
-        case "TECH_GAPS":             return <ManaCurveChart data={data as any} />;
-        case "MATCHUP_PAINS":         return <LineMetric data={data} xKey="archetype" yKey="winrate" label="Winrate %" />;
-        case "HAND_SIZE_PRESSURE":    return <AreaInsight data={data} xKey="turn" yKey="handSize" label="Avg Hand Size" />;
-        case "BOARD_TEMPO_GAPS":      return <RoleRadar data={data as any} />;
-        default:                      return <p style={{ color:"#5c4320" }}>No data available.</p>;
+        case "MANA_CURVE_SKEW":
+          console.log('Rendering ManaCurveChart with data:', data);
+          return <ManaCurveChart data={data as { mana:number; count:number }[]} />;
+        case "DRAW_INCONSISTENCY":
+          return <LineMetric data={data} xKey="turn" yKey="cards" label="Cards Drawn" />;
+        case "ROLE_MISMATCH":
+          return <RoleRadar data={data as { role:string; value:number }[]} />;
+        case "WEAK_SYNERGY_CHAINS":
+          return <AreaInsight data={data} xKey="turn" yKey="chainStrength" label="Chain Strength" />;
+        case "TECH_GAPS":
+          return <ManaCurveChart data={data as { mana:number; count:number }[]} />;
+        case "MATCHUP_PAINS":
+          return <LineMetric data={data} xKey="archetype" yKey="winrate" label="Winrate %" />;
+        case "HAND_SIZE_PRESSURE":
+          return <AreaInsight data={data} xKey="turn" yKey="handSize" label="Avg Hand Size" />;
+        case "BOARD_TEMPO_GAPS":
+          return <RoleRadar data={data as { role:string; value:number }[]} />;
+        default:
+          return <p style={{ color:"#5c4320" }}>No data available for issue: {issue}.</p>;
       }
     } catch (error) {
-      console.error('Chart rendering error:', error);
+      console.error('Chart rendering error:', error, { issue, data });
+      const errorMessage = error instanceof Error ? error.message : String(error);
       return <p style={{ color:"#dc2626", padding:"1rem", backgroundColor:"#fef2f2", borderRadius:"4px" }}>
-        Chart rendering failed. Issue: {issue}, Data: {JSON.stringify(data).slice(0, 100)}...
+        Chart rendering failed. Issue: {issue}, Error: {errorMessage}
+        <br />Data: {JSON.stringify(data).slice(0, 200)}...
       </p>;
     }
   };
@@ -148,7 +163,7 @@ export const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption
         {renderChart()}
       </div>
       {caption && (
-        <p className="mt-3 text-sm italic text-[#5c4320]" style={{ filter:"url(#rough)" }}>
+        <p className="mt-3 text-sm italic text-[#5c4320]">
           {caption}
         </p>
       )}
