@@ -60,21 +60,28 @@ const ManaCurveChart = ({ data }: { data: { mana:number; count:number }[] }) => 
     console.log('✅ ManaCurveChart: Attempting Recharts render');
 
     return (
-      <div>
-        <div style={{ fontSize: "0.8rem", color: "#6b7280", marginBottom: "0.5rem" }}>
-          📊 Recharts Bar Chart
+      <div style={{ border: "3px solid #00ff00", padding: "1rem", margin: "1rem 0" }}>
+        <div style={{ fontSize: "1.2rem", color: "#000", marginBottom: "0.5rem", fontWeight: "bold" }}>
+          🎯 CHART CONTAINER RENDERING
         </div>
-        <ResponsiveContainer width="100%" height={300} minHeight={300}>
-          <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#b08b4a" opacity={0.45}/>
-            <XAxis dataKey="mana" tick={{ fill: "#5c4320" }} />
-            <YAxis tick={{ fill: "#5c4320" }} />
-            <Tooltip contentStyle={{ background:"#fff8e6", border:"1px solid #c7a96f" }} />
-            <Bar dataKey="count" fill="#8c6d2f" radius={[6,6,0,0]}>
-              <LabelList dataKey="count" position="top" fill="#5c4320" />
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
+        <div style={{ fontSize: "0.8rem", color: "#6b7280", marginBottom: "0.5rem" }}>
+          📊 Recharts Bar Chart - Data: {data.length} items
+        </div>
+        <div style={{ border: "2px solid #ff0000", minHeight: "350px", backgroundColor: "#f0f0f0" }}>
+          <ResponsiveContainer width="100%" height={300} minHeight={300}>
+            {console.log('🎯 ResponsiveContainer rendering with data:', data)}
+            <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+              {console.log('🎯 BarChart rendering')}
+              <CartesianGrid strokeDasharray="3 3" stroke="#b08b4a" opacity={0.45}/>
+              <XAxis dataKey="mana" tick={{ fill: "#5c4320" }} />
+              <YAxis tick={{ fill: "#5c4320" }} />
+              <Tooltip contentStyle={{ background:"#fff8e6", border:"1px solid #c7a96f" }} />
+              <Bar dataKey="count" fill="#8c6d2f" radius={[6,6,0,0]}>
+                <LabelList dataKey="count" position="top" fill="#5c4320" />
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     );
   } catch (error) {
