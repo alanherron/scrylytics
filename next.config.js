@@ -11,6 +11,18 @@ const securityHeaders = [
 
 const nextConfig = {
   reactStrictMode: true,
+  // Performance optimizations
+  swcMinify: true,
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  experimental: {
+    optimizePackageImports: ['@mui/material', '@mui/icons-material'],
+  },
+  images: {
+    domains: ['api.scryfall.com', 'scryfall.com'],
+    formats: ['image/webp', 'image/avif'],
+  },
   async headers() {
     return [{ source: '/(.*)', headers: securityHeaders }];
   },
