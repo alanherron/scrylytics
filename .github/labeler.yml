@@ -1,0 +1,16 @@
+Library:
+  - 'app/library/**'
+  - 'components/library/**'
+Deckbuilder:
+  - 'app/deckbuilder/**'
+  - 'components/deckbuilder/**'
+AI:
+  - 'app/ai/**'
+Infra:
+  - '.github/**'
+  - 'vercel.json'
+Design:
+  - 'public/**'
+  - 'styles/**'
+Docs:
+  - '**/*.md'
