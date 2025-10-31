@@ -2,93 +2,29 @@
 
 import React, { useMemo, useState } from 'react';
 import { PREBUILT_DECKS, analyzeDeck } from '../../lib/ai/insightEngine';
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import InsightChart from '../../components/InsightChart';
 
-const SimpleHtmlChart = () => {
-  return (
-    <div style={{
-      width: '100%',
-      height: '200px',
-      border: '3px solid #00ff00',
-      backgroundColor: '#f0f0f0',
-      padding: '1rem',
-      margin: '1rem 0',
-      display: 'flex',
-      alignItems: 'end',
-      justifyContent: 'space-around'
-    }}>
-      <div style={{
-        width: '50px', height: '40px', backgroundColor: '#ff6b6b',
-        display: 'flex', alignItems: 'end', justifyContent: 'center',
-        color: 'white', fontWeight: 'bold'
-      }}>10</div>
-      <div style={{
-        width: '50px', height: '80px', backgroundColor: '#4ecdc4',
-        display: 'flex', alignItems: 'end', justifyContent: 'center',
-        color: 'white', fontWeight: 'bold'
-      }}>20</div>
-      <div style={{
-        width: '50px', height: '60px', backgroundColor: '#45b7d1',
-        display: 'flex', alignItems: 'end', justifyContent: 'center',
-        color: 'white', fontWeight: 'bold'
-      }}>15</div>
-      <div style={{
-        width: '50px', height: '100px', backgroundColor: '#96ceb4',
-        display: 'flex', alignItems: 'end', justifyContent: 'center',
-        color: 'white', fontWeight: 'bold'
-      }}>25</div>
-    </div>
-  );
-};
-
-const TestChart = () => {
-  const testData = [
-    { name: 'A', value: 10 },
-    { name: 'B', value: 20 },
-    { name: 'C', value: 15 },
-    { name: 'D', value: 25 }
-  ];
-
-  try {
-    return (
-      <div>
-        <div style={{
-          padding: "0.5rem",
-          backgroundColor: "#e0ffe0",
-          border: "2px solid #00aa00",
-          marginBottom: "0.5rem",
-          fontSize: "0.8rem"
-        }}>
-          ✅ Charts are working!
-        </div>
-        <div style={{ width: '100%', height: '200px', border: '2px solid #000', margin: '1rem 0' }}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={testData}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="value" fill="#8884d8" />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-    );
-  } catch (error) {
-    return (
-      <div>
-        <div style={{
-          padding: "0.5rem",
-          backgroundColor: "#ffe0e0",
-          border: "2px solid #aa0000",
-          marginBottom: "0.5rem",
-          fontSize: "0.8rem"
-        }}>
-          Fallback chart (Recharts failed)
-        </div>
-        <SimpleHtmlChart />
-      </div>
-    );
+// Helper function to determine chart type from issue
+const getChartType = (issue: string) => {
+  switch (issue) {
+    case "MANA_CURVE_SKEW":
+      return "bar";
+    case "DRAW_INCONSISTENCY":
+      return "line";
+    case "ROLE_MISMATCH":
+      return "radar";
+    case "WEAK_SYNERGY_CHAINS":
+      return "area";
+    case "TECH_GAPS":
+      return "bar";
+    case "MATCHUP_PAINS":
+      return "radar";
+    case "HAND_SIZE_PRESSURE":
+      return "line";
+    case "BOARD_TEMPO_GAPS":
+      return "area";
+    default:
+      return "bar";
   }
 };
 
@@ -161,25 +97,6 @@ export default function InsightsPage() {
             </div>
           </div>
 
-          <div style={{
-            backgroundColor: "#ecfdf5",
-            border: "3px solid #059669",
-            padding: "1.5rem",
-            marginBottom: "1rem",
-            textAlign: "center",
-            borderRadius: "12px",
-            boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)"
-          }}>
-            <h3 style={{
-              color: "#065f46",
-              margin: "0 0 1rem 0",
-              fontSize: "1.2rem",
-              fontWeight: "bold"
-            }}>
-              🧪 Recharts v3.3.0 Test
-            </h3>
-            <TestChart />
-          </div>
 
       {result && (
         <div style={{marginTop:"2rem", padding:"2rem", backgroundColor:"#f9fafb", borderRadius:"8px", border:"1px solid #e5e7eb"}}>
@@ -261,6 +178,109 @@ export default function InsightsPage() {
                     <strong>Analysis:</strong> {result.caption}
                   </p>
                 </div>
+
+                {/* Debug Panel */}
+                <details style={{
+                  marginTop: "1rem",
+                  padding: "1rem",
+                  backgroundColor: "#fef3c7",
+                  border: "1px solid #f59e0b",
+                  borderRadius: "8px"
+                }}>
+                  <summary style={{
+                    cursor: "pointer",
+                    fontWeight: "bold",
+                    color: "#92400e"
+                  }}>
+                    🔍 Debug: Chart Data & Requirements Check
+                  </summary>
+                  <div style={{ marginTop: "1rem", fontSize: "0.9rem" }}>
+                    <div style={{ marginBottom: "1rem" }}>
+                      <strong>Chart Type:</strong> {getChartType(result.issue)} Chart
+                    </div>
+                    <div style={{ marginBottom: "1rem" }}>
+                      <strong>Issue Type:</strong> {result.issue}
+                    </div>
+                    <div style={{ marginBottom: "1rem" }}>
+                      <strong>Data Length:</strong> {Array.isArray(result.data) ? result.data.length : 'Not an array'}
+                    </div>
+                    <div style={{ marginBottom: "1rem" }}>
+                      <strong>Data Sample:</strong>
+                      <pre style={{
+                        backgroundColor: "#f9fafb",
+                        padding: "0.5rem",
+                        borderRadius: "4px",
+                        fontSize: "0.8rem",
+                        overflow: "auto",
+                        maxHeight: "200px"
+                      }}>
+                        {JSON.stringify(result.data?.slice(0, 3), null, 2)}
+                      </pre>
+                    </div>
+
+                    {(() => {
+                      const chartType = getChartType(result.issue);
+                      const data = result.data;
+
+                      switch (chartType) {
+                        case 'bar':
+                          return (
+                            <div>
+                              <strong>Bar Chart Requirements:</strong>
+                              <ul>
+                                <li>Data is array: {Array.isArray(data) ? '✅' : '❌'}</li>
+                                <li>Each item has 'mana': {Array.isArray(data) && data.every(item => 'mana' in item) ? '✅' : '❌'}</li>
+                                <li>Each item has 'count': {Array.isArray(data) && data.every(item => 'count' in item) ? '✅' : '❌'}</li>
+                                <li>Data length &gt; 0: {Array.isArray(data) && data.length > 0 ? '✅' : '❌'}</li>
+                              </ul>
+                            </div>
+                          );
+
+                        case 'line':
+                          return (
+                            <div>
+                              <strong>Line Chart Requirements:</strong>
+                              <ul>
+                                <li>Data is array: {Array.isArray(data) ? '✅' : '❌'}</li>
+                                <li>Each item has 'mana': {Array.isArray(data) && data.every(item => 'mana' in item) ? '✅' : '❌'}</li>
+                                <li>Each item has 'count': {Array.isArray(data) && data.every(item => 'count' in item) ? '✅' : '❌'}</li>
+                                <li>Data length &gt; 0: {Array.isArray(data) && data.length > 0 ? '✅' : '❌'}</li>
+                              </ul>
+                            </div>
+                          );
+
+                        case 'radar':
+                          return (
+                            <div>
+                              <strong>Radar Chart Requirements:</strong>
+                              <ul>
+                                <li>Data is array: {Array.isArray(data) ? '✅' : '❌'}</li>
+                                <li>Each item has 'role' or 'subject': {Array.isArray(data) && data.every(item => 'role' in item || 'subject' in item) ? '✅' : '❌'}</li>
+                                <li>Each item has 'value': {Array.isArray(data) && data.every(item => 'value' in item) ? '✅' : '❌'}</li>
+                                <li>Data length &gt; 0: {Array.isArray(data) && data.length > 0 ? '✅' : '❌'}</li>
+                              </ul>
+                            </div>
+                          );
+
+                        case 'area':
+                          return (
+                            <div>
+                              <strong>Area Chart Requirements:</strong>
+                              <ul>
+                                <li>Data is array: {Array.isArray(data) ? '✅' : '❌'}</li>
+                                <li>Each item has 'mana': {Array.isArray(data) && data.every(item => 'mana' in item) ? '✅' : '❌'}</li>
+                                <li>Each item has 'count': {Array.isArray(data) && data.every(item => 'count' in item) ? '✅' : '❌'}</li>
+                                <li>Data length &gt; 0: {Array.isArray(data) && data.length > 0 ? '✅' : '❌'}</li>
+                              </ul>
+                            </div>
+                          );
+
+                        default:
+                          return <div>Unknown chart type</div>;
+                      }
+                    })()}
+                  </div>
+                </details>
               </div>
             </div>
           )}

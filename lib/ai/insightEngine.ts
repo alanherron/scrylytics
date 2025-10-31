@@ -172,7 +172,27 @@ export function analyzeDeck(deck: DeckMeta): InsightResult {
     };
   }
 
-  // Default balanced deck
+  if (key.includes("balanced deck")) {
+    const roleData = [
+      { role: "Ramp", value: 6 },
+      { role: "Removal", value: 6 },
+      { role: "Win Cons", value: 6 },
+      { role: "Draw", value: 6 },
+      { role: "Protection", value: 6 }
+    ];
+    return {
+      issue: "ROLE_MISMATCH",
+      data: roleData,
+      caption: "Perfectly balanced deck with all roles represented equally.",
+      title: "Role Distribution",
+      grade: "Excellent",
+      score: 9,
+      strengths: ["Perfectly balanced", "All roles covered"],
+      weaknesses: ["May lack focus"]
+    };
+  }
+
+  // Default fallback
   const curve = [2, 4, 6, 4, 2, 1, 0, 0];
   return {
     issue: "MANA_CURVE_SKEW",
