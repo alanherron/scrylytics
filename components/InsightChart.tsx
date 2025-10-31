@@ -28,17 +28,18 @@ export interface InsightChartProps {
 /* ---------- Parchment Frame ---------- */
 
 const ParchmentFrame: React.FC<{ title?: string; children: React.ReactNode }> = ({ title, children }) => (
-  <div className="relative p-6 rounded-2xl" style={{
-    background:
-      `radial-gradient(1200px 800px at 20% 0%, rgba(255,255,240,0.96), rgba(245,236,210,0.96)),
-       radial-gradient(900px 600px at 80% 100%, rgba(250,244,225,0.96), rgba(233,219,186,0.99))`,
-    boxShadow: "inset 0 0 0 1px rgba(115,74,18,0.25), 0 10px 30px rgba(0,0,0,0.15)",
-    borderRadius: "1.25rem"
+  <div style={{
+    backgroundColor: "#f5f5dc",
+    border: "2px solid #8b4513",
+    borderRadius: "8px",
+    padding: "1rem",
+    margin: "1rem 0",
+    boxShadow: "0 4px 8px rgba(0,0,0,0.1)"
   }}>
     {title && (
-      <div className="mb-3">
-        <h3 className="text-lg font-bold" style={{ color: "#5c4320" }}>{title}</h3>
-        <div className="h-1 w-24 bg-[#c7a96f] rounded-full" />
+      <div style={{ marginBottom: "1rem" }}>
+        <h3 style={{ color: "#5c4320", margin: "0 0 0.5rem 0" }}>{title}</h3>
+        <div style={{ height: "2px", width: "60px", backgroundColor: "#c7a96f" }} />
       </div>
     )}
     <div>{children}</div>
