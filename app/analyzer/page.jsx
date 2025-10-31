@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { VERSION, BUILD_DATE } from '../../lib/version.js';
+import { analyzeDeckFromAnalysis } from '../../lib/ai/insightEngine';
+import InsightChart from '../../components/InsightChart';
 
 export default function Analyzer() {
   const [deckCode, setDeckCode] = useState('');
@@ -13,6 +15,8 @@ export default function Analyzer() {
   const [deckName, setDeckName] = useState('');
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const [imageLoadingStates, setImageLoadingStates] = useState({});
+  const [insights, setInsights] = useState(null);
+  const [showInsights, setShowInsights] = useState(false);
 
   useEffect(() => {
     // Load user data on component mount
@@ -86,6 +90,21 @@ export default function Analyzer() {
       }
 
       setAnalysis(result);
+
+      // Generate insights based on the analysis
+      try {
+        const deckMeta = {
+          name: `Analyzed ${gameType} deck`,
+          archetype: result.grade || 'Unknown',
+          gameType: gameType,
+          list: []
+        };
+        const insightResult = analyzeDeckFromAnalysis(deckMeta, result);
+        setInsights(insightResult);
+      } catch (error) {
+        console.warn('Failed to generate insights:', error);
+        setInsights(null);
+      }
 
       // Start loading real card images after initial analysis
       setTimeout(() => loadRealCardImages(result), 100);
@@ -263,22 +282,41 @@ export default function Analyzer() {
                   </span>
                 </h3>
 
-                {user && analysis.score && (
-                  <button
-                    onClick={() => setShowSaveDialog(true)}
-                    style={{
-                      backgroundColor:"#16a34a",
-                      color:"white",
-                      border:"none",
-                      padding:"0.5rem 1rem",
-                      borderRadius:"4px",
-                      fontSize:"0.9rem",
-                      cursor:"pointer"
-                    }}
-                  >
-                    💾 Save Deck
-                  </button>
-                )}
+                <div style={{display:"flex", gap:"0.5rem"}}>
+                  {insights && (
+                    <button
+                      onClick={() => setShowInsights(!showInsights)}
+                      style={{
+                        backgroundColor: showInsights ? "#7c3aed" : "#4f46e5",
+                        color:"white",
+                        border:"none",
+                        padding:"0.5rem 1rem",
+                        borderRadius:"4px",
+                        fontSize:"0.9rem",
+                        cursor:"pointer"
+                      }}
+                    >
+                      📈 {showInsights ? 'Hide' : 'Show'} Insights
+                    </button>
+                  )}
+
+                  {user && analysis.score && (
+                    <button
+                      onClick={() => setShowSaveDialog(true)}
+                      style={{
+                        backgroundColor:"#16a34a",
+                        color:"white",
+                        border:"none",
+                        padding:"0.5rem 1rem",
+                        borderRadius:"4px",
+                        fontSize:"0.9rem",
+                        cursor:"pointer"
+                      }}
+                    >
+                      💾 Save Deck
+                    </button>
+                  )}
+                </div>
               </div>
 
               {/* Deck Score */}
@@ -419,6 +457,24 @@ export default function Analyzer() {
               )}
             </div>
           )}
+        </div>
+      )}
+
+      {/* Insights Section */}
+      {showInsights && insights && (
+        <div style={{marginTop:"3rem", padding:"2rem", backgroundColor:"#fefefe", borderRadius:"8px", border:"2px solid #e5e7eb"}}>
+          <h3 style={{marginBottom:"1.5rem", color:"#1f2937"}}>🔍 AI Insights & Visual Analysis</h3>
+          <InsightChart
+            issue={insights.issue}
+            data={insights.data}
+            caption={insights.caption}
+            title={insights.title}
+          />
+          <div style={{marginTop:"1.5rem", padding:"1rem", backgroundColor:"#f8fafc", borderRadius:"6px", borderLeft:"4px solid #4f46e5"}}>
+            <p style={{margin:0, fontSize:"0.95rem", color:"#374151"}}>
+              <strong>💡 Key Insight:</strong> {insights.caption}
+            </p>
+          </div>
         </div>
       )}
 
