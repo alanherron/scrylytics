@@ -79,10 +79,28 @@ async function analyzeDeckWithAI(deckCode, gameType) {
 
     if (gameType === 'hearthstone') {
       try {
-        deckData = await parseDeckCode(deckCode);
+        // Add timeout to deck parsing
+        const parseTimeoutPromise = new Promise((_, reject) => {
+          setTimeout(() => reject(new Error('Deck parsing timed out')), 2000);
+        });
+
+        deckData = await Promise.race([
+          parseDeckCode(deckCode),
+          parseTimeoutPromise
+        ]);
+
         validation = await validateDeck(deckData);
         deckData.stats = calculateDeckStats(deckData);
-        deckData.synergies = await getCardSynergies(null, deckData);
+
+        // Timeout for synergy calculation
+        const synergyTimeoutPromise = new Promise((_, reject) => {
+          setTimeout(() => reject(new Error('Synergy calculation timed out')), 1000);
+        });
+
+        deckData.synergies = await Promise.race([
+          getCardSynergies(null, deckData),
+          synergyTimeoutPromise
+        ]);
       } catch (parseError) {
         console.warn('Hearthstone deck parsing failed, proceeding with basic analysis:', parseError);
       }
@@ -90,7 +108,17 @@ async function analyzeDeckWithAI(deckCode, gameType) {
       try {
         deckData = parseMagicDeckList(deckCode);
         validation = validateMagicDeck(deckData);
-        deckData.stats = await calculateMagicStats(deckData);
+
+        // Timeout for stats calculation
+        const statsTimeoutPromise = new Promise((_, reject) => {
+          setTimeout(() => reject(new Error('Stats calculation timed out')), 1000);
+        });
+
+        deckData.stats = await Promise.race([
+          calculateMagicStats(deckData),
+          statsTimeoutPromise
+        ]);
+
         deckData.synergies = getMagicSynergies(deckData);
       } catch (parseError) {
         console.warn('Magic deck parsing failed, proceeding with basic analysis:', parseError);
@@ -110,29 +138,52 @@ async function analyzeDeckWithAI(deckCode, gameType) {
     }
 
     console.log('Making OpenAI API call...');
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4',
-      messages: [
-        {
-          role: 'system',
-          content: `You are an expert ${gameType} deck analyst with deep knowledge of game mechanics, meta strategies, and card interactions. Analyze the provided deck data and return a detailed JSON response. Use real game knowledge to provide accurate, actionable analysis.`
-        },
-        {
-          role: 'user',
-          content: prompt
-        }
-      ],
-      temperature: 0.7,
-      max_tokens: 1500
+
+    // Create a timeout promise
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('OpenAI API call timed out')), 8000); // 8 second timeout
     });
+
+    // Race the API call against the timeout
+    const response = await Promise.race([
+      openai.chat.completions.create({
+        model: 'gpt-4',
+        messages: [
+          {
+            role: 'system',
+            content: `You are an expert ${gameType} deck analyst with deep knowledge of game mechanics, meta strategies, and card interactions. Analyze the provided deck data and return a detailed JSON response. Use real game knowledge to provide accurate, actionable analysis.`
+          },
+          {
+            role: 'user',
+            content: prompt
+          }
+        ],
+        temperature: 0.7,
+        max_tokens: 1000 // Reduced from 1500 to speed up response
+      }),
+      timeoutPromise
+    ]);
+
     console.log('OpenAI API call completed successfully');
 
     const analysisText = response.choices[0].message.content;
     const analysis = parseAIAnalysis(analysisText, gameType);
 
-    // Add card images to the analysis
+    // Add card images to the analysis with timeout
     if (analysis) {
-      analysis.cardImages = await getCardImages(deckCode, gameType, deckData);
+      try {
+        const imageTimeoutPromise = new Promise((_, reject) => {
+          setTimeout(() => reject(new Error('Card image fetching timed out')), 3000); // 3 second timeout
+        });
+
+        analysis.cardImages = await Promise.race([
+          getCardImages(deckCode, gameType, deckData),
+          imageTimeoutPromise
+        ]);
+      } catch (imageError) {
+        console.warn('Card image fetching failed or timed out:', imageError.message);
+        analysis.cardImages = []; // Fallback to no images
+      }
     }
 
     return analysis;
