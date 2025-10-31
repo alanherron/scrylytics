@@ -86,6 +86,7 @@ const TestChart = () => {
   console.log('🧪 TestChart: Data:', testData);
 
   try {
+    // TEMPORARILY DISABLE RECHARTS IN TEST CHART
     return (
       <div>
         <div style={{
@@ -97,15 +98,19 @@ const TestChart = () => {
         }}>
           ✅ If you see this green box, TestChart component is rendering!
         </div>
-        <div style={{ width: '100%', height: '200px', border: '2px solid #000', margin: '1rem 0' }}>
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={testData}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="value" fill="#8884d8" />
-            </BarChart>
-          </ResponsiveContainer>
+        <div style={{
+          width: '100%',
+          height: '200px',
+          border: '2px solid #000',
+          margin: '1rem 0',
+          backgroundColor: '#f0f0f0',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '1.2rem',
+          color: '#666'
+        }}>
+          📊 Test Chart Temporarily Disabled (Recharts)
         </div>
       </div>
     );
@@ -132,28 +137,6 @@ const TestChart = () => {
 export default function InsightsPage() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [rechartsStatus, setRechartsStatus] = useState('checking');
-  const [pageLoaded, setPageLoaded] = useState(false);
-
-  // Cache busting - force reload if chunks are outdated
-  React.useEffect(() => {
-    const currentTime = Date.now();
-    const lastLoadTime = localStorage.getItem('insightsPageLoadTime');
-
-    if (!lastLoadTime || (currentTime - parseInt(lastLoadTime)) > 300000) { // 5 minutes
-      console.log('🔄 Cache busting: First load or old cache detected');
-      localStorage.setItem('insightsPageLoadTime', currentTime.toString());
-    }
-
-    // Check if we need to reload due to chunk mismatch
-    const checkChunks = () => {
-      const scripts = document.querySelectorAll('script[src*="/_next/static/chunks/app/insights/"]');
-      if (scripts.length === 0) {
-        console.warn('⚠️ No insights chunks found, page may need reload');
-      }
-    };
-
-    setTimeout(checkChunks, 1000);
-  }, []);
 
   // Check if Recharts is available
   React.useEffect(() => {
@@ -173,23 +156,13 @@ export default function InsightsPage() {
       setRechartsStatus('error');
     }
 
-    // Also check window object
-    setTimeout(() => {
-      console.log('🔍 Window recharts check:', typeof window !== 'undefined' ? 'window available' : 'no window');
-      setPageLoaded(true);
-    }, 100);
+    console.log('🔍 Window recharts check:', typeof window !== 'undefined' ? 'window available' : 'no window');
   }, []);
 
   const deck = PREBUILT_DECKS[selectedIndex];
 
   const result = useMemo(() => {
-    console.log('🎲 useMemo triggered:', { pageLoaded, deckName: deck?.name });
-
-    // TEMPORARILY REMOVE pageLoaded CHECK TO FORCE ANALYSIS
-    // if (!pageLoaded) {
-    //   console.log('⏳ Page not loaded yet, skipping analysis');
-    //   return null;
-    // }
+    console.log('🎲 useMemo triggered:', { deckName: deck?.name });
 
     if (!deck) {
       console.log('⏳ Deck not available yet, skipping analysis');
@@ -212,7 +185,7 @@ export default function InsightsPage() {
       console.error('💥 Error in analyzeDeck:', error);
       return { error: 'Analysis failed', issue: 'MANA_CURVE_SKEW' as const, data: [], caption: 'Failed to analyze deck', title: 'Analysis Error' };
     }
-  }, [deck]); // REMOVED pageLoaded dependency
+  }, [deck]); // Only depend on deck, not pageLoaded
 
   // Basic error boundary
   try {
@@ -324,7 +297,7 @@ export default function InsightsPage() {
         fontSize: "0.8rem",
         textAlign: "center"
       }}>
-        🔍 DEBUG: pageLoaded={String(pageLoaded)}, result={result ? 'EXISTS' : 'NULL'}, deck={deck?.name || 'NONE'}
+        🔍 DEBUG: result={result ? 'EXISTS' : 'NULL'}, deck={deck?.name || 'NONE'}
       </div>
 
       <header className="space-y-2">
@@ -343,9 +316,9 @@ export default function InsightsPage() {
           textAlign: "center",
           marginBottom: "1rem"
         }}>
-          <strong>⏳ LOADING...</strong> Waiting for page to initialize
+          <strong>⏳ LOADING...</strong> Analyzing deck
           <br />
-          <small>If this persists, charts are blocked by initialization</small>
+          <small>Deck analysis in progress</small>
         </div>
       )}
 
