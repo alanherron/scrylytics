@@ -217,20 +217,25 @@ export const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption
     title
   });
 
-  // VISUAL DEBUG INDICATOR - If you see this purple box, InsightChart is rendering!
-  const debugIndicator = (
+  // TEMPORARY: Just return a simple test to verify component is called
+  return (
     <div style={{
-      padding: "0.5rem",
-      backgroundColor: "#8b5cf6",
+      padding: "2rem",
+      backgroundColor: "#ff6b35",
       color: "#ffffff",
-      border: "2px solid #000000",
-      borderRadius: "4px",
-      marginBottom: "1rem",
-      fontSize: "0.8rem",
+      border: "4px solid #000000",
+      borderRadius: "8px",
+      margin: "2rem 0",
+      fontSize: "1.2rem",
       fontWeight: "bold",
       textAlign: "center"
     }}>
-      🟣 InsightChart COMPONENT IS RENDERING! Issue: {issue}, Data: {data?.length || 0} items
+      🎯 InsightChart IS BEING CALLED!<br/>
+      Issue: {issue}<br/>
+      Data items: {data?.length || 0}<br/>
+      Data: {JSON.stringify(data?.slice(0, 2))}<br/>
+      <br/>
+      If you see this ORANGE box, the component is working!
     </div>
   );
 
