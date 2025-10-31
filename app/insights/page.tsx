@@ -159,7 +159,12 @@ export default function InsightsPage() {
           Build #19 - Cache Busting Added
           <br />
           <button
-            onClick={() => window.location.reload(true)}
+            onClick={() => {
+              // Clear localStorage to force fresh load
+              localStorage.removeItem('insightsPageLoadTime');
+              // Force hard reload
+              window.location.href = window.location.href;
+            }}
             style={{
               backgroundColor: "#ffffff",
               color: "#ff0000",
