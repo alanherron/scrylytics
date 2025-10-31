@@ -15,17 +15,20 @@ export async function POST(request) {
       return Response.json({ error: 'Deck code is required' }, { status: 400 });
     }
 
-    if (!process.env.OPENAI_API_KEY) {
-      // Fallback to basic analysis if no API key
-      console.warn('No OpenAI API key found, using basic analysis');
+    console.log('Analyzing deck:', { gameType, deckCodeLength: deckCode.length });
+    console.log('OpenAI API key available:', !!process.env.OPENAI_API_KEY);
+
+    // Always try AI analysis first, fallback to basic if it fails
+    try {
+      const analysis = await analyzeDeckWithAI(deckCode.trim(), gameType);
+      console.log('AI analysis completed successfully');
+      return Response.json(analysis);
+    } catch (aiError) {
+      console.warn('AI analysis failed, falling back to basic:', aiError.message);
       const analysis = analyzeDeckBasic(deckCode.trim(), gameType);
+      analysis.fallbackReason = 'AI analysis unavailable';
       return Response.json(analysis);
     }
-
-    // Use AI for advanced analysis
-    const analysis = await analyzeDeckWithAI(deckCode.trim(), gameType);
-
-    return Response.json(analysis);
   } catch (error) {
     console.error('Deck analysis error:', error);
     return Response.json({ error: 'Failed to analyze deck' }, { status: 500 });
@@ -237,34 +240,44 @@ function createFallbackAnalysis(text, gameType) {
 // Get card images for key cards in the deck
 async function getCardImages(deckCode, gameType, deckData) {
   const cardImages = [];
+  console.log('Getting card images for:', { gameType, hasDeckData: !!deckData });
 
   try {
     if (gameType === 'magic' && deckData?.mainDeck) {
-      // For Magic, get images for up to 6 key cards to avoid timeouts
-      const keyCards = deckData.mainDeck.slice(0, 6);
+      console.log('Processing Magic deck with', deckData.mainDeck.length, 'cards');
+      const keyCards = deckData.mainDeck.slice(0, 6); // Limit to 6 key cards
+      console.log('Key cards to process:', keyCards.map(c => c.name));
 
       for (const card of keyCards) {
+        if (cardImages.length >= 6) break; // Ensure we don't exceed limit
+
         try {
-          // Add a small delay between requests to be respectful to the API
+          console.log(`Fetching image for: ${card.name}`);
           if (cardImages.length > 0) {
-            await new Promise(resolve => setTimeout(resolve, 100));
+            await new Promise(resolve => setTimeout(resolve, 100)); // Delay for API
           }
 
           const cardData = await getCardByName(card.name);
+          console.log(`Card data for ${card.name}:`, !!cardData, cardData?.image_uris?.normal ? 'has image' : 'no image');
+
           if (cardData && cardData.image_uris?.normal) {
             cardImages.push({
               name: card.name,
               count: card.count,
               imageUrl: cardData.image_uris.normal
             });
+            console.log(`Added image for ${card.name}`);
+          } else {
+            console.warn(`No image found for ${card.name}`);
           }
         } catch (error) {
-          console.warn(`Failed to get image for ${card.name}:`, error);
+          console.warn(`Failed to get image for ${card.name}:`, error.message);
           // Continue with other cards even if one fails
         }
       }
 
     } else if (gameType === 'hearthstone' && deckData?.cards) {
+      console.log('Processing Hearthstone deck');
       // For Hearthstone, we'd need to implement card lookup by ID
       // For now, return placeholder - in real implementation, use Hearthstone API
       cardImages.push({
@@ -272,11 +285,14 @@ async function getCardImages(deckCode, gameType, deckData) {
         count: 2,
         imageUrl: 'https://via.placeholder.com/200x300?text=Hearthstone+Card'
       });
+    } else {
+      console.warn('No deck data available for card images:', { gameType, hasMainDeck: !!deckData?.mainDeck, hasCards: !!deckData?.cards });
     }
   } catch (error) {
     console.error('Failed to fetch card images:', error);
   }
 
+  console.log('Returning', cardImages.length, 'card images');
   return cardImages;
 }
 
