@@ -5,9 +5,7 @@ import OpenAI from 'openai';
 import { fetchAllCards, parseDeckCode, validateDeck, getCardSynergies, calculateDeckStats } from '../../../lib/hearthstone.js';
 import { parseMagicDeckList, validateMagicDeck, calculateMagicStats, getMagicSynergies, getCardByName, getCardImageUrl } from '../../../lib/magic.js';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+let openai = null;
 
 export async function POST(request) {
   try {
@@ -61,6 +59,16 @@ async function analyzeDeckWithAI(deckCode, gameType) {
     }
 
     const prompt = createAnalysisPrompt(deckCode, gameType, deckData, validation);
+
+    // Initialize OpenAI client lazily to avoid build-time issues
+    if (!openai) {
+      if (!process.env.OPENAI_API_KEY) {
+        throw new Error('OPENAI_API_KEY environment variable is required');
+      }
+      openai = new OpenAI({
+        apiKey: process.env.OPENAI_API_KEY,
+      });
+    }
 
     const response = await openai.chat.completions.create({
       model: 'gpt-4',
