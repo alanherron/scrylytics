@@ -260,7 +260,7 @@ function createFallbackAnalysis(text, gameType) {
 // Get card images for key cards in the deck
 async function getCardImages(deckCode, gameType, deckData) {
   const cardImages = [];
-  console.log('Getting card images for:', { gameType, hasDeckData: !!deckData });
+  console.log('Getting card images for:', { gameType, hasDeckData: !!deckData, deckCodeLength: deckCode?.length });
 
   // Skip expensive card image fetching in CI mode
   if (guard.shouldSkipAnalysis) {
@@ -271,6 +271,7 @@ async function getCardImages(deckCode, gameType, deckData) {
   try {
     if (gameType === 'magic' && deckData?.mainDeck) {
       console.log('Processing Magic deck with', deckData.mainDeck.length, 'cards');
+      console.log('Deck data structure:', JSON.stringify(deckData, null, 2));
       const keyCards = deckData.mainDeck.slice(0, 6); // Limit to 6 key cards
       console.log('Key cards to process:', keyCards.map(c => c.name));
 
