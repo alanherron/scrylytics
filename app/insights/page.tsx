@@ -399,6 +399,23 @@ export default function InsightsPage() {
           caption={result.caption}
           title={result.title}
         />
+        {/* DEBUG: Show what data is being passed */}
+        <div style={{
+          padding: "0.5rem",
+          backgroundColor: "#ff6b6b",
+          color: "#ffffff",
+          border: "2px solid #000000",
+          borderRadius: "4px",
+          marginTop: "1rem",
+          fontSize: "0.7rem",
+          fontFamily: "monospace"
+        }}>
+          🔴 DEBUG DATA PASSED TO CHART:<br/>
+          Issue: {result.issue}<br/>
+          Data length: {result.data?.length}<br/>
+          Data type: {typeof result.data}<br/>
+          Data sample: {JSON.stringify(result.data?.slice(0, 3))}
+        </div>
       </div>
 
       <section className="text-sm opacity-80">
