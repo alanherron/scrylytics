@@ -1,50 +1,84 @@
-name: Skip Vercel Deploy if No Code Changes
+name: Skip Vercel Deployment
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
+    types: [opened, synchronize, reopened, edited]
+  push:
+    branches: [main, develop]
+  workflow_call:
+    outputs:
+      should_skip:
+        value: ${{ jobs.skip-vercel.outputs.should_skip }}
 
 jobs:
-  check:
+  skip-vercel:
     runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.check.outputs.should_skip }}
+
     steps:
-      - name: Checkout (shallow clone with parent commit)
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
-      - name: Detect relevant code changes
-        id: diff
-        shell: bash
+      - name: Check for skip conditions
+        id: check
         run: |
-          # If this is the very first commit, don't skip
-          if ! git rev-parse --verify HEAD^ >/dev/null 2>&1; then
-            echo "skip=false" >> "$GITHUB_OUTPUT"
-            exit 0
+          echo "Checking deployment skip conditions..."
+
+          # Check if PR title/body contains skip keywords
+          if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+            echo "PR Title: $PR_TITLE"
+            echo "PR Body: $PR_BODY"
+
+            # Skip if PR title contains [skip vercel], [no-deploy], etc.
+            if [[ "$PR_TITLE" =~ (\[skip\ vercel\]|\[no-deploy\]|\[skip\ deploy\]) ]] || [[ "$PR_BODY" =~ (skip.*vercel|no.*deploy|skip.*deploy) ]]; then
+              echo "should_skip=true" >> $GITHUB_OUTPUT
+              echo "Skipping Vercel deployment due to skip keywords in PR"
+              exit 0
+            fi
           fi
 
-          # Files that actually matter for a Next.js deploy:
-          # - app/, src/, components/, public/ assets
-          # - package.json / lockfiles, next.config.js, ts/ js configs
-          CHANGED="$(git diff --name-only HEAD^ HEAD | \
-            grep -E '^(app/|src/|components/|public/|styles/|next\.config\.js|package\.json|package-lock\.json|pnpm-lock\.yaml|yarn\.lock|tsconfig\.json|jsconfig\.json)' || true)"
+          # Check if commit message contains skip keywords
+          if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
+            COMMIT_MSG=$(git log -1 --pretty=%B)
+            echo "Commit message: $COMMIT_MSG"
 
-          if [ -z "$CHANGED" ]; then
-            echo "No relevant changes detected."
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "Relevant changes:"
-            echo "$CHANGED"
-            echo "skip=false" >> "$GITHUB_OUTPUT"
+            if [[ "$COMMIT_MSG" =~ (\[skip\ vercel\]|\[no-deploy\]|\[skip\ deploy\]) ]]; then
+              echo "should_skip=true" >> $GITHUB_OUTPUT
+              echo "Skipping Vercel deployment due to skip keywords in commit"
+              exit 0
+            fi
           fi
 
-      - name: Stop early (no deploy-worthy changes)
-        if: steps.diff.outputs.skip == 'true'
-        run: |
-          echo "🟡 Skipping deploy steps — no app code changed."
-          exit 0
+          # Check for changes that don't require deployment
+          if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+            # Get changed files
+            CHANGED_FILES=$(git diff --name-only $BASE_SHA $HEAD_SHA)
+            echo "Changed files:"
+            echo "$CHANGED_FILES"
 
-      - name: Proceed (deploy-worthy changes present)
-        if: steps.diff.outputs.skip != 'true'
-        run: echo "✅ App changes detected — Vercel can deploy this push."
+            # Skip if only documentation/docs files changed
+            if echo "$CHANGED_FILES" | grep -q '^docs/' && ! echo "$CHANGED_FILES" | grep -v '^docs/'; then
+              echo "should_skip=true" >> $GITHUB_OUTPUT
+              echo "Skipping Vercel deployment - only docs files changed"
+              exit 0
+            fi
+
+            # Skip if only README or license changed
+            if echo "$CHANGED_FILES" | grep -E '^(README\.md|LICENSE)$' && ! echo "$CHANGED_FILES" | grep -v -E '^(README\.md|LICENSE)$'; then
+              echo "should_skip=true" >> $GITHUB_OUTPUT
+              echo "Skipping Vercel deployment - only README/LICENSE changed"
+              exit 0
+            fi
+          fi
+
+          echo "should_skip=false" >> $GITHUB_OUTPUT
+          echo "Proceeding with Vercel deployment"
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}

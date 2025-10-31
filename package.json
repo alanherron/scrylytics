@@ -7,10 +7,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "vercel-build": "next build"
+    "vercel-build": "next build",
+    "setup-ci": "bash scripts/setup-ci-cd.sh",
+    "setup-branch-protection": "bash scripts/setup-branch-protection.sh",
+    "lint": "next lint",
+    "test": "echo \"No tests specified\" && exit 0"
   },
   "dependencies": {
     "next": "^15.0.0",
+    "openai": "^6.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

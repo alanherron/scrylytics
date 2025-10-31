@@ -14,11 +14,24 @@ Scrylytics is an AI-powered analytics and deck optimization platform for collect
 
 | Module | Description |
 |---------|-------------|
-| 🧙‍♂️ **Decklytics** | AI deck analyzer — grades, synergies, and optimization suggestions. |
-| ⚔️ **Playlytics** | Game simulation and matchup testing. |
-| 📊 **Metalyzer** | Meta tracking and statistical reports across formats. |
+| 🧙‍♂️ **Decklytics** | AI deck analyzer — grades, synergies, and optimization suggestions. ✅ |
+| 🎴 **Multi-Game Support** | Hearthstone & Magic: The Gathering with card images | ✅ |
+| ⚔️ **Playlytics** | Game simulation and matchup testing. ✅ |
+| 📊 **Metalyzer** | Meta tracking and statistical reports across formats. ✅ |
 | 🔥 **Forge** | Intelligent deck builder powered by generative AI. |
 | 🤖 **Coach AI** | Personalized insights and guided improvements for your decks. |
+| 👤 **User System** | Account management, deck saving, and personal analytics. ✅ |
+
+---
+
+## 🚀 **Status: DevOps Pipeline Active**
+
+✅ **Automated Deployments**: GitHub Actions + Vercel
+✅ **Branch Protection**: main & develop branches protected (2 reviews required)
+✅ **Smart Deployments**: Skip logic for docs-only changes
+✅ **Live Site**: [scrylytics.com](https://www.scrylytics.com)
+✅ **Security**: Linear history, conversation resolution, admin enforcement
+✅ **Testing**: Deployment verification in progress
 
 ---
 
@@ -40,4 +53,18 @@ Scrylytics is an AI-powered analytics and deck optimization platform for collect
 ```bash
 git clone https://github.com/<your-username>/scrylytics.git
 cd scrylytics
-# touch to trigger PR
+```
+
+### 2️⃣ Set up CI/CD (Automated)
+```bash
+# Run the automated setup script
+bash scripts/setup-ci-cd.sh
+```
+
+This will configure:
+- ✅ GitHub branch protection for `main` and `develop`
+- ✅ Automated Vercel deployments with skip logic
+- ✅ CI/CD workflows and rules
+
+### 3️⃣ Manual Setup (Alternative)
+If you prefer manual setup, see [CI/CD Setup Guide](docs/ci-cd-setup.md)

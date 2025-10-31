@@ -1,0 +1,8 @@
+goals:
+  - Maintain branch protection rules for main
+  - Ensure skip-vercel.yml is synced with repo
+  - Monitor PR checks and auto-fix missing contexts
+  - Resolve workflow dependency errors automatically
+permissions:
+  - git: read/write
+  - shell: gh, vercel, node
