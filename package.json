@@ -11,7 +11,8 @@
     "setup-ci": "bash scripts/setup-ci-cd.sh",
     "setup-branch-protection": "bash scripts/setup-branch-protection.sh",
     "lint": "next lint",
-    "test": "echo \"No tests specified\" && exit 0"
+    "test": "echo \"No tests specified\" && exit 0",
+    "ci:doctor": "node -e \"console.log('🔍 CI Health Check:', require('./src/analyzer/guard.cjs').isCI ? 'CI detected - analyzer disabled' : 'Development mode - analyzer enabled')\""
   },
   "dependencies": {
     "next": "^15.0.0",

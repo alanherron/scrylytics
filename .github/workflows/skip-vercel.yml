@@ -9,10 +9,12 @@ on:
     outputs:
       should_skip:
         value: ${{ jobs.skip-vercel.outputs.should_skip }}
+  workflow_dispatch:
 
 jobs:
   skip-vercel:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     outputs:
       should_skip: ${{ steps.check.outputs.should_skip }}
 
