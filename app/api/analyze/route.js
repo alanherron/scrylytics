@@ -41,7 +41,22 @@ export async function POST(request) {
 
       // Still try to get basic card images in development mode
       try {
-        analysis.cardImages = await getCardImages(deckCode.trim(), gameType, null);
+        // Try to parse the deck for card images even if AI failed
+        let parsedDeckData = null;
+        if (gameType === 'magic') {
+          try {
+            parsedDeckData = parseMagicDeckList(deckCode.trim());
+          } catch (parseError) {
+            console.warn('Deck parsing failed for card images:', parseError.message);
+          }
+        } else if (gameType === 'hearthstone') {
+          try {
+            parsedDeckData = await parseDeckCode(deckCode.trim());
+          } catch (parseError) {
+            console.warn('Hearthstone deck parsing failed for card images:', parseError.message);
+          }
+        }
+        analysis.cardImages = await getCardImages(deckCode.trim(), gameType, parsedDeckData);
       } catch (imageError) {
         console.warn('Card image fetching also failed:', imageError.message);
         analysis.cardImages = [];
