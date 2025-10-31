@@ -16,7 +16,7 @@ export async function POST(request) {
       return Response.json({ error: 'Deck code is required' }, { status: 400 });
     }
 
-    console.log('Analyzing deck:', { gameType, deckCodeLength: deckCode.length });
+    console.log('Analyzing deck:', { gameType, deckCodeLength: deckCode.length, firstLine: deckCode.split('\n')[0] });
     console.log('OpenAI API key available:', !!process.env.OPENAI_API_KEY);
     console.log('CI mode:', guard.isCI ? 'enabled' : 'disabled');
 
