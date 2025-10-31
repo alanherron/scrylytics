@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { VERSION, BUILD_DATE } from '../../lib/version.js';
 
 export default function Analyzer() {
   const [deckCode, setDeckCode] = useState('');
@@ -311,6 +312,32 @@ export default function Analyzer() {
           </div>
         </div>
       </div>
+
+      {/* Version Footer */}
+      <footer style={{
+        marginTop:"3rem",
+        paddingTop:"2rem",
+        borderTop:"1px solid #e5e7eb",
+        textAlign:"center",
+        color:"#6b7280",
+        fontSize:"0.9rem"
+      }}>
+        <div style={{marginBottom:"0.5rem"}}>
+          <strong>Scrylytics v{VERSION}</strong> • Built {BUILD_DATE}
+        </div>
+        <div style={{fontSize:"0.8rem"}}>
+          AI-powered deck analysis with card images
+        </div>
+        <div style={{marginTop:"0.5rem", fontSize:"0.8rem"}}>
+          <a
+            href="/api/version"
+            target="_blank"
+            style={{color:"#4f46e5", textDecoration:"none"}}
+          >
+            API Version Info →
+          </a>
+        </div>
+      </footer>
     </div>
   );
 }
