@@ -9,7 +9,16 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-  Legend
+  Legend,
+  LineChart,
+  Line,
+  RadarChart,
+  Radar,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  AreaChart,
+  Area
 } from "recharts";
 
 type Props = { issue: string; data: Array<{ mana: number; count: number }> };
@@ -20,100 +29,242 @@ export default function InsightChart({ issue, data }: Props) {
     return <div>No data for chart.</div>;
   }
 
-  // Create a gradient for the bars
-  const gradientId = "manaCurveGradient";
+  // Hand-drawn sketch styling
+  const sketchStyle = {
+    filter: "url(#sketchFilter)",
+    strokeWidth: 2,
+    strokeLinejoin: "round" as const,
+    strokeLinecap: "round" as const,
+  };
+
+  const getChartType = (issue: string) => {
+    switch (issue) {
+      case "MANA_CURVE_SKEW":
+        return "bar";
+      case "DRAW_INCONSISTENCY":
+        return "line";
+      case "ROLE_MISMATCH":
+        return "radar";
+      case "WEAK_SYNERGY_CHAINS":
+        return "area";
+      case "TECH_GAPS":
+        return "bar";
+      case "MATCHUP_PAINS":
+        return "radar";
+      case "HAND_SIZE_PRESSURE":
+        return "line";
+      case "BOARD_TEMPO_GAPS":
+        return "area";
+      default:
+        return "bar";
+    }
+  };
+
+  const chartType = getChartType(issue);
+
+  const renderChart = () => {
+    switch (chartType) {
+      case "line":
+        return (
+          <LineChart data={data}>
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="#8b5cf6"
+              opacity={0.3}
+              strokeWidth={1}
+            />
+            <XAxis
+              dataKey="mana"
+              tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
+              axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
+              tickLine={{ stroke: "#a855f7" }}
+            />
+            <YAxis
+              tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
+              allowDecimals={false}
+              axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
+              tickLine={{ stroke: "#a855f7" }}
+            />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "#fef3c7",
+                border: "2px solid #f59e0b",
+                borderRadius: "8px",
+                fontFamily: "cursive"
+              }}
+            />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="count"
+              stroke="#f59e0b"
+              strokeWidth={3}
+              dot={{ fill: "#f59e0b", strokeWidth: 2, r: 6 }}
+              activeDot={{ r: 8, fill: "#d97706" }}
+              {...sketchStyle}
+            />
+          </LineChart>
+        );
+
+      case "radar":
+        const radarData = data.map(item => ({
+          subject: `Mana ${item.mana}`,
+          value: item.count,
+          fullMark: Math.max(...data.map(d => d.count)) + 2
+        }));
+        return (
+          <RadarChart data={radarData}>
+            <PolarGrid stroke="#8b5cf6" strokeWidth={1} />
+            <PolarAngleAxis
+              dataKey="subject"
+              tick={{ fill: "#7c3aed", fontSize: 11, fontFamily: "cursive" }}
+            />
+            <PolarRadiusAxis
+              angle={90}
+              domain={[0, 'dataMax + 2']}
+              tick={{ fill: "#7c3aed", fontSize: 10, fontFamily: "cursive" }}
+            />
+            <Radar
+              name="Card Count"
+              dataKey="value"
+              stroke="#f59e0b"
+              fill="#fef3c7"
+              fillOpacity={0.6}
+              strokeWidth={2}
+              {...sketchStyle}
+            />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "#fef3c7",
+                border: "2px solid #f59e0b",
+                borderRadius: "8px",
+                fontFamily: "cursive"
+              }}
+            />
+          </RadarChart>
+        );
+
+      case "area":
+        return (
+          <AreaChart data={data}>
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="#8b5cf6"
+              opacity={0.3}
+              strokeWidth={1}
+            />
+            <XAxis
+              dataKey="mana"
+              tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
+              axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
+              tickLine={{ stroke: "#a855f7" }}
+            />
+            <YAxis
+              tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
+              allowDecimals={false}
+              axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
+              tickLine={{ stroke: "#a855f7" }}
+            />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "#fef3c7",
+                border: "2px solid #f59e0b",
+                borderRadius: "8px",
+                fontFamily: "cursive"
+              }}
+            />
+            <Area
+              type="monotone"
+              dataKey="count"
+              stroke="#f59e0b"
+              fill="#fef3c7"
+              fillOpacity={0.8}
+              strokeWidth={2}
+              {...sketchStyle}
+            />
+          </AreaChart>
+        );
+
+      default: // bar chart
+        return (
+          <BarChart data={data}>
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="#8b5cf6"
+              opacity={0.3}
+              strokeWidth={1}
+            />
+            <XAxis
+              dataKey="mana"
+              tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
+              axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
+              tickLine={{ stroke: "#a855f7" }}
+            />
+            <YAxis
+              tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
+              allowDecimals={false}
+              axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
+              tickLine={{ stroke: "#a855f7" }}
+            />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "#fef3c7",
+                border: "2px solid #f59e0b",
+                borderRadius: "8px",
+                fontFamily: "cursive"
+              }}
+            />
+            <Legend />
+            <Bar
+              dataKey="count"
+              name="Cards"
+              fill="#f59e0b"
+              stroke="#d97706"
+              strokeWidth={2}
+              radius={[8, 8, 0, 0]}
+              {...sketchStyle}
+            />
+          </BarChart>
+        );
+    }
+  };
 
   return (
-    <div style={{ width: "100%", height: "280px", position: "relative" }}>
+    <div style={{
+      width: "100%",
+      height: "320px",
+      position: "relative",
+      backgroundColor: "#fefefe",
+      borderRadius: "12px",
+      padding: "10px",
+      boxShadow: "0 4px 12px rgba(139, 92, 246, 0.15)"
+    }}>
+      {/* Hand-drawn sketch filter */}
       <svg style={{ position: "absolute", width: 0, height: 0 }}>
         <defs>
-          <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#3b82f6" />
-            <stop offset="70%" stopColor="#1d4ed8" />
-            <stop offset="100%" stopColor="#1e40af" />
-          </linearGradient>
+          <filter id="sketchFilter" x="-50%" y="-50%" width="200%" height="200%">
+            <feTurbulence baseFrequency="0.9" numOctaves="4" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" />
+          </filter>
         </defs>
       </svg>
 
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart
-          data={data}
-          margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
-        >
-          <CartesianGrid
-            strokeDasharray="2 2"
-            stroke="#f3f4f6"
-            opacity={0.8}
-            horizontal={true}
-            vertical={false}
-          />
-          <XAxis
-            dataKey="mana"
-            tick={{ fill: "#6b7280", fontSize: 13, fontWeight: 500 }}
-            axisLine={{ stroke: "#e5e7eb", strokeWidth: 2 }}
-            tickLine={{ stroke: "#e5e7eb" }}
-            label={{
-              value: "Mana Cost",
-              position: "insideBottom",
-              offset: -10,
-              style: { textAnchor: "middle", fill: "#374151", fontWeight: 500 }
-            }}
-          />
-          <YAxis
-            tick={{ fill: "#6b7280", fontSize: 13, fontWeight: 500 }}
-            allowDecimals={false}
-            axisLine={{ stroke: "#e5e7eb", strokeWidth: 2 }}
-            tickLine={{ stroke: "#e5e7eb" }}
-            label={{
-              value: "Card Count",
-              angle: -90,
-              position: "insideLeft",
-              style: { textAnchor: "middle", fill: "#374151", fontWeight: 500 }
-            }}
-          />
-          <Tooltip
-            contentStyle={{
-              backgroundColor: "#ffffff",
-              border: "1px solid #e5e7eb",
-              borderRadius: "12px",
-              boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-              padding: "12px",
-              fontSize: "14px"
-            }}
-            labelStyle={{
-              color: "#374151",
-              fontWeight: 600,
-              marginBottom: "4px"
-            }}
-            itemStyle={{
-              color: "#3b82f6",
-              fontWeight: 500
-            }}
-            formatter={(value: any, name: string) => [
-              `${value} cards`,
-              "Count"
-            ]}
-            labelFormatter={(label) => `Mana Cost: ${label}`}
-          />
-          <Legend
-            wrapperStyle={{
-              paddingTop: "15px",
-              fontSize: "14px",
-              fontWeight: 500
-            }}
-            iconType="rect"
-          />
-          <Bar
-            dataKey="count"
-            name="Cards"
-            fill={`url(#${gradientId})`}
-            radius={[6, 6, 0, 0]}
-            stroke="#1e40af"
-            strokeWidth={1}
-            maxBarSize={60}
-          />
-        </BarChart>
+        {renderChart()}
       </ResponsiveContainer>
+
+      {/* Hand-drawn border effect */}
+      <div style={{
+        position: "absolute",
+        top: "5px",
+        left: "5px",
+        right: "5px",
+        bottom: "5px",
+        border: "2px solid #8b5cf6",
+        borderRadius: "8px",
+        pointerEvents: "none",
+        filter: "url(#sketchFilter)"
+      }} />
     </div>
   );
 }

@@ -128,26 +128,38 @@ export default function InsightsPage() {
         <p>Pick a deck to see analysis and charts</p>
       </header>
 
-      <div style={{marginBottom:"2rem"}}>
-        <label style={{display:"block", marginBottom:"0.5rem", fontWeight:"500"}}>
-          Select Deck:
-        </label>
-        <select
-          value={selectedIndex}
-          onChange={(e) => setSelectedIndex(parseInt(e.target.value, 10))}
-          style={{
-            width:"100%",
-            padding:"0.5rem",
-            borderRadius:"4px",
-            border:"1px solid #ccc",
-            fontSize:"1rem"
-          }}
-        >
-          {PREBUILT_DECKS.map((d, i) => (
-            <option key={d.name} value={i}>{d.name}</option>
-          ))}
-        </select>
-      </div>
+          <div style={{marginBottom:"2rem"}}>
+            <label style={{display:"block", marginBottom:"0.5rem", fontWeight:"500"}}>
+              Select Deck to See Different Chart Types:
+            </label>
+            <select
+              value={selectedIndex}
+              onChange={(e) => setSelectedIndex(parseInt(e.target.value, 10))}
+              style={{
+                width:"100%",
+                padding:"0.5rem",
+                borderRadius:"4px",
+                border:"1px solid #ccc",
+                fontSize:"1rem",
+                backgroundColor: "#fefefe",
+                border: "2px solid #8b5cf6"
+              }}
+            >
+              {PREBUILT_DECKS.map((d, i) => (
+                <option key={d.name} value={i}>
+                  {d.name} - {d.chartType} Chart
+                </option>
+              ))}
+            </select>
+            <div style={{
+              marginTop: "0.5rem",
+              fontSize: "0.9rem",
+              color: "#6b7280",
+              fontStyle: "italic"
+            }}>
+              💡 Try different decks to see Bar, Line, Radar, and Area chart variations!
+            </div>
+          </div>
 
           <div style={{
             backgroundColor: "#ecfdf5",
