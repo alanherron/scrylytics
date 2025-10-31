@@ -1,7 +1,8 @@
 // AI-powered deck analysis API for Scrylytics
-// Uses OpenAI GPT-4 for intelligent deck analysis
+// Uses OpenAI GPT-4 with HearthstoneJSON data for intelligent deck analysis
 
 import OpenAI from 'openai';
+import { fetchAllCards, parseDeckCode, validateDeck, getCardSynergies, calculateDeckStats } from '../../../lib/hearthstone.js';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -34,14 +35,29 @@ export async function POST(request) {
 
 async function analyzeDeckWithAI(deckCode, gameType) {
   try {
-    const prompt = createAnalysisPrompt(deckCode, gameType);
+    // For Hearthstone, try to parse the deck code and get real data
+    let deckData = null;
+    let validation = null;
+
+    if (gameType === 'hearthstone') {
+      try {
+        deckData = await parseDeckCode(deckCode);
+        validation = await validateDeck(deckData);
+        deckData.stats = calculateDeckStats(deckData);
+        deckData.synergies = await getCardSynergies(null, deckData);
+      } catch (parseError) {
+        console.warn('Deck parsing failed, proceeding with basic analysis:', parseError);
+      }
+    }
+
+    const prompt = createAnalysisPrompt(deckCode, gameType, deckData, validation);
 
     const response = await openai.chat.completions.create({
       model: 'gpt-4',
       messages: [
         {
           role: 'system',
-          content: `You are an expert ${gameType} deck analyst. Analyze the provided deck and return a JSON response with detailed analysis including score, strengths, weaknesses, suggestions, and synergies. Be constructive and helpful.`
+          content: `You are an expert ${gameType} deck analyst with deep knowledge of game mechanics, meta strategies, and card interactions. Analyze the provided deck data and return a detailed JSON response. Use real game knowledge to provide accurate, actionable analysis.`
         },
         {
           role: 'user',
@@ -62,30 +78,56 @@ async function analyzeDeckWithAI(deckCode, gameType) {
   }
 }
 
-function createAnalysisPrompt(deckCode, gameType) {
+function createAnalysisPrompt(deckCode, gameType, deckData = null, validation = null) {
+  const basePrompt = `You are a professional ${gameType} deck analyst. Analyze this deck and provide expert-level feedback.`;
+
   if (gameType === 'hearthstone') {
-    return `Analyze this Hearthstone deck code: ${deckCode}
+    let prompt = `Analyze this Hearthstone deck code: ${deckCode}\n\n`;
 
-Please provide a detailed analysis including:
-1. Overall score (1-10 scale)
-2. Letter grade (S, A, B, C, D, F)
-3. Key strengths (3-5 points)
-4. Major weaknesses (2-4 points)
-5. Specific improvement suggestions (3-5 actionable items)
-6. Card synergies grouped by type (minions, spells, weapons, hero powers)
+    if (deckData) {
+      prompt += `Parsed deck data:\n`;
+      prompt += `- Class: ${deckData.hero}\n`;
+      prompt += `- Total cards: ${deckData.totalCards}\n`;
+      prompt += `- Mana curve: ${JSON.stringify(deckData.stats?.manaCurve || [])}\n`;
+      prompt += `- Average cost: ${deckData.stats?.averageCost?.toFixed(1) || 'N/A'}\n`;
 
+      if (validation && !validation.valid) {
+        prompt += `\nValidation issues: ${validation.issues.join(', ')}\n`;
+      }
+
+      if (deckData.synergies) {
+        prompt += `\nDetected synergies:\n`;
+        Object.entries(deckData.synergies).forEach(([type, cards]) => {
+          if (cards.length > 0) {
+            prompt += `- ${type}: ${cards.join(', ')}\n`;
+          }
+        });
+      }
+    }
+
+    prompt += `\nAs a Hearthstone expert, provide detailed analysis including:
+1. Overall score (1-10 scale) considering current meta
+2. Letter grade (S, A, B, C, D, F) with reasoning
+3. Key strengths (3-5 specific advantages)
+4. Major weaknesses (2-4 areas needing improvement)
+5. Specific improvement suggestions (3-5 actionable changes)
+6. Card synergies grouped by mechanic (taunts, removal, buffs, damage, card draw, etc.)
+
+Consider current Hearthstone meta, card interactions, and strategic viability.
 Format your response as JSON with these exact keys: score, grade, strengths (array), weaknesses (array), suggestions (array), synergies (object with arrays)`;
+    return prompt;
   } else {
     return `Analyze this Magic: The Gathering deck list: ${deckCode}
 
-Please provide a detailed analysis including:
-1. Overall score (1-10 scale)
-2. Letter grade (S, A, B, C, D, F)
-3. Key strengths (3-5 points)
-4. Major weaknesses (2-4 points)
-5. Specific improvement suggestions (3-5 actionable items)
+As an expert Magic analyst, provide detailed analysis including:
+1. Overall score (1-10 scale) for competitive viability
+2. Letter grade (S, A, B, C, D, F) with strategic assessment
+3. Key strengths (3-5 competitive advantages)
+4. Major weaknesses (2-4 strategic vulnerabilities)
+5. Specific improvement suggestions (3-5 concrete changes)
 6. Card synergies grouped by type (creatures, spells, lands, artifacts, enchantments, planeswalkers)
 
+Consider format legality, mana efficiency, combo potential, and metagame positioning.
 Format your response as JSON with these exact keys: score, grade, strengths (array), weaknesses (array), suggestions (array), synergies (object with arrays)`;
   }
 }
