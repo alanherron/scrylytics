@@ -17,12 +17,13 @@ env:
   EXPECT100_TIMEOUT: 2
   BACKOFF_BASE: 1
 jobs:
-  check-skip:
-    uses: ./.github/workflows/skip-vercel.yml
+  # Temporarily disable skip check to force deployment
+  # check-skip:
+  #   uses: ./.github/workflows/skip-vercel.yml
 
   deploy:
-    needs: check-skip
-    if: needs.check-skip.outputs.should_skip != 'true'
+    # needs: check-skip
+    # if: needs.check-skip.outputs.should_skip != 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
