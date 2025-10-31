@@ -8,7 +8,7 @@ import InsightChart from '../../components/InsightChart';
 const getChartType = (issue: string) => {
   switch (issue) {
     case "MANA_CURVE_SKEW":
-      return "bar";
+      return "Mana Balance";
     case "DRAW_INCONSISTENCY":
       return "line";
     case "ROLE_MISMATCH":
@@ -29,7 +29,7 @@ const getChartType = (issue: string) => {
 };
 
 export default function InsightsPage() {
-  const [selectedIndex, setSelectedIndex] = useState(2); // Show Balanced Deck (Radar chart) for testing
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const result = useMemo(() => {
     const deck = PREBUILT_DECKS[selectedIndex];
@@ -271,6 +271,20 @@ export default function InsightsPage() {
                                 <li>Each item has 'mana': {Array.isArray(data) && data.every(item => 'mana' in item) ? '✅' : '❌'}</li>
                                 <li>Each item has 'count': {Array.isArray(data) && data.every(item => 'count' in item) ? '✅' : '❌'}</li>
                                 <li>Data length &gt; 0: {Array.isArray(data) && data.length > 0 ? '✅' : '❌'}</li>
+                              </ul>
+                            </div>
+                          );
+
+                        case "mana_balance":
+                          return (
+                            <div>
+                              <strong>Mana Balance Chart Requirements:</strong>
+                              <ul>
+                                <li>Data is array: {Array.isArray(data) ? '✅' : '❌'}</li>
+                                <li>Each item has 'mana': {Array.isArray(data) && data.every(item => 'mana' in item) ? '✅' : '❌'}</li>
+                                <li>Each item has 'count': {Array.isArray(data) && data.every(item => 'count' in item) ? '✅' : '❌'}</li>
+                                <li>Data length > 0: {Array.isArray(data) && data.length > 0 ? '✅' : '❌'}</li>
+                                <li>Shows balance comparison: ✅ (Current vs Ideal mana curve)</li>
                               </ul>
                             </div>
                           );

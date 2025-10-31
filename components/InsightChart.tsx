@@ -18,7 +18,10 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
   AreaChart,
-  Area
+  Area,
+  ComposedChart,
+  ReferenceLine,
+  Cell
 } from "recharts";
 
 type Props = { issue: string; data: Array<{ mana: number; count: number }> };
@@ -40,7 +43,7 @@ export default function InsightChart({ issue, data }: Props) {
   const getChartType = (issue: string) => {
     switch (issue) {
       case "MANA_CURVE_SKEW":
-        return "bar";
+        return "mana_balance"; // Special mana power balance chart
       case "DRAW_INCONSISTENCY":
         return "line";
       case "ROLE_MISMATCH":
@@ -62,8 +65,233 @@ export default function InsightChart({ issue, data }: Props) {
 
   const chartType = getChartType(issue);
 
+  // Ideal mana curve for comparison
+  const idealManaCurve = [1, 2, 4, 3, 2, 1, 0, 0].map((count, mana) => ({ mana, count }));
+
   const renderChart = () => {
     switch (chartType) {
+      case "mana_balance": {
+        // Create mana balance data: current vs ideal
+        const ideal = [7, 9, 8, 8, 6, 5, 3, 2, 1, 1]; // Ideal mana curve
+        const manaBalanceData = data.map((item, index) => {
+          const current = item.count;
+          const idealCount = ideal[index] || 0;
+          const difference = current - idealCount;
+          return {
+            mana: item.mana,
+            current,
+            ideal: idealCount,
+            balance: difference, // Positive = too many, Negative = too few
+            status: difference > 0 ? 'too_many' : difference < 0 ? 'too_few' : 'perfect'
+          };
+        });
+
+        return (
+          <div style={{
+            backgroundColor: "#fdf7e3",
+            padding: "20px",
+            borderRadius: "12px",
+            position: "relative",
+            minHeight: "400px"
+          }}>
+            <h3 style={{
+              textAlign: "center",
+              color: "#92400e",
+              fontFamily: "cursive",
+              fontSize: "18px",
+              marginBottom: "20px",
+              fontWeight: "bold"
+            }}>
+              🎯 Your Deck's Magic Power Balance
+            </h3>
+
+            <ComposedChart
+              data={manaBalanceData}
+              margin={{ top: 60, right: 30, left: 30, bottom: 40 }}
+              height={300}
+            >
+              <CartesianGrid strokeDasharray="2 2" stroke="#d97706" opacity={0.3} />
+
+              {/* Horizontal reference line at y=0 */}
+              <ReferenceLine y={0} stroke="#6b7280" strokeWidth={2} />
+
+              {/* Mana cost labels on X-axis */}
+              <XAxis
+                dataKey="mana"
+                tick={{ fill: "#92400e", fontSize: 14, fontFamily: "cursive", fontWeight: "bold" }}
+                axisLine={{ stroke: "#d97706", strokeWidth: 2 }}
+              />
+
+              {/* Balance bars (up for too many, down for too few) */}
+              <Bar
+                dataKey="balance"
+                fill="#10b981"
+                stroke="#059669"
+                strokeWidth={2}
+                radius={[4, 4, 0, 0]}
+              >
+                {manaBalanceData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={entry.balance > 0 ? "#10b981" : "#ef4444"}
+                  />
+                ))}
+              </Bar>
+
+              {/* Custom tooltip */}
+              <Tooltip
+                content={({ active, payload, label }) => {
+                  if (active && payload && payload.length) {
+                    const data = payload[0].payload;
+                    const balance = data.balance;
+                    let message = "";
+                    if (balance > 0) {
+                      message = `Too many cards here (${balance} extra)`;
+                    } else if (balance < 0) {
+                      message = `Not enough cards here (${Math.abs(balance)} missing)`;
+                    } else {
+                      message = "Perfect balance!";
+                    }
+
+                    return (
+                      <div style={{
+                        backgroundColor: "#fef3c7",
+                        border: "2px solid #f59e0b",
+                        borderRadius: "8px",
+                        padding: "12px",
+                        fontFamily: "cursive",
+                        fontSize: "14px",
+                        boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+                      }}>
+                        <p style={{ margin: "0 0 8px 0", fontWeight: "bold" }}>
+                          Mana Cost {label}
+                        </p>
+                        <p style={{ margin: "0 0 4px 0" }}>
+                          Current: {data.current} cards
+                        </p>
+                        <p style={{ margin: "0 0 8px 0" }}>
+                          Ideal: {data.ideal} cards
+                        </p>
+                        <p style={{
+                          margin: 0,
+                          color: balance > 0 ? "#dc2626" : balance < 0 ? "#dc2626" : "#059669",
+                          fontWeight: "bold"
+                        }}>
+                          {message}
+                        </p>
+                      </div>
+                    );
+                  }
+                  return null;
+                }}
+              />
+            </ComposedChart>
+
+            {/* Blue "gems" (circles) at the bottom with numbers */}
+            <div style={{
+              position: "absolute",
+              bottom: "20px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "flex",
+              gap: "8px"
+            }}>
+              {manaBalanceData.map((item, index) => (
+                <div key={index} style={{
+                  width: "32px",
+                  height: "32px",
+                  borderRadius: "50%",
+                  backgroundColor: "#3b82f6",
+                  border: "3px solid #1d4ed8",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "14px",
+                  fontWeight: "bold",
+                  color: "white",
+                  fontFamily: "cursive",
+                  boxShadow: "0 2px 8px rgba(59, 130, 246, 0.4)"
+                }}>
+                  {item.mana}
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      case "composite":
+        // Special composite view for mana curve analysis
+        return (
+          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+            {/* Bar Chart */}
+            <div>
+              <h4 style={{
+                color: "#7c3aed",
+                fontFamily: "cursive",
+                fontSize: "16px",
+                marginBottom: "10px",
+                textAlign: "center"
+              }}>
+                📊 Current Mana Curve (Bar View)
+              </h4>
+              <BarChart data={data} margin={{ top: 10, right: 20, left: 20, bottom: 10 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#8b5cf6" opacity={0.3} strokeWidth={1} />
+                <XAxis dataKey="mana" tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }} />
+                <YAxis tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }} allowDecimals={false} />
+                <Tooltip contentStyle={{ backgroundColor: "#fef3c7", border: "2px solid #f59e0b", fontFamily: "cursive" }} />
+                <Bar dataKey="count" fill="#f59e0b" stroke="#d97706" strokeWidth={2} radius={[8, 8, 0, 0]} {...sketchStyle} />
+              </BarChart>
+            </div>
+
+            {/* Area Chart Comparison */}
+            <div>
+              <h4 style={{
+                color: "#7c3aed",
+                fontFamily: "cursive",
+                fontSize: "16px",
+                marginBottom: "10px",
+                textAlign: "center"
+              }}>
+                🌊 Mana Curve Comparison (Current vs Ideal)
+              </h4>
+              <AreaChart data={data} margin={{ top: 10, right: 20, left: 20, bottom: 10 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#8b5cf6" opacity={0.3} strokeWidth={1} />
+                <XAxis dataKey="mana" tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }} />
+                <YAxis tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }} allowDecimals={false} />
+                <Tooltip contentStyle={{ backgroundColor: "#fef3c7", border: "2px solid #f59e0b", fontFamily: "cursive" }} />
+                <Legend wrapperStyle={{ fontFamily: "cursive", fontSize: "12px" }} />
+
+                {/* Current mana curve (area) */}
+                <Area
+                  type="monotone"
+                  dataKey="count"
+                  stroke="#ef4444"
+                  fill="#fecaca"
+                  fillOpacity={0.6}
+                  strokeWidth={3}
+                  name="Current Curve"
+                  {...sketchStyle}
+                />
+
+                {/* Ideal mana curve (area overlay) */}
+                <Area
+                  type="monotone"
+                  data={idealManaCurve}
+                  dataKey="count"
+                  stroke="#10b981"
+                  fill="#d1fae5"
+                  fillOpacity={0.4}
+                  strokeWidth={3}
+                  strokeDasharray="5 5"
+                  name="Ideal Curve"
+                  {...sketchStyle}
+                />
+              </AreaChart>
+            </div>
+          </div>
+        );
+
       case "line":
         return (
           <LineChart data={data}>
@@ -232,7 +460,7 @@ export default function InsightChart({ issue, data }: Props) {
   return (
     <div style={{
       width: "100%",
-      height: "320px",
+      minHeight: chartType === "composite" ? "600px" : "320px",
       position: "relative",
       backgroundColor: "#fefefe",
       borderRadius: "12px",
@@ -249,7 +477,7 @@ export default function InsightChart({ issue, data }: Props) {
         </defs>
       </svg>
 
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height={chartType === "composite" ? "100%" : "280px"}>
         {renderChart()}
       </ResponsiveContainer>
 
