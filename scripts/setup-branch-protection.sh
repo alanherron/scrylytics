@@ -86,7 +86,7 @@ setup_branch_protection() {
         -f "required_status_checks[strict]=true" \
         -f "required_status_checks[contexts][]=" \
         -f "enforce_admins=false" \
-        -f "required_pull_request_reviews[required_approving_review_count]=${is_main_branch:+2}${is_main_branch:-1}" \
+        -f "required_pull_request_reviews[required_approving_review_count]=$([ "$is_main_branch" = "true" ] && echo 2 || echo 1)" \
         -f "required_pull_request_reviews[dismiss_stale_reviews]=true" \
         -f "required_pull_request_reviews[require_code_owner_reviews]=false" \
         -f "restrictions=null" \
