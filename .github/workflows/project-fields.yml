@@ -16,8 +16,8 @@ jobs:
         uses: leonsteinhaeuser/project-beta-automations@v2.5.1
         with:
           gh_token: ${{ secrets.PROJECTS_TOKEN }}
-          user: "alanherron"   # user project owner
-          project_id: "2"      # Scrylytics Roadmap
+          user: "alanherron"
+          project_id: "2"
           resource_node_id: ${{ github.event.issue.node_id || github.event.pull_request.node_id }}
           field_mappings: |
             Area=Library:label:Library
