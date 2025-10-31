@@ -4,6 +4,7 @@
 import OpenAI from 'openai';
 import { fetchAllCards, parseDeckCode, validateDeck, getCardSynergies, calculateDeckStats } from '../../../lib/hearthstone.js';
 import { parseMagicDeckList, validateMagicDeck, calculateMagicStats, getMagicSynergies, getCardByName, getCardImageUrl } from '../../../lib/magic.js';
+import guard from '../../../src/analyzer/guard.cjs';
 
 let openai = null;
 
@@ -17,6 +18,16 @@ export async function POST(request) {
 
     console.log('Analyzing deck:', { gameType, deckCodeLength: deckCode.length });
     console.log('OpenAI API key available:', !!process.env.OPENAI_API_KEY);
+    console.log('CI mode:', guard.isCI ? 'enabled' : 'disabled');
+
+    // In CI mode, skip expensive operations and return basic analysis immediately
+    if (guard.shouldSkipAnalysis) {
+      console.log('🔇 Using basic analysis in CI/safe mode');
+      const analysis = analyzeDeckBasic(deckCode.trim(), gameType);
+      analysis.fallbackReason = 'ci_mode';
+      analysis.cardImages = []; // No images in CI mode
+      return Response.json(analysis);
+    }
 
     // Always try AI analysis first, fallback to basic if it fails
     try {
@@ -27,6 +38,15 @@ export async function POST(request) {
       console.warn('AI analysis failed, falling back to basic:', aiError.message);
       const analysis = analyzeDeckBasic(deckCode.trim(), gameType);
       analysis.fallbackReason = 'AI analysis unavailable';
+
+      // Still try to get basic card images in development mode
+      try {
+        analysis.cardImages = await getCardImages(deckCode.trim(), gameType, null);
+      } catch (imageError) {
+        console.warn('Card image fetching also failed:', imageError.message);
+        analysis.cardImages = [];
+      }
+
       return Response.json(analysis);
     }
   } catch (error) {
@@ -242,6 +262,12 @@ async function getCardImages(deckCode, gameType, deckData) {
   const cardImages = [];
   console.log('Getting card images for:', { gameType, hasDeckData: !!deckData });
 
+  // Skip expensive card image fetching in CI mode
+  if (guard.shouldSkipAnalysis) {
+    console.log('🔇 Skipping card image fetching in CI/safe mode');
+    return [];
+  }
+
   try {
     if (gameType === 'magic' && deckData?.mainDeck) {
       console.log('Processing Magic deck with', deckData.mainDeck.length, 'cards');
@@ -314,7 +340,8 @@ function analyzeDeckBasic(deckCode, gameType) {
       'spells': ['Various spells'],
       'lands': ['Various lands'],
       'artifacts': ['Various artifacts']
-    }
+    },
+    cardImages: [] // Will be populated by caller if needed
   };
 
   // Basic heuristic improvements
