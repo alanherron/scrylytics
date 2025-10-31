@@ -4,6 +4,7 @@
 import OpenAI from 'openai';
 import { fetchAllCards, parseDeckCode, validateDeck, getCardSynergies, calculateDeckStats } from '../../../lib/hearthstone.js';
 import { parseMagicDeckList, validateMagicDeck, calculateMagicStats, getMagicSynergies, getCardByName, getCardImageUrl } from '../../../lib/magic.js';
+import guard from '../../../src/analyzer/guard.cjs';
 
 let openai = null;
 
@@ -15,8 +16,18 @@ export async function POST(request) {
       return Response.json({ error: 'Deck code is required' }, { status: 400 });
     }
 
-    console.log('Analyzing deck:', { gameType, deckCodeLength: deckCode.length });
+    console.log('Analyzing deck:', { gameType, deckCodeLength: deckCode.length, firstLine: deckCode.split('\n')[0] });
     console.log('OpenAI API key available:', !!process.env.OPENAI_API_KEY);
+    console.log('CI mode:', guard.isCI ? 'enabled' : 'disabled');
+
+    // In CI mode, skip expensive operations and return basic analysis immediately
+    if (guard.shouldSkipAnalysis) {
+      console.log('🔇 Using basic analysis in CI/safe mode');
+      const analysis = analyzeDeckBasic(deckCode.trim(), gameType);
+      analysis.fallbackReason = 'ci_mode';
+      analysis.cardImages = []; // No images in CI mode
+      return Response.json(analysis);
+    }
 
     // Always try AI analysis first, fallback to basic if it fails
     try {
@@ -27,6 +38,30 @@ export async function POST(request) {
       console.warn('AI analysis failed, falling back to basic:', aiError.message);
       const analysis = analyzeDeckBasic(deckCode.trim(), gameType);
       analysis.fallbackReason = 'AI analysis unavailable';
+
+      // Still try to get basic card images in development mode
+      try {
+        // Try to parse the deck for card images even if AI failed
+        let parsedDeckData = null;
+        if (gameType === 'magic') {
+          try {
+            parsedDeckData = parseMagicDeckList(deckCode.trim());
+          } catch (parseError) {
+            console.warn('Deck parsing failed for card images:', parseError.message);
+          }
+        } else if (gameType === 'hearthstone') {
+          try {
+            parsedDeckData = await parseDeckCode(deckCode.trim());
+          } catch (parseError) {
+            console.warn('Hearthstone deck parsing failed for card images:', parseError.message);
+          }
+        }
+        analysis.cardImages = await getCardImages(deckCode.trim(), gameType, parsedDeckData);
+      } catch (imageError) {
+        console.warn('Card image fetching also failed:', imageError.message);
+        analysis.cardImages = [];
+      }
+
       return Response.json(analysis);
     }
   } catch (error) {
@@ -240,11 +275,18 @@ function createFallbackAnalysis(text, gameType) {
 // Get card images for key cards in the deck
 async function getCardImages(deckCode, gameType, deckData) {
   const cardImages = [];
-  console.log('Getting card images for:', { gameType, hasDeckData: !!deckData });
+  console.log('Getting card images for:', { gameType, hasDeckData: !!deckData, deckCodeLength: deckCode?.length });
+
+  // Skip expensive card image fetching in CI mode
+  if (guard.shouldSkipAnalysis) {
+    console.log('🔇 Skipping card image fetching in CI/safe mode');
+    return [];
+  }
 
   try {
     if (gameType === 'magic' && deckData?.mainDeck) {
       console.log('Processing Magic deck with', deckData.mainDeck.length, 'cards');
+      console.log('Deck data structure:', JSON.stringify(deckData, null, 2));
       const keyCards = deckData.mainDeck.slice(0, 6); // Limit to 6 key cards
       console.log('Key cards to process:', keyCards.map(c => c.name));
 
@@ -277,14 +319,17 @@ async function getCardImages(deckCode, gameType, deckData) {
       }
 
     } else if (gameType === 'hearthstone' && deckData?.cards) {
-      console.log('Processing Hearthstone deck');
-      // For Hearthstone, we'd need to implement card lookup by ID
-      // For now, return placeholder - in real implementation, use Hearthstone API
-      cardImages.push({
-        name: 'Sample Hearthstone Card',
-        count: 2,
-        imageUrl: 'https://via.placeholder.com/200x300?text=Hearthstone+Card'
-      });
+      console.log('Processing Hearthstone deck with', deckData.cards.length, 'cards');
+      // For Hearthstone, show first few cards with placeholders
+      // TODO: Implement Hearthstone card image API
+      const hearthstoneCards = deckData.cards.slice(0, 6);
+      for (const card of hearthstoneCards) {
+        cardImages.push({
+          name: card.name || 'Unknown Card',
+          count: card.count || 1,
+          imageUrl: `https://via.placeholder.com/200x300?text=${encodeURIComponent(card.name || 'Hearthstone Card')}`
+        });
+      }
     } else {
       console.warn('No deck data available for card images:', { gameType, hasMainDeck: !!deckData?.mainDeck, hasCards: !!deckData?.cards });
     }
@@ -314,7 +359,8 @@ function analyzeDeckBasic(deckCode, gameType) {
       'spells': ['Various spells'],
       'lands': ['Various lands'],
       'artifacts': ['Various artifacts']
-    }
+    },
+    cardImages: [] // Will be populated by caller if needed
   };
 
   // Basic heuristic improvements
