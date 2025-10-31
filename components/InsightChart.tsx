@@ -167,24 +167,10 @@ const titleMap: Record<DeckIssueType,string> = {
 type Datum = { mana: string | number; count: number };
 
 const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption, title }) => {
-  // avoid hydration mismatch & zero-size
+  // Simple client-side mounting check
   const [mounted, setMounted] = useState(false);
-  const hostRef = useRef<HTMLDivElement>(null);
-  const [ready, setReady] = useState(false);
 
   useEffect(() => setMounted(true), []);
-
-  useEffect(() => {
-    if (!hostRef.current) return;
-    // If container is hidden/0px initially, watch until it has size
-    const ro = new ResizeObserver(() => {
-      const el = hostRef.current!;
-      const hasSize = el.clientWidth > 0 && el.clientHeight > 0;
-      if (hasSize) setReady(true);
-    });
-    ro.observe(hostRef.current);
-    return () => ro.disconnect();
-  }, []);
 
   // VISUAL DEBUG INDICATOR - If you see this purple box, InsightChart is rendering!
   const debugIndicator = (
@@ -213,13 +199,13 @@ const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption, title
     <ParchmentFrame title={title || titleMap[issue]}>
       {debugIndicator}
       <div
-        ref={hostRef}
         style={{
           width: '100%',
-          minHeight: 320,
+          height: 320,
+          position: 'relative'
         }}
       >
-        {ready && hasData ? (
+        {hasData ? (
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={safeData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#b08b4a" opacity={0.45}/>
@@ -232,17 +218,7 @@ const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption, title
             </BarChart>
           </ResponsiveContainer>
         ) : (
-          <div
-            style={{
-              height: 320,
-              display: 'grid',
-              placeItems: 'center',
-              fontSize: 14,
-              opacity: 0.7,
-            }}
-          >
-            {hasData ? 'Loading chart…' : 'No data to display'}
-          </div>
+          <FallbackChart data={safeData} type="bar" title="No Data Available" />
         )}
       </div>
       {caption && (
