@@ -27,9 +27,31 @@ import {
 type Props = { issue: string; data: Array<{ mana: number; count: number }> };
 
 export default function InsightChart({ issue, data }: Props) {
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
   // Guard for empty/undefined data
   if (!Array.isArray(data) || data.length === 0) {
     return <div>No data for chart.</div>;
+  }
+
+  // Don't render chart on server side
+  if (!isClient) {
+    return (
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "300px",
+        backgroundColor: "#f9fafb",
+        borderRadius: "8px",
+        border: "2px dashed #d1d5db"
+      }}>
+        <p style={{ color: "#6b7280", fontSize: "14px" }}>Loading chart...</p>
+      </div>
+    );
   }
 
   // Hand-drawn sketch styling
@@ -130,12 +152,15 @@ export default function InsightChart({ issue, data }: Props) {
                 strokeWidth={2}
                 radius={[4, 4, 0, 0]}
               >
-                {manaBalanceData.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={entry.balance > 0 ? "#10b981" : "#ef4444"}
-                  />
-                ))}
+                {manaBalanceData.map((entry, index) => {
+                  const isPositive = entry.balance > 0;
+                  return (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={isPositive ? "#10b981" : "#ef4444"}
+                    />
+                  );
+                })}
               </Bar>
 
               {/* Custom tooltip */}
@@ -145,9 +170,12 @@ export default function InsightChart({ issue, data }: Props) {
                     const data = payload[0].payload;
                     const balance = data.balance;
                     let message = "";
-                    if (balance > 0) {
+                    const isPositive = balance > 0;
+                    const isNegative = balance < 0;
+
+                    if (isPositive) {
                       message = `Too many cards here (${balance} extra)`;
-                    } else if (balance < 0) {
+                    } else if (isNegative) {
                       message = `Not enough cards here (${Math.abs(balance)} missing)`;
                     } else {
                       message = "Perfect balance!";
@@ -174,7 +202,7 @@ export default function InsightChart({ issue, data }: Props) {
                         </p>
                         <p style={{
                           margin: 0,
-                          color: balance > 0 ? "#dc2626" : balance < 0 ? "#dc2626" : "#059669",
+                          color: isPositive || isNegative ? "#dc2626" : "#059669",
                           fontWeight: "bold"
                         }}>
                           {message}

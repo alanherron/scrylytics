@@ -8,7 +8,7 @@ import InsightChart from '../../components/InsightChart';
 const getChartType = (issue: string) => {
   switch (issue) {
     case "MANA_CURVE_SKEW":
-      return "Mana Balance";
+      return "mana_balance";
     case "DRAW_INCONSISTENCY":
       return "line";
     case "ROLE_MISMATCH":
@@ -196,7 +196,7 @@ export default function InsightsPage() {
                   </summary>
                   <div style={{ marginTop: "1rem", fontSize: "0.9rem" }}>
                     <div style={{ marginBottom: "1rem" }}>
-                      <strong>Chart Type:</strong> {getChartType(result.issue)} Chart
+                      <strong>Chart Type:</strong> {getChartType(result.issue) === "mana_balance" ? "Mana Balance" : getChartType(result.issue)} Chart
                     </div>
                     <div style={{ marginBottom: "1rem" }}>
                       <strong>Issue Type:</strong> {result.issue}
@@ -223,71 +223,86 @@ export default function InsightsPage() {
                       const data = result.data;
 
                       switch (chartType) {
-                        case 'bar':
+                        case 'bar': {
+                          const hasData = Array.isArray(data);
+                          const hasLength = hasData && data.length > 0;
                           return (
                             <div>
                               <strong>Bar Chart Requirements:</strong>
                               <ul>
-                                <li>Data is array: {Array.isArray(data) ? '✅' : '❌'}</li>
-                                <li>Each item has 'mana': {Array.isArray(data) && data.every(item => 'mana' in item) ? '✅' : '❌'}</li>
-                                <li>Each item has 'count': {Array.isArray(data) && data.every(item => 'count' in item) ? '✅' : '❌'}</li>
-                                <li>Data length &gt; 0: {Array.isArray(data) && data.length > 0 ? '✅' : '❌'}</li>
+                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
+                                <li>Each item has 'mana': {hasData && data.every(item => 'mana' in item) ? '✅' : '❌'}</li>
+                                <li>Each item has 'count': {hasData && data.every(item => 'count' in item) ? '✅' : '❌'}</li>
+                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
                               </ul>
                             </div>
                           );
+                        }
 
-                        case 'line':
+                        case 'line': {
+                          const hasData = Array.isArray(data);
+                          const hasLength = hasData && data.length > 0;
                           return (
                             <div>
                               <strong>Line Chart Requirements:</strong>
                               <ul>
-                                <li>Data is array: {Array.isArray(data) ? '✅' : '❌'}</li>
-                                <li>Each item has 'mana': {Array.isArray(data) && data.every(item => 'mana' in item) ? '✅' : '❌'}</li>
-                                <li>Each item has 'count': {Array.isArray(data) && data.every(item => 'count' in item) ? '✅' : '❌'}</li>
-                                <li>Data length &gt; 0: {Array.isArray(data) && data.length > 0 ? '✅' : '❌'}</li>
+                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
+                                <li>Each item has 'mana': {hasData && data.every(item => 'mana' in item) ? '✅' : '❌'}</li>
+                                <li>Each item has 'count': {hasData && data.every(item => 'count' in item) ? '✅' : '❌'}</li>
+                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
                               </ul>
                             </div>
                           );
+                        }
 
-                        case 'radar':
+                        case 'radar': {
+                          const hasData = Array.isArray(data);
+                          const hasLength = hasData && data.length > 0;
                           return (
                             <div>
                               <strong>Radar Chart Requirements:</strong>
                               <ul>
-                                <li>Data is array: {Array.isArray(data) ? '✅' : '❌'}</li>
-                                <li>Each item has 'role' or 'subject': {Array.isArray(data) && data.every(item => 'role' in item || 'subject' in item) ? '✅' : '❌'}</li>
-                                <li>Each item has 'value': {Array.isArray(data) && data.every(item => 'value' in item) ? '✅' : '❌'}</li>
-                                <li>Data length &gt; 0: {Array.isArray(data) && data.length > 0 ? '✅' : '❌'}</li>
+                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
+                                <li>Each item has 'role' or 'subject': {hasData && data.every(item => 'role' in item || 'subject' in item) ? '✅' : '❌'}</li>
+                                <li>Each item has 'value': {hasData && data.every(item => 'value' in item) ? '✅' : '❌'}</li>
+                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
                               </ul>
                             </div>
                           );
+                        }
 
-                        case 'area':
+                        case 'area': {
+                          const hasData = Array.isArray(data);
+                          const hasLength = hasData && data.length > 0;
                           return (
                             <div>
                               <strong>Area Chart Requirements:</strong>
                               <ul>
-                                <li>Data is array: {Array.isArray(data) ? '✅' : '❌'}</li>
-                                <li>Each item has 'mana': {Array.isArray(data) && data.every(item => 'mana' in item) ? '✅' : '❌'}</li>
-                                <li>Each item has 'count': {Array.isArray(data) && data.every(item => 'count' in item) ? '✅' : '❌'}</li>
-                                <li>Data length &gt; 0: {Array.isArray(data) && data.length > 0 ? '✅' : '❌'}</li>
+                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
+                                <li>Each item has 'mana': {hasData && data.every(item => 'mana' in item) ? '✅' : '❌'}</li>
+                                <li>Each item has 'count': {hasData && data.every(item => 'count' in item) ? '✅' : '❌'}</li>
+                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
                               </ul>
                             </div>
                           );
+                        }
 
-                        case "mana_balance":
+                        case "mana_balance": {
+                          const hasData = Array.isArray(data);
+                          const hasLength = hasData && data.length > 0;
                           return (
                             <div>
                               <strong>Mana Balance Chart Requirements:</strong>
                               <ul>
-                                <li>Data is array: {Array.isArray(data) ? '✅' : '❌'}</li>
-                                <li>Each item has 'mana': {Array.isArray(data) && data.every(item => 'mana' in item) ? '✅' : '❌'}</li>
-                                <li>Each item has 'count': {Array.isArray(data) && data.every(item => 'count' in item) ? '✅' : '❌'}</li>
-                                <li>Data length > 0: {Array.isArray(data) && data.length > 0 ? '✅' : '❌'}</li>
+                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
+                                <li>Each item has 'mana': {hasData && data.every(item => 'mana' in item) ? '✅' : '❌'}</li>
+                                <li>Each item has 'count': {hasData && data.every(item => 'count' in item) ? '✅' : '❌'}</li>
+                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
                                 <li>Shows balance comparison: ✅ (Current vs Ideal mana curve)</li>
                               </ul>
                             </div>
                           );
+                        }
 
                         default:
                           return <div>Unknown chart type</div>;
