@@ -10,8 +10,16 @@ export default function InsightsPage() {
   const deck = PREBUILT_DECKS[selectedIndex];
 
   const result = useMemo(() => {
+    console.log('🎲 Insights: Analyzing deck:', { name: deck.name, archetype: deck.archetype });
     const analysis = analyzeDeck(deck);
-    console.log('Insights analysis result:', { issue: analysis.issue, dataLength: analysis.data?.length, title: analysis.title });
+    console.log('📊 Insights analysis result:', {
+      issue: analysis.issue,
+      dataLength: analysis.data?.length,
+      dataType: typeof analysis.data,
+      dataSample: analysis.data?.slice(0, 3),
+      title: analysis.title,
+      caption: analysis.caption
+    });
     return analysis;
   }, [deck]);
 
@@ -38,12 +46,25 @@ export default function InsightsPage() {
         </select>
       </div>
 
-      <InsightChart
-        issue={result.issue}
-        data={result.data}
-        caption={result.caption}
-        title={result.title}
-      />
+      <div>
+        <div style={{
+          padding: "0.5rem",
+          backgroundColor: "#e0f2fe",
+          border: "1px solid #0ea5e9",
+          borderRadius: "4px",
+          marginBottom: "1rem",
+          fontSize: "0.8rem",
+          color: "#0c4a6e"
+        }}>
+          🔍 Debug: Rendering chart for issue "{result.issue}" with {result.data?.length || 0} data points
+        </div>
+        <InsightChart
+          issue={result.issue}
+          data={result.data}
+          caption={result.caption}
+          title={result.title}
+        />
+      </div>
 
       <section className="text-sm opacity-80">
         <p>
