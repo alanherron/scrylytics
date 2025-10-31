@@ -178,7 +178,24 @@ export default function Analyzer() {
         <Link href="/" style={{color:"#4f46e5", textDecoration:"none", marginBottom:"1rem", display:"inline-block"}}>
           ← Back to Home
         </Link>
-        <h1>🧙‍♂️ Decklytics - AI Deck Analyzer</h1>
+
+        <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"1rem"}}>
+          <h1>🧙‍♂️ Decklytics - AI Deck Analyzer</h1>
+          <a
+            href="#sample-decks"
+            style={{
+              backgroundColor:"#4f46e5",
+              color:"white",
+              padding:"0.5rem 1rem",
+              borderRadius:"6px",
+              textDecoration:"none",
+              fontSize:"0.9rem",
+              fontWeight:"500"
+            }}
+          >
+            🎴 Try Sample Decks
+          </a>
+        </div>
         <p>Get detailed analysis, synergy ratings, and optimization suggestions for your deck.</p>
       </div>
 
@@ -479,8 +496,9 @@ export default function Analyzer() {
       )}
 
       {/* Sample Decks */}
-      <div style={{marginTop:"3rem", padding:"2rem", backgroundColor:"#f8fafc", borderRadius:"8px"}}>
-        <h3>🎴 Sample Decks to Try</h3>
+      <div id="sample-decks" style={{marginTop:"3rem", padding:"2rem", backgroundColor:"#f8fafc", borderRadius:"8px", border:"2px solid #4f46e5"}}>
+        <h3 style={{color:"#1f2937", marginBottom:"0.5rem"}}>🎴 Sample Decks to Try</h3>
+        <div style={{width:"100%", height:"4px", backgroundColor:"#4f46e5", marginBottom:"1rem", borderRadius:"2px"}}></div>
         <p style={{fontSize:"0.9rem", color:"#6b7280", marginBottom:"1.5rem"}}>
           Try these sample decks to see different analysis results and AI insights. Each deck demonstrates different strengths and weaknesses.
         </p>
