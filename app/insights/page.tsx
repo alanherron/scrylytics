@@ -6,6 +6,73 @@ import { PREBUILT_DECKS, analyzeDeck } from "@/lib/ai/insightEngine";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
 
 // Simple test chart component
+// SIMPLE HTML FALLBACK CHART - NO RECHARTS DEPENDENCY
+const SimpleHtmlChart = () => {
+  console.log('📊 SimpleHtmlChart: Rendering basic HTML chart');
+  return (
+    <div style={{
+      width: '100%',
+      height: '200px',
+      border: '3px solid #00ff00',
+      backgroundColor: '#f0f0f0',
+      padding: '1rem',
+      margin: '1rem 0',
+      display: 'flex',
+      alignItems: 'end',
+      justifyContent: 'space-around'
+    }}>
+      <div style={{
+        width: '50px',
+        height: '40px',
+        backgroundColor: '#ff6b6b',
+        display: 'flex',
+        alignItems: 'end',
+        justifyContent: 'center',
+        color: 'white',
+        fontWeight: 'bold'
+      }}>
+        10
+      </div>
+      <div style={{
+        width: '50px',
+        height: '80px',
+        backgroundColor: '#4ecdc4',
+        display: 'flex',
+        alignItems: 'end',
+        justifyContent: 'center',
+        color: 'white',
+        fontWeight: 'bold'
+      }}>
+        20
+      </div>
+      <div style={{
+        width: '50px',
+        height: '60px',
+        backgroundColor: '#45b7d1',
+        display: 'flex',
+        alignItems: 'end',
+        justifyContent: 'center',
+        color: 'white',
+        fontWeight: 'bold'
+      }}>
+        15
+      </div>
+      <div style={{
+        width: '50px',
+        height: '100px',
+        backgroundColor: '#96ceb4',
+        display: 'flex',
+        alignItems: 'end',
+        justifyContent: 'center',
+        color: 'white',
+        fontWeight: 'bold'
+      }}>
+        25
+      </div>
+    </div>
+  );
+};
+
 const TestChart = () => {
   const testData = [
     { name: 'A', value: 10 },
@@ -20,31 +87,43 @@ const TestChart = () => {
 
   try {
     return (
-      <div style={{ width: '100%', height: '200px', border: '2px solid #000', margin: '1rem 0' }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={testData}>
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="value" fill="#8884d8" />
-          </BarChart>
-        </ResponsiveContainer>
+      <div>
+        <div style={{
+          padding: "0.5rem",
+          backgroundColor: "#e0ffe0",
+          border: "2px solid #00aa00",
+          marginBottom: "0.5rem",
+          fontSize: "0.8rem"
+        }}>
+          ✅ If you see this green box, TestChart component is rendering!
+        </div>
+        <div style={{ width: '100%', height: '200px', border: '2px solid #000', margin: '1rem 0' }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={testData}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="value" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     );
   } catch (error) {
     console.error('🧪 TestChart: FAILED to render', error);
     const errorMessage = error instanceof Error ? error.message : String(error);
     return (
-      <div style={{
-        padding: "1rem",
-        backgroundColor: "#ffcccc",
-        border: "2px solid #ff0000",
-        borderRadius: "4px",
-        margin: "1rem 0"
-      }}>
-        <strong>❌ Test Chart Failed:</strong> {errorMessage}
-        <br />
-        <small>Recharts may not be loading properly</small>
+      <div>
+        <div style={{
+          padding: "0.5rem",
+          backgroundColor: "#ffe0e0",
+          border: "2px solid #aa0000",
+          marginBottom: "0.5rem",
+          fontSize: "0.8rem"
+        }}>
+          ❌ TestChart failed, but component is rendering. Error: {errorMessage}
+        </div>
+        <SimpleHtmlChart />
       </div>
     );
   }
@@ -139,6 +218,8 @@ export default function InsightsPage() {
   try {
     console.log('🔍 InsightsPage: Starting render');
 
+    console.log('🔍 InsightsPage: About to return JSX');
+
     return (
       <div className="max-w-3xl mx-auto p-6 space-y-6">
         {/* BASIC TEST - If you see this, React is working */}
@@ -153,7 +234,7 @@ export default function InsightsPage() {
           textAlign: "center",
           marginBottom: "1rem"
         }}>
-          ✅ REACT IS WORKING - Page loaded successfully
+          ✅ REACT IS WORKING - Page loaded successfully - {new Date().toLocaleTimeString()}
         </div>
 
         {/* SUPER VISIBLE DEBUG BANNER */}
@@ -221,6 +302,16 @@ export default function InsightsPage() {
         <h3 style={{ color: "#000000", fontSize: "1.1rem", margin: "0 0 0.5rem 0" }}>
           🧪 CHART TEST: Simple Bar Chart
         </h3>
+        <div style={{
+          padding: "0.5rem",
+          backgroundColor: "#0000ff",
+          color: "#ffffff",
+          marginBottom: "0.5rem",
+          fontSize: "0.9rem",
+          fontWeight: "bold"
+        }}>
+          🔍 If you see this BLUE box, the chart test section is rendering!
+        </div>
         <TestChart />
       </div>
 
