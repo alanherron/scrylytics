@@ -481,11 +481,15 @@ export default function Analyzer() {
       {/* Sample Decks */}
       <div style={{marginTop:"3rem", padding:"2rem", backgroundColor:"#f8fafc", borderRadius:"8px"}}>
         <h3>🎴 Sample Decks to Try</h3>
-        <div style={{display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(300px, 1fr))", gap:"1rem"}}>
-          <div>
-            <h4>Hearthstone: Control Warrior</h4>
+        <p style={{fontSize:"0.9rem", color:"#6b7280", marginBottom:"1.5rem"}}>
+          Try these sample decks to see different analysis results and AI insights. Each deck demonstrates different strengths and weaknesses.
+        </p>
+        <div style={{display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(320px, 1fr))", gap:"1rem"}}>
+          {/* Hearthstone Decks */}
+          <div style={{border:"1px solid #e5e7eb", borderRadius:"8px", padding:"1rem", backgroundColor:"white"}}>
+            <h4 style={{margin:"0 0 0.5rem 0", color:"#1f2937"}}>🃏 Hearthstone: Control Warrior</h4>
             <p style={{fontSize:"0.9rem", color:"#6b7280", marginBottom:"0.5rem"}}>
-              A classic control deck with strong board control and comeback potential.
+              Classic control deck with strong board control. Good for learning tempo management.
             </p>
             <button
               onClick={() => setDeckCode("AAEBAf0EBMABoAHCAe0DqwTLBMsEzATNBM8EzgTOBM8E0ATQBNEE0gTRBNIE1ATVBNYE1wTXBNgE2ATZBNkE2gTaBNsE2wTcBN0E3gTfBOAE4AThBOIE4gTjBOQE5ATmBOYE5gTnBOgE6ATqBOoE6gTrBOwE7ATuBO4E7gTvBO8E8ATxBPQE9AT2BPYE9gT3BPgE+AT5BPkE+QT6BP4GCg==")}
@@ -496,22 +500,23 @@ export default function Analyzer() {
                 padding:"0.5rem 1rem",
                 borderRadius:"4px",
                 cursor:"pointer",
-                fontSize:"0.9rem"
+                fontSize:"0.9rem",
+                width:"100%"
               }}
             >
-              Load Sample Deck
+              Load & Analyze
             </button>
           </div>
 
-          <div>
-            <h4>Magic: Blue-White Control</h4>
+          <div style={{border:"1px solid #e5e7eb", borderRadius:"8px", padding:"1rem", backgroundColor:"white"}}>
+            <h4 style={{margin:"0 0 0.5rem 0", color:"#1f2937"}}>🃏 Hearthstone: Zoo Warlock</h4>
             <p style={{fontSize:"0.9rem", color:"#6b7280", marginBottom:"0.5rem"}}>
-              Counters and board wipes with card advantage engines.
+              Aggressive deck with too many cheap cards. Demonstrates mana curve issues.
             </p>
             <button
               onClick={() => {
-                setGameType('magic');
-                setDeckCode("1 Island\n1 Plains\n1 Sol Ring\n1 Counterspell\n1 Wrath of God\n1 Timetwister\n1 Ancestral Recall\n1 Timetwister\n\n20 cards remaining...");
+                setGameType('hearthstone');
+                setDeckCode("AAEBAfBlGjwHyQGLBZME3QTgBOYF6gTrBO4E7wTwBPAE8QT1BPUF9gX3BfgF+QX6BfoF+wX8BfwF/AX+Bf8GAIAA");
               }}
               style={{
                 backgroundColor:"#4f46e5",
@@ -520,12 +525,128 @@ export default function Analyzer() {
                 padding:"0.5rem 1rem",
                 borderRadius:"4px",
                 cursor:"pointer",
-                fontSize:"0.9rem"
+                fontSize:"0.9rem",
+                width:"100%"
               }}
             >
-              Load Sample Deck
+              Load & Analyze
             </button>
           </div>
+
+          <div style={{border:"1px solid #e5e7eb", borderRadius:"8px", padding:"1rem", backgroundColor:"white"}}>
+            <h4 style={{margin:"0 0 0.5rem 0", color:"#1f2937"}}>🃏 Hearthstone: Miracle Rogue</h4>
+            <p style={{fontSize:"0.9rem", color:"#6b7280", marginBottom:"0.5rem"}}>
+              Combo deck with inconsistent draw. Shows draw engine problems.
+            </p>
+            <button
+              onClick={() => {
+                setGameType('hearthstone');
+                setDeckCode("AAEBAaIHBqW4A9W4A5rKA9rKA+DNA/rNA6bTA6jTA6rTA7LTA7TTA7bTA7jTA7rTA7vTA8DTA8TTA8jTA8rTA8vTA9DTA9TTA9jTA9rTA9vTA+DTA+TTBqHBsAAA==");
+              }}
+              style={{
+                backgroundColor:"#4f46e5",
+                color:"white",
+                border:"none",
+                padding:"0.5rem 1rem",
+                borderRadius:"4px",
+                cursor:"pointer",
+                fontSize:"0.9rem",
+                width:"100%"
+              }}
+            >
+              Load & Analyze
+            </button>
+          </div>
+
+          {/* Magic Decks */}
+          <div style={{border:"1px solid #e5e7eb", borderRadius:"8px", padding:"1rem", backgroundColor:"white"}}>
+            <h4 style={{margin:"0 0 0.5rem 0", color:"#1f2937"}}>🧙‍♂️ Magic: Blue-White Control</h4>
+            <p style={{fontSize:"0.9rem", color:"#6b7280", marginBottom:"0.5rem"}}>
+              Classic control deck with counters and board wipes. Balanced but slow.
+            </p>
+            <button
+              onClick={() => {
+                setGameType('magic');
+                setDeckCode("1 Island\n1 Plains\n1 Sol Ring\n1 Counterspell\n1 Wrath of God\n1 Timetwister\n1 Ancestral Recall\n1 Timetwister\n1 Time Walk\n1 Timetwister\n1 Ancestral Recall\n1 Black Lotus\n1 Mox Sapphire\n1 Mox Jet\n1 Mox Ruby\n1 Mox Emerald\n1 Ancestral Recall\n1 Time Walk\n1 Timetwister\n1 Time Walk\n\n20 cards remaining...");
+              }}
+              style={{
+                backgroundColor:"#4f46e5",
+                color:"white",
+                border:"none",
+                padding:"0.5rem 1rem",
+                borderRadius:"4px",
+                cursor:"pointer",
+                fontSize:"0.9rem",
+                width:"100%"
+              }}
+            >
+              Load & Analyze
+            </button>
+          </div>
+
+          <div style={{border:"1px solid #e5e7eb", borderRadius:"8px", padding:"1rem", backgroundColor:"white"}}>
+            <h4 style={{margin:"0 0 0.5rem 0", color:"#1f2937"}}>🧙‍♂️ Magic: Storm Combo</h4>
+            <p style={{fontSize:"0.9rem", color:"#6b7280", marginBottom:"0.5rem"}}>
+              Fast combo deck with inconsistent draws. Perfect for testing draw engines.
+            </p>
+            <button
+              onClick={() => {
+                setGameType('magic');
+                setDeckCode("4 Brainstorm\n4 Ponder\n4 Preordain\n4 Lotus Petal\n4 Dark Ritual\n4 Lion's Eye Diamond\n4 Infernal Tutor\n4 Cabal Ritual\n4 Tendrils of Agony\n4 Ad Nauseam\n4 Past in Flames\n4 Burning Wish\n4 Empty the Warrens\n4 Grapeshot\n\n16 cards remaining...");
+              }}
+              style={{
+                backgroundColor:"#4f46e5",
+                color:"white",
+                border:"none",
+                padding:"0.5rem 1rem",
+                borderRadius:"4px",
+                cursor:"pointer",
+                fontSize:"0.9rem",
+                width:"100%"
+              }}
+            >
+              Load & Analyze
+            </button>
+          </div>
+
+          <div style={{border:"1px solid #e5e7eb", borderRadius:"8px", padding:"1rem", backgroundColor:"white"}}>
+            <h4 style={{margin:"0 0 0.5rem 0", color:"#1f2937"}}>🧙‍♂️ Magic: Jund Midrange</h4>
+            <p style={{fontSize:"0.9rem", color:"#6b7280", marginBottom:"0.5rem"}}>
+              Three-color deck trying to do everything. Great example of role confusion.
+            </p>
+            <button
+              onClick={() => {
+                setGameType('magic');
+                setDeckCode("4 Bloodstained Mire\n4 Wooded Foothills\n4 Windswept Heath\n4 Blackcleave Cliffs\n4 Copperline Gorge\n4 Blood Crypt\n4 Overgrown Tomb\n4 Stomping Ground\n4 Liliana of the Veil\n4 Dark Confidant\n4 Tarmogoyf\n4 Scavenging Ooze\n4 Bloodbraid Elf\n4 Lightning Helix\n4 Maelstrom Pulse\n4 Jund Charm\n4 Kolaghan's Command\n4 Fatal Push\n4 Thoughtseize\n4 Inquisition of Kozilek\n\n4 cards remaining...");
+              }}
+              style={{
+                backgroundColor:"#4f46e5",
+                color:"white",
+                border:"none",
+                padding:"0.5rem 1rem",
+                borderRadius:"4px",
+                cursor:"pointer",
+                fontSize:"0.9rem",
+                width:"100%"
+              }}
+            >
+              Load & Analyze
+            </button>
+          </div>
+        </div>
+
+        <div style={{marginTop:"1.5rem", textAlign:"center"}}>
+          <a
+            href="/insights"
+            style={{
+              color:"#4f46e5",
+              textDecoration:"none",
+              fontSize:"0.9rem",
+              fontWeight:"500"
+            }}
+          >
+            🎯 Want to see AI insights for these decks? Visit the Insights page →
+          </a>
         </div>
       </div>
 
