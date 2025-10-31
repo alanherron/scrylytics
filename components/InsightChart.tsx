@@ -78,60 +78,7 @@ const ManaCurveChart = ({ data }: { data: { mana:number; count:number }[] }) => 
   try {
     console.log('✅ ManaCurveChart: Attempting Recharts render');
 
-    // Only render Recharts on client side
-    if (!isClient) {
-      return (
-        <div style={{
-          padding: "2rem",
-          backgroundColor: "#f0f0f0",
-          border: "2px dashed #ccc",
-          borderRadius: "8px",
-          textAlign: "center",
-          minHeight: "300px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center"
-        }}>
-          <div>
-            <div style={{ fontSize: "1.2rem", marginBottom: "0.5rem" }}>📊</div>
-            <div>Loading chart...</div>
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <Suspense fallback={
-        <div style={{
-          padding: "2rem",
-          backgroundColor: "#f0f0f0",
-          border: "2px dashed #ccc",
-          borderRadius: "8px",
-          textAlign: "center",
-          minHeight: "300px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center"
-        }}>
-          <div>
-            <div style={{ fontSize: "1.2rem", marginBottom: "0.5rem" }}>⏳</div>
-            <div>Loading Recharts...</div>
-          </div>
-        </div>
-      }>
-        <RechartsComponents.ResponsiveContainer width="100%" height={300}>
-          <RechartsComponents.BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-            <RechartsComponents.CartesianGrid strokeDasharray="3 3" stroke="#b08b4a" opacity={0.45}/>
-            <RechartsComponents.XAxis dataKey="mana" tick={{ fill: "#5c4320" }} />
-            <RechartsComponents.YAxis tick={{ fill: "#5c4320" }} />
-            <RechartsComponents.Tooltip contentStyle={{ background:"#fff8e6", border:"1px solid #c7a96f" }} />
-            <RechartsComponents.Bar dataKey="count" fill="#8c6d2f" radius={[6,6,0,0]}>
-              <RechartsComponents.LabelList dataKey="count" position="top" fill="#5c4320" />
-            </RechartsComponents.Bar>
-          </RechartsComponents.BarChart>
-        </RechartsComponents.ResponsiveContainer>
-      </Suspense>
-    );
+    return <ManaCurveChartRenderer data={data} isClient={isClient} />;
   } catch (error) {
     console.error('💥 ManaCurveChart: Recharts FAILED, using fallback', error);
     return <FallbackChart data={data} type="bar" title="Mana Curve (Recharts Failed)" error={error} />;
@@ -357,6 +304,64 @@ const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption, title
         <pre>Data sample: {JSON.stringify(data?.slice(0, 2), null, 2)}</pre>
       </details>
     </ParchmentFrame>
+  );
+};
+
+// Separate component for ManaCurveChart that can access isClient
+const ManaCurveChartRenderer: React.FC<{ data: any[]; isClient: boolean }> = ({ data, isClient }) => {
+  // Only render Recharts on client side
+  if (!isClient) {
+    return (
+      <div style={{
+        padding: "2rem",
+        backgroundColor: "#f0f0f0",
+        border: "2px dashed #ccc",
+        borderRadius: "8px",
+        textAlign: "center",
+        minHeight: "300px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+      }}>
+        <div>
+          <div style={{ fontSize: "1.2rem", marginBottom: "0.5rem" }}>📊</div>
+          <div>Loading chart...</div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <Suspense fallback={
+      <div style={{
+        padding: "2rem",
+        backgroundColor: "#f0f0f0",
+        border: "2px dashed #ccc",
+        borderRadius: "8px",
+        textAlign: "center",
+        minHeight: "300px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
+      }}>
+        <div>
+          <div style={{ fontSize: "1.2rem", marginBottom: "0.5rem" }}>⏳</div>
+          <div>Loading Recharts...</div>
+        </div>
+      </div>
+    }>
+      <RechartsComponents.ResponsiveContainer width="100%" height={300}>
+        <RechartsComponents.BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <RechartsComponents.CartesianGrid strokeDasharray="3 3" stroke="#b08b4a" opacity={0.45}/>
+          <RechartsComponents.XAxis dataKey="mana" tick={{ fill: "#5c4320" }} />
+          <RechartsComponents.YAxis tick={{ fill: "#5c4320" }} />
+          <RechartsComponents.Tooltip contentStyle={{ background:"#fff8e6", border:"1px solid #c7a96f" }} />
+          <RechartsComponents.Bar dataKey="count" fill="#8c6d2f" radius={[6,6,0,0]}>
+            <RechartsComponents.LabelList dataKey="count" position="top" fill="#5c4320" />
+          </RechartsComponents.Bar>
+        </RechartsComponents.BarChart>
+      </RechartsComponents.ResponsiveContainer>
+    </Suspense>
   );
 };
 
