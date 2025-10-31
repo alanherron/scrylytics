@@ -64,7 +64,7 @@ jobs:
       - name: Deploy to Vercel
         run: |
           npm i -g vercel
-          vercel --prod --yes
+          vercel --prod --yes --token ${{ secrets.VERCEL_TOKEN }}
 
       - name: Comment on PR (if PR deployment)
         if: github.event_name == 'pull_request'
