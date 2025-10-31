@@ -22,6 +22,15 @@ Scrylytics is an AI-powered analytics and deck optimization platform for collect
 
 ---
 
+## 🚀 **Status: DevOps Pipeline Active**
+
+✅ **Automated Deployments**: GitHub Actions + Vercel
+✅ **Branch Protection**: main & develop branches protected
+✅ **Smart Deployments**: Skip logic for docs-only changes
+✅ **Live Site**: [scrylytics.com](https://www.scrylytics.com)
+
+---
+
 ## 🧱 Tech Stack
 
 - **Framework:** [Next.js 15](https://nextjs.org) + React 19  
@@ -40,4 +49,18 @@ Scrylytics is an AI-powered analytics and deck optimization platform for collect
 ```bash
 git clone https://github.com/<your-username>/scrylytics.git
 cd scrylytics
-# touch to trigger PR
+```
+
+### 2️⃣ Set up CI/CD (Automated)
+```bash
+# Run the automated setup script
+bash scripts/setup-ci-cd.sh
+```
+
+This will configure:
+- ✅ GitHub branch protection for `main` and `develop`
+- ✅ Automated Vercel deployments with skip logic
+- ✅ CI/CD workflows and rules
+
+### 3️⃣ Manual Setup (Alternative)
+If you prefer manual setup, see [CI/CD Setup Guide](docs/ci-cd-setup.md)
