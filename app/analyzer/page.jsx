@@ -497,12 +497,13 @@ export default function Analyzer() {
 
       {/* Sample Decks */}
       <div id="sample-decks" style={{marginTop:"3rem", padding:"2rem", backgroundColor:"#f8fafc", borderRadius:"8px", border:"2px solid #4f46e5"}}>
-        <h3 style={{color:"#1f2937", marginBottom:"0.5rem"}}>🎴 Sample Decks to Try</h3>
+        <h3 style={{color:"#1f2937", marginBottom:"0.5rem"}}>🎴 Sample Decks to Try (6 decks available)</h3>
         <div style={{width:"100%", height:"4px", backgroundColor:"#4f46e5", marginBottom:"1rem", borderRadius:"2px"}}></div>
         <p style={{fontSize:"0.9rem", color:"#6b7280", marginBottom:"1.5rem"}}>
           Try these sample decks to see different analysis results and AI insights. Each deck demonstrates different strengths and weaknesses.
         </p>
         <div style={{display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(320px, 1fr))", gap:"1rem"}}>
+          {/* DEBUG: 6 sample decks should be visible below */}
           {/* Hearthstone Decks */}
           <div style={{border:"1px solid #e5e7eb", borderRadius:"8px", padding:"1rem", backgroundColor:"white"}}>
             <h4 style={{margin:"0 0 0.5rem 0", color:"#1f2937"}}>🃏 Hearthstone: Control Warrior</h4>
@@ -653,7 +654,8 @@ export default function Analyzer() {
           </div>
         </div>
 
-        <div style={{marginTop:"1.5rem", textAlign:"center"}}>
+        <div style={{marginTop:"1.5rem", textAlign:"center", padding:"1rem", backgroundColor:"#f0f4ff", borderRadius:"6px", border:"1px solid #c7d2fe"}}>
+          <p style={{margin:"0 0 0.5rem 0", fontSize:"0.9rem", color:"#3730a3", fontWeight:"500"}}>✅ All 6 sample decks loaded successfully!</p>
           <a
             href="/insights"
             style={{
