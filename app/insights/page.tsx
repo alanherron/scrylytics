@@ -120,7 +120,7 @@ export default function InsightsPage() {
         textAlign: "center",
         marginBottom: "1rem"
       }}>
-        ✅ REACT IS WORKING - Build #42 - APP ROUTER FIXED! 🚀
+        ✅ REACT IS WORKING - Build #43 - DYNAMIC IMPORTS FIXED! 📊
       </div>
 
       <header style={{marginBottom:"2rem"}}>
@@ -194,16 +194,15 @@ export default function InsightsPage() {
         </div>
       )}
 
-      {result && result.issue !== 'ERROR' && (
-        <div style={{marginTop:"2rem"}}>
-          <InsightChart
-            issue={result.issue as any}
-            data={result.data || []}
-            caption={result.caption}
-            title={`Chart: ${result.issue.replace(/_/g, ' ')}`}
-          />
-        </div>
-      )}
+          {result && result.issue !== 'ERROR' && (
+            <div style={{marginTop:"2rem"}}>
+              <h3>Chart: {result.issue.replace(/_/g, ' ')}</h3>
+              <InsightChart
+                issue={result.issue as any}
+                data={result.data || []}
+              />
+            </div>
+          )}
     </div>
   );
 }
