@@ -1,0 +1,70 @@
+name: Status Comment Bot
+on:
+  pull_request:
+    types: [opened, reopened, closed, ready_for_review, converted_to_draft]
+  issues:
+    types: [labeled]
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  pr_status_notes:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Detect state
+        id: s
+        run: |
+          case "${{ github.event.action }}" in
+            opened|reopened|ready_for_review) echo "msg=Status → In Progress (PR #${{ github.event.number }})" >> $GITHUB_OUTPUT ;;
+            closed)
+              if [[ "${{ github.event.pull_request.merged }}" == "true" ]]; then
+                echo "msg=Status → Done (PR #${{ github.event.number }} merged)" >> $GITHUB_OUTPUT
+              else
+                echo "msg=Status → Backlog (PR #${{ github.event.number }} closed without merge)" >> $GITHUB_OUTPUT
+              fi ;;
+            converted_to_draft) echo "msg=Status → Backlog (PR draft)" >> $GITHUB_OUTPUT ;;
+            *) echo "msg=" >> $GITHUB_OUTPUT ;;
+          esac
+      - name: Comment on linked issues
+        if: steps.s.outputs.msg != ''
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const body = `🧭 ${process.env.MSG}`;
+            const pr = context.payload.pull_request;
+            process.env.MSG = `${{ steps.s.outputs.msg }}`;
+            // parse "Closes #123" style references
+            const refs = (pr.body || '').match(/#\d+/g) || [];
+            for (const ref of refs) {
+              const number = Number(ref.slice(1));
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: number,
+                body
+              });
+            }
+  issue_label_notes:
+    if: github.event_name == 'issues'
+    runs-on: ubuntu-latest
+    steps:
+      - name: If status-ish label added, leave note
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const label = context.payload.label?.name || '';
+            const statusLabels = new Set(['in-progress','backlog']);
+            if (!statusLabels.has(label)) return;
+            const map = { 'in-progress': 'In Progress', 'backlog': 'Backlog' };
+            const msg = `🧭 Status → ${map[label]} (via label)`;
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: msg
+            });
