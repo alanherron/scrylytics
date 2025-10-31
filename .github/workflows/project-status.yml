@@ -1,0 +1,36 @@
+name: Project Status Automations
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review, closed, converted_to_draft]
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+jobs:
+  set_status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine target status
+        id: s
+        run: |
+          if [[ "${{ github.event.action }}" == "opened" || "${{ github.event.action }}" == "reopened" || "${{ github.event.action }}" == "ready_for_review" ]]; then
+            echo "status=In Progress" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" == "true" ]]; then
+            echo "status=Done" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event.action }}" == "closed" && "${{ github.event.pull_request.merged }}" != "true" ]]; then
+            echo "status=Backlog" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event.action }}" == "converted_to_draft" ]]; then
+            echo "status=Backlog" >> $GITHUB_OUTPUT
+          else
+            echo "status=" >> $GITHUB_OUTPUT
+          fi
+      - name: Update Status on project card
+        if: steps.s.outputs.status != ''
+        uses: leonsteinhaeuser/project-beta-automations@v2.5.1
+        with:
+          gh_token: ${{ secrets.PROJECTS_TOKEN }}
+          user: "alanherron"
+          project_id: "2"
+          resource_node_id: ${{ github.event.pull_request.node_id }}
+          field_mappings: |
+            Status=${{ steps.s.outputs.status }}
