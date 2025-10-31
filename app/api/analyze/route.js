@@ -65,8 +65,9 @@ export async function POST(request) {
       return Response.json(analysis);
     }
   } catch (error) {
-    console.error('Deck analysis error:', error);
-    return Response.json({ error: 'Failed to analyze deck' }, { status: 500 });
+    console.error('Deck analysis error:', error.message);
+    console.error('Stack:', error.stack);
+    return Response.json({ error: 'Failed to analyze deck', details: error.message }, { status: 500 });
   }
 }
 
@@ -108,6 +109,7 @@ async function analyzeDeckWithAI(deckCode, gameType) {
       });
     }
 
+    console.log('Making OpenAI API call...');
     const response = await openai.chat.completions.create({
       model: 'gpt-4',
       messages: [
@@ -123,6 +125,7 @@ async function analyzeDeckWithAI(deckCode, gameType) {
       temperature: 0.7,
       max_tokens: 1500
     });
+    console.log('OpenAI API call completed successfully');
 
     const analysisText = response.choices[0].message.content;
     const analysis = parseAIAnalysis(analysisText, gameType);
