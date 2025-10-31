@@ -68,3 +68,24 @@ This will configure:
 
 ### 3️⃣ Manual Setup (Alternative)
 If you prefer manual setup, see [CI/CD Setup Guide](docs/ci-cd-setup.md)
+
+## 🚀 Performance Tips
+
+### Bundle Analysis
+Analyze your bundle size and dependencies:
+```bash
+npm run analyze:bundle
+```
+This generates a visual report of your bundle composition.
+
+### Next.js Optimizations
+The app includes several performance optimizations:
+- **SWC Minification**: Faster builds with Rust-based minifier
+- **Image Optimization**: WebP/AVIF formats, lazy loading
+- **Console Removal**: Debug logs removed in production
+- **Package Import Optimization**: Tree-shaking for UI libraries
+
+### CI Performance
+- **Smart Deployment Skipping**: Docs-only changes skip Vercel deployment
+- **Timeout Protection**: All CI steps have timeouts to prevent hangs
+- **Analyzer Guard**: Expensive operations disabled in CI mode
