@@ -12,15 +12,11 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   // Performance optimizations
-  swcMinify: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
-  experimental: {
-    optimizePackageImports: ['@mui/material', '@mui/icons-material'],
-  },
   images: {
-    domains: ['api.scryfall.com', 'scryfall.com'],
+    domains: ['api.scryfall.com', 'scryfall.com', 'art.hearthstonejson.com'],
     formats: ['image/webp', 'image/avif'],
   },
   async headers() {

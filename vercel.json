@@ -5,10 +5,13 @@
   "regions": ["iad1"],
   "functions": {
     "app/**/*.js": {
-      "maxDuration": 10
+      "maxDuration": 30
     },
     "app/**/*.jsx": {
-      "maxDuration": 10
+      "maxDuration": 30
+    },
+    "app/api/**/*.js": {
+      "maxDuration": 30
     }
   },
   "rewrites": [
