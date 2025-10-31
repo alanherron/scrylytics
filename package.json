@@ -16,7 +16,8 @@
     "ci:doctor": "node -e \"console.log('🔍 CI Health Check:', require('./src/analyzer/guard.cjs').isCI ? 'CI detected - analyzer disabled' : 'Development mode - analyzer enabled')\"",
     "doctor": "node -e \"console.log('🔍 System Health Check:', 'ok')\"",
     "ci:check": "npm run lint && npm test && npm run build",
-    "analyze:bundle": "ANALYZE=true next build"
+    "analyze:bundle": "ANALYZE=true next build",
+    "curl:safe-test": "scripts/curl_safe.sh https://api.github.com"
   },
   "dependencies": {
     "next": "^15.0.0",
