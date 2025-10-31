@@ -120,7 +120,7 @@ export default function InsightsPage() {
         textAlign: "center",
         marginBottom: "1rem"
       }}>
-        ✅ REACT IS WORKING - Build #35 - CHARTS FIXED!
+        ✅ REACT IS WORKING - Build #36 - CHARTS LIVE! 🎉
       </div>
 
       <header style={{marginBottom:"2rem"}}>
@@ -196,18 +196,12 @@ export default function InsightsPage() {
 
       {result && result.issue !== 'ERROR' && (
         <div style={{marginTop:"2rem"}}>
-          <div style={{padding: "1rem", backgroundColor: "#ff0", border: "2px solid #000", marginBottom: "1rem"}}>
-            📊 DEBUG: About to render InsightChart for issue: {result.issue}
-          </div>
           <InsightChart
             issue={result.issue as any}
             data={result.data || []}
             caption={result.caption}
             title={`Chart: ${result.issue.replace(/_/g, ' ')}`}
           />
-          <div style={{padding: "1rem", backgroundColor: "#0ff", border: "2px solid #000", marginTop: "1rem"}}>
-            📊 DEBUG: Finished rendering InsightChart
-          </div>
         </div>
       )}
     </div>
