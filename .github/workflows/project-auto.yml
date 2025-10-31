@@ -1,10 +1,21 @@
 name: Project Auto
+
 on:
-  workflow_dispatch: {}
+  # Only run when there IS an item to add
   issues:
     types: [opened, reopened, edited, labeled]
   pull_request:
     types: [opened, reopened, ready_for_review, synchronize, closed]
+  # Manual run with explicit target
+  workflow_dispatch:
+    inputs:
+      type:
+        description: "Target type (issue|pr)"
+        required: true
+        default: "issue"
+      number:
+        description: "Issue or PR number to add"
+        required: true
 
 permissions:
   contents: read
@@ -14,12 +25,55 @@ permissions:
 jobs:
   add_to_project:
     runs-on: ubuntu-latest
+
     steps:
       - name: Debug whoami (token owner)
         run: |
           curl -sH "Authorization: token ${{ secrets.PROJECTS_TOKEN }}" https://api.github.com/user | jq '{login, id}'
+
+      # Resolve the target item's GraphQL node_id depending on the event
+      - name: Resolve item node_id
+        id: resolve
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.PROJECTS_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if [[ "${{ github.event_name }}" == "issues" ]]; then
+            echo "mode=issue" >> $GITHUB_OUTPUT
+            echo "node_id=${{ github.event.issue.node_id }}" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "mode=pr" >> $GITHUB_OUTPUT
+            echo "node_id=${{ github.event.pull_request.node_id }}" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # workflow_dispatch path
+          TYPE="${{ github.event.inputs.type }}"
+          NUMBER="${{ github.event.inputs.number }}"
+
+          if [[ "$TYPE" == "issue" ]]; then
+            NODE_ID=$(gh api repos/${{ github.repository }}/issues/$NUMBER --jq '.node_id')
+            echo "mode=issue" >> $GITHUB_OUTPUT
+            echo "node_id=$NODE_ID" >> $GITHUB_OUTPUT
+            exit 0
+          elif [[ "$TYPE" == "pr" ]]; then
+            NODE_ID=$(gh api repos/${{ github.repository }}/pulls/$NUMBER --jq '.node_id')
+            echo "mode=pr" >> $GITHUB_OUTPUT
+            echo "node_id=$NODE_ID" >> $GITHUB_OUTPUT
+            exit 0
+          else
+            echo "Unknown type: $TYPE"
+            exit 1
+          fi
+
       - name: Add item to Scrylytics Roadmap
         uses: actions/add-to-project@v0.6.1
         with:
           project-url: https://github.com/users/alanherron/projects/2
           github-token: ${{ secrets.PROJECTS_TOKEN }}
+          item-id: ${{ steps.resolve.outputs.node_id }}
