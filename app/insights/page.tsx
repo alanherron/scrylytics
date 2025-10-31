@@ -223,7 +223,7 @@ export default function InsightsPage() {
           marginBottom: "1rem"
         }}>
           🚨 DEBUG MODE ACTIVE 🚨<br />
-          Build #19 - Cache Busting Added
+          Build #29 - React Error Fixed!
           <br />
           <button
             onClick={() => {
