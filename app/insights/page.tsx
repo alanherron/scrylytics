@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from 'react';
 import { PREBUILT_DECKS, analyzeDeck } from '../../lib/ai/insightEngine';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
+import InsightChart from '../../components/InsightChart';
 
 const SimpleHtmlChart = () => {
   return (
@@ -190,6 +191,17 @@ export default function InsightsPage() {
               </ul>
             </div>
           )}
+        </div>
+      )}
+
+      {result && result.issue !== 'ERROR' && (
+        <div style={{marginTop:"2rem"}}>
+          <InsightChart
+            issue={result.issue as any}
+            data={result.data || []}
+            caption={result.caption}
+            title={`Chart: ${result.issue.replace(/_/g, ' ')}`}
+          />
         </div>
       )}
     </div>
