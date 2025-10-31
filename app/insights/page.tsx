@@ -3,9 +3,80 @@
 import React, { useMemo, useState } from "react";
 import InsightChart from "@/components/InsightChart";
 import { PREBUILT_DECKS, analyzeDeck } from "@/lib/ai/insightEngine";
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
+
+// Simple test chart component
+const TestChart = () => {
+  const testData = [
+    { name: 'A', value: 10 },
+    { name: 'B', value: 20 },
+    { name: 'C', value: 15 },
+    { name: 'D', value: 25 }
+  ];
+
+  console.log('🧪 TestChart: Attempting to render simple chart');
+  console.log('🧪 TestChart: Recharts available?', typeof BarChart);
+  console.log('🧪 TestChart: Data:', testData);
+
+  try {
+    return (
+      <div style={{ width: '100%', height: '200px', border: '2px solid #000', margin: '1rem 0' }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={testData}>
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="value" fill="#8884d8" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    );
+  } catch (error) {
+    console.error('🧪 TestChart: FAILED to render', error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    return (
+      <div style={{
+        padding: "1rem",
+        backgroundColor: "#ffcccc",
+        border: "2px solid #ff0000",
+        borderRadius: "4px",
+        margin: "1rem 0"
+      }}>
+        <strong>❌ Test Chart Failed:</strong> {errorMessage}
+        <br />
+        <small>Recharts may not be loading properly</small>
+      </div>
+    );
+  }
+};
 
 export default function InsightsPage() {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [rechartsStatus, setRechartsStatus] = useState('checking');
+
+  // Check if Recharts is available
+  React.useEffect(() => {
+    console.log('🔍 Checking Recharts availability...');
+
+    try {
+      // Check if recharts is loaded
+      if (typeof BarChart !== 'undefined') {
+        console.log('✅ Recharts is available in browser');
+        setRechartsStatus('available');
+      } else {
+        console.error('❌ Recharts BarChart is undefined');
+        setRechartsStatus('missing');
+      }
+    } catch (error) {
+      console.error('❌ Error checking Recharts:', error);
+      setRechartsStatus('error');
+    }
+
+    // Also check window object
+    setTimeout(() => {
+      console.log('🔍 Window recharts check:', typeof window !== 'undefined' ? 'window available' : 'no window');
+    }, 1000);
+  }, []);
 
   const deck = PREBUILT_DECKS[selectedIndex];
 
@@ -38,7 +109,37 @@ export default function InsightsPage() {
         marginBottom: "1rem"
       }}>
         🚨 DEBUG MODE ACTIVE 🚨<br />
-        Build #12 - Enhanced Chart Debugging
+        Build #13 - Enhanced Chart Debugging
+      </div>
+
+      {/* RECHARTS STATUS */}
+      <div style={{
+        backgroundColor: rechartsStatus === 'available' ? "#ccffcc" : "#ffcccc",
+        border: "2px solid #000000",
+        padding: "0.5rem",
+        marginBottom: "1rem",
+        textAlign: "center",
+        fontWeight: "bold"
+      }}>
+        📊 Recharts Status: {rechartsStatus.toUpperCase()}
+        {rechartsStatus === 'available' && " ✅"}
+        {rechartsStatus === 'missing' && " ❌"}
+        {rechartsStatus === 'error' && " 💥"}
+        {rechartsStatus === 'checking' && " 🔄"}
+      </div>
+
+      {/* CHART TEST SECTION */}
+      <div style={{
+        backgroundColor: "#ffff00",
+        border: "3px solid #000000",
+        padding: "1rem",
+        marginBottom: "1rem",
+        textAlign: "center"
+      }}>
+        <h3 style={{ color: "#000000", fontSize: "1.1rem", margin: "0 0 0.5rem 0" }}>
+          🧪 CHART TEST: Simple Bar Chart
+        </h3>
+        <TestChart />
       </div>
 
       <header className="space-y-2">
