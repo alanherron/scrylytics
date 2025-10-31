@@ -21,11 +21,11 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         timeout-minutes: 2
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8
         timeout-minutes: 2
         with:
           node-version: '18'
@@ -34,6 +34,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
         timeout-minutes: 5
+
+      - name: Health check
+        run: npm run doctor
+        timeout-minutes: 1
 
       - name: Run linting
         run: npm run lint 2>/dev/null || echo "No lint script found, skipping"
