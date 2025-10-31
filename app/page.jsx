@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { VERSION, BUILD_DATE } from '../lib/version.js';
+import { VERSION, BUILD_DATE, BUILD_NUMBER } from '../lib/version.js';
 import { useEffect, useState } from 'react';
 
 export default function Home() {
@@ -123,7 +123,7 @@ export default function Home() {
         fontSize:"0.9rem"
       }}>
         <div style={{marginBottom:"0.5rem"}}>
-          <strong>Scrylytics v{VERSION}</strong> • Built {BUILD_DATE}
+          <strong>Scrylytics v{VERSION}</strong> • <span style={{color:"#4f46e5", fontWeight:"bold"}}>Build #{BUILD_NUMBER}</span> • Built {BUILD_DATE}
         </div>
         <div style={{fontSize:"0.8rem"}}>
           AI-powered deck analysis for Hearthstone & Magic: The Gathering

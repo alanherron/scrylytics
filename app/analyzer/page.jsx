@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { VERSION, BUILD_DATE } from '../../lib/version.js';
+import { VERSION, BUILD_DATE, BUILD_NUMBER } from '../../lib/version.js';
 import { analyzeDeckFromAnalysis } from '../../lib/ai/insightEngine';
 import InsightChart from '../../components/InsightChart';
 
@@ -752,7 +752,7 @@ export default function Analyzer() {
         fontSize:"0.9rem"
       }}>
         <div style={{marginBottom:"0.5rem"}}>
-          <strong>Scrylytics v{VERSION}</strong> • Built {BUILD_DATE}
+          <strong>Scrylytics v{VERSION}</strong> • <span style={{color:"#4f46e5", fontWeight:"bold"}}>Build #{BUILD_NUMBER}</span> • Built {BUILD_DATE}
         </div>
         <div style={{fontSize:"0.8rem"}}>
           AI-powered deck analysis with card images
