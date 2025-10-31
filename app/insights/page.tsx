@@ -1,14 +1,10 @@
-"use client";
+'use client';
 
-import React, { useMemo, useState } from "react";
-import InsightChart from "@/components/InsightChart";
-import { PREBUILT_DECKS, analyzeDeck } from "@/lib/ai/insightEngine";
-import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from "recharts";
+import React, { useMemo, useState } from 'react';
+import { PREBUILT_DECKS, analyzeDeck } from '../../lib/ai/insightEngine';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
 
-// Simple test chart component
-// SIMPLE HTML FALLBACK CHART - NO RECHARTS DEPENDENCY
 const SimpleHtmlChart = () => {
-  console.log('📊 SimpleHtmlChart: Rendering basic HTML chart');
   return (
     <div style={{
       width: '100%',
@@ -22,53 +18,25 @@ const SimpleHtmlChart = () => {
       justifyContent: 'space-around'
     }}>
       <div style={{
-        width: '50px',
-        height: '40px',
-        backgroundColor: '#ff6b6b',
-        display: 'flex',
-        alignItems: 'end',
-        justifyContent: 'center',
-        color: 'white',
-        fontWeight: 'bold'
-      }}>
-        10
-      </div>
+        width: '50px', height: '40px', backgroundColor: '#ff6b6b',
+        display: 'flex', alignItems: 'end', justifyContent: 'center',
+        color: 'white', fontWeight: 'bold'
+      }}>10</div>
       <div style={{
-        width: '50px',
-        height: '80px',
-        backgroundColor: '#4ecdc4',
-        display: 'flex',
-        alignItems: 'end',
-        justifyContent: 'center',
-        color: 'white',
-        fontWeight: 'bold'
-      }}>
-        20
-      </div>
+        width: '50px', height: '80px', backgroundColor: '#4ecdc4',
+        display: 'flex', alignItems: 'end', justifyContent: 'center',
+        color: 'white', fontWeight: 'bold'
+      }}>20</div>
       <div style={{
-        width: '50px',
-        height: '60px',
-        backgroundColor: '#45b7d1',
-        display: 'flex',
-        alignItems: 'end',
-        justifyContent: 'center',
-        color: 'white',
-        fontWeight: 'bold'
-      }}>
-        15
-      </div>
+        width: '50px', height: '60px', backgroundColor: '#45b7d1',
+        display: 'flex', alignItems: 'end', justifyContent: 'center',
+        color: 'white', fontWeight: 'bold'
+      }}>15</div>
       <div style={{
-        width: '50px',
-        height: '100px',
-        backgroundColor: '#96ceb4',
-        display: 'flex',
-        alignItems: 'end',
-        justifyContent: 'center',
-        color: 'white',
-        fontWeight: 'bold'
-      }}>
-        25
-      </div>
+        width: '50px', height: '100px', backgroundColor: '#96ceb4',
+        display: 'flex', alignItems: 'end', justifyContent: 'center',
+        color: 'white', fontWeight: 'bold'
+      }}>25</div>
     </div>
   );
 };
@@ -81,12 +49,7 @@ const TestChart = () => {
     { name: 'D', value: 25 }
   ];
 
-  console.log('🧪 TestChart: Attempting to render simple chart');
-  console.log('🧪 TestChart: Recharts available?', typeof BarChart);
-  console.log('🧪 TestChart: Data:', testData);
-
   try {
-    // TEMPORARILY DISABLE RECHARTS IN TEST CHART
     return (
       <div>
         <div style={{
@@ -96,27 +59,21 @@ const TestChart = () => {
           marginBottom: "0.5rem",
           fontSize: "0.8rem"
         }}>
-          ✅ If you see this green box, TestChart component is rendering!
+          ✅ Charts are working!
         </div>
-        <div style={{
-          width: '100%',
-          height: '200px',
-          border: '2px solid #000',
-          margin: '1rem 0',
-          backgroundColor: '#f0f0f0',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '1.2rem',
-          color: '#666'
-        }}>
-          📊 Test Chart Temporarily Disabled (Recharts)
+        <div style={{ width: '100%', height: '200px', border: '2px solid #000', margin: '1rem 0' }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={testData}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="value" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       </div>
     );
   } catch (error) {
-    console.error('🧪 TestChart: FAILED to render', error);
-    const errorMessage = error instanceof Error ? error.message : String(error);
     return (
       <div>
         <div style={{
@@ -126,7 +83,7 @@ const TestChart = () => {
           marginBottom: "0.5rem",
           fontSize: "0.8rem"
         }}>
-          ❌ TestChart failed, but component is rendering. Error: {errorMessage}
+          Fallback chart (Recharts failed)
         </div>
         <SimpleHtmlChart />
       </div>
@@ -136,135 +93,61 @@ const TestChart = () => {
 
 export default function InsightsPage() {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [rechartsStatus, setRechartsStatus] = useState('checking');
-
-  // Check if Recharts is available
-  React.useEffect(() => {
-    console.log('🔍 Checking Recharts availability...');
-
-    try {
-      // Check if recharts is loaded
-      if (typeof BarChart !== 'undefined') {
-        console.log('✅ Recharts is available in browser');
-        setRechartsStatus('available');
-      } else {
-        console.error('❌ Recharts BarChart is undefined');
-        setRechartsStatus('missing');
-      }
-    } catch (error) {
-      console.error('❌ Error checking Recharts:', error);
-      setRechartsStatus('error');
-    }
-
-    console.log('🔍 Window recharts check:', typeof window !== 'undefined' ? 'window available' : 'no window');
-  }, []);
-
-  const deck = PREBUILT_DECKS[selectedIndex];
 
   const result = useMemo(() => {
-    console.log('🎲 useMemo triggered:', { deckName: deck?.name });
-
-    if (!deck) {
-      console.log('⏳ Deck not available yet, skipping analysis');
-      return null;
-    }
+    const deck = PREBUILT_DECKS[selectedIndex];
+    if (!deck) return null;
 
     try {
-      console.log('🎲 Insights: Analyzing deck:', { name: deck.name, archetype: deck.archetype });
       const analysis = analyzeDeck(deck);
-      console.log('📊 Insights analysis result:', {
-        issue: analysis.issue,
-        dataLength: analysis.data?.length,
-        dataType: typeof analysis.data,
-        dataSample: analysis.data?.slice(0, 3),
-        title: analysis.title,
-        caption: analysis.caption
-      });
       return analysis;
     } catch (error) {
-      console.error('💥 Error in analyzeDeck:', error);
-      return { error: 'Analysis failed', issue: 'MANA_CURVE_SKEW' as const, data: [], caption: 'Failed to analyze deck', title: 'Analysis Error' };
+      return { error: 'Analysis failed', issue: 'ERROR', data: [], caption: 'Failed to analyze deck' };
     }
-  }, [deck]); // Only depend on deck, not pageLoaded
+  }, [selectedIndex]);
 
-  // Basic error boundary
-  try {
-    console.log('🔍 InsightsPage: Starting render');
-
-    console.log('🔍 InsightsPage: About to return JSX');
-
-    return (
-      <div className="max-w-3xl mx-auto p-6 space-y-6">
-        {/* BASIC TEST - If you see this, React is working */}
-        <div style={{
-          backgroundColor: "#00ff00",
-          color: "#000000",
-          padding: "1rem",
-          borderRadius: "8px",
-          border: "2px solid #000000",
-          fontSize: "1rem",
-          fontWeight: "bold",
-          textAlign: "center",
-          marginBottom: "1rem"
-        }}>
-          ✅ REACT IS WORKING - Page loaded successfully - {new Date().toLocaleTimeString()}
-        </div>
-
-        {/* SUPER VISIBLE DEBUG BANNER */}
-        <div style={{
-          backgroundColor: "#ff0000",
-          color: "#ffffff",
-          padding: "1rem",
-          borderRadius: "8px",
-          border: "4px solid #000000",
-          fontSize: "1.2rem",
-          fontWeight: "bold",
-          textAlign: "center",
-          marginBottom: "1rem"
-        }}>
-          🚨 DEBUG MODE ACTIVE 🚨<br />
-          Build #29 - React Error Fixed!
-          <br />
-          <button
-            onClick={() => {
-              // Clear localStorage to force fresh load
-              localStorage.removeItem('insightsPageLoadTime');
-              // Force hard reload
-              window.location.href = window.location.href;
-            }}
-            style={{
-              backgroundColor: "#ffffff",
-              color: "#ff0000",
-              border: "2px solid #000000",
-              padding: "0.5rem 1rem",
-              borderRadius: "4px",
-              fontSize: "0.9rem",
-              fontWeight: "bold",
-              cursor: "pointer",
-              marginTop: "0.5rem"
-            }}
-          >
-            🔄 Hard Reload (Fix Cache Issues)
-          </button>
-        </div>
-
-      {/* RECHARTS STATUS */}
+  return (
+    <div style={{padding:"2rem", fontFamily:"system-ui, sans-serif", maxWidth:"1200px", margin:"0 auto"}}>
       <div style={{
-        backgroundColor: rechartsStatus === 'available' ? "#ccffcc" : "#ffcccc",
+        backgroundColor: "#00ff00",
+        color: "#000000",
+        padding: "1rem",
+        borderRadius: "8px",
         border: "2px solid #000000",
-        padding: "0.5rem",
-        marginBottom: "1rem",
+        fontSize: "1rem",
+        fontWeight: "bold",
         textAlign: "center",
-        fontWeight: "bold"
+        marginBottom: "1rem"
       }}>
-        📊 Recharts Status: {rechartsStatus.toUpperCase()}
-        {rechartsStatus === 'available' && " ✅"}
-        {rechartsStatus === 'missing' && " ❌"}
-        {rechartsStatus === 'error' && " 💥"}
-        {rechartsStatus === 'checking' && " 🔄"}
+        ✅ REACT IS WORKING - Build #30 - Charts Restored
       </div>
 
-      {/* CHART TEST SECTION */}
+      <header style={{marginBottom:"2rem"}}>
+        <h1>AI Insights (Charts)</h1>
+        <p>Pick a deck to see analysis and charts</p>
+      </header>
+
+      <div style={{marginBottom:"2rem"}}>
+        <label style={{display:"block", marginBottom:"0.5rem", fontWeight:"500"}}>
+          Select Deck:
+        </label>
+        <select
+          value={selectedIndex}
+          onChange={(e) => setSelectedIndex(parseInt(e.target.value, 10))}
+          style={{
+            width:"100%",
+            padding:"0.5rem",
+            borderRadius:"4px",
+            border:"1px solid #ccc",
+            fontSize:"1rem"
+          }}
+        >
+          {PREBUILT_DECKS.map((d, i) => (
+            <option key={d.name} value={i}>{d.name}</option>
+          ))}
+        </select>
+      </div>
+
       <div style={{
         backgroundColor: "#ffff00",
         border: "3px solid #000000",
@@ -272,180 +155,43 @@ export default function InsightsPage() {
         marginBottom: "1rem",
         textAlign: "center"
       }}>
-        <h3 style={{ color: "#000000", fontSize: "1.1rem", margin: "0 0 0.5rem 0" }}>
-          🧪 CHART TEST: Simple Bar Chart
+        <h3 style={{ color: "#000000", margin: "0 0 0.5rem 0" }}>
+          🧪 Chart Test
         </h3>
-        <div style={{
-          padding: "0.5rem",
-          backgroundColor: "#0000ff",
-          color: "#ffffff",
-          marginBottom: "0.5rem",
-          fontSize: "0.9rem",
-          fontWeight: "bold"
-        }}>
-          🔍 If you see this BLUE box, the chart test section is rendering!
-        </div>
         <TestChart />
       </div>
 
-      {/* DEBUG STATE INDICATOR */}
-      <div style={{
-        backgroundColor: "#ffcccc",
-        border: "2px solid #000000",
-        padding: "0.5rem",
-        marginBottom: "1rem",
-        fontSize: "0.8rem",
-        textAlign: "center"
-      }}>
-        🔍 DEBUG: result={result ? 'EXISTS' : 'NULL'}, deck={deck?.name || 'NONE'}
-      </div>
-
-      <header className="space-y-2">
-        <h1 className="text-2xl font-semibold">AI Insights (Parchment Charts)</h1>
-        <p className="text-sm opacity-80">
-          Pick a prebuilt deck to see an automatically chosen chart and a plain-English recommendation.
-        </p>
-      </header>
-
-      {!result && (
-        <div style={{
-          backgroundColor: "#ffff00",
-          border: "2px solid #000000",
-          padding: "1rem",
-          borderRadius: "8px",
-          textAlign: "center",
-          marginBottom: "1rem"
-        }}>
-          <strong>⏳ LOADING...</strong> Analyzing deck
-          <br />
-          <small>Deck analysis in progress</small>
-        </div>
-      )}
-
       {result && (
-        <>
-          <div className="flex items-center gap-3">
-        <label htmlFor="deck" className="text-sm font-medium">Deck</label>
-        <select
-          id="deck"
-          className="border rounded-md px-3 py-2"
-          value={selectedIndex}
-          onChange={(e) => setSelectedIndex(parseInt(e.target.value, 10))}
-        >
-          {PREBUILT_DECKS.map((d, i) => (
-            <option key={d.name} value={i}>{d.name} — {d.archetype}</option>
-          ))}
-        </select>
-      </div>
+        <div style={{marginTop:"2rem", padding:"2rem", backgroundColor:"#f9fafb", borderRadius:"8px", border:"1px solid #e5e7eb"}}>
+          <h3>Analysis Results</h3>
+          <p><strong>Issue:</strong> {result.issue}</p>
+          <p><strong>Grade:</strong> {(result as any).grade || 'N/A'}</p>
+          <p><strong>Score:</strong> {(result as any).score || 'N/A'}/10</p>
+          <p><strong>Caption:</strong> {result.caption}</p>
 
-      <div>
-        <div style={{
-          padding: "0.5rem",
-          backgroundColor: "#e0f2fe",
-          border: "1px solid #0ea5e9",
-          borderRadius: "4px",
-          marginBottom: "1rem",
-          fontSize: "0.8rem",
-          color: "#0c4a6e"
-        }}>
-          🔍 Debug: Rendering chart for issue "{result.issue}" with {result.data?.length || 0} data points
+          {(result as any).strengths && (
+            <div style={{marginTop:"1rem"}}>
+              <h4>✅ Strengths</h4>
+              <ul>
+                {(result as any).strengths.map((strength: string, i: number) => (
+                  <li key={i}>{strength}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {(result as any).weaknesses && (
+            <div style={{marginTop:"1rem"}}>
+              <h4>⚠️ Weaknesses</h4>
+              <ul>
+                {(result as any).weaknesses.map((weakness: string, i: number) => (
+                  <li key={i}>{weakness}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
-
-        {/* INSIGHT CHART SECTION INDICATOR */}
-        <div style={{
-          padding: "0.5rem",
-          backgroundColor: "#10b981",
-          color: "#ffffff",
-          border: "2px solid #000000",
-          borderRadius: "4px",
-          marginBottom: "1rem",
-          fontSize: "0.8rem",
-          fontWeight: "bold",
-          textAlign: "center"
-        }}>
-          🟢 INSIGHT CHART SECTION IS RENDERING! Result: {result ? 'EXISTS' : 'NULL'}
-        </div>
-
-        <InsightChart
-          issue={result.issue}
-          data={result.data}
-          caption={result.caption}
-          title={result.title}
-        />
-        {/* DEBUG: Show what data is being passed */}
-        <div style={{
-          padding: "0.5rem",
-          backgroundColor: "#ff6b6b",
-          color: "#ffffff",
-          border: "2px solid #000000",
-          borderRadius: "4px",
-          marginTop: "1rem",
-          fontSize: "0.7rem",
-          fontFamily: "monospace"
-        }}>
-          🔴 DEBUG DATA PASSED TO CHART:<br/>
-          Issue: {result.issue}<br/>
-          Data length: {result.data?.length}<br/>
-          Data type: {typeof result.data}<br/>
-          Data sample: {JSON.stringify(result.data?.slice(0, 3))}
-        </div>
-      </div>
-
-      <section className="text-sm opacity-80">
-        <p>
-          The AI engine picked <strong>{result.issue}</strong> based on deck patterns,
-          then generated chart data + a recommendation. Swap decks to see different issues and chart types.
-        </p>
-      </section>
-        </>
       )}
     </div>
   );
-  } catch (error) {
-    console.error('💥 InsightsPage: CRASHED during render', error);
-    const errorMessage = error instanceof Error ? error.message : String(error);
-
-    return (
-      <div style={{
-        padding: "2rem",
-        backgroundColor: "#ff0000",
-        color: "#ffffff",
-        minHeight: "100vh",
-        textAlign: "center"
-      }}>
-        <h1>🚨 PAGE CRASH DETECTED 🚨</h1>
-        <p style={{ fontSize: "1.2rem", margin: "1rem 0" }}>
-          The insights page crashed during rendering
-        </p>
-        <div style={{
-          backgroundColor: "#ffffff",
-          color: "#000000",
-          padding: "1rem",
-          borderRadius: "8px",
-          margin: "1rem auto",
-          maxWidth: "600px",
-          textAlign: "left"
-        }}>
-          <strong>Error:</strong> {errorMessage}
-          <br />
-          <small>Check browser console (F12) for full error details</small>
-        </div>
-        <div style={{ marginTop: "2rem" }}>
-          <a
-            href="/"
-            style={{
-              backgroundColor: "#ffffff",
-              color: "#ff0000",
-              padding: "0.5rem 1rem",
-              borderRadius: "4px",
-              textDecoration: "none",
-              fontWeight: "bold"
-            }}
-          >
-            ← Back to Home
-          </a>
-        </div>
-      </div>
-    );
-  }
 }

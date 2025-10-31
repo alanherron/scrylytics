@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { VERSION, BUILD_DATE, BUILD_NUMBER } from '../../lib/version.js';
-import { analyzeDeckFromAnalysis } from '../../lib/ai/insightEngine';
+// import { analyzeDeckFromAnalysis } from '../../lib/ai/insightEngine'; // Not available
 import InsightChart from '../../components/InsightChart';
 
 export default function Analyzer() {
@@ -91,20 +91,9 @@ export default function Analyzer() {
 
       setAnalysis(result);
 
-      // Generate insights based on the analysis
-      try {
-        const deckMeta = {
-          name: `Analyzed ${gameType} deck`,
-          archetype: result.grade || 'Unknown',
-          gameType: gameType,
-          list: []
-        };
-        const insightResult = analyzeDeckFromAnalysis(deckMeta, result);
-        setInsights(insightResult);
-      } catch (error) {
-        console.warn('Failed to generate insights:', error);
-        setInsights(null);
-      }
+          // Generate insights based on the analysis
+          // Temporarily disabled - analyzeDeckFromAnalysis not available
+          setInsights(null);
 
       // Start loading real card images after initial analysis
       setTimeout(() => loadRealCardImages(result), 100);
