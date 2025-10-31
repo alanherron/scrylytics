@@ -209,6 +209,23 @@ export const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption
     title
   });
 
+  // VISUAL DEBUG INDICATOR - If you see this purple box, InsightChart is rendering!
+  const debugIndicator = (
+    <div style={{
+      padding: "0.5rem",
+      backgroundColor: "#8b5cf6",
+      color: "#ffffff",
+      border: "2px solid #000000",
+      borderRadius: "4px",
+      marginBottom: "1rem",
+      fontSize: "0.8rem",
+      fontWeight: "bold",
+      textAlign: "center"
+    }}>
+      🟣 InsightChart COMPONENT IS RENDERING! Issue: {issue}, Data: {data?.length || 0} items
+    </div>
+  );
+
   const renderChart = () => {
     try {
       console.log('🎯 Rendering chart for issue:', issue);
@@ -262,6 +279,7 @@ export const InsightChart: React.FC<InsightChartProps> = ({ issue, data, caption
 
   return (
     <ParchmentFrame title={title || titleMap[issue]}>
+      {debugIndicator}
       <div style={{ minHeight: "320px" }}>
         {renderChart()}
       </div>

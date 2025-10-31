@@ -377,6 +377,22 @@ export default function InsightsPage() {
         }}>
           🔍 Debug: Rendering chart for issue "{result.issue}" with {result.data?.length || 0} data points
         </div>
+
+        {/* INSIGHT CHART SECTION INDICATOR */}
+        <div style={{
+          padding: "0.5rem",
+          backgroundColor: "#10b981",
+          color: "#ffffff",
+          border: "2px solid #000000",
+          borderRadius: "4px",
+          marginBottom: "1rem",
+          fontSize: "0.8rem",
+          fontWeight: "bold",
+          textAlign: "center"
+        }}>
+          🟢 INSIGHT CHART SECTION IS RENDERING! Result: {result ? 'EXISTS' : 'NULL'}
+        </div>
+
         <InsightChart
           issue={result.issue}
           data={result.data}
