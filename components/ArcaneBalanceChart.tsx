@@ -2,7 +2,7 @@
 
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 
 import {
 
@@ -82,23 +82,11 @@ function CustomTooltip({ active, payload, label }: any) {
 
 }
 
-const legendStyle: React.CSSProperties = {
-
-  fontSize: 12,
-
-  lineHeight: 1.2,
-
-  paddingTop: 4,
-
-};
-
 export function ArcaneBalanceChart({
 
   data = defaultData,
 
-  height = 380,
-
-  showLegend = true,
+  height = 420,
 
 }: {
 
@@ -106,9 +94,13 @@ export function ArcaneBalanceChart({
 
   height?: number;
 
-  showLegend?: boolean;
-
 }) {
+
+  // On very small widths, fall back to bottom legend to avoid squish
+
+  const isNarrow = useMemo(() => typeof window !== "undefined" && window.innerWidth < 720, []);
+
+
 
   return (
 
@@ -116,7 +108,23 @@ export function ArcaneBalanceChart({
 
       <ResponsiveContainer width="100%" height="100%">
 
-        <RadarChart data={data} outerRadius="75%">
+        <RadarChart
+
+          data={data}
+
+          // Shift the chart left to make room for the side legend
+
+          cx={isNarrow ? "50%" : "42%"}
+
+          cy="50%"
+
+          // Grow radius since we reclaimed space
+
+          outerRadius={isNarrow ? "70%" : "80%"}
+
+          margin={{ top: 8, right: isNarrow ? 12 : 140, bottom: 12, left: 8 }}
+
+        >
 
           <PolarGrid strokeDasharray="4 4" />
 
@@ -126,7 +134,7 @@ export function ArcaneBalanceChart({
 
 
 
-          {/* Draw Ideal first (lighter), then Current on top (heavier) for clear overlay */}
+          {/* Underlay: Ideal (blue), Overlay: Current (red) */}
 
           <Radar
 
@@ -138,7 +146,7 @@ export function ArcaneBalanceChart({
 
             fill="#3A86FF"
 
-            fillOpacity={0.18}          // transparent
+            fillOpacity={0.18}
 
             isAnimationActive
 
@@ -158,7 +166,7 @@ export function ArcaneBalanceChart({
 
             fill="#EF476F"
 
-            fillOpacity={0.38}          // transparent, sits above Ideal
+            fillOpacity={0.38}
 
             isAnimationActive
 
@@ -172,27 +180,39 @@ export function ArcaneBalanceChart({
 
           <Tooltip content={<CustomTooltip />} />
 
-          {showLegend && (
 
-            <Legend
 
-              verticalAlign="bottom"
+          <Legend
 
-              align="center"
+            // Side legend on wide screens; bottom on narrow
 
-              wrapperStyle={legendStyle}
+            layout={isNarrow ? "horizontal" : "vertical"}
 
-              payload={[
+            verticalAlign={isNarrow ? "bottom" : "middle"}
 
-                { id: "Ideal",   value: "Ideal",   type: "line", color: "#3A86FF" },
+            align={isNarrow ? "center" : "right"}
 
-                { id: "Current", value: "Current", type: "line", color: "#EF476F" },
+            wrapperStyle={{
 
-              ]}
+              fontSize: 12,
 
-            />
+              lineHeight: 1.2,
 
-          )}
+              paddingTop: isNarrow ? 6 : 0,
+
+              paddingRight: isNarrow ? 0 : 8,
+
+            }}
+
+            payload={[
+
+              { id: "Ideal",   value: "Ideal",   type: "line", color: "#3A86FF" },
+
+              { id: "Current", value: "Current", type: "line", color: "#EF476F" },
+
+            ]}
+
+          />
 
         </RadarChart>
 
@@ -204,7 +224,7 @@ export function ArcaneBalanceChart({
 
 }
 
-// Example data (0–100). Map your analyzer outputs to this scale.
+// Example data
 
 const defaultData: BalanceDatum[] = [
 
