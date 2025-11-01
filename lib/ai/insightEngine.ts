@@ -6,7 +6,8 @@ export type DeckIssueType =
   | "TECH_GAPS"
   | "MATCHUP_PAINS"
   | "HAND_SIZE_PRESSURE"
-  | "BOARD_TEMPO_GAPS";
+  | "BOARD_TEMPO_GAPS"
+  | "DECK_COMPOSITION";
 
 export interface DeckMeta {
   name: string;
@@ -223,6 +224,26 @@ export function analyzeDeck(deck: DeckMeta): InsightResult {
     };
   }
 
+  if (key.includes("deck composition") || key.includes("card types")) {
+    // Deck composition data: breakdown by card type
+    const compositionData = [
+      { name: "Minions", value: 16, fill: "#8884d8" },
+      { name: "Spells", value: 10, fill: "#82ca9d" },
+      { name: "Weapons", value: 4, fill: "#ffc658" },
+      { name: "Heroes", value: 1, fill: "#ff7300" }
+    ];
+    return {
+      issue: "DECK_COMPOSITION",
+      data: compositionData,
+      caption: "Deck composition shows good balance between minions and spells with some weapon support.",
+      title: "Deck Composition Analysis",
+      grade: "Good",
+      score: 8,
+      strengths: ["Balanced minion/spell ratio", "Weapon presence"],
+      weaknesses: ["Limited hero cards"]
+    };
+  }
+
   // Default fallback
   const curve = [2, 4, 6, 4, 2, 1, 0, 0];
   return {
@@ -306,6 +327,13 @@ export const PREBUILT_DECKS: DeckMeta[] = [
     archetype: "Midrange",
     gameType: "hearthstone",
     chartType: "Area",
+    list: []
+  },
+  {
+    name: "Minion-Heavy Warrior (Card Types)",
+    archetype: "Control",
+    gameType: "hearthstone",
+    chartType: "Deck Composition",
     list: []
   }
 ];

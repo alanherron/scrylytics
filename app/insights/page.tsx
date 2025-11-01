@@ -47,6 +47,8 @@ const getDisplayTitle = (issue: string) => {
       return "Hand Size Pressure";
     case "BOARD_TEMPO_GAPS":
       return "Tempo Analysis";
+    case "DECK_COMPOSITION":
+      return "Deck Composition";
     default:
       return issue.replace(/_/g, ' ');
   }

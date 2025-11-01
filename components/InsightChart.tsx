@@ -30,6 +30,7 @@ import TechGapsChart from "./TechGapsChart";
 import MatchupPainsChart from "./MatchupPainsChart";
 import { ManaPowerCurve } from "./ManaPowerCurve";
 import HandSizePressureChart from "./HandSizePressureChart";
+import DeckCompositionChart from "./DeckCompositionChart";
 
 type Props = {
   issue: string;
@@ -40,7 +41,8 @@ type Props = {
     { threat: string; metaLevel: number; yourAnswers: number; gap: number } |
     { matchup: string; score: number; value?: number } |
     { mana: number; value: number; ideal?: number } |
-    { turn: number; hand: number }
+    { turn: number; hand: number } |
+    { name: string; value: number; fill?: string }
   >
 };
 
@@ -79,7 +81,7 @@ export default function InsightChart({ issue, data }: Props) {
     strokeLinecap: "round" as const,
   };
 
-  const getChartType = (issue: string) => {
+  const getChartType = (issue: string): string => {
     switch (issue) {
       case "MANA_CURVE_SKEW":
         return "mana_power_curve"; // Special mana power curve chart
@@ -97,12 +99,14 @@ export default function InsightChart({ issue, data }: Props) {
         return "line";
       case "BOARD_TEMPO_GAPS":
         return "area";
+      case "DECK_COMPOSITION":
+        return "deck_composition";
       default:
         return "bar";
     }
   };
 
-  const chartType = getChartType(issue);
+  const chartType: string = getChartType(issue);
 
   // Ideal mana curve for comparison
   const idealManaCurve = [1, 2, 4, 3, 2, 1, 0, 0].map((count, mana) => ({ mana, count }));
@@ -285,7 +289,7 @@ export default function InsightChart({ issue, data }: Props) {
                 <XAxis dataKey="mana" tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }} />
                 <YAxis tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }} allowDecimals={false} />
                 <Tooltip contentStyle={{ backgroundColor: "#fef3c7", border: "2px solid #f59e0b", fontFamily: "cursive" }} />
-                <Bar dataKey="count" fill="#f59e0b" stroke="#d97706" strokeWidth={2} radius={[8, 8, 0, 0]} {...sketchStyle} />
+                <Bar dataKey="count" fill="#f59e0b" stroke="#d97706" radius={[8, 8, 0, 0]} {...sketchStyle} />
               </BarChart>
             </div>
 
@@ -314,7 +318,6 @@ export default function InsightChart({ issue, data }: Props) {
                   stroke="#ef4444"
                   fill="#fecaca"
                   fillOpacity={0.6}
-                  strokeWidth={3}
                   name="Current Curve"
                   {...sketchStyle}
                 />
@@ -327,7 +330,6 @@ export default function InsightChart({ issue, data }: Props) {
                   stroke="#10b981"
                   fill="#d1fae5"
                   fillOpacity={0.4}
-                  strokeWidth={3}
                   strokeDasharray="5 5"
                   name="Ideal Curve"
                   {...sketchStyle}
@@ -376,7 +378,6 @@ export default function InsightChart({ issue, data }: Props) {
               stroke="#f59e0b"
               fill="#fef3c7"
               fillOpacity={0.6}
-              strokeWidth={2}
               {...sketchStyle}
             />
             <Tooltip
@@ -425,7 +426,6 @@ export default function InsightChart({ issue, data }: Props) {
               stroke="#f59e0b"
               fill="#fef3c7"
               fillOpacity={0.8}
-              strokeWidth={2}
               {...sketchStyle}
             />
           </AreaChart>
@@ -452,7 +452,6 @@ export default function InsightChart({ issue, data }: Props) {
           <ArcaneBalanceChart
             data={balanceData}
             height={360}
-            showLegend={true}
           />
         );
       }
@@ -501,6 +500,15 @@ export default function InsightChart({ issue, data }: Props) {
             title="Mana Power Curve"
             caption="Blue squares mark each mana cost. Bars show where you have too many (up) or need more (down)."
             height={420}
+          />
+        );
+      }
+
+      case "deck_composition": {
+        return (
+          <DeckCompositionChart
+            data={data}
+            height={400}
           />
         );
       }
