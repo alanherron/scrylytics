@@ -54,8 +54,6 @@ type Point = { turn: number; hand: number; target: number };
 
 export type DrawRhythmChartProps = {
 
-  title?: string;
-
   data?: Point[];
 
   /** Goal line color */
@@ -162,8 +160,6 @@ const SimpleTooltip = ({ active, payload, label }: any) => {
 
 export default function DrawRhythmChart({
 
-  title = "Draw Rhythm (Cards in Hand by Turn)",
-
   data = DEFAULT_DATA,
 
   goalColor = "#555",
@@ -204,15 +200,6 @@ export default function DrawRhythmChart({
 
 
 
-  // We keep the legend language super simple
-
-  const legendPayload = [
-
-    { value: "Cards in hand", type: "square", color: barColor, id: "hand" },
-
-    { value: "Goal line", type: "line", color: goalColor, id: "target" },
-
-  ];
 
 
 
@@ -279,8 +266,6 @@ export default function DrawRhythmChart({
 
             tick={{ fontSize: 12 }}
 
-            label={{ value: "Turn", position: "insideBottom", offset: -2, fontSize: 12 }}
-
           />
 
           <YAxis
@@ -291,23 +276,10 @@ export default function DrawRhythmChart({
 
             tick={{ fontSize: 12 }}
 
-            label={{ value: "Cards in hand", angle: -90, position: "insideLeft", fontSize: 12 }}
 
           />
 
           <Tooltip content={<SimpleTooltip />} />
-
-          <Legend
-
-            verticalAlign="top"
-
-            align="right"
-
-            payload={legendPayload as any}
-
-            wrapperStyle={{ fontSize: 12 }}
-
-          />
 
           {/* Bars = actual hand size */}
 
@@ -333,9 +305,9 @@ export default function DrawRhythmChart({
 
             stroke={goalColor}
 
-            strokeDasharray="6 6"
+            strokeWidth={2}
 
-            {...sketchStyle}
+            strokeDasharray="6 6"
 
             label={{
 
@@ -356,38 +328,6 @@ export default function DrawRhythmChart({
       </ResponsiveContainer>
 
 
-
-      {/* Simple helper strip with plain language */}
-
-      <div style={{ display: "flex", gap: 8, alignItems: "center", marginTop: 6, padding: "0 6px" }}>
-
-        <span
-
-          style={{
-
-            display: "inline-block",
-
-            width: 10,
-
-            height: 10,
-
-            background: barColor,
-
-            borderRadius: 2,
-
-            marginRight: 4,
-
-          }}
-
-        />
-
-        <span style={{ fontSize: 12, color: "#333" }}>Bars = how many cards you actually had.</span>
-
-        <span style={{ marginLeft: 10, borderTop: `2px dashed ${goalColor}`, width: 20 }} />
-
-        <span style={{ fontSize: 12, color: "#333" }}>Dashed line = the goal number of cards.</span>
-
-      </div>
 
     </div>
 

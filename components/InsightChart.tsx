@@ -437,8 +437,6 @@ export default function InsightChart({ issue, data }: Props) {
         // Data is already in the correct format from insight engine
         return (
           <DrawRhythmChart
-            title="Draw Rhythm"
-            blurb="Green = drew enough, Red = not enough. Keep your draw steady so your plan works."
             data={data}
           />
         );
