@@ -28,6 +28,14 @@ import {
 
 } from "recharts";
 
+// Sketch style for hand-drawn effect
+const sketchStyle = {
+  filter: "url(#sketchFilter)",
+  strokeWidth: 2,
+  strokeLinejoin: "round" as const,
+  strokeLinecap: "round" as const,
+};
+
 
 
 /**
@@ -468,7 +476,17 @@ export const ManaPowerCurve: React.FC<Props> = ({
 
   return (
 
-    <div style={{ ...parchmentStyle, padding: 8 }}>
+    <div style={{ ...parchmentStyle, padding: 8, position: "relative" }}>
+
+      {/* Hand-drawn sketch filter */}
+      <svg style={{ position: "absolute", width: 0, height: 0 }}>
+        <defs>
+          <filter id="sketchFilter" x="-50%" y="-50%" width="200%" height="200%">
+            <feTurbulence baseFrequency="0.9" numOctaves="4" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" />
+          </filter>
+        </defs>
+      </svg>
 
       <Title>{title}</Title>
 
@@ -620,6 +638,8 @@ export const ManaPowerCurve: React.FC<Props> = ({
 
               fill="url(#surplusGradient)"
 
+              {...sketchStyle}
+
             />
 
 
@@ -641,6 +661,8 @@ export const ManaPowerCurve: React.FC<Props> = ({
               radius={[0, 0, 6, 6]}
 
               fill="url(#deficitGradient)"
+
+              {...sketchStyle}
 
             />
 
@@ -667,6 +689,8 @@ export const ManaPowerCurve: React.FC<Props> = ({
                 opacity={0.9}
 
                 activeDot={false}
+
+                {...sketchStyle}
 
               />
 

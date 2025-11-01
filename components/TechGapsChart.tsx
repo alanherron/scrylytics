@@ -12,6 +12,14 @@ import {
 
 } from "recharts";
 
+// Sketch style for hand-drawn effect
+const sketchStyle = {
+  filter: "url(#sketchFilter)",
+  strokeWidth: 2,
+  strokeLinejoin: "round" as const,
+  strokeLinecap: "round" as const,
+};
+
 
 
 type Row = {
@@ -140,9 +148,21 @@ export default function TechGapsChart({
 
         minHeight: height,
 
+        position: "relative",
+
       }}
 
     >
+
+      {/* Hand-drawn sketch filter */}
+      <svg style={{ position: "absolute", width: 0, height: 0 }}>
+        <defs>
+          <filter id="sketchFilter" x="-50%" y="-50%" width="200%" height="200%">
+            <feTurbulence baseFrequency="0.9" numOctaves="4" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" />
+          </filter>
+        </defs>
+      </svg>
 
       {/* Chart container */}
 
@@ -216,6 +236,8 @@ export default function TechGapsChart({
 
               maxBarSize={24}
 
+              {...sketchStyle}
+
             />
 
             <Bar
@@ -229,6 +251,8 @@ export default function TechGapsChart({
               radius={[0, 6, 6, 0]}
 
               maxBarSize={24}
+
+              {...sketchStyle}
 
             >
 

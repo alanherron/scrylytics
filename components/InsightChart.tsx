@@ -461,7 +461,7 @@ export default function InsightChart({ issue, data }: Props) {
         // Convert data to the expected format for DrawRhythmChart
         const drawData = data.map((item: any) => ({
           turn: item.turn || item.mana || 1,
-          actual: item.actual || item.count || 0,
+          hand: item.actual || item.hand || item.count || 0,
           target: item.target || 2, // Default target if not provided
         }));
 

@@ -15,6 +15,14 @@ import {
   Cell,
 } from "recharts";
 
+// Sketch style for hand-drawn effect
+const sketchStyle = {
+  filter: "url(#sketchFilter)",
+  strokeWidth: 2,
+  strokeLinejoin: "round" as const,
+  strokeLinecap: "round" as const,
+};
+
 type MatchupData = {
   matchup: string;
   score: number;
@@ -99,8 +107,11 @@ function CustomBar(props: any) {
       rx={4}
       ry={4}
       style={{
-        filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.1))",
+        filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.1)) url(#sketchFilter)",
         transition: "all 0.8s ease-out",
+        strokeWidth: 2,
+        strokeLinejoin: "round",
+        strokeLinecap: "round",
       }}
     />
   );
@@ -131,6 +142,16 @@ export default function MatchupPainsChart({
         gap: 16,
       }}
     >
+
+      {/* Hand-drawn sketch filter */}
+      <svg style={{ position: "absolute", width: 0, height: 0 }}>
+        <defs>
+          <filter id="sketchFilter" x="-50%" y="-50%" width="200%" height="200%">
+            <feTurbulence baseFrequency="0.9" numOctaves="4" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" />
+          </filter>
+        </defs>
+      </svg>
       {/* Chart container */}
       <div style={{ flex: 3 }}>
         <div

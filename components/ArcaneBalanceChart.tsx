@@ -12,6 +12,14 @@ import {
 
 } from "recharts";
 
+// Sketch style for hand-drawn effect
+const sketchStyle = {
+  filter: "url(#sketchFilter)",
+  strokeWidth: 2,
+  strokeLinejoin: "round" as const,
+  strokeLinecap: "round" as const,
+};
+
 type Metric = "Ramp" | "Removal" | "Win Cons" | "Draw" | "Protection";
 
 export type BalanceDatum = {
@@ -104,7 +112,17 @@ export function ArcaneBalanceChart({
 
   return (
 
-    <div className="w-full" style={{ height }}>
+    <div className="w-full" style={{ height, position: "relative" }}>
+
+      {/* Hand-drawn sketch filter */}
+      <svg style={{ position: "absolute", width: 0, height: 0 }}>
+        <defs>
+          <filter id="sketchFilter" x="-50%" y="-50%" width="200%" height="200%">
+            <feTurbulence baseFrequency="0.9" numOctaves="4" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" />
+          </filter>
+        </defs>
+      </svg>
 
       <ResponsiveContainer width="100%" height={height}>
 
@@ -154,6 +172,8 @@ export function ArcaneBalanceChart({
 
             animationDuration={700}
 
+            {...sketchStyle}
+
           />
 
           <Radar
@@ -173,6 +193,8 @@ export function ArcaneBalanceChart({
             animationBegin={100}
 
             animationDuration={800}
+
+            {...sketchStyle}
 
           />
 
