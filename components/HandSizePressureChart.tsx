@@ -17,7 +17,6 @@ import {
 
 // Sketch style for hand-drawn effect
 const sketchStyle = {
-  filter: "url(#sketchFilter)",
   strokeWidth: 2,
   strokeLinejoin: "round" as const,
   strokeLinecap: "round" as const,
@@ -131,15 +130,6 @@ export default function HandSizePressureChart({
       }}
     >
 
-      {/* Hand-drawn sketch filter */}
-      <svg style={{ position: "absolute", width: 0, height: 0 }}>
-        <defs>
-          <filter id="sketchFilter" x="-50%" y="-50%" width="200%" height="200%">
-            <feTurbulence baseFrequency="0.9" numOctaves="4" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" />
-          </filter>
-        </defs>
-      </svg>
       {/* Decorative border elements */}
       <div
         style={{

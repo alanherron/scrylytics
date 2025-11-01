@@ -74,7 +74,6 @@ export default function InsightChart({ issue, data }: Props) {
 
   // Hand-drawn sketch styling
   const sketchStyle = {
-    filter: "url(#sketchFilter)",
     strokeWidth: 2,
     strokeLinejoin: "round" as const,
     strokeLinecap: "round" as const,
@@ -561,15 +560,6 @@ export default function InsightChart({ issue, data }: Props) {
       padding: "10px",
       boxShadow: "0 4px 12px rgba(139, 92, 246, 0.15)"
     }}>
-      {/* Hand-drawn sketch filter */}
-      <svg style={{ position: "absolute", width: 0, height: 0 }}>
-        <defs>
-          <filter id="sketchFilter" x="-50%" y="-50%" width="200%" height="200%">
-            <feTurbulence baseFrequency="0.9" numOctaves="4" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.5" />
-          </filter>
-        </defs>
-      </svg>
 
       <div style={{ width: '100%', height: "280px" }}>
         <ResponsiveContainer width="100%" height={280}>
