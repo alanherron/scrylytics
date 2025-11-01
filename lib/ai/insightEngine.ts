@@ -124,12 +124,20 @@ export function analyzeDeck(deck: DeckMeta): InsightResult {
   }
 
   if (key.includes("removal-light aggro") || key.includes("tech gaps")) {
-    const curve = [6, 8, 4, 2, 1, 0, 0, 0];
+    // Tech gaps data: threats vs coverage (0-10 scale)
+    const techGapsData = [
+      { threat: "Token Swarm", metaLevel: 0.8, yourAnswers: 0.3, gap: 0.5 },
+      { threat: "Big Minions", metaLevel: 0.7, yourAnswers: 0.4, gap: 0.3 },
+      { threat: "Burn/Face", metaLevel: 0.6, yourAnswers: 0.2, gap: 0.4 },
+      { threat: "Graveyard/Res", metaLevel: 0.5, yourAnswers: 0.4, gap: 0.1 },
+      { threat: "Secret/Tricks", metaLevel: 0.4, yourAnswers: 0.1, gap: 0.3 },
+      { threat: "Weapons", metaLevel: 0.3, yourAnswers: 0.0, gap: 0.3 },
+    ];
     return {
       issue: "TECH_GAPS",
-      data: buildManaCurveData(curve),
+      data: techGapsData,
       caption: "Aggressive deck but missing key tech cards against popular strategies.",
-      title: "Tech Coverage Analysis",
+      title: "Tech Coverage vs. Meta Threats",
       grade: "Poor",
       score: 4,
       strengths: ["Aggressive curve"],

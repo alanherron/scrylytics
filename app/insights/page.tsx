@@ -16,7 +16,7 @@ const getChartType = (issue: string) => {
     case "WEAK_SYNERGY_CHAINS":
       return "area";
     case "TECH_GAPS":
-      return "bar";
+      return "tech_gaps";
     case "MATCHUP_PAINS":
       return "radar";
     case "HAND_SIZE_PRESSURE":
@@ -331,6 +331,22 @@ export default function InsightsPage() {
                                 <li>Each item has 'metric', 'ideal', or 'current': {hasData && data.every(item => 'metric' in item || 'ideal' in item || 'current' in item) ? '✅' : '❌'}</li>
                                 <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
                                 <li>Shows ideal vs current balance: ✅ (Blue = ideal, Red = current)</li>
+                              </ul>
+                            </div>
+                          );
+                        }
+
+                        case "tech_gaps": {
+                          const hasData = Array.isArray(data);
+                          const hasLength = hasData && data.length > 0;
+                          return (
+                            <div>
+                              <strong>Tech Gaps Chart Requirements:</strong>
+                              <ul>
+                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
+                                <li>Each item has 'threat', 'metaLevel', 'yourAnswers', or 'gap': {hasData && data.every(item => 'threat' in item || 'metaLevel' in item || 'yourAnswers' in item || 'gap' in item) ? '✅' : '❌'}</li>
+                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
+                                <li>Shows tech coverage vs meta threats: ✅ (Gray = threat level, Blue = your answers, Red = gaps)</li>
                               </ul>
                             </div>
                           );

@@ -26,13 +26,15 @@ import {
 } from "recharts";
 import DrawRhythmChart from "./DrawRhythmChart";
 import { ArcaneBalanceChart } from "./ArcaneBalanceChart";
+import TechGapsChart from "./TechGapsChart";
 
 type Props = {
   issue: string;
   data: Array<
     { mana: number; count: number } |
     { turn: number; actual: number; target: number } |
-    { metric: string; ideal: number; current: number; value?: number }
+    { metric: string; ideal: number; current: number; value?: number } |
+    { threat: string; metaLevel: number; yourAnswers: number; gap: number }
   >
 };
 
@@ -83,7 +85,7 @@ export default function InsightChart({ issue, data }: Props) {
       case "WEAK_SYNERGY_CHAINS":
         return "area";
       case "TECH_GAPS":
-        return "bar";
+        return "tech_gaps";
       case "MATCHUP_PAINS":
         return "radar";
       case "HAND_SIZE_PRESSURE":
@@ -481,6 +483,24 @@ export default function InsightChart({ issue, data }: Props) {
             data={balanceData}
             height={360}
             showLegend={true}
+          />
+        );
+      }
+
+      case "tech_gaps": {
+        // Convert data to the expected format for TechGapsChart
+        const techData = data.map((item: any) => ({
+          threat: item.threat || item.archetype || "Unknown Threat",
+          metaLevel: Math.round((item.metaLevel || item.level || item.value || 5) * 10), // Convert to 0-10 scale
+          yourAnswers: Math.round((item.yourAnswers || item.answers || item.count || 0) * 10), // Convert to 0-10 scale
+          gap: Math.max(0, Math.round(((item.metaLevel || item.level || item.value || 5) - (item.yourAnswers || item.answers || item.count || 0)) * 10)), // Ensure non-negative
+        }));
+
+        return (
+          <TechGapsChart
+            data={techData}
+            height={360}
+            title="Tech Coverage vs. Meta Threats"
           />
         );
       }
