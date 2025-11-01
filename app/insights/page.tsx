@@ -29,7 +29,7 @@ const getChartType = (issue: string) => {
 };
 
 export default function InsightsPage() {
-  const [selectedIndex, setSelectedIndex] = useState(6); // Test Tech Gaps chart
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const result = useMemo(() => {
     const deck = PREBUILT_DECKS[selectedIndex];
