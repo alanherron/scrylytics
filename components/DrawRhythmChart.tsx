@@ -190,6 +190,18 @@ export default function DrawRhythmChart({
 
     );
 
+  const computedMin =
+
+    minY ??
+
+    Math.min(
+
+      0,
+
+      ...data.map((d) => Math.min(d.hand, d.target))
+
+    );
+
 
 
   // We keep the legend language super simple
@@ -290,7 +302,7 @@ export default function DrawRhythmChart({
 
           <YAxis
 
-            domain={[minY, computedMax]}
+            domain={[computedMin, computedMax]}
 
             allowDecimals={false}
 

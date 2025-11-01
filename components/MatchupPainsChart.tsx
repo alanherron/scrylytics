@@ -206,10 +206,10 @@ export default function MatchupPainsChart({
               strokeDasharray="none"
             />
 
-            {/* Custom bars */}
+            {/* Standard bars for now */}
             <Bar
               dataKey="score"
-              shape={<CustomBar />}
+              fill="#4f8df5"
               isAnimationActive
               animationBegin={100}
               animationDuration={800}
