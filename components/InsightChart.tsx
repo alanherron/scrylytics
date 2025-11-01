@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import dynamic from "next/dynamic";
 import {
   ResponsiveContainer,
   BarChart,
@@ -24,13 +25,15 @@ import {
   Cell,
   LabelList
 } from "recharts";
-import DrawRhythmChart from "./DrawRhythmChart";
-import { ArcaneBalanceChart } from "./ArcaneBalanceChart";
-import TechGapsChart from "./TechGapsChart";
-import MatchupPainsChart from "./MatchupPainsChart";
-import { ManaPowerCurve } from "./ManaPowerCurve";
-import HandSizePressureChart from "./HandSizePressureChart";
-import DeckCompositionChart from "./DeckCompositionChart";
+
+// Dynamically import chart components with SSR disabled
+const DrawRhythmChart = dynamic(() => import("./DrawRhythmChart"), { ssr: false });
+const ArcaneBalanceChart = dynamic(() => import("./ArcaneBalanceChart").then(mod => ({ default: mod.ArcaneBalanceChart })), { ssr: false });
+const TechGapsChart = dynamic(() => import("./TechGapsChart"), { ssr: false });
+const MatchupPainsChart = dynamic(() => import("./MatchupPainsChart"), { ssr: false });
+const ManaPowerCurve = dynamic(() => import("./ManaPowerCurve").then(mod => ({ default: mod.ManaPowerCurve })), { ssr: false });
+const HandSizePressureChart = dynamic(() => import("./HandSizePressureChart"), { ssr: false });
+const DeckCompositionChart = dynamic(() => import("./DeckCompositionChart"), { ssr: false });
 
 type Props = {
   issue: string;
@@ -47,31 +50,9 @@ type Props = {
 };
 
 export default function InsightChart({ issue, data }: Props) {
-  const [isClient, setIsClient] = React.useState(false);
-
-  React.useEffect(() => {
-    setIsClient(true);
-  }, []);
   // Guard for empty/undefined data
   if (!Array.isArray(data) || data.length === 0) {
     return <div>No data for chart.</div>;
-  }
-
-  // Don't render chart on server side
-  if (!isClient) {
-    return (
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "300px",
-        backgroundColor: "#f9fafb",
-        borderRadius: "8px",
-        border: "2px dashed #d1d5db"
-      }}>
-        <p style={{ color: "#6b7280", fontSize: "14px" }}>Loading chart...</p>
-      </div>
-    );
   }
 
   // Hand-drawn sketch styling
