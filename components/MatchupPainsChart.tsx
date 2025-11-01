@@ -32,6 +32,7 @@ function CustomTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
 
   const score = payload[0]?.value ?? 0;
+  const matchup = payload[0]?.payload?.matchup ?? "Unknown";
   const isPositive = score > 0;
   const isNeutral = score === 0;
 
@@ -39,9 +40,9 @@ function CustomTooltip({ active, payload, label }: any) {
   if (isNeutral) {
     description = "Neutral matchup";
   } else if (isPositive) {
-    description = `Strong vs ${label.toLowerCase()}`;
+    description = `Strong vs ${matchup.toLowerCase()}`;
   } else {
-    description = `Struggles against ${label.toLowerCase()}`;
+    description = `Struggles against ${matchup.toLowerCase()}`;
   }
 
   return (
