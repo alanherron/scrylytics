@@ -125,7 +125,7 @@ export default function DrawRhythmChart({
     >
       <Header />
 
-      <div className="mt-3 w-full" style={{ height: 320 }}>
+      <div className="mt-3" style={{ width: '100%', height: 320 }}>
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart
             data={rows}

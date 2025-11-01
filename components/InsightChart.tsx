@@ -524,9 +524,11 @@ export default function InsightChart({ issue, data }: Props) {
         </defs>
       </svg>
 
-      <ResponsiveContainer width="100%" height={chartType === "composite" ? "100%" : "280px"}>
-        {renderChart()}
-      </ResponsiveContainer>
+      <div style={{ width: '100%', height: chartType === "composite" ? "100%" : "280px" }}>
+        <ResponsiveContainer width="100%" height="100%">
+          {renderChart()}
+        </ResponsiveContainer>
+      </div>
 
       {/* Hand-drawn border effect */}
       <div style={{
