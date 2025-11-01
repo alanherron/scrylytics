@@ -146,18 +146,19 @@ export function analyzeDeck(deck: DeckMeta): InsightResult {
   }
 
   if (key.includes("matchup warrior") || key.includes("pain points")) {
-    const matchupData = [
-      { role: "vs Aggro", value: 9 },
-      { role: "vs Control", value: 3 },
-      { role: "vs Combo", value: 7 },
-      { role: "vs Midrange", value: 5 },
-      { role: "vs Ramp", value: 8 }
+    // Matchup pains data: score from -5 (poor) to +5 (strong)
+    const matchupPainsData = [
+      { matchup: "Aggro", score: 3 },      // Strong vs aggro
+      { matchup: "Control", score: -3 },   // Weak vs control
+      { matchup: "Combo", score: -1 },     // Slightly weak vs combo
+      { matchup: "Midrange", score: 1 },   // Slightly strong vs midrange
+      { matchup: "Ramp", score: 0 },       // Neutral vs ramp
     ];
     return {
       issue: "MATCHUP_PAINS",
-      data: matchupData,
+      data: matchupPainsData,
       caption: "Strong vs aggro but weak vs control. Needs better late game tools.",
-      title: "Matchup Winrate by Archetype",
+      title: "Matchup Pain Index",
       grade: "Needs Work",
       score: 6,
       strengths: ["vs Aggro"],

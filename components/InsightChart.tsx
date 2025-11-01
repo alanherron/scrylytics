@@ -27,6 +27,7 @@ import {
 import DrawRhythmChart from "./DrawRhythmChart";
 import { ArcaneBalanceChart } from "./ArcaneBalanceChart";
 import TechGapsChart from "./TechGapsChart";
+import MatchupPainsChart from "./MatchupPainsChart";
 
 type Props = {
   issue: string;
@@ -34,7 +35,8 @@ type Props = {
     { mana: number; count: number } |
     { turn: number; actual: number; target: number } |
     { metric: string; ideal: number; current: number; value?: number } |
-    { threat: string; metaLevel: number; yourAnswers: number; gap: number }
+    { threat: string; metaLevel: number; yourAnswers: number; gap: number } |
+    { matchup: string; score: number; value?: number }
   >
 };
 
@@ -87,7 +89,7 @@ export default function InsightChart({ issue, data }: Props) {
       case "TECH_GAPS":
         return "tech_gaps";
       case "MATCHUP_PAINS":
-        return "radar";
+        return "matchup_pains";
       case "HAND_SIZE_PRESSURE":
         return "line";
       case "BOARD_TEMPO_GAPS":
@@ -501,6 +503,22 @@ export default function InsightChart({ issue, data }: Props) {
             data={techData}
             height={360}
             title="Tech Coverage vs. Meta Threats"
+          />
+        );
+      }
+
+      case "matchup_pains": {
+        // Convert data to the expected format for MatchupPainsChart
+        const matchupData = data.map((item: any) => ({
+          matchup: item.matchup || item.role || "Unknown",
+          score: Math.max(-5, Math.min(5, Math.round((item.score || item.value || 0) * 5))), // Clamp to -5 to +5 range
+        }));
+
+        return (
+          <MatchupPainsChart
+            data={matchupData}
+            height={380}
+            title="Matchup Pain Index"
           />
         );
       }

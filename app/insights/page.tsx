@@ -18,7 +18,7 @@ const getChartType = (issue: string) => {
     case "TECH_GAPS":
       return "tech_gaps";
     case "MATCHUP_PAINS":
-      return "radar";
+      return "matchup_pains";
     case "HAND_SIZE_PRESSURE":
       return "line";
     case "BOARD_TEMPO_GAPS":
@@ -347,6 +347,22 @@ export default function InsightsPage() {
                                 <li>Each item has 'threat', 'metaLevel', 'yourAnswers', or 'gap': {hasData && data.every(item => 'threat' in item || 'metaLevel' in item || 'yourAnswers' in item || 'gap' in item) ? '✅' : '❌'}</li>
                                 <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
                                 <li>Shows tech coverage vs meta threats: ✅ (Gray = threat level, Blue = your answers, Red = gaps)</li>
+                              </ul>
+                            </div>
+                          );
+                        }
+
+                        case "matchup_pains": {
+                          const hasData = Array.isArray(data);
+                          const hasLength = hasData && data.length > 0;
+                          return (
+                            <div>
+                              <strong>Matchup Pains Chart Requirements:</strong>
+                              <ul>
+                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
+                                <li>Each item has 'matchup' or 'score': {hasData && data.every(item => 'matchup' in item || 'score' in item || 'value' in item) ? '✅' : '❌'}</li>
+                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
+                                <li>Shows matchup strengths/weaknesses: ✅ (Green = strong, Red = weak, centered on 0)</li>
                               </ul>
                             </div>
                           );
