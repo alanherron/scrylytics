@@ -18,6 +18,8 @@ import {
 
   Bar,
 
+  Line,
+
   ReferenceLine,
 
 } from "recharts";
@@ -263,6 +265,8 @@ export default function DrawRhythmChart({
 
           <Tooltip content={<SimpleTooltip />} />
 
+          <Legend />
+
           {/* Bars = actual hand size */}
 
           <Bar
@@ -279,11 +283,13 @@ export default function DrawRhythmChart({
 
           />
 
-          {/* Reference line = goal hand size (pulled from the first point) */}
+          {/* Goal line = curvy line following target values over turns */}
 
-          <ReferenceLine
+          <Line
 
-            y={data[0]?.target ?? 5}
+            type="monotone"
+
+            dataKey="target"
 
             stroke={goalColor}
 
@@ -291,17 +297,11 @@ export default function DrawRhythmChart({
 
             strokeDasharray="6 6"
 
-            label={{
+            dot={false}
 
-              position: "right",
+            activeDot={false}
 
-              value: "Goal",
-
-              fill: goalColor,
-
-              fontSize: 12,
-
-            }}
+            name="Goal"
 
           />
 
