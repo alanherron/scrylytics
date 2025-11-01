@@ -434,18 +434,12 @@ export default function InsightChart({ issue, data }: Props) {
         );
 
       case "draw_rhythm": {
-        // Convert data to the expected format for DrawRhythmChart
-        const drawData = data.map((item: any) => ({
-          turn: item.turn || item.mana || 1,
-          hand: item.actual || item.hand || item.count || 0,
-          target: item.target || 2, // Default target if not provided
-        }));
-
+        // Data is already in the correct format from insight engine
         return (
           <DrawRhythmChart
             title="Draw Rhythm"
             blurb="Green = drew enough, Red = not enough. Keep your draw steady so your plan works."
-            data={drawData}
+            data={data}
           />
         );
       }
@@ -486,15 +480,10 @@ export default function InsightChart({ issue, data }: Props) {
       }
 
       case "matchup_pains": {
-        // Convert data to the expected format for MatchupPainsChart
-        const matchupData = data.map((item: any) => ({
-          matchup: item.matchup || item.role || "Unknown",
-          score: Math.max(-5, Math.min(5, Math.round((item.score || item.value || 0) * 5))), // Clamp to -5 to +5 range
-        }));
-
+        // Data is already in the correct format from insight engine
         return (
           <MatchupPainsChart
-            data={matchupData}
+            data={data}
             height={380}
             title="Matchup Pain Index"
           />
