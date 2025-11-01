@@ -284,21 +284,21 @@ export const PREBUILT_DECKS: DeckMeta[] = [
     name: "Removal-Light Aggro (Tech Gaps)",
     archetype: "Aggro",
     gameType: "hearthstone",
-    chartType: "Bar",
+    chartType: "Tech Gaps",
     list: []
   },
   {
     name: "Matchup Warrior (Pain Points)",
     archetype: "Control",
     gameType: "hearthstone",
-    chartType: "Radar",
+    chartType: "Matchup Pains",
     list: []
   },
   {
     name: "Hand Disruption Warlock (Size Pressure)",
     archetype: "Control",
     gameType: "hearthstone",
-    chartType: "Line",
+    chartType: "Hand Size Pressure",
     list: []
   },
   {
