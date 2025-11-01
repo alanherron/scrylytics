@@ -488,7 +488,6 @@ export const ManaPowerCurve: React.FC<Props> = ({
         </defs>
       </svg>
 
-      <Title>{title}</Title>
 
       <div style={{ width: "100%", height }}>
 

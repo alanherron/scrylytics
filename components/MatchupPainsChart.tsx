@@ -154,19 +154,6 @@ export default function MatchupPainsChart({
       </svg>
       {/* Chart container */}
       <div style={{ flex: 3 }}>
-        <div
-          style={{
-            fontSize: 18,
-            fontWeight: 700,
-            textAlign: "center",
-            marginBottom: 8,
-            color: "#5d4e37",
-            fontFamily: "serif",
-            textShadow: "0 1px 2px rgba(0,0,0,0.1)",
-          }}
-        >
-          {title}
-        </div>
 
         <ResponsiveContainer width="100%" height={300}>
           <BarChart
@@ -206,10 +193,10 @@ export default function MatchupPainsChart({
               strokeDasharray="none"
             />
 
-            {/* Standard bars for now */}
+            {/* Custom bars */}
             <Bar
               dataKey="score"
-              fill="#4f8df5"
+              shape={<CustomBar />}
               isAnimationActive
               animationBegin={100}
               animationDuration={800}

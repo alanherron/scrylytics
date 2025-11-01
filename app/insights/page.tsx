@@ -28,6 +28,30 @@ const getChartType = (issue: string) => {
   }
 };
 
+// Helper function to get display title for analysis
+const getDisplayTitle = (issue: string) => {
+  switch (issue) {
+    case "DRAW_INCONSISTENCY":
+      return "Draw Rhythm";
+    case "MANA_CURVE_SKEW":
+      return "Mana Curve Analysis";
+    case "ROLE_MISMATCH":
+      return "Arcane Balance";
+    case "WEAK_SYNERGY_CHAINS":
+      return "Synergy Analysis";
+    case "TECH_GAPS":
+      return "Tech Coverage";
+    case "MATCHUP_PAINS":
+      return "Matchup Analysis";
+    case "HAND_SIZE_PRESSURE":
+      return "Hand Size Pressure";
+    case "BOARD_TEMPO_GAPS":
+      return "Tempo Analysis";
+    default:
+      return issue.replace(/_/g, ' ');
+  }
+};
+
 export default function InsightsPage() {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -154,7 +178,7 @@ export default function InsightsPage() {
                   fontWeight: "bold",
                   color: "#92400e"
                 }}>
-                  📊 {result.issue.replace(/_/g, ' ')} Analysis
+                  📊 {getDisplayTitle(result.issue)}
                 </div>
 
                 <InsightChart

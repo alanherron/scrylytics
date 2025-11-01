@@ -264,23 +264,6 @@ export default function DrawRhythmChart({
 
       </svg>
 
-      <div
-
-        style={{
-
-          fontWeight: 800,
-
-          fontSize: 16,
-
-          margin: "4px 8px 8px",
-
-        }}
-
-      >
-
-        {title}
-
-      </div>
 
 
 

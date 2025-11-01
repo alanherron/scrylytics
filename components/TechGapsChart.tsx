@@ -168,7 +168,6 @@ export default function TechGapsChart({
 
       <div style={{ flex: 3, minWidth: 0 }}>
 
-        <div style={{ fontWeight: 800, marginBottom: 6 }}>{title}</div>
 
         <ResponsiveContainer width="100%" height={height - 80}>
 

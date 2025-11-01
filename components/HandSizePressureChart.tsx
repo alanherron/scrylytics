@@ -154,19 +154,6 @@ export default function HandSizePressureChart({
         }}
       />
 
-      <div
-        style={{
-          fontSize: 18,
-          fontWeight: 700,
-          textAlign: "center",
-          marginBottom: 8,
-          color: "#5d4e37",
-          fontFamily: "serif",
-          textShadow: "0 1px 2px rgba(0,0,0,0.1)",
-        }}
-      >
-        {title}
-      </div>
 
       <ResponsiveContainer width="100%" height={height - 80}>
         <LineChart
@@ -174,42 +161,16 @@ export default function HandSizePressureChart({
           margin={{ top: 20, right: 30, bottom: 20, left: 20 }}
         >
           {/* Healthy zone background (4-6 cards) */}
-          <defs>
-            <linearGradient id="healthyZone" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="rgba(39, 174, 96, 0.15)" />
-              <stop offset="50%" stopColor="rgba(39, 174, 96, 0.08)" />
-              <stop offset="100%" stopColor="rgba(39, 174, 96, 0.15)" />
-            </linearGradient>
-          </defs>
 
-          {/* Healthy zone area */}
-          <Area
-            type="monotone"
-            dataKey={() => 4} // Lower bound
-            stroke="none"
-            fill="url(#healthyZone)"
-            isAnimationActive={false}
-          />
-          <Area
-            type="monotone"
-            dataKey={() => 6} // Upper bound
-            stroke="none"
-            fill="url(#healthyZone)"
-            isAnimationActive={false}
-          />
-
-          {/* Reference lines for healthy zone */}
-          <ReferenceLine
-            y={4}
+          {/* Filled healthy zone (4-6 cards) */}
+          <ReferenceArea
+            y1={4}
+            y2={6}
+            fill="#27ae60"
+            fillOpacity={0.15}
             stroke="#27ae60"
-            strokeDasharray="2 2"
-            strokeOpacity={0.6}
-          />
-          <ReferenceLine
-            y={6}
-            stroke="#27ae60"
-            strokeDasharray="2 2"
-            strokeOpacity={0.6}
+            strokeOpacity={0.3}
+            strokeDasharray="3 3"
           />
 
           <CartesianGrid
