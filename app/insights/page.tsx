@@ -29,7 +29,7 @@ const getChartType = (issue: string) => {
 };
 
 export default function InsightsPage() {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(7); // Test Matchup Pains chart
 
   const result = useMemo(() => {
     const deck = PREBUILT_DECKS[selectedIndex];
