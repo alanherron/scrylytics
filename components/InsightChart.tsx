@@ -29,6 +29,7 @@ import { ArcaneBalanceChart } from "./ArcaneBalanceChart";
 import TechGapsChart from "./TechGapsChart";
 import MatchupPainsChart from "./MatchupPainsChart";
 import { ManaPowerCurve } from "./ManaPowerCurve";
+import HandSizePressureChart from "./HandSizePressureChart";
 
 type Props = {
   issue: string;
@@ -38,7 +39,8 @@ type Props = {
     { metric: string; ideal: number; current: number; value?: number } |
     { threat: string; metaLevel: number; yourAnswers: number; gap: number } |
     { matchup: string; score: number; value?: number } |
-    { mana: number; value: number; ideal?: number }
+    { mana: number; value: number; ideal?: number } |
+    { turn: number; hand: number }
   >
 };
 
@@ -336,47 +338,21 @@ export default function InsightChart({ issue, data }: Props) {
           </div>
         );
 
-      case "line":
+      case "line": {
+        // Convert data to the expected format for HandSizePressureChart
+        const handData = data.map((item: any) => ({
+          turn: item.mana || item.turn || 1,
+          hand: item.count || item.hand || 0,
+        }));
+
         return (
-          <LineChart data={data}>
-            <CartesianGrid
-              strokeDasharray="3 3"
-              stroke="#8b5cf6"
-              opacity={0.3}
-              strokeWidth={1}
-            />
-            <XAxis
-              dataKey="mana"
-              tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
-              axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
-              tickLine={{ stroke: "#a855f7" }}
-            />
-            <YAxis
-              tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
-              allowDecimals={false}
-              axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
-              tickLine={{ stroke: "#a855f7" }}
-            />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "#fef3c7",
-                border: "2px solid #f59e0b",
-                borderRadius: "8px",
-                fontFamily: "cursive"
-              }}
-            />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="count"
-              stroke="#f59e0b"
-              strokeWidth={3}
-              dot={{ fill: "#f59e0b", strokeWidth: 2, r: 6 }}
-              activeDot={{ r: 8, fill: "#d97706" }}
-              {...sketchStyle}
-            />
-          </LineChart>
+          <HandSizePressureChart
+            data={handData}
+            height={380}
+            title="Hand Size Pressure Tracker"
+          />
         );
+      }
 
       case "radar":
         const radarData = data.map(item => ({
