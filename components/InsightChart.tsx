@@ -25,8 +25,16 @@ import {
   LabelList
 } from "recharts";
 import DrawRhythmChart from "./DrawRhythmChart";
+import { ArcaneBalanceChart } from "./ArcaneBalanceChart";
 
-type Props = { issue: string; data: Array<{ mana: number; count: number } | { turn: number; actual: number; target: number }> };
+type Props = {
+  issue: string;
+  data: Array<
+    { mana: number; count: number } |
+    { turn: number; actual: number; target: number } |
+    { metric: string; ideal: number; current: number; value?: number }
+  >
+};
 
 export default function InsightChart({ issue, data }: Props) {
   const [isClient, setIsClient] = React.useState(false);
@@ -71,7 +79,7 @@ export default function InsightChart({ issue, data }: Props) {
       case "DRAW_INCONSISTENCY":
         return "draw_rhythm"; // Special draw rhythm chart
       case "ROLE_MISMATCH":
-        return "radar";
+        return "arcane_balance"; // Special arcane balance radar chart
       case "WEAK_SYNERGY_CHAINS":
         return "area";
       case "TECH_GAPS":
@@ -456,6 +464,23 @@ export default function InsightChart({ issue, data }: Props) {
             title="Draw Rhythm"
             blurb="Green = drew enough, Red = not enough. Keep your draw steady so your plan works."
             data={drawData}
+          />
+        );
+      }
+
+      case "arcane_balance": {
+        // Convert data to the expected format for ArcaneBalanceChart
+        const balanceData = data.map((item: any) => ({
+          metric: item.metric || item.role || "Unknown",
+          ideal: Math.round((item.ideal || item.value || 50) * 100), // Convert to 0-100 scale
+          current: Math.round((item.current || item.value || 50) * 100), // Convert to 0-100 scale
+        }));
+
+        return (
+          <ArcaneBalanceChart
+            data={balanceData}
+            height={360}
+            showLegend={true}
           />
         );
       }

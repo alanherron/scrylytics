@@ -12,7 +12,7 @@ const getChartType = (issue: string) => {
     case "DRAW_INCONSISTENCY":
       return "draw_rhythm";
     case "ROLE_MISMATCH":
-      return "radar";
+      return "arcane_balance";
     case "WEAK_SYNERGY_CHAINS":
       return "area";
     case "TECH_GAPS":
@@ -29,7 +29,7 @@ const getChartType = (issue: string) => {
 };
 
 export default function InsightsPage() {
-  const [selectedIndex, setSelectedIndex] = useState(3); // Test Draw Rhythm chart
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const result = useMemo(() => {
     const deck = PREBUILT_DECKS[selectedIndex];
@@ -315,6 +315,22 @@ export default function InsightsPage() {
                                 <li>Each item has 'turn', 'actual', or 'target': {hasData && data.every(item => 'turn' in item || 'actual' in item || 'target' in item) ? '✅' : '❌'}</li>
                                 <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
                                 <li>Shows draw vs target: ✅ (Green = enough, Red = not enough)</li>
+                              </ul>
+                            </div>
+                          );
+                        }
+
+                        case "arcane_balance": {
+                          const hasData = Array.isArray(data);
+                          const hasLength = hasData && data.length > 0;
+                          return (
+                            <div>
+                              <strong>Arcane Balance Chart Requirements:</strong>
+                              <ul>
+                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
+                                <li>Each item has 'metric', 'ideal', or 'current': {hasData && data.every(item => 'metric' in item || 'ideal' in item || 'current' in item) ? '✅' : '❌'}</li>
+                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
+                                <li>Shows ideal vs current balance: ✅ (Blue = ideal, Red = current)</li>
                               </ul>
                             </div>
                           );

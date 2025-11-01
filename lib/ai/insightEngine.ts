@@ -89,18 +89,19 @@ export function analyzeDeck(deck: DeckMeta): InsightResult {
   }
 
   if (key.includes("ramp druid") || key.includes("role mismatch")) {
-    const roleData = [
-      { role: "Ramp", value: 8 },
-      { role: "Removal", value: 2 },
-      { role: "Win Cons", value: 6 },
-      { role: "Draw", value: 4 },
-      { role: "Protection", value: 1 }
+    // Arcane balance data: ideal vs current percentages (0-100 scale)
+    const balanceData = [
+      { metric: "Ramp", ideal: 60, current: 85 },
+      { metric: "Removal", ideal: 60, current: 20 },
+      { metric: "Win Cons", ideal: 55, current: 15 },
+      { metric: "Draw", ideal: 65, current: 35 },
+      { metric: "Protection", ideal: 50, current: 10 }
     ];
     return {
       issue: "ROLE_MISMATCH",
-      data: roleData,
+      data: balanceData,
       caption: "Deck focuses heavily on ramping but lacks removal and protection. Add more interaction.",
-      title: "Role Distribution",
+      title: "Arcane Balance Analysis",
       grade: "Poor",
       score: 3,
       strengths: ["Excellent ramp"],
@@ -185,18 +186,19 @@ export function analyzeDeck(deck: DeckMeta): InsightResult {
   }
 
   if (key.includes("balanced deck")) {
-    const roleData = [
-      { role: "Ramp", value: 6 },
-      { role: "Removal", value: 6 },
-      { role: "Win Cons", value: 6 },
-      { role: "Draw", value: 6 },
-      { role: "Protection", value: 6 }
+    // Arcane balance data: ideal vs current percentages (0-100 scale)
+    const balanceData = [
+      { metric: "Ramp", ideal: 60, current: 60 },
+      { metric: "Removal", ideal: 60, current: 60 },
+      { metric: "Win Cons", ideal: 55, current: 55 },
+      { metric: "Draw", ideal: 65, current: 65 },
+      { metric: "Protection", ideal: 50, current: 50 }
     ];
     return {
       issue: "ROLE_MISMATCH",
-      data: roleData,
+      data: balanceData,
       caption: "Perfectly balanced deck with all roles represented equally.",
-      title: "Role Distribution",
+      title: "Arcane Balance Analysis",
       grade: "Excellent",
       score: 9,
       strengths: ["Perfectly balanced", "All roles covered"],
@@ -237,7 +239,7 @@ export const PREBUILT_DECKS: DeckMeta[] = [
     name: "Balanced Deck",
     archetype: "Midrange",
     gameType: "magic",
-    chartType: "Radar",
+    chartType: "Arcane Balance",
     list: []
   },
   {
@@ -251,7 +253,7 @@ export const PREBUILT_DECKS: DeckMeta[] = [
     name: "Ramp Druid (Role Mismatch)",
     archetype: "Ramp",
     gameType: "hearthstone",
-    chartType: "Radar",
+    chartType: "Arcane Balance",
     list: []
   },
   {
