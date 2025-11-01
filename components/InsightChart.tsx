@@ -28,10 +28,10 @@ import {
 
 // Dynamically import chart components with SSR disabled
 const DrawRhythmChart = dynamic(() => import("./DrawRhythmChart"), { ssr: false });
-const ArcaneBalanceChart = dynamic(() => import("./ArcaneBalanceChart").then(mod => ({ default: mod.ArcaneBalanceChart })), { ssr: false });
+const ArcaneBalanceChart = dynamic(() => import("./ArcaneBalanceChart"), { ssr: false });
 const TechGapsChart = dynamic(() => import("./TechGapsChart"), { ssr: false });
 const MatchupPainsChart = dynamic(() => import("./MatchupPainsChart"), { ssr: false });
-const ManaPowerCurve = dynamic(() => import("./ManaPowerCurve").then(mod => ({ default: mod.ManaPowerCurve })), { ssr: false });
+const ManaPowerCurve = dynamic(() => import("./ManaPowerCurve"), { ssr: false });
 const HandSizePressureChart = dynamic(() => import("./HandSizePressureChart"), { ssr: false });
 const DeckCompositionChart = dynamic(() => import("./DeckCompositionChart"), { ssr: false });
 
