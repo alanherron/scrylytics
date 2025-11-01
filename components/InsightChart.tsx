@@ -348,7 +348,6 @@ export default function InsightChart({ issue, data }: Props) {
           <HandSizePressureChart
             data={handData}
             height={380}
-            title="Hand Size Pressure Tracker"
           />
         );
       }

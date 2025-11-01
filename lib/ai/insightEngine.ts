@@ -298,7 +298,7 @@ export const PREBUILT_DECKS: DeckMeta[] = [
     name: "Hand Disruption Warlock (Size Pressure)",
     archetype: "Control",
     gameType: "hearthstone",
-    chartType: "Hand Size Pressure",
+    chartType: "Line",
     list: []
   },
   {
