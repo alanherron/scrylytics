@@ -304,6 +304,22 @@ export default function InsightsPage() {
                           );
                         }
 
+                        case "draw_rhythm": {
+                          const hasData = Array.isArray(data);
+                          const hasLength = hasData && data.length > 0;
+                          return (
+                            <div>
+                              <strong>Draw Rhythm Chart Requirements:</strong>
+                              <ul>
+                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
+                                <li>Each item has 'turn', 'actual', or 'target': {hasData && data.every(item => 'turn' in item || 'actual' in item || 'target' in item) ? '✅' : '❌'}</li>
+                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
+                                <li>Shows draw vs target: ✅ (Green = enough, Red = not enough)</li>
+                              </ul>
+                            </div>
+                          );
+                        }
+
                         default:
                           return <div>Unknown chart type</div>;
                       }

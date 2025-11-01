@@ -21,10 +21,12 @@ import {
   Area,
   ComposedChart,
   ReferenceLine,
-  Cell
+  Cell,
+  LabelList
 } from "recharts";
+import DrawRhythmChart from "./DrawRhythmChart";
 
-type Props = { issue: string; data: Array<{ mana: number; count: number }> };
+type Props = { issue: string; data: Array<{ mana: number; count: number } | { turn: number; actual: number; target: number }> };
 
 export default function InsightChart({ issue, data }: Props) {
   const [isClient, setIsClient] = React.useState(false);
@@ -67,7 +69,7 @@ export default function InsightChart({ issue, data }: Props) {
       case "MANA_CURVE_SKEW":
         return "mana_balance"; // Special mana power balance chart
       case "DRAW_INCONSISTENCY":
-        return "line";
+        return "draw_rhythm"; // Special draw rhythm chart
       case "ROLE_MISMATCH":
         return "radar";
       case "WEAK_SYNERGY_CHAINS":
@@ -440,6 +442,23 @@ export default function InsightChart({ issue, data }: Props) {
             />
           </AreaChart>
         );
+
+      case "draw_rhythm": {
+        // Convert data to the expected format for DrawRhythmChart
+        const drawData = data.map((item: any) => ({
+          turn: item.turn || item.mana || 1,
+          actual: item.actual || item.count || 0,
+          target: item.target || 2, // Default target if not provided
+        }));
+
+        return (
+          <DrawRhythmChart
+            title="Draw Rhythm"
+            blurb="Green = drew enough, Red = not enough. Keep your draw steady so your plan works."
+            data={drawData}
+          />
+        );
+      }
 
       default: // bar chart
         return (
