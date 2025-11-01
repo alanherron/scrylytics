@@ -216,14 +216,6 @@ export function ArcaneBalanceChart({
 
             }}
 
-            payload={[
-
-              { id: "Ideal",   value: "Ideal",   type: "line", color: "#3A86FF" },
-
-              { id: "Current", value: "Current", type: "line", color: "#EF476F" },
-
-            ]}
-
           />
 
         </RadarChart>

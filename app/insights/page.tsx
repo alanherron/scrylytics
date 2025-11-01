@@ -101,10 +101,9 @@ export default function InsightsPage() {
                 width:"100%",
                 padding:"0.5rem",
                 borderRadius:"4px",
-                border:"1px solid #ccc",
+                border: "2px solid #8b5cf6",
                 fontSize:"1rem",
-                backgroundColor: "#fefefe",
-                border: "2px solid #8b5cf6"
+                backgroundColor: "#fefefe"
               }}
             >
               {PREBUILT_DECKS.map((d, i) => (
@@ -222,7 +221,7 @@ export default function InsightsPage() {
                   </summary>
                   <div style={{ marginTop: "1rem", fontSize: "0.9rem" }}>
                     <div style={{ marginBottom: "1rem" }}>
-                      <strong>Chart Type:</strong> {getChartType(result.issue) === "mana_balance" ? "Mana Balance" : getChartType(result.issue)} Chart
+                      <strong>Chart Type:</strong> {getChartType(result.issue) === "mana_power_curve" ? "Mana Power Curve" : getChartType(result.issue)} Chart
                     </div>
                     <div style={{ marginBottom: "1rem" }}>
                       <strong>Issue Type:</strong> {result.issue}
@@ -245,7 +244,7 @@ export default function InsightsPage() {
                     </div>
 
                     {(() => {
-                      const chartType = getChartType(result.issue);
+                      const chartType: string = getChartType(result.issue);
                       const data = result.data;
 
                       switch (chartType) {
@@ -281,7 +280,7 @@ export default function InsightsPage() {
                           );
                         }
 
-                        case 'radar': {
+                        case 'arcane_balance': {
                           const hasData = Array.isArray(data);
                           const hasLength = hasData && data.length > 0;
                           return (
@@ -313,7 +312,7 @@ export default function InsightsPage() {
                           );
                         }
 
-                        case "mana_balance": {
+                        case "mana_power_curve": {
                           const hasData = Array.isArray(data);
                           const hasLength = hasData && data.length > 0;
                           return (
@@ -405,6 +404,23 @@ export default function InsightsPage() {
                                 <li>Each item has 'mana' and 'value': {hasData && data.every(item => 'mana' in item && 'value' in item) ? '✅' : '❌'}</li>
                                 <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
                                 <li>Shows mana curve balance: ✅ (Green = surplus, Red = deficit, Blue gems = mana costs)</li>
+                              </ul>
+                            </div>
+                          );
+                        }
+
+                        case "hand_size_pressure": {
+                          const hasData = Array.isArray(data);
+                          const hasLength = hasData && data.length > 0;
+                          return (
+                            <div>
+                              <strong>Hand Size Pressure Requirements:</strong>
+                              <ul>
+                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
+                                <li>Each item has 'turn' and 'hand': {hasData && data.every(item => 'turn' in item && 'hand' in item) ? '✅' : '❌'}</li>
+                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
+                                <li>Shows healthy zone (4-6 cards): ✅ (Green area)</li>
+                                <li>Shows danger zone (&lt;3 cards): ✅ (Red area)</li>
                               </ul>
                             </div>
                           );

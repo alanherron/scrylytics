@@ -13,6 +13,7 @@ import {
   ResponsiveContainer,
   Area,
   ReferenceLine,
+  ReferenceArea,
 } from "recharts";
 
 // Sketch style for hand-drawn effect
@@ -197,7 +198,6 @@ export default function HandSizePressureChart({
             dataKey="ideal"
             data={idealData}
             stroke="#9ca3af"
-            strokeWidth={2}
             strokeDasharray="5 5"
             dot={false}
             activeDot={false}
@@ -210,7 +210,6 @@ export default function HandSizePressureChart({
             type="monotone"
             dataKey="hand"
             stroke="#EF476F"
-            strokeWidth={3}
             dot={<CustomDot />}
             activeDot={{
               r: 6,

@@ -244,6 +244,32 @@ export function analyzeDeck(deck: DeckMeta): InsightResult {
     };
   }
 
+  if (key.includes("hand size") || key.includes("pressure")) {
+    // Hand size pressure data: turn-by-turn hand size
+    const handData = [
+      { turn: 1, hand: 3 },
+      { turn: 2, hand: 4 },
+      { turn: 3, hand: 5 },
+      { turn: 4, hand: 6 },
+      { turn: 5, hand: 7 },
+      { turn: 6, hand: 6 },
+      { turn: 7, hand: 5 },
+      { turn: 8, hand: 4 },
+      { turn: 9, hand: 3 },
+      { turn: 10, hand: 4 }
+    ];
+    return {
+      issue: "HAND_SIZE_PRESSURE",
+      data: handData,
+      caption: "Hand size fluctuates throughout the game, sometimes entering danger zone below 3 cards.",
+      title: "Hand Size Pressure Analysis",
+      grade: "Fair",
+      score: 6,
+      strengths: ["Generally healthy hand sizes"],
+      weaknesses: ["Occasional card starvation", "Inconsistent draw pressure"]
+    };
+  }
+
   // Default fallback
   const curve = [2, 4, 6, 4, 2, 1, 0, 0];
   return {
@@ -319,7 +345,7 @@ export const PREBUILT_DECKS: DeckMeta[] = [
     name: "Hand Disruption Warlock (Size Pressure)",
     archetype: "Control",
     gameType: "hearthstone",
-    chartType: "Line",
+    chartType: "Hand Size Pressure",
     list: []
   },
   {

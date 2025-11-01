@@ -164,8 +164,6 @@ export default function DeckCompositionChart({
       <ResponsiveContainer width="100%" height="90%">
         <PieChart>
           <Pie
-            activeIndex={activeIndex}
-            activeShape={renderActiveShape}
             data={data}
             cx="50%"
             cy="50%"

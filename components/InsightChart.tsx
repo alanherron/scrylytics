@@ -96,7 +96,7 @@ export default function InsightChart({ issue, data }: Props) {
       case "MATCHUP_PAINS":
         return "matchup_pains";
       case "HAND_SIZE_PRESSURE":
-        return "line";
+        return "hand_size_pressure";
       case "BOARD_TEMPO_GAPS":
         return "area";
       case "DECK_COMPOSITION":
@@ -113,10 +113,10 @@ export default function InsightChart({ issue, data }: Props) {
 
   const renderChart = () => {
     switch (chartType) {
-      case "mana_balance": {
+      case "mana_power_curve": {
         // Create mana balance data: current vs ideal
         const ideal = [7, 9, 8, 8, 6, 5, 3, 2, 1, 1]; // Ideal mana curve
-        const manaBalanceData = data.map((item, index) => {
+        const manaBalanceData = data.map((item: any, index) => {
           const current = item.count;
           const idealCount = ideal[index] || 0;
           const difference = current - idealCount;
@@ -354,11 +354,11 @@ export default function InsightChart({ issue, data }: Props) {
         );
       }
 
-      case "radar":
-        const radarData = data.map(item => ({
-          subject: item.role || item.subject || `Item ${data.indexOf(item) + 1}`,
-          value: item.value || item.count || 0,
-          fullMark: Math.max(...data.map(d => d.value || d.count || 0)) + 2
+      case "arcane_balance":
+        const radarData = data.map((item: any) => ({
+          subject: item.role || item.subject || item.metric || `Item ${data.indexOf(item) + 1}`,
+          value: item.value || item.count || item.current || 0,
+          fullMark: Math.max(...data.map((d: any) => d.value || d.count || d.current || 0)) + 2
         }));
         return (
           <RadarChart data={radarData}>
@@ -435,7 +435,7 @@ export default function InsightChart({ issue, data }: Props) {
         // Data is already in the correct format from insight engine
         return (
           <DrawRhythmChart
-            data={data}
+            data={data as any}
           />
         );
       }
@@ -478,7 +478,7 @@ export default function InsightChart({ issue, data }: Props) {
         // Data is already in the correct format from insight engine
         return (
           <MatchupPainsChart
-            data={data}
+            data={data as any}
             height={380}
             title="Matchup Pain Index"
           />
@@ -507,7 +507,16 @@ export default function InsightChart({ issue, data }: Props) {
       case "deck_composition": {
         return (
           <DeckCompositionChart
-            data={data}
+            data={data as any}
+            height={400}
+          />
+        );
+      }
+
+      case "hand_size_pressure": {
+        return (
+          <HandSizePressureChart
+            data={data as any}
             height={400}
           />
         );
@@ -548,7 +557,6 @@ export default function InsightChart({ issue, data }: Props) {
               name="Cards"
               fill="#f59e0b"
               stroke="#d97706"
-              strokeWidth={2}
               radius={[8, 8, 0, 0]}
               {...sketchStyle}
             />
@@ -560,7 +568,6 @@ export default function InsightChart({ issue, data }: Props) {
   return (
     <div style={{
       width: "100%",
-      minHeight: chartType === "composite" ? "600px" : "320px",
       position: "relative",
       backgroundColor: "#fefefe",
       borderRadius: "12px",
@@ -568,11 +575,7 @@ export default function InsightChart({ issue, data }: Props) {
       boxShadow: "0 4px 12px rgba(139, 92, 246, 0.15)"
     }}>
 
-      <div style={{ width: '100%', height: "280px" }}>
-        <ResponsiveContainer width="100%" height={280}>
-          {renderChart()}
-        </ResponsiveContainer>
-      </div>
+      {renderChart()}
 
       {/* Hand-drawn border effect */}
       <div style={{

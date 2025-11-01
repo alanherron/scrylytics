@@ -613,8 +613,6 @@ export const ManaPowerCurve: React.FC<Props> = ({
 
             <Bar
 
-              data={posSeries}
-
               dataKey="pos"
 
               isAnimationActive
@@ -636,8 +634,6 @@ export const ManaPowerCurve: React.FC<Props> = ({
             {/* Negative (deficit) bars */}
 
             <Bar
-
-              data={negSeries}
 
               dataKey="neg"
 
@@ -673,8 +669,6 @@ export const ManaPowerCurve: React.FC<Props> = ({
 
                 dot={{ r: 2, stroke: "#6d5b47", fill: "#6d5b47" }}
 
-                strokeWidth={2}
-
                 opacity={0.9}
 
                 activeDot={false}
@@ -698,8 +692,6 @@ export const ManaPowerCurve: React.FC<Props> = ({
               align="right"
 
               layout="vertical"
-
-              payload={legendPayload as any}
 
               wrapperStyle={{
 
