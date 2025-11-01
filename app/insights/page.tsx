@@ -10,7 +10,7 @@ const getChartType = (issue: string) => {
     case "MANA_CURVE_SKEW":
       return "mana_balance";
     case "DRAW_INCONSISTENCY":
-      return "line";
+      return "draw_rhythm";
     case "ROLE_MISMATCH":
       return "radar";
     case "WEAK_SYNERGY_CHAINS":
