@@ -27,8 +27,16 @@ export interface InsightResult {
   weaknesses?: string[];
 }
 
-function buildManaCurveData(curve: number[]): { mana:number; count:number }[] {
-  return curve.map((count, mana) => ({ mana, count }));
+// Build mana curve data with balance calculation (surplus/deficit vs ideal)
+function buildManaCurveData(curve: number[]): { mana: number; value: number; ideal: number }[] {
+  // Ideal curve: balanced distribution favoring mid-range (2-4 mana)
+  const idealCurve = [1, 2, 3, 3, 2, 1, 1, 0]; // Example ideal distribution
+
+  return curve.map((count, mana) => ({
+    mana,
+    value: count - (idealCurve[mana] || 0), // Balance: actual - ideal
+    ideal: idealCurve[mana] || 0,
+  }));
 }
 
 export function analyzeDeck(deck: DeckMeta): InsightResult {
@@ -234,14 +242,14 @@ export const PREBUILT_DECKS: DeckMeta[] = [
     name: "Highlander Control (Mana Curve Issues)",
     archetype: "Control",
     gameType: "magic",
-    chartType: "Bar",
+    chartType: "Mana Power Curve",
     list: []
   },
   {
     name: "Zoo Warlock (Mana Flood)",
     archetype: "Aggro",
     gameType: "hearthstone",
-    chartType: "Bar",
+    chartType: "Mana Power Curve",
     list: []
   },
   {

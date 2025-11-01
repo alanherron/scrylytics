@@ -28,6 +28,7 @@ import DrawRhythmChart from "./DrawRhythmChart";
 import { ArcaneBalanceChart } from "./ArcaneBalanceChart";
 import TechGapsChart from "./TechGapsChart";
 import MatchupPainsChart from "./MatchupPainsChart";
+import { ManaPowerCurve } from "./ManaPowerCurve";
 
 type Props = {
   issue: string;
@@ -36,7 +37,8 @@ type Props = {
     { turn: number; actual: number; target: number } |
     { metric: string; ideal: number; current: number; value?: number } |
     { threat: string; metaLevel: number; yourAnswers: number; gap: number } |
-    { matchup: string; score: number; value?: number }
+    { matchup: string; score: number; value?: number } |
+    { mana: number; value: number; ideal?: number }
   >
 };
 
@@ -79,7 +81,7 @@ export default function InsightChart({ issue, data }: Props) {
   const getChartType = (issue: string) => {
     switch (issue) {
       case "MANA_CURVE_SKEW":
-        return "mana_balance"; // Special mana power balance chart
+        return "mana_power_curve"; // Special mana power curve chart
       case "DRAW_INCONSISTENCY":
         return "draw_rhythm"; // Special draw rhythm chart
       case "ROLE_MISMATCH":
@@ -519,6 +521,25 @@ export default function InsightChart({ issue, data }: Props) {
             data={matchupData}
             height={380}
             title="Matchup Pain Index"
+          />
+        );
+      }
+
+      case "mana_power_curve": {
+        // Convert data to the expected format for ManaPowerCurve
+        const manaData = data.map((item: any) => ({
+          mana: item.mana || item.cost || 1,
+          value: item.value || item.balance || item.count || 0,
+          ideal: item.ideal || 0,
+        }));
+
+        return (
+          <ManaPowerCurve
+            data={manaData}
+            showIdeal={true}
+            title="Mana Power Curve"
+            caption="Blue squares mark each mana cost. Bars show where you have too many (up) or need more (down)."
+            height={420}
           />
         );
       }

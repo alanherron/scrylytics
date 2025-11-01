@@ -8,7 +8,7 @@ import InsightChart from '../../components/InsightChart';
 const getChartType = (issue: string) => {
   switch (issue) {
     case "MANA_CURVE_SKEW":
-      return "mana_balance";
+      return "mana_power_curve";
     case "DRAW_INCONSISTENCY":
       return "draw_rhythm";
     case "ROLE_MISMATCH":
@@ -29,7 +29,7 @@ const getChartType = (issue: string) => {
 };
 
 export default function InsightsPage() {
-  const [selectedIndex, setSelectedIndex] = useState(7); // Test Matchup Pains chart
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const result = useMemo(() => {
     const deck = PREBUILT_DECKS[selectedIndex];
@@ -363,6 +363,22 @@ export default function InsightsPage() {
                                 <li>Each item has 'matchup' or 'score': {hasData && data.every(item => 'matchup' in item || 'score' in item || 'value' in item) ? '✅' : '❌'}</li>
                                 <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
                                 <li>Shows matchup strengths/weaknesses: ✅ (Green = strong, Red = weak, centered on 0)</li>
+                              </ul>
+                        </div>
+                      );
+                        }
+
+                        case "mana_power_curve": {
+                          const hasData = Array.isArray(data);
+                          const hasLength = hasData && data.length > 0;
+                          return (
+                            <div>
+                              <strong>Mana Power Curve Requirements:</strong>
+                              <ul>
+                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
+                                <li>Each item has 'mana' and 'value': {hasData && data.every(item => 'mana' in item && 'value' in item) ? '✅' : '❌'}</li>
+                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
+                                <li>Shows mana curve balance: ✅ (Green = surplus, Red = deficit, Blue gems = mana costs)</li>
                               </ul>
                             </div>
                           );
