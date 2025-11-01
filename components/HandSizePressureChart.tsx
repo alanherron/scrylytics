@@ -150,7 +150,7 @@ export default function HandSizePressureChart({
         {title}
       </div>
 
-      <ResponsiveContainer width="100%" height="85%">
+      <ResponsiveContainer width="100%" height={height - 80}>
         <LineChart
           data={data}
           margin={{ top: 20, right: 30, bottom: 20, left: 20 }}

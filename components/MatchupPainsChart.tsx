@@ -146,7 +146,7 @@ export default function MatchupPainsChart({
           {title}
         </div>
 
-        <ResponsiveContainer width="100%" height="85%">
+        <ResponsiveContainer width="100%" height={300}>
           <BarChart
             data={data}
             layout="horizontal"

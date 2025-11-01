@@ -106,7 +106,7 @@ export function ArcaneBalanceChart({
 
     <div className="w-full" style={{ height }}>
 
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height={height}>
 
         <RadarChart
 

@@ -244,7 +244,7 @@ export default function DrawRhythmChart({
 
 
 
-      <ResponsiveContainer width="100%" height="85%">
+      <ResponsiveContainer width="100%" height={280}>
 
         <ComposedChart data={data} margin={{ top: 8, right: 18, bottom: 8, left: 12 }}>
 

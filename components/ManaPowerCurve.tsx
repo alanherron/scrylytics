@@ -474,7 +474,7 @@ export const ManaPowerCurve: React.FC<Props> = ({
 
       <div style={{ width: "100%", height }}>
 
-        <ResponsiveContainer>
+        <ResponsiveContainer width="100%" height={height}>
 
           <BarChart
 
