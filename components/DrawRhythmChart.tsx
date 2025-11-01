@@ -1,260 +1,369 @@
-'use client';
+import * as React from "react";
 
-import * as React from 'react';
 import {
+
   ResponsiveContainer,
+
   ComposedChart,
-  Bar,
-  Line,
-  XAxis,
-  YAxis,
+
   CartesianGrid,
+
+  XAxis,
+
+  YAxis,
+
   Tooltip,
+
+  Legend,
+
+  Bar,
+
   ReferenceLine,
-  LabelList,
-} from 'recharts';
 
-type Point = {
-  turn: number;          // Turn number (1..10)
-  actual: number;        // Cards drawn this turn (or total hand gain this turn)
-  target: number;        // What we wanted to draw this turn
-  delta?: number;        // actual - target (computed)
-};
+} from "recharts";
 
-export type DrawRhythmChartProps = {
-  title?: string;
-  blurb?: string;
-  data: Point[];
-  maxY?: number;         // y-axis max (auto if not set)
-};
+
 
 /**
- * DrawRhythmChart
+
+ * Data shape:
+
+ * - turn: number (1..N)
+
+ * - hand: number (actual cards in hand at end of turn)
+
+ * - target: number (goal cards in hand at end of turn; commonly 5)
+
  *
- * Shows per-turn draw vs target, with a simple green/red "good/bad" bar.
- * - Bars: Surplus/deficit each turn (green up/red down from 0 line)
- * - Line: Target draw per turn (baseline goal)
- * - Dots: Actual draw per turn
- * - Words are simple on purpose.
+
+ * You can supply your own `data` prop. A sensible default is provided.
+
  */
-export default function DrawRhythmChart({
-  title = 'Draw Rhythm',
-  blurb = 'Green = drew enough, Red = not enough. Keep your draw steady so your plan works.',
-  data,
-  maxY,
-}: DrawRhythmChartProps) {
-  // Normalize and compute deltas
-  const rows = React.useMemo(() => {
-    return data.map(d => ({
-      ...d,
-      delta: (d.actual ?? 0) - (d.target ?? 0),
-    }));
-  }, [data]);
 
-  // Auto y-domain: make room for the biggest absolute delta + target/actual
-  const absMax = React.useMemo(() => {
-    const values = rows.flatMap(r => [r.actual, r.target, Math.abs(r.delta ?? 0)]);
-    return Math.max(2, Math.ceil(Math.max(...values.filter(v => Number.isFinite(v)) as number[])));
-  }, [rows]);
+type Point = { turn: number; hand: number; target: number };
 
-  const yMax = maxY ?? absMax;
 
-  // Color the delta bars (green = surplus, red = deficit)
-  const barColor = (value: number) => (value >= 0 ? '#27ae60' : '#e74c3c');
 
-  // Plain-language tooltip
-  const SimpleTooltip = ({ active, payload, label }: any) => {
-    if (!active || !payload || !payload.length) return null;
+export type DrawRhythmChartProps = {
 
-    // We pushed multiple series; pick out what we need:
-    const p = payload.reduce(
-      (acc: any, cur: any) => {
-        if (cur.dataKey === 'delta') acc.delta = cur.value;
-        if (cur.dataKey === 'actual') acc.actual = cur.value;
-        if (cur.dataKey === 'target') acc.target = cur.value;
-        return acc;
-      },
-      { delta: 0, actual: 0, target: 0 }
-    );
+  title?: string;
 
-    const verdict =
-      p.delta > 0 ? 'You drew more than needed.' :
-      p.delta < 0 ? 'You drew less than needed.' :
-      'You hit the goal.';
+  data?: Point[];
 
-    return (
-      <div
-        style={{
-          background: 'rgba(255,255,255,0.95)',
-          border: '1px solid #ddd',
-          borderRadius: 8,
-          padding: '8px 10px',
-          fontSize: 12,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-        }}
-        aria-live="polite"
-      >
-        <div style={{ fontWeight: 700, marginBottom: 4 }}>Turn {label}</div>
-        <div>Actual draw: <strong>{p.actual}</strong></div>
-        <div>Target draw: <strong>{p.target}</strong></div>
-        <div>Diff: <strong style={{ color: barColor(p.delta) }}>{p.delta}</strong></div>
-        <div style={{ marginTop: 4, opacity: 0.8 }}>{verdict}</div>
-      </div>
-    );
-  };
+  /** Goal line color */
 
-  // A very simple headline + subheader
-  function Header() {
-    return (
-      <div className="flex flex-col gap-1">
-        <h2 className="text-lg font-semibold">{title}</h2>
-        <p className="text-sm text-neutral-600">{blurb}</p>
-      </div>
-    );
-  }
+  goalColor?: string;
+
+  /** Bar color */
+
+  barColor?: string;
+
+  /** Maximum y-axis (cards in hand). If not set, auto from data. */
+
+  maxY?: number;
+
+  /** Minimum y-axis (cards in hand). Defaults to 0. */
+
+  minY?: number;
+
+};
+
+
+
+const DEFAULT_DATA: Point[] = [
+
+  { turn: 1, hand: 3, target: 5 },
+
+  { turn: 2, hand: 2, target: 5 },
+
+  { turn: 3, hand: 4, target: 5 },
+
+  { turn: 4, hand: 3, target: 5 },
+
+  { turn: 5, hand: 6, target: 5 },
+
+  { turn: 6, hand: 2, target: 5 },
+
+  { turn: 7, hand: 4, target: 5 },
+
+  { turn: 8, hand: 3, target: 5 },
+
+];
+
+
+
+const SimpleTooltip = ({ active, payload, label }: any) => {
+
+  if (!active || !payload?.length) return null;
+
+  const hand = payload.find((p: any) => p.dataKey === "hand")?.value as number;
+
+  const target = payload[0]?.payload?.target as number;
+
+  const diff = hand - target;
+
+
 
   return (
+
     <div
-      role="figure"
-      aria-label="Chart showing card draw vs goal each turn"
-      className="w-full rounded-2xl border border-neutral-200 bg-[url('data:image/svg+xml;utf8,\
-%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2748%27 height=%2748%27 viewBox=%270 0 48 48%27%3E%3Crect width=%2748%27 height=%2748%27 fill=%27%23f8f3e7%27/%3E%3Cpath d=%27M0 47.5 H48%27 stroke=%27%23e7dfcc%27 stroke-width=%271%27/%3E%3Cpath d=%27M47.5 0 V48%27 stroke=%27%23e7dfcc%27 stroke-width=%271%27/%3E%3C/svg%3E')] p-4"
+
       style={{
-        boxShadow: '0 12px 40px rgba(0,0,0,0.06)',
+
+        background: "rgba(255,255,255,0.95)",
+
+        border: "1px solid #ddd",
+
+        borderRadius: 6,
+
+        padding: "8px 10px",
+
+        fontSize: 12,
+
       }}
+
     >
-      <Header />
 
-      <div className="mt-3" style={{ width: '100%', height: 320 }}>
-        <ResponsiveContainer width="100%" height="100%">
-          <ComposedChart
-            data={rows}
-            margin={{ top: 12, right: 12, bottom: 12, left: 12 }}
-          >
-            <CartesianGrid stroke="#eee" vertical={false} />
+      <div style={{ fontWeight: 700, marginBottom: 4 }}>Turn {label}</div>
 
-            <XAxis
-              dataKey="turn"
-              tick={{ fontSize: 12 }}
-              label={{ value: 'Turn', position: 'insideBottom', offset: -4 }}
-            />
+      <div>Cards in hand: <b>{hand}</b></div>
 
-            <YAxis
-              domain={[-yMax, yMax]}
-              tick={{ fontSize: 12 }}
-              label={{ value: 'Cards Drawn (per turn)', angle: -90, position: 'insideLeft' }}
-            />
+      <div>Goal: <b>{target}</b></div>
 
-            {/* Zero line to split surplus vs deficit */}
-            <ReferenceLine y={0} stroke="#bbb" strokeDasharray="4 4" />
+      <div style={{ color: diff >= 0 ? "#2e7d32" : "#c62828" }}>
 
-            {/* Surplus / Deficit bars (delta) */}
-            <Bar dataKey="delta" name="Diff (Actual - Target)" isAnimationActive={false}>
-              {
-                rows.map((r, idx) => (
-                  <rect key={`bar-c-${idx}`} /> // placeholder; color handled by shape prop below
-                ))
-              }
-              <LabelList
-                dataKey="delta"
-                position="top"
-                formatter={(v: number) => (v === 0 ? '' : v)}
-                style={{ fontSize: 11, fontWeight: 600 }}
-              />
-            </Bar>
+        {diff === 0
 
-            {/* Custom shape to color bars green/red and extend up/down from 0 */}
-            {/* We override Bar's shape render via a function component */}
-            <Bar
-              dataKey="delta"
-              shape={(props: any) => {
-                const { x, y, width, height, payload } = props;
-                const value: number = payload.delta ?? 0;
-                const c = barColor(value);
-                // Recharts draws bars from the top by default; we want to straddle the zero line:
-                const zeroY = props.yAxis?.scale(0) ?? y;
-                const top = value >= 0 ? y : zeroY;
-                const h = Math.abs((zeroY - y) || height);
-                return (
-                  <g>
-                    <rect
-                      x={x}
-                      y={top}
-                      width={Math.max(1, width)}
-                      height={Math.max(0, h)}
-                      fill={c}
-                      rx={4}
-                      ry={4}
-                    />
-                  </g>
-                );
-              }}
-            />
+          ? "On target"
 
-            {/* Target line (goal) */}
-            <Line
-              type="monotone"
-              dataKey="target"
-              name="Goal"
-              stroke="#2d7ff9"
-              strokeWidth={2}
-              dot={{ r: 0 }}
-              isAnimationActive={false}
-            />
+          : diff > 0
 
-            {/* Actual points (dots) */}
-            <Line
-              type="monotone"
-              dataKey="actual"
-              name="Actual"
-              stroke="#111"
-              strokeWidth={2}
-              dot={{ r: 4 }}
-              isAnimationActive={false}
-            />
+          ? `+${diff} (a bit too many)`
 
-            <Tooltip content={<SimpleTooltip />} />
+          : `${diff} (a bit too few)`}
 
-          </ComposedChart>
-        </ResponsiveContainer>
-      </div>
-
-      {/* Simple legend with "kid words" */}
-      <div className="mt-3 grid grid-cols-1 gap-2 text-sm sm:grid-cols-3">
-        <LegendPill color="#2d7ff9" label="Goal line" explain="How much you wanted to draw." />
-        <LegendPill color="#111" label="Actual dots" explain="How much you really drew." />
-        <LegendPill color="#27ae60" label="Green bar" explain="Drew enough (good)." extraRight={
-          <LegendPill color="#e74c3c" label="Red bar" explain="Drew too little (bad)." />
-        } />
       </div>
 
     </div>
-  );
-}
 
-function LegendPill({
-  color,
-  label,
-  explain,
-  extraRight,
-}: {
-  color: string;
-  label: string;
-  explain: string;
-  extraRight?: React.ReactNode;
-}) {
+  );
+
+};
+
+
+
+export default function DrawRhythmChart({
+
+  title = "Draw Rhythm (Cards in Hand by Turn)",
+
+  data = DEFAULT_DATA,
+
+  goalColor = "#555",
+
+  barColor = "#4f8df5",
+
+  maxY,
+
+  minY = 0,
+
+}: DrawRhythmChartProps) {
+
+  // Determine Y bounds if not provided
+
+  const computedMax =
+
+    maxY ??
+
+    Math.max(
+
+      7,
+
+      ...data.map((d) => Math.max(d.hand, d.target))
+
+    );
+
+
+
+  // We keep the legend language super simple
+
+  const legendPayload = [
+
+    { value: "Cards in hand", type: "square", color: barColor, id: "hand" },
+
+    { value: "Goal line", type: "line", color: goalColor, id: "target" },
+
+  ];
+
+
+
   return (
-    <div className="flex items-start gap-2">
-      <span
-        aria-hidden
-        className="mt-1 inline-block h-3 w-3 rounded-full"
-        style={{ backgroundColor: color }}
-      />
-      <div>
-        <div className="font-medium">{label}</div>
-        <div className="text-neutral-600">{explain}</div>
+
+    <div
+
+      style={{
+
+        width: "100%",
+
+        height: 340,
+
+        background:
+
+          "linear-gradient(0deg, rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('/parchment-texture.png')",
+
+        backgroundSize: "cover",
+
+        border: "1px solid #e6dfc8",
+
+        borderRadius: 10,
+
+        boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
+
+        padding: 12,
+
+      }}
+
+    >
+
+      <div
+
+        style={{
+
+          fontWeight: 800,
+
+          fontSize: 16,
+
+          margin: "4px 8px 8px",
+
+        }}
+
+      >
+
+        {title}
+
       </div>
-      {extraRight ? <div className="ml-auto">{extraRight}</div> : null}
+
+
+
+      <ResponsiveContainer width="100%" height="85%">
+
+        <ComposedChart data={data} margin={{ top: 8, right: 18, bottom: 8, left: 12 }}>
+
+          <CartesianGrid stroke="#eae5d6" strokeDasharray="3 3" />
+
+          <XAxis
+
+            dataKey="turn"
+
+            tick={{ fontSize: 12 }}
+
+            label={{ value: "Turn", position: "insideBottom", offset: -2, fontSize: 12 }}
+
+          />
+
+          <YAxis
+
+            domain={[minY, computedMax]}
+
+            allowDecimals={false}
+
+            tick={{ fontSize: 12 }}
+
+            label={{ value: "Cards in hand", angle: -90, position: "insideLeft", fontSize: 12 }}
+
+          />
+
+          <Tooltip content={<SimpleTooltip />} />
+
+          <Legend
+
+            verticalAlign="top"
+
+            align="right"
+
+            payload={legendPayload as any}
+
+            wrapperStyle={{ fontSize: 12 }}
+
+          />
+
+          {/* Bars = actual hand size */}
+
+          <Bar
+
+            dataKey="hand"
+
+            name="Cards in hand"
+
+            fill={barColor}
+
+            radius={[4, 4, 0, 0]}
+
+          />
+
+          {/* Reference line = goal hand size (pulled from the first point) */}
+
+          <ReferenceLine
+
+            y={data[0]?.target ?? 5}
+
+            stroke={goalColor}
+
+            strokeDasharray="6 6"
+
+            label={{
+
+              position: "right",
+
+              value: "Goal",
+
+              fill: goalColor,
+
+              fontSize: 12,
+
+            }}
+
+          />
+
+        </ComposedChart>
+
+      </ResponsiveContainer>
+
+
+
+      {/* Simple helper strip with plain language */}
+
+      <div style={{ display: "flex", gap: 8, alignItems: "center", marginTop: 6, padding: "0 6px" }}>
+
+        <span
+
+          style={{
+
+            display: "inline-block",
+
+            width: 10,
+
+            height: 10,
+
+            background: barColor,
+
+            borderRadius: 2,
+
+            marginRight: 4,
+
+          }}
+
+        />
+
+        <span style={{ fontSize: 12, color: "#333" }}>Bars = how many cards you actually had.</span>
+
+        <span style={{ marginLeft: 10, borderTop: `2px dashed ${goalColor}`, width: 20 }} />
+
+        <span style={{ fontSize: 12, color: "#333" }}>Dashed line = the goal number of cards.</span>
+
+      </div>
+
     </div>
+
   );
+
 }

@@ -73,16 +73,16 @@ export function analyzeDeck(deck: DeckMeta): InsightResult {
   if (key.includes("draw-go control") || key.includes("inconsistent draws")) {
     // Sample draw rhythm data: turns 1-10 with actual vs target draws
     const drawRhythmData = [
-      { turn: 1, actual: 1, target: 2 },
-      { turn: 2, actual: 1, target: 2 },
-      { turn: 3, actual: 2, target: 2 },
-      { turn: 4, actual: 1, target: 2 },
-      { turn: 5, actual: 3, target: 2 },
-      { turn: 6, actual: 2, target: 2 },
-      { turn: 7, actual: 4, target: 3 },
-      { turn: 8, actual: 1, target: 3 },
-      { turn: 9, actual: 2, target: 3 },
-      { turn: 10, actual: 5, target: 3 },
+      { turn: 1, hand: 1, target: 2 },
+      { turn: 2, hand: 1, target: 2 },
+      { turn: 3, hand: 2, target: 2 },
+      { turn: 4, hand: 1, target: 2 },
+      { turn: 5, hand: 3, target: 2 },
+      { turn: 6, hand: 2, target: 2 },
+      { turn: 7, hand: 4, target: 3 },
+      { turn: 8, hand: 1, target: 3 },
+      { turn: 9, hand: 2, target: 3 },
+      { turn: 10, hand: 5, target: 3 },
     ];
     return {
       issue: "DRAW_INCONSISTENCY",
