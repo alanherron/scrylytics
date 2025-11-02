@@ -280,22 +280,6 @@ export default function InsightsPage() {
                           );
                         }
 
-                        case 'arcane_balance': {
-                          const hasData = Array.isArray(data);
-                          const hasLength = hasData && data.length > 0;
-                          return (
-                            <div>
-                              <strong>Radar Chart Requirements:</strong>
-                              <ul>
-                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
-                                <li>Each item has 'role' or 'subject': {hasData && data.every(item => 'role' in item || 'subject' in item) ? '✅' : '❌'}</li>
-                                <li>Each item has 'value': {hasData && data.every(item => 'value' in item) ? '✅' : '❌'}</li>
-                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
-                              </ul>
-                            </div>
-                          );
-                        }
-
                         case 'area': {
                           const hasData = Array.isArray(data);
                           const hasLength = hasData && data.length > 0;
