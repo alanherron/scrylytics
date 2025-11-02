@@ -438,7 +438,7 @@ export default function InsightsPage() {
                                 <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
                                 <li>Shows power vs ideal curve: ✅ (Blue line vs gray area)</li>
                                 <li>Shows card count bars: ✅ (Light blue bars)</li>
-                                <li>Interactive legend toggles: ✅ (Click to show/hide elements)</li>
+                                <li>Dual Y-axes: ✅ (Power left, Card count right)</li>
                               </ul>
                             </div>
                           );

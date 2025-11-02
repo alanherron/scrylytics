@@ -19,7 +19,7 @@ const ManaPowerCurve = dynamic(
 const TempoGapsChart = dynamic(() => import("./TempoGapsChart"), { ssr: false });
 const HandSizePressureChart = dynamic(() => import("./HandSizePressureChart"), { ssr: false });
 const DeckCompositionChart = dynamic(() => import("./DeckCompositionChart"), { ssr: false });
-const TempoCurveTwoColumn = dynamic(() => import("./TempoCurveTwoColumn"), { ssr: false });
+const TempoCurveKnownGood = dynamic(() => import("./TempoCurveKnownGood"), { ssr: false });
 
 type Props = {
   issue: string;
@@ -454,7 +454,7 @@ export default function InsightChart({ issue, data }: Props) {
 
       case "tempo_curve": {
         return (
-          <TempoCurveTwoColumn
+          <TempoCurveKnownGood
             data={data as any}
             height={400}
           />
