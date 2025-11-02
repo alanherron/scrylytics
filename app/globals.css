@@ -1,32 +1,54 @@
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-html,
+:root { color-scheme: dark light; }
+html, body { height: 100%; }
+/* Theme variables for light/dark */
+:root {
+  --bg:#0b0b10;
+  --ink:#e9e7f2;
+  --ink-rgb:233 231 242;
+  --color-white:233 231 242;
+}
+.light {
+  --bg:#f7f7fb;
+  --ink:#0e0e12;
+  --ink-rgb:14 14 18;
+  --color-white:14 14 18;
+}
+.dark {
+  --bg:#0b0b10;
+  --ink:#e9e7f2;
+  --ink-rgb:233 231 242;
+  --color-white:233 231 242;
+}
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  @apply font-ui;
 }
+* { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+.light .text-white { color: rgb(var(--ink-rgb) / 1); }
+.light .text-white\/90 { color: rgb(var(--ink-rgb) / 0.9); }
+.light .text-white\/85 { color: rgb(var(--ink-rgb) / 0.85); }
+.light .text-white\/80 { color: rgb(var(--ink-rgb) / 0.8); }
+.light .text-white\/75 { color: rgb(var(--ink-rgb) / 0.75); }
+.light .text-white\/70 { color: rgb(var(--ink-rgb) / 0.7); }
+.light .text-white\/65 { color: rgb(var(--ink-rgb) / 0.65); }
+.light .text-white\/60 { color: rgb(var(--ink-rgb) / 0.6); }
+.light .text-white\/50 { color: rgb(var(--ink-rgb) / 0.5); }
+.light .text-white\/40 { color: rgb(var(--ink-rgb) / 0.4); }
+.light .text-white\/30 { color: rgb(var(--ink-rgb) / 0.3); }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+.light .border-white\/20 { border-color: rgb(var(--ink-rgb) / 0.2); }
+.light .border-white\/15 { border-color: rgb(var(--ink-rgb) / 0.15); }
+.light .border-white\/10 { border-color: rgb(var(--ink-rgb) / 0.12); }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
+.light .bg-white\/20 { background-color: rgb(var(--ink-rgb) / 0.2); }
+.light .bg-white\/10 { background-color: rgb(var(--ink-rgb) / 0.1); }
+.light .bg-white\/5 { background-color: rgb(var(--ink-rgb) / 0.05); }
+
+.light .hover\:bg-white\/10:hover { background-color: rgb(var(--ink-rgb) / 0.1); }
+.light .hover\:bg-white\/5:hover { background-color: rgb(var(--ink-rgb) / 0.05); }

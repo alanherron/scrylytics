@@ -2,7 +2,7 @@
 
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   PieChart,
   Pie,
@@ -10,7 +10,7 @@ import {
   ResponsiveContainer,
   Sector,
   Tooltip,
-  Legend
+  Legend,
 } from "recharts";
 
 export type CompositionSubtype = {
@@ -26,9 +26,9 @@ export type CompositionData = {
   subtypes?: CompositionSubtype[];
 };
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d', '#ffc658', '#ff7300'];
+const COLORS = ["#c4b5fd", "#22d3ee", "#34d399", "#f97316", "#f472b6", "#fde047", "#5eead4", "#fca5a5"];
 
-const renderActiveShape = (props: any) => {
+const ActiveShape = (props: any) => {
   const RADIAN = Math.PI / 180;
   const {
     cx,
@@ -41,270 +41,194 @@ const renderActiveShape = (props: any) => {
     fill,
     payload,
     percent,
-    value
+    value,
   } = props;
+
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
-  const sx = cx + (outerRadius + 10) * cos;
-  const sy = cy + (outerRadius + 10) * sin;
-  const mx = cx + (outerRadius + 30) * cos;
-  const my = cy + (outerRadius + 30) * sin;
-  const ex = mx + (cos >= 0 ? 1 : -1) * 22;
+  const sx = cx + (outerRadius + 6) * cos;
+  const sy = cy + (outerRadius + 6) * sin;
+  const mx = cx + (outerRadius + 22) * cos;
+  const my = cy + (outerRadius + 22) * sin;
+  const ex = mx + (cos >= 0 ? 1 : -1) * 14;
   const ey = my;
-  const textAnchor = cos >= 0 ? 'start' : 'end';
+  const textAnchor = cos >= 0 ? "start" : "end";
 
   return (
     <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
+      <text x={cx} y={cy} dy={4} textAnchor="middle" fill="rgba(244,243,255,0.9)" className="font-medium">
         {payload.name}
       </text>
-      <Sector
-        cx={cx}
-        cy={cy}
-        innerRadius={innerRadius}
-        outerRadius={outerRadius}
-        startAngle={startAngle}
-        endAngle={endAngle}
-        fill={fill}
-      />
+      <Sector cx={cx} cy={cy} innerRadius={innerRadius} outerRadius={outerRadius} startAngle={startAngle} endAngle={endAngle} fill={fill} />
       <Sector
         cx={cx}
         cy={cy}
         startAngle={startAngle}
         endAngle={endAngle}
-        innerRadius={outerRadius + 6}
-        outerRadius={outerRadius + 10}
+        innerRadius={outerRadius + 4}
+        outerRadius={outerRadius + 8}
         fill={fill}
+        opacity={0.45}
       />
-      <path
-        d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
-        stroke={fill}
-        fill="none"
-      />
-      <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
+      <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
+      <circle cx={ex} cy={ey} r={3} fill={fill} stroke="none" />
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="rgba(244,243,255,0.85)" fontSize={12} fontWeight={600}>
+        {value} cards
+      </text>
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
+        dy={16}
         textAnchor={textAnchor}
-        fill="#333"
-        fontSize={12}
-        fontWeight={600}
-      >{`${value} cards`}</text>
-      <text
-        x={ex + (cos >= 0 ? 1 : -1) * 12}
-        y={ey}
-        dy={18}
-        textAnchor={textAnchor}
-        fill="#999"
-        fontSize={10}
+        fill="rgba(244,243,255,0.6)"
+        fontSize={11}
       >
-        {`(${(percent * 100).toFixed(1)}%)`}
+        {(percent * 100).toFixed(1)}%
       </text>
     </g>
   );
 };
 
-const renderTooltip = (props: any) => {
-  const { active, payload } = props;
+const CompositionTooltip = ({ active, payload }: any) => {
+  if (!active || !payload?.length) return null;
+  const data = payload[0];
+  const subtypes: CompositionSubtype[] | undefined = data.payload?.subtypes;
 
-  if (active && payload && payload.length) {
-    const data = payload[0];
-    const subtypes: CompositionSubtype[] | undefined = data.payload?.subtypes;
-    return (
-      <div
-        style={{
-          backgroundColor: "#fff",
-          padding: "10px",
-          border: "1px solid #ccc",
-          borderRadius: "4px",
-          boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
-        }}
-      >
-        <p style={{ margin: 0, fontWeight: 600 }}>
-          {`${data.payload.name}: ${data.value} cards`}
-        </p>
-        <p style={{ margin: 0, color: "#666" }}>
-          {`${(data.percent * 100).toFixed(1)}% of deck`}
-        </p>
-        {Array.isArray(subtypes) && subtypes.length > 0 && (
-          <div style={{ marginTop: 8 }}>
-            <div style={{ fontSize: 11, fontWeight: 600, color: "#4a5568", marginBottom: 4 }}>
-              Subtype breakdown
-            </div>
-            <ul style={{ margin: 0, padding: 0, listStyle: "none", fontSize: 11, color: "#4a5568" }}>
-              {subtypes.map((sub, idx) => (
-                <li key={`${sub.name}-${idx}`} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+  return (
+    <div className="min-w-[200px] rounded-xl border border-white/10 bg-slate-950/90 px-4 py-3 text-xs text-white/85 shadow-lg backdrop-blur">
+      <div className="font-semibold text-white">{data.payload.name}</div>
+      <div className="mt-1 text-white/70">{data.value} cards · {(data.percent * 100).toFixed(1)}%</div>
+      {Array.isArray(subtypes) && subtypes.length > 0 && (
+        <div className="mt-3 space-y-2">
+          <div className="text-[10px] uppercase tracking-wider text-white/50">Subtype breakdown</div>
+          <ul className="space-y-1">
+            {subtypes.map((sub, idx) => (
+              <li key={`${sub.name}-${idx}`} className="flex items-center justify-between gap-3 text-white/75">
+                <span className="flex items-center gap-2">
                   <span
-                    style={{
-                      display: "inline-block",
-                      width: 8,
-                      height: 8,
-                      borderRadius: "50%",
-                      backgroundColor: sub.fill || COLORS[idx % COLORS.length],
-                    }}
+                    className="inline-block size-2 rounded-full"
+                    style={{ backgroundColor: sub.fill || COLORS[idx % COLORS.length] }}
                   />
-                  <span style={{ flex: 1 }}>{sub.name}</span>
-                  <span>{sub.value}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  return null;
+                  {sub.name}
+                </span>
+                <span>{sub.value}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default function DeckCompositionChart({
   data,
-  height = 400
+  height = 400,
 }: {
   data: CompositionData[];
   height?: number;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const onPieEnter = useCallback(
-    (_: any, index: number) => {
-      setActiveIndex(index);
-    },
-    [setActiveIndex]
+  const onPieEnter = useCallback((_: any, index: number) => {
+    setActiveIndex(index);
+  }, []);
+
+  const chartData = useMemo(
+    () =>
+      data.map((item, index) => ({
+        ...item,
+        fill: item.fill ?? COLORS[index % COLORS.length],
+      })),
+    [data],
   );
 
-  const chartHeight = Math.max(240, height - 160);
-  const activeSlice = data[activeIndex] ?? null;
-  const activeSubtypesSource = activeSlice?.subtypes;
-  const activeSubtypes = Array.isArray(activeSubtypesSource) ? activeSubtypesSource : [];
-  const subtypeSum = activeSubtypes.reduce((sum, item) => sum + (item.value || 0), 0);
-  const subtypeTotal = activeSlice?.value && activeSlice.value > 0 ? activeSlice.value : subtypeSum || 1;
+  const activeSlice = chartData[activeIndex] ?? null;
+  const subtypes = Array.isArray(activeSlice?.subtypes) ? activeSlice!.subtypes : [];
+  const subtotal = subtypes.reduce((sum, item) => sum + (item.value || 0), 0) || 1;
 
   return (
-    <div style={{
-      width: "100%",
-      height,
-      background: "linear-gradient(135deg, rgba(255,255,255,0.9), rgba(248,250,252,0.9))",
-      border: "1px solid #e2e8f0",
-      borderRadius: 12,
-      padding: 16,
-      boxShadow: "0 4px 12px rgba(0,0,0,0.05)"
-    }}>
-      <div style={{
-        textAlign: "center",
-        marginBottom: 20,
-        fontSize: 18,
-        fontWeight: 600,
-        color: "#2d3748"
-      }}>
-        Deck Composition
-      </div>
-
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-        gap: 16,
-        alignItems: "stretch"
-      }}>
-        <div style={{ height: chartHeight, minHeight: 240 }}>
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={data}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                outerRadius="70%"
-                innerRadius="45%"
-                fill="#8884d8"
-                dataKey="value"
-                onMouseEnter={onPieEnter}
-                onClick={onPieEnter}
-                {...({ activeIndex, activeShape: renderActiveShape } as any)}
-              >
-                {data.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={entry.fill || COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie>
-              <Tooltip content={renderTooltip} />
-              <Legend
-                verticalAlign="bottom"
-                height={36}
-                formatter={(value, entry) => (
-                  <span style={{ color: entry.color }}>
-                    {value}: {entry.payload?.value || 0}
-                  </span>
-                )}
-              />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
-
-        <div style={{
-          backgroundColor: "rgba(255,255,255,0.9)",
-          border: "1px solid #e2e8f0",
-          borderRadius: 12,
-          padding: 16,
-          boxShadow: "inset 0 1px 3px rgba(148, 163, 184, 0.2)"
-        }}>
-          <div style={{ fontWeight: 600, color: "#1f2937", marginBottom: 8 }}>
-            {activeSlice ? `${activeSlice.name} breakdown` : "Subtype breakdown"}
+    <div className="h-full w-full" style={{ minHeight: height }}>
+      <div className="flex h-full flex-col gap-6 rounded-2xl border border-white/10 bg-black/30 p-6 shadow-glow">
+        <div className="flex items-center justify-between">
+          <div>
+            <h4 className="font-display text-lg text-white/90">Deck Composition</h4>
+            <p className="text-xs text-white/60">Hover a slice to see subtype coverage.</p>
           </div>
-
-          {activeSubtypes.length === 0 ? (
-            <p style={{ fontSize: 13, color: "#64748b", margin: 0 }}>
-              No subtype details for this category.
-            </p>
-          ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {activeSubtypes.map((subtype, index) => {
-                const percent = Math.round(((subtype.value || 0) / subtypeTotal) * 1000) / 10;
-                return (
-                  <div key={`${subtype.name}-${index}`} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                        <span
-                          style={{
-                            display: "inline-block",
-                            width: 10,
-                            height: 10,
-                            borderRadius: 4,
-                            backgroundColor: subtype.fill || COLORS[index % COLORS.length]
-                          }}
-                        />
-                        <span style={{ fontSize: 13, color: "#334155" }}>{subtype.name}</span>
-                      </div>
-                      <div style={{ fontSize: 12, color: "#475569" }}>
-                        {subtype.value} cards • {percent.toFixed(1)}%
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        height: 6,
-                        borderRadius: 4,
-                        backgroundColor: "rgba(148, 163, 184, 0.2)",
-                        overflow: "hidden"
-                      }}
-                    >
-                      <div
-                        style={{
-                          width: `${Math.min(100, Math.max(0, percent))}%`,
-                          height: "100%",
-                          background: `linear-gradient(90deg, ${
-                            subtype.fill || COLORS[index % COLORS.length]
-                          }, rgba(59,130,246,0.4))`,
-                          transition: "width 0.3s ease"
-                        }}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
+          {activeSlice && (
+            <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm text-white/80">
+              Dominant: <span className="font-semibold text-white">{activeSlice.name}</span>
             </div>
           )}
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr),280px]">
+          <div className="h-[280px]">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  // @ts-expect-error recharts typings do not expose activeIndex
+                  activeIndex={activeIndex}
+                  activeShape={ActiveShape}
+                  data={chartData}
+                  innerRadius={70}
+                  outerRadius={100}
+                  paddingAngle={4}
+                  dataKey="value"
+                  onMouseEnter={onPieEnter}
+                >
+                  {chartData.map((entry, index) => (
+                    <Cell key={`cell-${entry.name}-${index}`} fill={entry.fill ?? COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip content={<CompositionTooltip />} />
+                <Legend
+                  layout="horizontal"
+                  verticalAlign="bottom"
+                  align="center"
+                  wrapperStyle={{ color: "rgba(244,243,255,0.75)", fontSize: 12 }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
+            <div className="text-xs uppercase tracking-[0.2em] text-white/50">Subtype mix</div>
+            {subtypes.length === 0 ? (
+              <p className="mt-3 text-sm text-white/60">No subtype data provided for this slice.</p>
+            ) : (
+              <ul className="mt-4 space-y-3 text-sm text-white/80">
+                {subtypes.map((sub, idx) => {
+                  const value = sub.value || 0;
+                  const percent = Math.max(0, Math.round((value / subtotal) * 100));
+
+                  return (
+                    <li key={`${sub.name}-${idx}`} className="space-y-1">
+                      <div className="flex items-center justify-between">
+                        <span className="flex items-center gap-2">
+                          <span
+                            className="inline-block size-2.5 rounded-full"
+                            style={{ backgroundColor: sub.fill || COLORS[idx % COLORS.length] }}
+                          />
+                          {sub.name}
+                        </span>
+                        <span className="text-white/60">{value} cards</span>
+                      </div>
+                      <div className="h-1 rounded-full bg-white/10">
+                        <div
+                          className="h-1 rounded-full"
+                          style={{
+                            width: `${percent}%`,
+                            background: sub.fill || COLORS[idx % COLORS.length],
+                          }}
+                        />
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -3,354 +3,134 @@
 "use client";
 
 import React from "react";
-
 import {
-
-  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
-
-  CartesianGrid, LabelList
-
+  ResponsiveContainer,
+  ComposedChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  Bar,
+  Line,
 } from "recharts";
 
-// Sketch style for hand-drawn effect
-const sketchStyle = {
-  strokeWidth: 2,
-  strokeLinejoin: "round" as const,
-  strokeLinecap: "round" as const,
-};
-
-
-
 type Row = {
-
   threat: string;
-
   metaLevel: number;
-
   yourAnswers: number;
-
   gap: number;
-
 };
-
-
 
 const defaultData: Row[] = [
-
-  { threat: "Token Swarm",   metaLevel: 8, yourAnswers: 3, gap: 5 },
-
-  { threat: "Big Minions",   metaLevel: 7, yourAnswers: 4, gap: 3 },
-
-  { threat: "Burn / Face",   metaLevel: 6, yourAnswers: 2, gap: 4 },
-
-  { threat: "Graveyard",     metaLevel: 5, yourAnswers: 4, gap: 1 },
-
-  { threat: "Secret Tricks", metaLevel: 4, yourAnswers: 1, gap: 3 },
-
-  { threat: "Weapons",       metaLevel: 3, yourAnswers: 0, gap: 3 },
-
+  { threat: "Token Swarm", metaLevel: 0.8, yourAnswers: 0.3, gap: 0.5 },
+  { threat: "Big Minions", metaLevel: 0.7, yourAnswers: 0.4, gap: 0.3 },
+  { threat: "Burn/Face", metaLevel: 0.6, yourAnswers: 0.2, gap: 0.4 },
+  { threat: "Graveyard/Res", metaLevel: 0.5, yourAnswers: 0.4, gap: 0.1 },
+  { threat: "Secret/Tricks", metaLevel: 0.4, yourAnswers: 0.1, gap: 0.3 },
+  { threat: "Weapons", metaLevel: 0.3, yourAnswers: 0.0, gap: 0.3 },
 ];
 
+const palette = {
+  meta: "#f97316",
+  answers: "#22d3ee",
+  gap: "#f43f5e",
+  grid: "rgba(196, 181, 253, 0.18)",
+  textMuted: "#d1cff8",
+};
 
-
-function GapLabel({ x, y, width, value }: any) {
-
-  if (!value || value <= 0) return null;
-
-  const cx = x + width + 8;
-
-  const cy = y + 10;
+const TechTooltip = ({ active, payload, label }: any) => {
+  if (!active || !payload?.length) return null;
+  const meta = payload.find((item: any) => item.dataKey === "metaLevel")?.value ?? 0;
+  const answers = payload.find((item: any) => item.dataKey === "yourAnswers")?.value ?? 0;
+  const gap = payload.find((item: any) => item.dataKey === "gap")?.value ?? 0;
 
   return (
-
-    <g>
-
-      <rect
-
-        x={cx - 4}
-
-        y={cy - 10}
-
-        width={38}
-
-        height={16}
-
-        rx={8}
-
-        fill="rgba(239,71,111,0.15)"
-
-        stroke="#EF476F"
-
-      />
-
-      <text
-
-        x={cx + 14}
-
-        y={cy + 2}
-
-        textAnchor="middle"
-
-        fontSize={11}
-
-        fill="#EF476F"
-
-        fontWeight={700}
-
-      >
-
-        GAP {value}
-
-      </text>
-
-    </g>
-
+    <div className="rounded-xl border border-white/10 bg-slate-950/90 px-4 py-3 text-xs text-white/85 shadow-lg backdrop-blur">
+      <div className="font-semibold text-white">{label}</div>
+      <div className="mt-1 text-orange-200/80">Meta pressure: {(meta * 10).toFixed(1)}</div>
+      <div className="text-cyan-200/80">Your answers: {(answers * 10).toFixed(1)}</div>
+      <div className="mt-2 font-medium text-rose-200/80">Gap: {(gap * 10).toFixed(1)}</div>
+    </div>
   );
-
-}
-
-
+};
 
 export default function TechGapsChart({
-
   data = defaultData,
-
   height = 360,
-
   title = "Tech Coverage vs. Meta Threats",
-
 }: {
-
   data?: Row[];
-
   height?: number;
-
   title?: string;
-
 }) {
+  const chartData = data.map((item) => ({
+    ...item,
+    metaLevel: Number(item.metaLevel ?? 0),
+    yourAnswers: Number(item.yourAnswers ?? 0),
+    gap: Number(item.gap ?? 0),
+  }));
 
   return (
-
-    <div
-
-      className="w-full flex flex-row items-start gap-4"
-
-      style={{
-
-        background: "#f2ead6",
-
-        border: "1px solid #d9cbb0",
-
-        borderRadius: 12,
-
-        padding: 12,
-
-        minHeight: height,
-
-        position: "relative",
-
-      }}
-
-    >
-
-
-      {/* Chart container */}
-
-      <div style={{ flex: 3, minWidth: 0 }}>
-
-
-        <ResponsiveContainer width="100%" height={height - 80}>
-
-          <BarChart
-
-            data={data}
-
+    <div className="h-full w-full" style={{ minHeight: height }}>
+      <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-black/30 p-5 shadow-glow">
+        {title && <h4 className="mb-4 font-display text-lg text-white/90">{title}</h4>}
+        <ResponsiveContainer width="100%" height="100%">
+          <ComposedChart
             layout="vertical"
-
-            margin={{ top: 8, right: 30, bottom: 8, left: 90 }}
-
+            data={chartData}
+            margin={{ top: 16, right: 24, bottom: 16, left: 16 }}
           >
-
-            <CartesianGrid strokeDasharray="4 4" opacity={0.4} />
-
-            <XAxis type="number" domain={[0, 10]} tick={{ fontSize: 12 }} />
-
+            <CartesianGrid stroke={palette.grid} />
+            <XAxis
+              type="number"
+              domain={[0, 1]}
+              tickFormatter={(value) => `${Math.round(value * 10)}`}
+              tick={{ fill: palette.textMuted, fontSize: 12 }}
+              tickLine={{ stroke: "rgba(255,255,255,0.12)" }}
+              axisLine={{ stroke: "rgba(255,255,255,0.12)" }}
+            />
             <YAxis
-
               dataKey="threat"
-
               type="category"
-
-              tick={{ fontSize: 12 }}
-
-              width={100}
-
+              tick={{ fill: palette.textMuted, fontSize: 12 }}
+              width={120}
             />
 
-            <Tooltip
-
-              formatter={(v: number, name: string) => [
-
-                v,
-
-                name === "metaLevel"
-
-                  ? "Meta Threat"
-
-                  : name === "yourAnswers"
-
-                  ? "Your Answers"
-
-                  : "Gap",
-
-              ]}
-
-              labelStyle={{ fontWeight: 700 }}
-
+            <Tooltip content={<TechTooltip />} />
+            <Legend
+              wrapperStyle={{ color: "rgba(244,243,255,0.75)", fontSize: 12 }}
+              iconType="circle"
+              verticalAlign="top"
+              height={32}
             />
-
-
-
-            {/* Gray = Meta Threat, Blue = Your Answers */}
 
             <Bar
-
               dataKey="metaLevel"
-
-              name="Meta Threat"
-
-              fill="#6c757d"
-
-              radius={[0, 6, 6, 0]}
-
-              maxBarSize={24}
-
-              {...sketchStyle}
-
+              name="Meta pressure (x10)"
+              barSize={14}
+              radius={[7, 7, 7, 7]}
+              fill={palette.meta}
             />
-
             <Bar
-
               dataKey="yourAnswers"
-
-              name="Your Answers"
-
-              fill="#3A86FF"
-
-              radius={[0, 6, 6, 0]}
-
-              maxBarSize={24}
-
-              {...sketchStyle}
-
-            >
-
-              <LabelList dataKey="gap" content={<GapLabel />} />
-
-            </Bar>
-
-          </BarChart>
-
+              name="Your coverage (x10)"
+              barSize={14}
+              radius={[7, 7, 7, 7]}
+              fill={palette.answers}
+            />
+            <Line
+              type="monotone"
+              dataKey="gap"
+              name="Gap size (x10)"
+              stroke={palette.gap}
+              strokeWidth={2}
+              dot={{ r: 4, stroke: "#fff", strokeWidth: 1 }}
+            />
+          </ComposedChart>
         </ResponsiveContainer>
-
-
-
-        <div style={{ fontSize: 12, marginTop: 6, opacity: 0.9 }}>
-
-          <b>Quick Read:</b> Gray = how common the threat is. Blue = how many answers you run.  
-
-          Red "GAP" means your deck isn't ready for that matchup.
-
-        </div>
-
       </div>
-
-
-
-      {/* Legend and summary sidebar */}
-
-      <div
-
-        style={{
-
-          flex: 1,
-
-          display: "flex",
-
-          flexDirection: "column",
-
-          justifyContent: "center",
-
-          alignItems: "flex-start",
-
-          gap: 8,
-
-          fontSize: 13,
-
-        }}
-
-      >
-
-        <div style={{ fontWeight: 700, marginBottom: 4 }}>Legend</div>
-
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-
-          <div style={{ width: 14, height: 14, background: "#6c757d", borderRadius: 3 }} />
-
-          Meta Threat
-
-        </div>
-
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-
-          <div style={{ width: 14, height: 14, background: "#3A86FF", borderRadius: 3 }} />
-
-          Your Answers
-
-        </div>
-
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-
-          <div
-
-            style={{
-
-              width: 14,
-
-              height: 14,
-
-              borderRadius: 3,
-
-              background: "rgba(239,71,111,0.3)",
-
-              border: "1px solid #EF476F",
-
-            }}
-
-          />
-
-          Gap Detected
-
-        </div>
-
-
-
-        <hr style={{ width: "100%", opacity: 0.4, margin: "8px 0" }} />
-
-
-
-        <div style={{ fontSize: 12, lineHeight: 1.3 }}>
-
-          <b>Tip:</b> Add counter cards for top "GAP" rows —  
-
-          <span style={{ color: "#EF476F" }}>like weapon removal</span> for <i>Weapons</i>.
-
-        </div>
-
-      </div>
-
     </div>
-
   );
-
 }
+

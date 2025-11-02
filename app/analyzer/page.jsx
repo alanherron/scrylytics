@@ -1,25 +1,183 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
-import { VERSION, BUILD_DATE, BUILD_NUMBER } from '../../lib/version.js';
-// import { analyzeDeckFromAnalysis } from '../../lib/ai/insightEngine'; // Not available
-import InsightChart from '../../components/InsightChart';
+import {
+  ChevronLeft,
+  ListChecks,
+  Sparkles,
+  Save,
+  Activity,
+  Zap,
+  Compass,
+  Workflow,
+  Gauge,
+  ArrowRight,
+} from 'lucide-react';
+import HeroSigil from '@/components/HeroSigil';
+import DeckAnalysisResults from '@/components/DeckAnalysisResults';
+import { VERSION, BUILD_DATE, BUILD_NUMBER } from '@/lib/version';
+import { ELEMENTS } from '@/lib/theme';
+import DeckEditorWorkspace from '@/components/DeckEditorWorkspace';
+import { SAVED_DECKS, META_DECKS } from '@/data/deck-editor';
+
+const sampleDecks = [
+  {
+    id: 'hs-control-warrior',
+    label: '🃏 Hearthstone: Control Warrior',
+    description: 'Classic control deck with strong board control. Great for tempo management drills.',
+    deckCode:
+      'AAEBAf0EBMABoAHCAe0DqwTLBMsEzATNBM8EzgTOBM8E0ATQBNEE0gTRBNIE1ATVBNYE1wTXBNgE2ATZBNkE2gTaBNsE2wTcBN0E3gTfBOAE4AThBOIE4gTjBOQE5ATmBOYE5gTnBOgE6ATqBOoE6gTrBOwE7ATuBO4E7gTvBO8E8ATxBPQE9AT2BPYE9gT3BPgE+AT5BPkE+QT6BP4GCg==',
+    gameType: 'hearthstone',
+  },
+  {
+    id: 'hs-zoo-warlock',
+    label: '🃏 Hearthstone: Zoo Warlock',
+    description: 'Aggressive list overloaded on low drops – showcases curve discipline problems.',
+    deckCode:
+      'AAEBAfBlGjwHyQGLBZME3QTgBOYF6gTrBO4E7wTwBPAE8QT1BPUF9gX3BfgF+QX6BfoF+wX8BfwF/AX+Bf8GAIAA',
+    gameType: 'hearthstone',
+  },
+  {
+    id: 'hs-miracle-rogue',
+    label: '🃏 Hearthstone: Miracle Rogue',
+    description: 'Combo-centric shell with inconsistent draw – exposes sequencing pressure.',
+    deckCode:
+      'AAEBAaIHBqW4A9W4A5rKA9rKA+DNA/rNA6bTA6jTA6rTA7LTA7TTA7bTA7jTA7rTA7vTA8DTA8TTA8jTA8rTA8vTA9DTA9TTA9jTA9rTA9vTA+DTA+TTBqHBsAAA==',
+    gameType: 'hearthstone',
+  },
+  {
+    id: 'mtg-uw-control',
+    label: '🧙‍♂️ Magic: Blue-White Control',
+    description: 'Classic draw-go list – balanced but deliberate. Perfect for pacing analysis.',
+    deckCode: `1 Island
+1 Plains
+1 Sol Ring
+1 Counterspell
+1 Wrath of God
+1 Timetwister
+1 Ancestral Recall
+1 Timetwister
+1 Time Walk
+1 Timetwister
+1 Ancestral Recall
+1 Black Lotus
+1 Mox Sapphire
+1 Mox Jet
+1 Mox Ruby
+1 Mox Emerald
+1 Ancestral Recall
+1 Time Walk
+1 Timetwister
+1 Time Walk
+
+20 cards remaining...`,
+    gameType: 'magic',
+  },
+  {
+    id: 'mtg-storm-combo',
+    label: '🧙‍♂️ Magic: Storm Combo',
+    description: 'Lightning-fast combo shell with fragile redundancy – perfect for draw engine tuning.',
+    deckCode: `4 Brainstorm
+4 Ponder
+4 Preordain
+4 Lotus Petal
+4 Dark Ritual
+4 Lion's Eye Diamond
+4 Infernal Tutor
+4 Cabal Ritual
+4 Tendrils of Agony
+4 Ad Nauseam
+4 Past in Flames
+4 Burning Wish
+4 Empty the Warrens
+4 Grapeshot
+
+16 cards remaining...`,
+    gameType: 'magic',
+  },
+  {
+    id: 'mtg-jund',
+    label: '🧙‍♂️ Magic: Jund Midrange',
+    description: 'Ambitious three-color midrange pile – great for diagnosing role confusion.',
+    deckCode: `4 Bloodstained Mire
+4 Wooded Foothills
+4 Windswept Heath
+4 Blackcleave Cliffs
+4 Copperline Gorge
+4 Blood Crypt
+4 Overgrown Tomb
+4 Stomping Ground
+4 Liliana of the Veil
+4 Dark Confidant
+4 Tarmogoyf
+4 Scavenging Ooze
+4 Bloodbraid Elf
+4 Lightning Helix
+4 Maelstrom Pulse
+4 Jund Charm
+4 Kolaghan's Command
+4 Fatal Push
+4 Thoughtseize
+4 Inquisition of Kozilek
+
+4 cards remaining...`,
+    gameType: 'magic',
+  },
+];
+
+const E = ELEMENTS.earth;
+
+const formatToGameTypeFromFormat = (format) => {
+  if (!format) return 'magic';
+  return format === 'Wild' || format === 'Standard (HS)' ? 'hearthstone' : 'magic';
+};
+
+const featuredSavedDecks = SAVED_DECKS.slice(0, 3);
+const featuredMetaDecks = META_DECKS.slice(0, 2);
 
 export default function Analyzer() {
   const [deckCode, setDeckCode] = useState('');
   const [analysis, setAnalysis] = useState(null);
+  const [viewMode, setViewMode] = useState('configure');
   const [loading, setLoading] = useState(false);
   const [gameType, setGameType] = useState('hearthstone');
   const [user, setUser] = useState(null);
   const [deckName, setDeckName] = useState('');
   const [showSaveDialog, setShowSaveDialog] = useState(false);
-  const [imageLoadingStates, setImageLoadingStates] = useState({});
   const [insights, setInsights] = useState(null);
   const [showInsights, setShowInsights] = useState(false);
+  const deckInputMetrics = useMemo(() => {
+    const clean = deckCode.trim();
+    if (!clean) {
+      return {
+        lines: 0,
+        tokens: 0,
+        characters: 0,
+        estimatedCards: 0,
+        containsSideboard: false,
+      };
+    }
+    const lines = clean.split(/\r?\n/);
+    const tokens = clean.split(/\s+/).length;
+    const characters = clean.length;
+    const numericLines = lines.filter((line) => /^\d+/.test(line.trim()));
+    const estimatedCards = numericLines.reduce((total, line) => {
+      const match = line.trim().match(/^(\d+)/);
+      if (!match) return total + 1;
+      return total + Number(match[1]);
+    }, gameType === 'hearthstone' ? 30 : 0);
+    const containsSideboard = lines.some((line) => /sideboard/i.test(line));
+    return {
+      lines: lines.length,
+      tokens,
+      characters,
+      estimatedCards,
+      containsSideboard,
+    };
+  }, [deckCode, gameType]);
 
   useEffect(() => {
-    // Load user data on component mount
     if (typeof window !== 'undefined') {
       loadUserData();
     }
@@ -27,7 +185,7 @@ export default function Analyzer() {
 
   const loadUserData = async () => {
     try {
-      const { getCurrentUser } = await import('../../lib/auth/user.js');
+      const { getCurrentUser } = await import('@/lib/auth/user');
       const currentUser = getCurrentUser();
       setUser(currentUser);
     } catch (error) {
@@ -39,12 +197,12 @@ export default function Analyzer() {
     if (!user || !analysis || !deckName.trim()) return;
 
     try {
-      const { saveDeck } = await import('../../lib/auth/user.js');
+      const { saveDeck } = await import('@/lib/auth/user');
       const deckData = {
         gameType,
         deckCode: deckCode.trim(),
         analysis,
-        stats: analysis.detailedAnalysis || {}
+        stats: analysis.detailedAnalysis || {},
       };
 
       const savedDeck = saveDeck(deckData, deckName.trim());
@@ -67,7 +225,7 @@ export default function Analyzer() {
       const response = await fetch('/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ deckCode, gameType })
+        body: JSON.stringify({ deckCode, gameType }),
       });
 
       if (!response.ok) {
@@ -76,12 +234,11 @@ export default function Analyzer() {
 
       const result = await response.json();
 
-      // Save analysis to user profile if user exists
       if (typeof window !== 'undefined') {
         try {
-          const { getCurrentUser, saveAnalysis } = await import('../../lib/auth/user.js');
-          const user = getCurrentUser();
-          if (user && result.score) {
+          const { getCurrentUser, saveAnalysis } = await import('@/lib/auth/user');
+          const currentUser = getCurrentUser();
+          if (currentUser && result.score) {
             saveAnalysis(result, `Analysis ${new Date().toLocaleDateString()}`);
           }
         } catch (error) {
@@ -90,687 +247,611 @@ export default function Analyzer() {
       }
 
       setAnalysis(result);
-
-          // Generate insights based on the analysis
-          // Temporarily disabled - analyzeDeckFromAnalysis not available
-          setInsights(null);
-
-      // Start loading real card images after initial analysis
+      setInsights(null);
+      setShowInsights(false);
+      setViewMode('results');
+      if (typeof window !== 'undefined') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
       setTimeout(() => loadRealCardImages(result), 100);
-
     } catch (error) {
       console.error('Analysis failed:', error);
       setAnalysis({ error: 'Failed to analyze deck. Please try again.' });
+      setShowInsights(false);
+      setViewMode('results');
+      if (typeof window !== 'undefined') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  // Handle image loading states
-  const handleImageLoad = (index) => {
-    setImageLoadingStates(prev => ({
-      ...prev,
-      [index]: 'loaded'
-    }));
-  };
-
-  const handleImageError = (index) => {
-    setImageLoadingStates(prev => ({
-      ...prev,
-      [index]: 'error'
-    }));
-  };
-
-  // Load real images after initial analysis
   const loadRealCardImages = async (currentAnalysis) => {
     if (!currentAnalysis?.cardImages?.length) return;
 
-    // Find placeholder images and try to load real ones
-    const placeholders = currentAnalysis.cardImages.filter(card => card.isPlaceholder);
-
-    if (placeholders.length === 0) {
-      console.log('No placeholder images to replace');
-      return;
-    }
-
-    console.log(`Loading real images for ${placeholders.length} placeholder cards...`);
+    const placeholders = currentAnalysis.cardImages.filter((card) => card.isPlaceholder);
+    if (placeholders.length === 0) return;
 
     try {
-      // Create a new API call to get updated images with real URLs
       const response = await fetch('/api/analyze/images', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ deckCode, gameType })
+        body: JSON.stringify({ deckCode, gameType }),
       });
 
       if (response.ok) {
         const imageData = await response.json();
         if (imageData.cardImages && imageData.cardImages.length > 0) {
-          // Update the analysis with real images
-          setAnalysis(prevAnalysis => ({
-            ...prevAnalysis,
-            cardImages: imageData.cardImages
+          setAnalysis((prev) => ({
+            ...prev,
+            cardImages: imageData.cardImages,
           }));
-          console.log('Updated with real card images');
         }
       }
     } catch (error) {
       console.warn('Failed to load real card images:', error);
-      // Keep placeholders if real loading fails
     }
   };
 
+  const handleBackToConfigure = () => {
+    setViewMode('configure');
+    setAnalysis(null);
+    setInsights(null);
+    setShowInsights(false);
+    setShowSaveDialog(false);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const scrollToTop = () => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handlePrefillSavedDeck = (deck) => {
+    setGameType(formatToGameTypeFromFormat(deck.format));
+    setDeckCode(deck.deckCode);
+    setViewMode('configure');
+    scrollToTop();
+  };
+
+  const handlePrefillMetaDeck = (deck) => {
+    setGameType(formatToGameTypeFromFormat(deck.format));
+    setDeckCode(deck.deckCode);
+    setViewMode('configure');
+    scrollToTop();
+  };
+
+  const handleApplyFromWorkbench = (code, format) => {
+    if (!code) return;
+    setDeckCode(code);
+    if (format) {
+      setGameType(formatToGameTypeFromFormat(format));
+    }
+    setViewMode('configure');
+    scrollToTop();
+  };
+
+  const analyzerTelemetry = [
+    {
+      label: 'Intake readiness',
+      value: deckCode.trim() ? 'Deck detected' : 'Awaiting input',
+      meta: deckCode.trim()
+        ? `${deckInputMetrics.lines} lines · ${deckInputMetrics.tokens} tokens`
+        : 'Paste a list or deck code to begin',
+      icon: Activity,
+    },
+    {
+      label: 'Format focus',
+      value: gameType === 'magic' ? 'Magic: The Gathering' : 'Hearthstone',
+      meta: deckInputMetrics.containsSideboard ? 'Sideboard detected' : 'Main deck only',
+      icon: Compass,
+    },
+    {
+      label: 'AI queue',
+      value: loading ? 'Processing...' : analysis ? 'Latest report ready' : 'Standing by',
+      meta: loading ? 'Generating predictions now' : analysis ? 'Scroll down for detailed breakdown' : 'Run analysis to unlock insights',
+      icon: Zap,
+    },
+  ];
+
+  const stageTimeline = [
+    {
+      title: 'Plan',
+      body: 'Load a saved list, import meta tech, or paste a fresh brew.',
+      icon: Workflow,
+    },
+    {
+      title: 'Diagnose',
+      body: 'AI cross-checks curve gaps, matchup pivots, and role compression.',
+      icon: Gauge,
+    },
+    {
+      title: 'Refine',
+      body: 'Iterate in the Deck Workbench, branch variations, and re-run instantly.',
+      icon: Sparkles,
+    },
+  ];
+
   return (
-    <div style={{padding:"2rem", fontFamily:"system-ui, sans-serif", maxWidth:"1200px", margin:"0 auto"}}>
-      {/* SUPER VISIBLE BUILD INDICATOR */}
-      <div style={{
-        backgroundColor: "#00ff00",
-        color: "#000000",
-        padding: "0.5rem",
-        borderRadius: "4px",
-        border: "2px solid #000000",
-        fontSize: "1rem",
-        fontWeight: "bold",
-        textAlign: "center",
-        marginBottom: "1rem"
-      }}>
-        ✅ Build #{BUILD_NUMBER} Active - Chart Debugging Enabled
-      </div>
-
-      {/* Header */}
-      <div style={{marginBottom:"2rem"}}>
-        <Link href="/" style={{color:"#4f46e5", textDecoration:"none", marginBottom:"1rem", display:"inline-block"}}>
-          ← Back to Home
-        </Link>
-
-        <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"1rem"}}>
-          <h1>🧙‍♂️ Decklytics - AI Deck Analyzer</h1>
-          <a
-            href="#sample-decks"
-            style={{
-              backgroundColor:"#4f46e5",
-              color:"white",
-              padding:"0.5rem 1rem",
-              borderRadius:"6px",
-              textDecoration:"none",
-              fontSize:"0.9rem",
-              fontWeight:"500"
-            }}
+    <div className="px-6 py-12">
+      <div className="mx-auto flex max-w-6xl flex-col gap-10">
+        <div className="flex flex-col gap-6">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-sm font-medium text-white/60 transition hover:text-white"
           >
-            🎴 Try Sample Decks
-          </a>
+            <ChevronLeft className="size-4" />
+            Back to Realms
+          </Link>
+
+          <section className="rounded-3xl border border-emerald-400/25 bg-gradient-to-br from-emerald-500/15 via-emerald-500/10 to-teal-500/10 p-8 shadow-[0_50px_120px_-60px_rgba(16,185,129,0.75)]">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,1fr)] lg:items-center">
+              <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-6 md:flex-row md:items-center md:gap-8">
+                  <HeroSigil color={E.hue} glow={E.glow} variant="earth" />
+                  <div>
+                    <div className="text-emerald-200/80 text-xs font-semibold uppercase tracking-[0.45em]">
+                      Decklytics Flight Deck
+                    </div>
+                    <h1 className="mt-2 font-display text-4xl text-emerald-50 sm:text-5xl">
+                      AI Deck Analyzer & Workbench
+                    </h1>
+                    <p className="mt-3 max-w-xl text-sm text-emerald-100/70">
+                      Tune lists, audit matchup readiness, and branch variations with guided AI heuristics. Paste a deck, pull from the meta, or iterate from your saved library.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+                  <a
+                    href="#configure"
+                    className="inline-flex items-center justify-center gap-2 rounded-2xl bg-emerald-400 px-5 py-3 text-sm font-semibold text-emerald-950 transition hover:bg-emerald-300"
+                  >
+                    Open Analyzer
+                    <ArrowRight className="size-4" />
+                  </a>
+                  <a
+                    href="#workbench"
+                    className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/5 px-5 py-3 text-sm text-white/80 transition hover:border-emerald-400/40 hover:text-emerald-100"
+                  >
+                    Jump to Deck Editor
+                  </a>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-3">
+                  {stageTimeline.map((stage) => (
+                    <div key={stage.title} className="rounded-2xl border border-white/10 bg-[#0b121f]/60 p-4">
+                      <div className="flex items-center gap-3 text-sm font-semibold text-white/80">
+                        <stage.icon className="size-4 text-emerald-200" />
+                        {stage.title}
+                      </div>
+                      <p className="mt-2 text-xs text-white/60">{stage.body}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid gap-4 rounded-3xl border border-emerald-400/25 bg-[#07101f]/80 p-6 backdrop-blur">
+                <div className="flex items-center justify-between text-xs text-emerald-100/70">
+                  <span>Build #{BUILD_NUMBER}</span>
+                  <span>
+                    v{VERSION} · {BUILD_DATE}
+                  </span>
+                </div>
+                <div className="grid gap-4">
+                  {analyzerTelemetry.map((item) => (
+                    <div
+                      key={item.label}
+                      className="flex items-start gap-3 rounded-2xl border border-emerald-400/20 bg-emerald-500/5 p-4"
+                    >
+                      <div className="flex size-10 items-center justify-center rounded-full border border-emerald-400/30 bg-emerald-400/10">
+                        <item.icon className="size-5 text-emerald-200" />
+                      </div>
+                      <div>
+                        <div className="text-[10px] uppercase tracking-[0.35em] text-emerald-200/70">{item.label}</div>
+                        <div className="mt-1 text-sm font-semibold text-emerald-50">{item.value}</div>
+                        <div className="text-xs text-emerald-100/60">{item.meta}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
-        <p>Get detailed analysis, synergy ratings, and optimization suggestions for your deck.</p>
-      </div>
 
-      {/* Game Selection */}
-      <div style={{marginBottom:"2rem"}}>
-        <label style={{display:"block", marginBottom:"0.5rem", fontWeight:"500"}}>
-          Select Game:
-        </label>
-        <select
-          value={gameType}
-          onChange={(e) => setGameType(e.target.value)}
-          style={{
-            padding:"0.5rem",
-            border:"1px solid #d1d5db",
-            borderRadius:"4px",
-            fontSize:"1rem",
-            backgroundColor:"white"
-          }}
-        >
-          <option value="hearthstone">🃏 Hearthstone</option>
-          <option value="magic">🎴 Magic: The Gathering</option>
-        </select>
-      </div>
-
-      {/* Deck Input */}
-      <div style={{marginBottom:"2rem"}}>
-        <label style={{display:"block", marginBottom:"0.5rem", fontWeight:"500"}}>
-          Paste your deck code or list:
-        </label>
-        <textarea
-          value={deckCode}
-          onChange={(e) => setDeckCode(e.target.value)}
-          placeholder={
-            gameType === 'hearthstone'
-              ? "AAEBAf0EBMABoAHCAe0DqwTLBMsEzATNBM8EzgTOBM8E0ATQBNEE0gTRBNIE1ATVBNYE1wTXBNgE2ATZBNkE2gTaBNsE2wTcBN0E3gTfBOAE4AThBOIE4gTjBOQE5ATmBOYE5gTnBOgE6ATqBOoE6gTrBOwE7ATuBO4E7gTvBO8E8ATxBPQE9AT2BPYE9gT3BPgE+AT5BPkE+QT6BP4GCg=="
-              : "1 Forest\n1 Island\n1 Mountain\n1 Plains\n1 Swamp\n\n1 Sol Ring\n1 Lightning Bolt\n1 Counterspell\n\n20 cards remaining..."
-          }
-          style={{
-            width:"100%",
-            minHeight:"200px",
-            padding:"1rem",
-            border:"1px solid #d1d5db",
-            borderRadius:"8px",
-            fontFamily:"monospace",
-            fontSize:"0.9rem",
-            resize:"vertical"
-          }}
-        />
-      </div>
-
-      {/* Analyze Button */}
-      <div style={{marginBottom:"2rem"}}>
-        <button
-          onClick={analyzeDeck}
-          disabled={loading || !deckCode.trim()}
-          style={{
-            backgroundColor: loading ? "#9ca3af" : "#4f46e5",
-            color:"white",
-            border:"none",
-            padding:"0.75rem 2rem",
-            borderRadius:"8px",
-            fontSize:"1rem",
-            fontWeight:"500",
-            cursor: loading || !deckCode.trim() ? "not-allowed" : "pointer",
-            transition:"background-color 0.2s"
-          }}
-        >
-          {loading ? "🔄 Analyzing..." : "🧙‍♂️ Analyze Deck"}
-        </button>
-      </div>
-
-      {/* Analysis Results */}
-      {analysis && (
-        <div style={{
-          border:"1px solid #e5e7eb",
-          borderRadius:"8px",
-          padding:"2rem",
-          backgroundColor: analysis.error ? "#fef2f2" : "#f8fafc"
-        }}>
-          {analysis.error ? (
-            <div>
-              <h3 style={{color:"#dc2626", marginTop:0}}>❌ Analysis Error</h3>
-              <p>{analysis.error}</p>
-              {analysis.grade === 'Basic Analysis' && (
-                <div style={{marginTop:"1rem", padding:"1rem", backgroundColor:"#fef3c7", borderRadius:"4px"}}>
-                  <p style={{margin:0, fontSize:"0.9rem"}}>
-                    <strong>💡 Note:</strong> AI analysis requires OpenAI API key configuration.
-                    Currently showing basic heuristic analysis.
+        {viewMode === 'results' ? (
+          <section className="space-y-6" id="results">
+            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-[0.35em] text-emerald-200/70">
+                    Analyzer Report
+                  </div>
+                  <h2 className="mt-1 text-2xl font-semibold text-white">
+                    {analysis?.score ? 'Latest AI evaluation ready.' : 'AI analysis generated.'}
+                  </h2>
+                  <p className="mt-2 text-sm text-white/60">
+                    Review the breakdown below, then hop into the Deck Workbench to iterate and resend.
                   </p>
                 </div>
-              )}
+                <button
+                  onClick={handleBackToConfigure}
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 px-4 py-2 text-sm text-white/70 transition hover:border-emerald-400/40 hover:text-emerald-100"
+                >
+                  Re-run analyzer
+                </button>
+              </div>
             </div>
-          ) : (
-            <div>
-              <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"1rem"}}>
-                <h3 style={{margin:0}}>
-                  📊 Deck Analysis Results
-                  {analysis.grade === 'Basic Analysis' ? ' 🤖' : ' 🧙‍♂️'}
-                  <span style={{fontSize:"0.8rem", fontWeight:"normal", marginLeft:"0.5rem", color:"#6b7280"}}>
-                    {analysis.grade === 'Basic Analysis' ? '(Basic Analysis)' : '(AI-Powered Analysis)'}
-                  </span>
-                </h3>
 
-                <div style={{display:"flex", gap:"0.5rem"}}>
-                  {insights && (
-                    <button
-                      onClick={() => setShowInsights(!showInsights)}
-                      style={{
-                        backgroundColor: showInsights ? "#7c3aed" : "#4f46e5",
-                        color:"white",
-                        border:"none",
-                        padding:"0.5rem 1rem",
-                        borderRadius:"4px",
-                        fontSize:"0.9rem",
-                        cursor:"pointer"
-                      }}
-                    >
-                      📈 {showInsights ? 'Hide' : 'Show'} Insights
-                    </button>
-                  )}
-
-                  {user && analysis.score && (
-                    <button
-                      onClick={() => setShowSaveDialog(true)}
-                      style={{
-                        backgroundColor:"#16a34a",
-                        color:"white",
-                        border:"none",
-                        padding:"0.5rem 1rem",
-                        borderRadius:"4px",
-                        fontSize:"0.9rem",
-                        cursor:"pointer"
-                      }}
-                    >
-                      💾 Save Deck
-                    </button>
-                  )}
-                </div>
+            {analysis ? (
+              <DeckAnalysisResults
+                analysis={analysis}
+                deckCode={deckCode}
+                gameType={gameType}
+                onBack={handleBackToConfigure}
+                onSave={() => setShowSaveDialog(true)}
+                canSave={Boolean(user && analysis?.score)}
+                insights={insights}
+                showInsights={showInsights}
+                onToggleInsights={() => setShowInsights((prev) => !prev)}
+              />
+            ) : (
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 text-sm text-white/60 shadow-glow">
+                Run a fresh analysis to see detailed results here.
               </div>
-
-              {/* Deck Score */}
-              <div style={{marginBottom:"2rem"}}>
-                <h4>Overall Score</h4>
-                <div style={{
-                  fontSize:"2rem",
-                  fontWeight:"bold",
-                  color: analysis.score >= 8 ? "#16a34a" : analysis.score >= 6 ? "#ca8a04" : "#dc2626"
-                }}>
-                  {analysis.score}/10
-                </div>
-                <p>{analysis.grade}</p>
-              </div>
-
-              {/* Strengths */}
-              {analysis.strengths && analysis.strengths.length > 0 && (
-                <div style={{marginBottom:"2rem"}}>
-                  <h4>✅ Strengths</h4>
-                  <ul>
-                    {analysis.strengths.map((strength, i) => (
-                      <li key={i}>{strength}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {/* Weaknesses */}
-              {analysis.weaknesses && analysis.weaknesses.length > 0 && (
-                <div style={{marginBottom:"2rem"}}>
-                  <h4>⚠️ Areas for Improvement</h4>
-                  <ul>
-                    {analysis.weaknesses.map((weakness, i) => (
-                      <li key={i}>{weakness}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {/* Suggestions */}
-              {analysis.suggestions && analysis.suggestions.length > 0 && (
-                <div style={{marginBottom:"2rem"}}>
-                  <h4>💡 Optimization Suggestions</h4>
-                  <ul>
-                    {analysis.suggestions.map((suggestion, i) => (
-                      <li key={i}>{suggestion}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {/* Card Images Gallery */}
-              {analysis.cardImages && analysis.cardImages.length > 0 && (
-                <div style={{marginBottom:"2rem"}}>
-                  <h4>🖼️ Key Cards</h4>
-                  <div style={{
-                    display:"grid",
-                    gridTemplateColumns:"repeat(auto-fit, minmax(150px, 1fr))",
-                    gap:"1rem",
-                    marginTop:"1rem"
-                  }}>
-                    {analysis.cardImages.slice(0, 8).map((card, index) => (
-                      <div key={index} style={{
-                        textAlign:"center",
-                        padding:"0.5rem",
-                        border:"1px solid #e5e7eb",
-                        borderRadius:"8px",
-                        backgroundColor:"#f9fafb"
-                      }}>
-                        <div style={{ position: "relative" }}>
-                          <img
-                            src={card.imageUrl}
-                            alt={card.name}
-                            onLoad={() => handleImageLoad(index)}
-                            onError={() => handleImageError(index)}
-                            style={{
-                              width:"100%",
-                              maxWidth:"120px",
-                              height:"auto",
-                              borderRadius:"4px",
-                              marginBottom:"0.5rem",
-                              opacity: card.isPlaceholder ? 0.6 : 1,
-                              filter: card.isPlaceholder ? 'blur(1px)' : 'none',
-                              transition: 'opacity 0.3s ease, filter 0.3s ease'
-                            }}
-                            loading="lazy"
-                          />
-                          {card.isPlaceholder && (
-                            <div style={{
-                              position: "absolute",
-                              top: "50%",
-                              left: "50%",
-                              transform: "translate(-50%, -50%)",
-                              color: "#6b7280",
-                              fontSize: "0.7rem",
-                              fontWeight: "500"
-                            }}>
-                              Loading...
-                            </div>
-                          )}
-                        </div>
-                        <div style={{fontSize:"0.8rem", fontWeight:"500"}}>{card.name}</div>
-                        {card.count && <div style={{fontSize:"0.7rem", color:"#6b7280"}}>×{card.count}</div>}
-                      </div>
-                    ))}
-                  </div>
-                  {analysis.cardImages.length > 8 && (
-                    <p style={{fontSize:"0.9rem", color:"#6b7280", marginTop:"1rem"}}>
-                      And {analysis.cardImages.length - 8} more cards...
+            )}
+          </section>
+        ) : (
+          <>
+            <section
+              id="configure"
+              className="grid gap-8 xl:grid-cols-[minmax(0,1.6fr)_minmax(280px,1fr)]"
+            >
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-glow">
+                <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-[0.35em] text-emerald-200/70">
+                      Intake Console
+                    </div>
+                    <h2 className="mt-2 font-display text-2xl text-white">
+                      Configure and launch an AI deck scan
+                    </h2>
+                    <p className="mt-2 text-sm text-white/60">
+                      Select a supported game, drop in a deck code or list, and we will surface the curve, matchup, and synergy diagnostics instantly.
                     </p>
-                  )}
+                  </div>
+                  <div className="rounded-2xl border border-white/15 bg-black/30 px-4 py-3 text-xs text-white/50">
+                    Build #{BUILD_NUMBER} · v{VERSION} · {BUILD_DATE}
+                  </div>
                 </div>
-              )}
 
-              {/* Synergies */}
-              {analysis.synergies && (
-                <div style={{marginBottom:"2rem"}}>
-                  <h4>🔗 Card Synergies</h4>
-                  <div style={{
-                    display:"grid",
-                    gridTemplateColumns:"repeat(auto-fit, minmax(200px, 1fr))",
-                    gap:"1rem"
-                  }}>
-                    {Object.entries(analysis.synergies).map(([type, cards]) => (
-                      <div key={type} style={{
-                        padding:"1rem",
-                        border:"1px solid #e5e7eb",
-                        borderRadius:"4px"
-                      }}>
-                        <h5 style={{marginTop:0, textTransform:"capitalize"}}>{type}</h5>
-                        <div style={{fontSize:"0.9rem", color:"#6b7280"}}>
-                          {Array.isArray(cards) ? cards.join(", ") : cards}
+                <div className="mt-6 space-y-6">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="flex flex-col gap-2">
+                      <label className="text-sm font-medium text-white/70">Select game</label>
+                      <select
+                        value={gameType}
+                        onChange={(e) => setGameType(e.target.value)}
+                        className="rounded-2xl border border-white/15 bg-[#121320] px-4 py-3 text-sm text-white/80 transition focus:border-emerald-400/60 focus:outline-none focus:ring-4 focus:ring-emerald-400/10"
+                      >
+                        <option value="hearthstone">Hearthstone</option>
+                        <option value="magic">Magic: The Gathering</option>
+                      </select>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label className="text-sm font-medium text-white/70">Analysis focus</label>
+                      <div className="rounded-2xl border border-white/10 bg-[#101626] px-4 py-3 text-xs text-white/60">
+                        {gameType === 'magic'
+                          ? 'Magic decklists accept sideboards and multi-line card counts.'
+                          : 'Hearthstone deckstrings paste in as a single line base64 code.'}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label className="text-sm font-medium text-white/70">Deck input</label>
+                    <textarea
+                      value={deckCode}
+                      onChange={(e) => setDeckCode(e.target.value)}
+                      placeholder={
+                        gameType === 'hearthstone'
+                          ? 'AAEBAf0EBMABoAHCAe0DqwTLBMsEzATNBM8EzgTOBM8E0ATQBNEE0gTRBNIE1ATVBNYE1wTXBNgE2ATZBNkE2gTaBNsE2wTcBN0E3gTfBOAE4AThBOIE4gTjBOQE5ATmBOYE5gTnBOgE6ATqBOoE6gTrBOwE7ATuBO4E7gTvBO8E8ATxBPQE9AT2BPYE9gT3BPgE+AT5BPkE+QT6BP4GCg=='
+                          : `1 Forest
+1 Island
+1 Mountain
+1 Plains
+1 Swamp
+
+1 Sol Ring
+1 Lightning Bolt
+1 Counterspell
+
+20 cards remaining...`
+                      }
+                      className="min-h-[240px] w-full rounded-2xl border border-white/10 bg-[#0c101b] px-4 py-3 font-mono text-sm text-white/80 placeholder:text-white/30 transition focus:border-emerald-400/60 focus:outline-none focus:ring-4 focus:ring-emerald-400/10"
+                    />
+                  </div>
+
+                  <div className="grid gap-4 rounded-2xl border border-white/10 bg-black/25 p-4 sm:grid-cols-2 lg:grid-cols-4">
+                    <div>
+                      <div className="text-[10px] uppercase tracking-[0.3em] text-white/40">Lines parsed</div>
+                      <div className="mt-1 text-lg font-semibold text-white">
+                        {deckInputMetrics.lines}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-[10px] uppercase tracking-[0.3em] text-white/40">Tokens</div>
+                      <div className="mt-1 text-lg font-semibold text-white">
+                        {deckInputMetrics.tokens}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-[10px] uppercase tracking-[0.3em] text-white/40">Characters</div>
+                      <div className="mt-1 text-lg font-semibold text-white">
+                        {deckInputMetrics.characters}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-[10px] uppercase tracking-[0.3em] text-white/40">
+                        {gameType === 'magic' ? 'Estimated cards' : 'Deck size target'}
+                      </div>
+                      <div className="mt-1 text-lg font-semibold text-white">
+                        {gameType === 'magic' ? deckInputMetrics.estimatedCards : 30}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-3">
+                    <button
+                      onClick={analyzeDeck}
+                      disabled={loading || !deckCode.trim()}
+                      className="inline-flex items-center justify-center gap-2 rounded-2xl bg-emerald-400 px-6 py-3 text-sm font-semibold text-emerald-950 transition hover:bg-emerald-300 disabled:cursor-not-allowed disabled:bg-white/20 disabled:text-white/50"
+                    >
+                      <Sparkles className="size-4" />
+                      {loading ? 'Analyzing...' : 'Analyze deck'}
+                    </button>
+                    <button
+                      onClick={() => setDeckCode('')}
+                      className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/15 px-5 py-3 text-sm text-white/70 transition hover:border-emerald-400/40 hover:text-emerald-100"
+                    >
+                      Clear input
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <aside className="space-y-6">
+                <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-emerald-500/15 via-emerald-500/10 to-teal-500/20 p-6 shadow-glow">
+                  <h3 className="flex items-center gap-2 text-sm font-semibold text-emerald-100">
+                    <ListChecks className="size-4" />
+                    Saved deck quickloads
+                  </h3>
+                  <p className="mt-1 text-xs text-emerald-100/70">
+                    Pull a tuned shell and send it through the analyzer in one click.
+                  </p>
+                  <div className="mt-5 space-y-3">
+                    {featuredSavedDecks.map((deck) => (
+                      <div
+                        key={deck.id}
+                        className="rounded-2xl border border-white/10 bg-black/30 p-4 text-sm text-white/80 transition hover:border-emerald-400/40 hover:bg-emerald-500/10"
+                      >
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-semibold">{deck.name}</p>
+                            <p className="text-xs text-white/50">{deck.archetype}</p>
+                          </div>
+                          <span className="rounded-full border border-white/15 px-3 py-1 text-[11px] text-white/60">
+                            {deck.snapshot.winRate.toFixed(1)}% WR
+                          </span>
                         </div>
+                        <button
+                          onClick={() => handlePrefillSavedDeck(deck)}
+                          className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-emerald-400/40 px-3 py-2 text-xs font-semibold text-emerald-200 transition hover:bg-emerald-400/20"
+                        >
+                          Load into analyzer
+                        </button>
                       </div>
                     ))}
                   </div>
                 </div>
-              )}
+
+                <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-sky-500/15 via-sky-500/10 to-emerald-500/10 p-6 shadow-glow">
+                  <h3 className="flex items-center gap-2 text-sm font-semibold text-sky-100">
+                    <Activity className="size-4" />
+                    Meta pulse
+                  </h3>
+                  <p className="mt-1 text-xs text-sky-100/70">
+                    Trending archetypes sourced from the live meta feed.
+                  </p>
+                  <div className="mt-5 space-y-3">
+                    {featuredMetaDecks.map((deck) => (
+                      <div
+                        key={deck.id}
+                        className="rounded-2xl border border-white/10 bg-black/40 p-4 text-sm text-white/80 transition hover:border-sky-400/40 hover:bg-sky-500/10"
+                      >
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="font-semibold">{deck.name}</p>
+                            <p className="text-xs text-white/50">{deck.archetype}</p>
+                          </div>
+                          <span className="text-xs text-sky-200">
+                            {deck.winRate.toFixed(1)}% WR · {deck.metaShare.toFixed(1)}% meta
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => handlePrefillMetaDeck(deck)}
+                          className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-sky-400/40 px-3 py-2 text-xs font-semibold text-sky-200 transition hover:bg-sky-400/20"
+                        >
+                          Import & analyze
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow">
+                  <h3 className="flex items-center gap-2 text-sm font-semibold text-white/90">
+                    <HeroSigil color={E.hue} glow={E.glow} variant="earth" />
+                    Practice decks
+                  </h3>
+                  <p className="mt-1 text-xs text-white/60">
+                    Load curated examples that spotlight common analyzer callouts.
+                  </p>
+                  <div className="mt-4 space-y-3">
+                    {sampleDecks.slice(0, 3).map((sample) => (
+                      <button
+                        key={sample.id}
+                        onClick={() => {
+                          setGameType(sample.gameType);
+                          setDeckCode(sample.deckCode);
+                          scrollToTop();
+                        }}
+                        className="w-full rounded-2xl border border-white/10 bg-black/30 p-4 text-left text-xs text-white/70 transition hover:border-emerald-400/40 hover:bg-emerald-500/10"
+                      >
+                        <p className="font-semibold text-white/80">{sample.label}</p>
+                        <p className="mt-2 text-[11px] leading-relaxed">{sample.description}</p>
+                        <span className="mt-3 inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.3em] text-emerald-200/80">
+                          Load example
+                          <ArrowRight className="size-3" />
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                  <a
+                    href="#sample-library"
+                    className="mt-4 inline-flex items-center gap-2 text-xs font-semibold text-emerald-200 transition hover:text-emerald-100"
+                  >
+                    View full library
+                    <ArrowRight className="size-3" />
+                  </a>
+                </div>
+              </aside>
+            </section>
+
+            <section
+              id="sample-library"
+              className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-glow"
+            >
+              <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-[0.35em] text-white/40">
+                    Practice Library
+                  </div>
+                  <h3 className="mt-1 text-lg font-semibold text-white/90">
+                    Guided sample decks to stress-test the analyzer
+                  </h3>
+                </div>
+                <Link
+                  href="/insights"
+                  className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-200 transition hover:text-emerald-100"
+                >
+                  Explore insights
+                  <ArrowRight className="size-3" />
+                </Link>
+              </div>
+
+              <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {sampleDecks.map((sample) => (
+                  <div
+                    key={`${sample.id}-extended`}
+                    className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-black/30 p-5 transition hover:border-emerald-400/40 hover:bg-emerald-500/10"
+                  >
+                    <div>
+                      <p className="text-sm font-semibold text-white/80">{sample.label}</p>
+                      <p className="mt-2 text-xs text-white/60">{sample.description}</p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setGameType(sample.gameType);
+                        setDeckCode(sample.deckCode);
+                        scrollToTop();
+                      }}
+                      className="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-400/40 px-4 py-2 text-xs font-semibold text-emerald-200 transition hover:bg-emerald-400/20"
+                    >
+                      Load & analyze
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </>
+        )}
+
+        <section id="workbench" className="space-y-6">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div>
+              <div className="text-xs font-semibold uppercase tracking-[0.35em] text-emerald-200/70">
+                Deck Editor
+              </div>
+              <h2 className="mt-2 font-display text-3xl text-white">Deck Workbench for iterative tuning</h2>
+              <p className="mt-2 max-w-2xl text-sm text-white/60">
+                Load saved lists, import meta decks, branch variations, and send tuned copies back through the analyzer. The workbench keeps your stats, matchups, and tech options close at hand.
+              </p>
             </div>
-          )}
-        </div>
-      )}
-
-      {/* Insights Section */}
-      {showInsights && insights && (
-        <div style={{marginTop:"3rem", padding:"2rem", backgroundColor:"#fefefe", borderRadius:"8px", border:"2px solid #e5e7eb"}}>
-          <h3 style={{marginBottom:"1.5rem", color:"#1f2937"}}>🔍 AI Insights & Visual Analysis</h3>
-          <InsightChart
-            issue={insights.issue}
-            data={insights.data}
-            caption={insights.caption}
-            title={insights.title}
-          />
-          <div style={{marginTop:"1.5rem", padding:"1rem", backgroundColor:"#f8fafc", borderRadius:"6px", borderLeft:"4px solid #4f46e5"}}>
-            <p style={{margin:0, fontSize:"0.95rem", color:"#374151"}}>
-              <strong>💡 Key Insight:</strong> {insights.caption}
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* Sample Decks */}
-      <div id="sample-decks" style={{marginTop:"3rem", padding:"2rem", backgroundColor:"#f8fafc", borderRadius:"8px", border:"2px solid #4f46e5"}}>
-        <h3 style={{color:"#1f2937", marginBottom:"0.5rem"}}>🎴 Sample Decks to Try (6 decks available)</h3>
-        <div style={{width:"100%", height:"4px", backgroundColor:"#4f46e5", marginBottom:"1rem", borderRadius:"2px"}}></div>
-        <p style={{fontSize:"0.9rem", color:"#6b7280", marginBottom:"1.5rem"}}>
-          Try these sample decks to see different analysis results and AI insights. Each deck demonstrates different strengths and weaknesses.
-        </p>
-        <div style={{display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(320px, 1fr))", gap:"1rem"}}>
-          {/* DEBUG: 6 sample decks should be visible below */}
-          {/* Hearthstone Decks */}
-          <div style={{border:"1px solid #e5e7eb", borderRadius:"8px", padding:"1rem", backgroundColor:"white"}}>
-            <h4 style={{margin:"0 0 0.5rem 0", color:"#1f2937"}}>🃏 Hearthstone: Control Warrior</h4>
-            <p style={{fontSize:"0.9rem", color:"#6b7280", marginBottom:"0.5rem"}}>
-              Classic control deck with strong board control. Good for learning tempo management.
-            </p>
-            <button
-              onClick={() => setDeckCode("AAEBAf0EBMABoAHCAe0DqwTLBMsEzATNBM8EzgTOBM8E0ATQBNEE0gTRBNIE1ATVBNYE1wTXBNgE2ATZBNkE2gTaBNsE2wTcBN0E3gTfBOAE4AThBOIE4gTjBOQE5ATmBOYE5gTnBOgE6ATqBOoE6gTrBOwE7ATuBO4E7gTvBO8E8ATxBPQE9AT2BPYE9gT3BPgE+AT5BPkE+QT6BP4GCg==")}
-              style={{
-                backgroundColor:"#4f46e5",
-                color:"white",
-                border:"none",
-                padding:"0.5rem 1rem",
-                borderRadius:"4px",
-                cursor:"pointer",
-                fontSize:"0.9rem",
-                width:"100%"
-              }}
-            >
-              Load & Analyze
-            </button>
-          </div>
-
-          <div style={{border:"1px solid #e5e7eb", borderRadius:"8px", padding:"1rem", backgroundColor:"white"}}>
-            <h4 style={{margin:"0 0 0.5rem 0", color:"#1f2937"}}>🃏 Hearthstone: Zoo Warlock</h4>
-            <p style={{fontSize:"0.9rem", color:"#6b7280", marginBottom:"0.5rem"}}>
-              Aggressive deck with too many cheap cards. Demonstrates mana curve issues.
-            </p>
-            <button
-              onClick={() => {
-                setGameType('hearthstone');
-                setDeckCode("AAEBAfBlGjwHyQGLBZME3QTgBOYF6gTrBO4E7wTwBPAE8QT1BPUF9gX3BfgF+QX6BfoF+wX8BfwF/AX+Bf8GAIAA");
-              }}
-              style={{
-                backgroundColor:"#4f46e5",
-                color:"white",
-                border:"none",
-                padding:"0.5rem 1rem",
-                borderRadius:"4px",
-                cursor:"pointer",
-                fontSize:"0.9rem",
-                width:"100%"
-              }}
-            >
-              Load & Analyze
-            </button>
-          </div>
-
-          <div style={{border:"1px solid #e5e7eb", borderRadius:"8px", padding:"1rem", backgroundColor:"white"}}>
-            <h4 style={{margin:"0 0 0.5rem 0", color:"#1f2937"}}>🃏 Hearthstone: Miracle Rogue</h4>
-            <p style={{fontSize:"0.9rem", color:"#6b7280", marginBottom:"0.5rem"}}>
-              Combo deck with inconsistent draw. Shows draw engine problems.
-            </p>
-            <button
-              onClick={() => {
-                setGameType('hearthstone');
-                setDeckCode("AAEBAaIHBqW4A9W4A5rKA9rKA+DNA/rNA6bTA6jTA6rTA7LTA7TTA7bTA7jTA7rTA7vTA8DTA8TTA8jTA8rTA8vTA9DTA9TTA9jTA9rTA9vTA+DTA+TTBqHBsAAA==");
-              }}
-              style={{
-                backgroundColor:"#4f46e5",
-                color:"white",
-                border:"none",
-                padding:"0.5rem 1rem",
-                borderRadius:"4px",
-                cursor:"pointer",
-                fontSize:"0.9rem",
-                width:"100%"
-              }}
-            >
-              Load & Analyze
-            </button>
-          </div>
-
-          {/* Magic Decks */}
-          <div style={{border:"1px solid #e5e7eb", borderRadius:"8px", padding:"1rem", backgroundColor:"white"}}>
-            <h4 style={{margin:"0 0 0.5rem 0", color:"#1f2937"}}>🧙‍♂️ Magic: Blue-White Control</h4>
-            <p style={{fontSize:"0.9rem", color:"#6b7280", marginBottom:"0.5rem"}}>
-              Classic control deck with counters and board wipes. Balanced but slow.
-            </p>
-            <button
-              onClick={() => {
-                setGameType('magic');
-                setDeckCode("1 Island\n1 Plains\n1 Sol Ring\n1 Counterspell\n1 Wrath of God\n1 Timetwister\n1 Ancestral Recall\n1 Timetwister\n1 Time Walk\n1 Timetwister\n1 Ancestral Recall\n1 Black Lotus\n1 Mox Sapphire\n1 Mox Jet\n1 Mox Ruby\n1 Mox Emerald\n1 Ancestral Recall\n1 Time Walk\n1 Timetwister\n1 Time Walk\n\n20 cards remaining...");
-              }}
-              style={{
-                backgroundColor:"#4f46e5",
-                color:"white",
-                border:"none",
-                padding:"0.5rem 1rem",
-                borderRadius:"4px",
-                cursor:"pointer",
-                fontSize:"0.9rem",
-                width:"100%"
-              }}
-            >
-              Load & Analyze
-            </button>
-          </div>
-
-          <div style={{border:"1px solid #e5e7eb", borderRadius:"8px", padding:"1rem", backgroundColor:"white"}}>
-            <h4 style={{margin:"0 0 0.5rem 0", color:"#1f2937"}}>🧙‍♂️ Magic: Storm Combo</h4>
-            <p style={{fontSize:"0.9rem", color:"#6b7280", marginBottom:"0.5rem"}}>
-              Fast combo deck with inconsistent draws. Perfect for testing draw engines.
-            </p>
-            <button
-              onClick={() => {
-                setGameType('magic');
-                setDeckCode("4 Brainstorm\n4 Ponder\n4 Preordain\n4 Lotus Petal\n4 Dark Ritual\n4 Lion's Eye Diamond\n4 Infernal Tutor\n4 Cabal Ritual\n4 Tendrils of Agony\n4 Ad Nauseam\n4 Past in Flames\n4 Burning Wish\n4 Empty the Warrens\n4 Grapeshot\n\n16 cards remaining...");
-              }}
-              style={{
-                backgroundColor:"#4f46e5",
-                color:"white",
-                border:"none",
-                padding:"0.5rem 1rem",
-                borderRadius:"4px",
-                cursor:"pointer",
-                fontSize:"0.9rem",
-                width:"100%"
-              }}
-            >
-              Load & Analyze
-            </button>
-          </div>
-
-          <div style={{border:"1px solid #e5e7eb", borderRadius:"8px", padding:"1rem", backgroundColor:"white"}}>
-            <h4 style={{margin:"0 0 0.5rem 0", color:"#1f2937"}}>🧙‍♂️ Magic: Jund Midrange</h4>
-            <p style={{fontSize:"0.9rem", color:"#6b7280", marginBottom:"0.5rem"}}>
-              Three-color deck trying to do everything. Great example of role confusion.
-            </p>
-            <button
-              onClick={() => {
-                setGameType('magic');
-                setDeckCode("4 Bloodstained Mire\n4 Wooded Foothills\n4 Windswept Heath\n4 Blackcleave Cliffs\n4 Copperline Gorge\n4 Blood Crypt\n4 Overgrown Tomb\n4 Stomping Ground\n4 Liliana of the Veil\n4 Dark Confidant\n4 Tarmogoyf\n4 Scavenging Ooze\n4 Bloodbraid Elf\n4 Lightning Helix\n4 Maelstrom Pulse\n4 Jund Charm\n4 Kolaghan's Command\n4 Fatal Push\n4 Thoughtseize\n4 Inquisition of Kozilek\n\n4 cards remaining...");
-              }}
-              style={{
-                backgroundColor:"#4f46e5",
-                color:"white",
-                border:"none",
-                padding:"0.5rem 1rem",
-                borderRadius:"4px",
-                cursor:"pointer",
-                fontSize:"0.9rem",
-                width:"100%"
-              }}
-            >
-              Load & Analyze
-            </button>
-          </div>
-        </div>
-
-        <div style={{marginTop:"1.5rem", textAlign:"center", padding:"1rem", backgroundColor:"#f0f4ff", borderRadius:"6px", border:"1px solid #c7d2fe"}}>
-          <p style={{margin:"0 0 0.5rem 0", fontSize:"0.9rem", color:"#3730a3", fontWeight:"500"}}>✅ All 6 sample decks loaded successfully!</p>
-          <a
-            href="/insights"
-            style={{
-              color:"#4f46e5",
-              textDecoration:"none",
-              fontSize:"0.9rem",
-              fontWeight:"500"
-            }}
-          >
-            🎯 Want to see AI insights for these decks? Visit the Insights page →
-          </a>
-        </div>
-      </div>
-
-      {/* Save Deck Dialog */}
-      {showSaveDialog && (
-        <div style={{
-          position:"fixed",
-          top:0,
-          left:0,
-          right:0,
-          bottom:0,
-          backgroundColor:"rgba(0,0,0,0.5)",
-          display:"flex",
-          alignItems:"center",
-          justifyContent:"center",
-          zIndex:1000
-        }}>
-          <div style={{
-            backgroundColor:"white",
-            padding:"2rem",
-            borderRadius:"8px",
-            maxWidth:"400px",
-            width:"90%"
-          }}>
-            <h3 style={{marginTop:0}}>💾 Save Deck</h3>
-            <p>Save this deck to your personal collection.</p>
-
-            <input
-              type="text"
-              value={deckName}
-              onChange={(e) => setDeckName(e.target.value)}
-              placeholder="Enter deck name"
-              style={{
-                width:"100%",
-                padding:"0.75rem",
-                border:"1px solid #d1d5db",
-                borderRadius:"4px",
-                fontSize:"1rem",
-                marginBottom:"1rem"
-              }}
-            />
-
-            <div style={{display:"flex", gap:"1rem", justifyContent:"flex-end"}}>
-              <button
-                onClick={() => setShowSaveDialog(false)}
-                style={{
-                  backgroundColor:"#6b7280",
-                  color:"white",
-                  border:"none",
-                  padding:"0.5rem 1rem",
-                  borderRadius:"4px",
-                  cursor:"pointer"
-                }}
-              >
-                Cancel
-              </button>
-              <button
-                onClick={saveDeck}
-                disabled={!deckName.trim()}
-                style={{
-                  backgroundColor:"#16a34a",
-                  color:"white",
-                  border:"none",
-                  padding:"0.5rem 1rem",
-                  borderRadius:"4px",
-                  cursor: !deckName.trim() ? "not-allowed" : "pointer"
-                }}
-              >
-                Save Deck
-              </button>
+            <div className="flex items-center gap-2 text-xs text-white/50">
+              <Sparkles className="size-4 text-emerald-200" />
+              <span>Load, branch, and re-run in seconds with the analyzer relay.</span>
             </div>
           </div>
-        </div>
-      )}
+          <DeckEditorWorkspace onApplyToAnalyzer={handleApplyFromWorkbench} />
+        </section>
 
-      {/* Version Footer */}
-      <footer style={{
-        marginTop:"3rem",
-        paddingTop:"2rem",
-        borderTop:"1px solid #e5e7eb",
-        textAlign:"center",
-        color:"#6b7280",
-        fontSize:"0.9rem"
-      }}>
-        <div style={{marginBottom:"0.5rem"}}>
-          <strong>Scrylytics v{VERSION}</strong> • <span style={{color:"#4f46e5", fontWeight:"bold"}}>Build #{BUILD_NUMBER}</span> • Built {BUILD_DATE}
-        </div>
-        <div style={{fontSize:"0.8rem"}}>
-          AI-powered deck analysis with card images
-        </div>
-        <div style={{marginTop:"0.5rem", fontSize:"0.8rem"}}>
-          <a
+        {showSaveDialog && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur">
+            <div className="w-full max-w-md rounded-3xl border border-emerald-400/30 bg-[#0b0b10] p-8 shadow-glow">
+              <h3 className="text-lg font-semibold text-white/90">Save deck analysis</h3>
+              <p className="mt-2 text-sm text-white/60">
+                Store this run in your library to compare against future variations.
+              </p>
+
+              <input
+                type="text"
+                value={deckName}
+                onChange={(e) => setDeckName(e.target.value)}
+                placeholder="Enter deck name"
+                className="mt-6 w-full rounded-2xl border border-white/15 bg-[#121320] px-4 py-3 text-sm text-white/80 placeholder:text-white/40 focus:border-emerald-400/60 focus:outline-none focus:ring-4 focus:ring-emerald-400/10"
+              />
+
+              <div className="mt-6 flex justify-end gap-3">
+                <button
+                  onClick={() => setShowSaveDialog(false)}
+                  className="rounded-xl border border-white/15 px-4 py-2 text-sm font-medium text-white/70 transition hover:bg-white/10"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={saveDeck}
+                  disabled={!deckName.trim()}
+                  className="inline-flex items-center gap-2 rounded-xl bg-emerald-400 px-4 py-2 text-sm font-semibold text-emerald-950 transition hover:bg-emerald-300 disabled:cursor-not-allowed disabled:bg-white/20 disabled:text-white/50"
+                >
+                  <Save className="size-4" />
+                  Save deck
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <footer className="border-t border-white/10 pt-8 text-center text-xs text-white/50">
+          <div className="font-semibold text-white/70">
+            Scrylytics v{VERSION} · Build #{BUILD_NUMBER} · {BUILD_DATE}
+          </div>
+          <p className="mt-2">
+            Decklytics pairs machine learning heuristics with interactive editing to keep every iteration sharp.
+          </p>
+          <Link
             href="/api/version"
-            target="_blank"
-            style={{color:"#4f46e5", textDecoration:"none"}}
+            className="mt-3 inline-flex items-center justify-center gap-1 text-emerald-300 transition hover:text-emerald-200"
           >
-            API Version Info →
-          </a>
-        </div>
-      </footer>
+            API version info →
+          </Link>
+        </footer>
+      </div>
     </div>
   );
 }

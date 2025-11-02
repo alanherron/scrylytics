@@ -2,543 +2,256 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend, AreaChart, Area, ComposedChart, ReferenceLine, Cell } from "recharts";
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  Legend,
+  AreaChart,
+  Area,
+} from "recharts";
 
-// Dynamically import chart components with SSR disabled
 const DrawRhythmChart = dynamic(() => import("./DrawRhythmChart"), { ssr: false });
 const ArcaneBalanceChart = dynamic(
-  () => import("./ArcaneBalanceChart").then(mod => ({ default: mod.ArcaneBalanceChart })),
-  { ssr: false }
+  () => import("./ArcaneBalanceChart").then((mod) => ({ default: mod.ArcaneBalanceChart })),
+  { ssr: false },
 );
 const TechGapsChart = dynamic(() => import("./TechGapsChart"), { ssr: false });
 const MatchupPainsChart = dynamic(() => import("./MatchupPainsChart"), { ssr: false });
 const ManaPowerCurve = dynamic(
-  () => import("./ManaPowerCurve").then(mod => ({ default: mod.ManaPowerCurve })),
-  { ssr: false }
+  () => import("./ManaPowerCurve").then((mod) => ({ default: mod.ManaPowerCurve })),
+  { ssr: false },
 );
 const TempoGapsChart = dynamic(() => import("./TempoGapsChart"), { ssr: false });
 const HandSizePressureChart = dynamic(() => import("./HandSizePressureChart"), { ssr: false });
 const DeckCompositionChart = dynamic(() => import("./DeckCompositionChart"), { ssr: false });
-const TempoCurveKnownGood = dynamic(() => import("./TempoCurveKnownGood"), { ssr: false });
+
+type GenericDatum =
+  | { mana: number; count?: number; value?: number; ideal?: number }
+  | { turn: number; actual?: number; target?: number; hand?: number }
+  | { metric: string; ideal: number; current: number; value?: number }
+  | { threat: string; metaLevel: number; yourAnswers: number; gap: number }
+  | { matchup: string; score: number; value?: number }
+  | { name: string; value: number; fill?: string; subtypes?: Array<{ name: string; value: number; fill?: string }> }
+  | Record<string, unknown>;
 
 type Props = {
   issue: string;
-  data: Array<
-    { mana: number; count: number } |
-    { turn: number; actual: number; target: number } |
-    { metric: string; ideal: number; current: number; value?: number } |
-    { threat: string; metaLevel: number; yourAnswers: number; gap: number } |
-    { matchup: string; score: number; value?: number } |
-    { mana: number; value: number; ideal?: number } |
-    { turn: number; hand: number } |
-    { name: string; value: number; fill?: string; subtypes?: Array<{ name: string; value: number; fill?: string }> }
-  >
+  data: GenericDatum[];
+};
+
+const palette = {
+  grid: "rgba(196, 181, 253, 0.18)",
+  text: "#d1cff8",
+  bar: "#22d3ee",
+  barAlt: "#34d399",
+  area: "#c4b5fd",
+};
+
+const ChartShell = ({ children }: { children: React.ReactNode }) => (
+  <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-black/30 p-5 shadow-glow">{children}</div>
+);
+
+const EmptyState = () => (
+  <ChartShell>
+    <div className="flex h-full items-center justify-center text-sm text-white/60">No data available for this chart.</div>
+  </ChartShell>
+);
+
+const GenericBar = ({ data }: { data: GenericDatum[] }) => {
+  const simplified = data.map((item, index) => ({
+    label:
+      (item as any).mana ??
+      (item as any).turn ??
+      (item as any).metric ??
+      (item as any).matchup ??
+      (item as any).name ??
+      `#${index + 1}`,
+    value:
+      (item as any).count ??
+      (item as any).value ??
+      (item as any).score ??
+      (item as any).hand ??
+      (item as any).gap ??
+      0,
+  }));
+
+  return (
+    <ChartShell>
+      <ResponsiveContainer width="100%" height={360}>
+        <BarChart data={simplified}>
+          <CartesianGrid stroke={palette.grid} vertical={false} />
+          <XAxis
+            dataKey="label"
+            tick={{ fill: palette.text, fontSize: 12 }}
+            tickLine={{ stroke: "rgba(255,255,255,0.12)" }}
+            axisLine={{ stroke: "rgba(255,255,255,0.12)" }}
+          />
+          <YAxis
+            tick={{ fill: palette.text, fontSize: 12 }}
+            tickLine={{ stroke: "rgba(255,255,255,0.12)" }}
+            axisLine={{ stroke: "rgba(255,255,255,0.12)" }}
+          />
+          <Tooltip
+            content={({ active, payload, label }) => {
+              if (!active || !payload?.length) return null;
+              const value = payload[0]?.value ?? 0;
+              return (
+                <div className="rounded-xl border border-white/10 bg-slate-950/90 px-4 py-3 text-xs text-white/85 shadow-lg backdrop-blur">
+                  <div className="font-semibold text-white">{label}</div>
+                  <div className="mt-1 text-white/70">Value: {value}</div>
+                </div>
+              );
+            }}
+          />
+          <Legend wrapperStyle={{ color: "rgba(244,243,255,0.75)", fontSize: 12 }} />
+          <Bar dataKey="value" name="Value" radius={[8, 8, 0, 0]} fill={palette.bar} />
+        </BarChart>
+      </ResponsiveContainer>
+    </ChartShell>
+  );
+};
+
+const GenericArea = ({ data }: { data: GenericDatum[] }) => {
+  const simplified = data.map((item, index) => ({
+    label:
+      (item as any).mana ??
+      (item as any).turn ??
+      (item as any).metric ??
+      (item as any).name ??
+      `#${index + 1}`,
+    value:
+      (item as any).count ??
+      (item as any).value ??
+      (item as any).hand ??
+      (item as any).gap ??
+      0,
+  }));
+
+  return (
+    <ChartShell>
+      <ResponsiveContainer width="100%" height={360}>
+        <AreaChart data={simplified}>
+          <defs>
+            <linearGradient id="insightArea" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor={palette.area} stopOpacity={0.8} />
+              <stop offset="95%" stopColor="rgba(196, 181, 253, 0)" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid stroke={palette.grid} />
+          <XAxis
+            dataKey="label"
+            tick={{ fill: palette.text, fontSize: 12 }}
+            tickLine={{ stroke: "rgba(255,255,255,0.12)" }}
+            axisLine={{ stroke: "rgba(255,255,255,0.12)" }}
+          />
+          <YAxis
+            tick={{ fill: palette.text, fontSize: 12 }}
+            tickLine={{ stroke: "rgba(255,255,255,0.12)" }}
+            axisLine={{ stroke: "rgba(255,255,255,0.12)" }}
+          />
+          <Tooltip
+            content={({ active, payload, label }) => {
+              if (!active || !payload?.length) return null;
+              const value = payload[0]?.value ?? 0;
+              return (
+                <div className="rounded-xl border border-white/10 bg-slate-950/90 px-4 py-3 text-xs text-white/85 shadow-lg backdrop-blur">
+                  <div className="font-semibold text-white">{label}</div>
+                  <div className="mt-1 text-white/70">Value: {value}</div>
+                </div>
+              );
+            }}
+          />
+          <Area
+            type="monotone"
+            dataKey="value"
+            stroke={palette.area}
+            fill="url(#insightArea)"
+            strokeWidth={2}
+            dot={{ r: 3, stroke: "#fff", strokeWidth: 1 }}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </ChartShell>
+  );
+};
+
+const getChartType = (issue: string) => {
+  switch (issue) {
+    case "MANA_CURVE_SKEW":
+      return "mana_power_curve";
+    case "DRAW_INCONSISTENCY":
+      return "draw_rhythm";
+    case "ROLE_MISMATCH":
+      return "arcane_balance";
+    case "WEAK_SYNERGY_CHAINS":
+      return "area";
+    case "TECH_GAPS":
+      return "tech_gaps";
+    case "MATCHUP_PAINS":
+      return "matchup_pains";
+    case "HAND_SIZE_PRESSURE":
+      return "hand_size_pressure";
+    case "BOARD_TEMPO_GAPS":
+      return "tempo_curve";
+    case "DECK_COMPOSITION":
+      return "deck_composition";
+    default:
+      return "bar";
+  }
 };
 
 export default function InsightChart({ issue, data }: Props) {
-  // Guard for empty/undefined data
   if (!Array.isArray(data) || data.length === 0) {
-    return <div>No data for chart.</div>;
+    return <EmptyState />;
   }
 
-  // Hand-drawn sketch styling
-  const sketchStyle = {
-    strokeWidth: 2,
-    strokeLinejoin: "round" as const,
-    strokeLinecap: "round" as const,
-  };
+  const chartType = getChartType(issue);
 
-  const getChartType = (issue: string): string => {
-    switch (issue) {
-      case "MANA_CURVE_SKEW":
-        return "mana_power_curve"; // Special mana power curve chart
-      case "DRAW_INCONSISTENCY":
-        return "draw_rhythm"; // Special draw rhythm chart
-      case "ROLE_MISMATCH":
-        return "arcane_balance"; // Special arcane balance radar chart
-      case "WEAK_SYNERGY_CHAINS":
-        return "area";
-      case "TECH_GAPS":
-        return "tech_gaps";
-      case "MATCHUP_PAINS":
-        return "matchup_pains";
-      case "HAND_SIZE_PRESSURE":
-        return "hand_size_pressure";
-      case "BOARD_TEMPO_GAPS":
-        return "tempo_curve";
-      case "DECK_COMPOSITION":
-        return "deck_composition";
-      default:
-        return "bar";
+  switch (chartType) {
+    case "mana_power_curve": {
+      return (
+        <ManaPowerCurve
+          data={data as any}
+          showIdeal
+          title="Mana Power Curve"
+          caption="Positive bars show mana surpluses; negatives highlight holes in the curve."
+          height={400}
+        />
+      );
     }
-  };
-
-  const chartType: string = getChartType(issue);
-
-  // Ideal mana curve for comparison
-  const idealManaCurve = [1, 2, 4, 3, 2, 1, 0, 0].map((count, mana) => ({ mana, count }));
-
-  const renderChart = () => {
-    switch (chartType) {
-      case "mana_power_curve": {
-        // Create mana balance data: current vs ideal
-        const ideal = [7, 9, 8, 8, 6, 5, 3, 2, 1, 1]; // Ideal mana curve
-        const manaBalanceData = data.map((item: any, index) => {
-          const current = item.count;
-          const idealCount = ideal[index] || 0;
-          const difference = current - idealCount;
-          return {
-            mana: item.mana,
-            current,
-            ideal: idealCount,
-            balance: difference, // Positive = too many, Negative = too few
-            status: difference > 0 ? 'too_many' : difference < 0 ? 'too_few' : 'perfect'
-          };
-        });
-
-        return (
-          <div style={{
-            backgroundColor: "#fdf7e3",
-            padding: "20px",
-            borderRadius: "12px",
-            position: "relative",
-            minHeight: "400px"
-          }}>
-            <h3 style={{
-              textAlign: "center",
-              color: "#92400e",
-              fontFamily: "cursive",
-              fontSize: "18px",
-              marginBottom: "20px",
-              fontWeight: "bold"
-            }}>
-              🎯 Your Deck's Magic Power Balance
-            </h3>
-
-            <ResponsiveContainer width="100%" height={300}>
-              <ComposedChart
-                data={manaBalanceData}
-                margin={{ top: 60, right: 30, left: 30, bottom: 40 }}
-              >
-              <CartesianGrid strokeDasharray="2 2" stroke="#d97706" opacity={0.3} />
-
-              {/* Horizontal reference line at y=0 */}
-              <ReferenceLine y={0} stroke="#6b7280" strokeWidth={2} />
-
-              {/* Mana cost labels on X-axis */}
-              <XAxis
-                dataKey="mana"
-                tick={{ fill: "#92400e", fontSize: 14, fontFamily: "cursive", fontWeight: "bold" }}
-                axisLine={{ stroke: "#d97706", strokeWidth: 2 }}
-              />
-
-              {/* Balance bars (up for too many, down for too few) */}
-              <Bar
-                dataKey="balance"
-                fill="#10b981"
-                stroke="#059669"
-                strokeWidth={2}
-                radius={[4, 4, 0, 0]}
-              >
-                {manaBalanceData.map((entry, index) => {
-                  const isPositive = entry.balance > 0;
-                  return (
-                    <Cell
-                      key={`cell-${index}`}
-                      fill={isPositive ? "#10b981" : "#ef4444"}
-                    />
-                  );
-                })}
-              </Bar>
-
-              {/* Custom tooltip */}
-              <Tooltip
-                content={({ active, payload, label }) => {
-                  if (active && payload && payload.length) {
-                    const data = payload[0].payload;
-                    const balance = data.balance;
-                    let message = "";
-                    const isPositive = balance > 0;
-                    const isNegative = balance < 0;
-
-                    if (isPositive) {
-                      message = `Too many cards here (${balance} extra)`;
-                    } else if (isNegative) {
-                      message = `Not enough cards here (${Math.abs(balance)} missing)`;
-                    } else {
-                      message = "Perfect balance!";
-                    }
-
-                    return (
-                      <div style={{
-                        backgroundColor: "#fef3c7",
-                        border: "2px solid #f59e0b",
-                        borderRadius: "8px",
-                        padding: "12px",
-                        fontFamily: "cursive",
-                        fontSize: "14px",
-                        boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
-                      }}>
-                        <p style={{ margin: "0 0 8px 0", fontWeight: "bold" }}>
-                          Mana Cost {label}
-                        </p>
-                        <p style={{ margin: "0 0 4px 0" }}>
-                          Current: {data.current} cards
-                        </p>
-                        <p style={{ margin: "0 0 8px 0" }}>
-                          Ideal: {data.ideal} cards
-                        </p>
-                        <p style={{
-                          margin: 0,
-                          color: isPositive || isNegative ? "#dc2626" : "#059669",
-                          fontWeight: "bold"
-                        }}>
-                          {message}
-                        </p>
-                      </div>
-                    );
-                  }
-                  return null;
-                }}
-              />
-              </ComposedChart>
-            </ResponsiveContainer>
-
-            {/* Blue "gems" (circles) at the bottom with numbers */}
-            <div style={{
-              position: "absolute",
-              bottom: "20px",
-              left: "50%",
-              transform: "translateX(-50%)",
-              display: "flex",
-              gap: "8px"
-            }}>
-              {manaBalanceData.map((item, index) => (
-                <div key={index} style={{
-                  width: "32px",
-                  height: "32px",
-                  borderRadius: "50%",
-                  backgroundColor: "#3b82f6",
-                  border: "3px solid #1d4ed8",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "14px",
-                  fontWeight: "bold",
-                  color: "white",
-                  fontFamily: "cursive",
-                  boxShadow: "0 2px 8px rgba(59, 130, 246, 0.4)"
-                }}>
-                  {item.mana}
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-      }
-
-      case "composite":
-        // Special composite view for mana curve analysis
-        return (
-          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-            {/* Bar Chart */}
-            <div>
-              <h4 style={{
-                color: "#7c3aed",
-                fontFamily: "cursive",
-                fontSize: "16px",
-                marginBottom: "10px",
-                textAlign: "center"
-              }}>
-                📊 Current Mana Curve (Bar View)
-              </h4>
-              <BarChart data={data} margin={{ top: 10, right: 20, left: 20, bottom: 10 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#8b5cf6" opacity={0.3} strokeWidth={1} />
-                <XAxis dataKey="mana" tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }} />
-                <YAxis tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }} allowDecimals={false} />
-                <Tooltip contentStyle={{ backgroundColor: "#fef3c7", border: "2px solid #f59e0b", fontFamily: "cursive" }} />
-                <Bar dataKey="count" fill="#f59e0b" stroke="#d97706" radius={[8, 8, 0, 0]} {...sketchStyle} />
-              </BarChart>
-            </div>
-
-            {/* Area Chart Comparison */}
-            <div>
-              <h4 style={{
-                color: "#7c3aed",
-                fontFamily: "cursive",
-                fontSize: "16px",
-                marginBottom: "10px",
-                textAlign: "center"
-              }}>
-                🌊 Mana Curve Comparison (Current vs Ideal)
-              </h4>
-              <AreaChart data={data} margin={{ top: 10, right: 20, left: 20, bottom: 10 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#8b5cf6" opacity={0.3} strokeWidth={1} />
-                <XAxis dataKey="mana" tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }} />
-                <YAxis tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }} allowDecimals={false} />
-                <Tooltip contentStyle={{ backgroundColor: "#fef3c7", border: "2px solid #f59e0b", fontFamily: "cursive" }} />
-                <Legend wrapperStyle={{ fontFamily: "cursive", fontSize: "12px" }} />
-
-                {/* Current mana curve (area) */}
-                <Area
-                  type="monotone"
-                  dataKey="count"
-                  stroke="#ef4444"
-                  fill="#fecaca"
-                  fillOpacity={0.6}
-                  name="Current Curve"
-                  {...sketchStyle}
-                />
-
-                {/* Ideal mana curve (area overlay) */}
-                <Area
-                  type="monotone"
-                  data={idealManaCurve}
-                  dataKey="count"
-                  stroke="#10b981"
-                  fill="#d1fae5"
-                  fillOpacity={0.4}
-                  strokeDasharray="5 5"
-                  name="Ideal Curve"
-                  {...sketchStyle}
-                />
-              </AreaChart>
-            </div>
-          </div>
-        );
-
-      case "line": {
-        // Convert data to the expected format for HandSizePressureChart
-        const handData = data.map((item: any) => ({
-          turn: item.mana || item.turn || 1,
-          hand: item.count || item.hand || 0,
-        }));
-
-        return (
-          <HandSizePressureChart
-            data={handData}
-            height={380}
-          />
-        );
-      }
-
-      case "area":
-
-        return (
-          <ResponsiveContainer width="100%" height={360}>
-            <AreaChart data={data}>
-              <CartesianGrid
-                strokeDasharray="3 3"
-                stroke="#8b5cf6"
-                opacity={0.3}
-                strokeWidth={1}
-              />
-              <XAxis
-                dataKey="mana"
-                tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
-                axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
-                tickLine={{ stroke: "#a855f7" }}
-              />
-              <YAxis
-                tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
-                allowDecimals={false}
-                axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
-                tickLine={{ stroke: "#a855f7" }}
-              />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#fef3c7",
-                  border: "2px solid #f59e0b",
-                  borderRadius: "8px",
-                  fontFamily: "cursive"
-                }}
-              />
-              <Area
-                type="monotone"
-                dataKey="count"
-                stroke="#f59e0b"
-                fill="#fef3c7"
-                fillOpacity={0.8}
-                {...sketchStyle}
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        );
-
-      case "draw_rhythm": {
-        // Data is already in the correct format from insight engine
-        return (
-          <DrawRhythmChart
-            data={data as any}
-          />
-        );
-      }
-
-      case "arcane_balance": {
-        // Convert data to the expected format for ArcaneBalanceChart
-        const toPercent = (value: number) => {
-          if (Number.isNaN(value)) return 0;
-          return value > 1 ? Math.round(value) : Math.round(value * 100);
-        };
-
-        const balanceData = data.map((item: any) => ({
-          metric: item.metric || item.role || "Unknown",
-          ideal: toPercent(item.ideal ?? item.value ?? 50),
-          current: toPercent(item.current ?? item.value ?? 50),
-        }));
-
-        return (
-          <ArcaneBalanceChart
-            data={balanceData}
-            height={360}
-          />
-        );
-      }
-
-      case "tech_gaps": {
-        // Convert data to the expected format for TechGapsChart
-        const techData = data.map((item: any) => ({
-          threat: item.threat || item.archetype || "Unknown Threat",
-          metaLevel: Math.round((item.metaLevel || item.level || item.value || 5) * 10), // Convert to 0-10 scale
-          yourAnswers: Math.round((item.yourAnswers || item.answers || item.count || 0) * 10), // Convert to 0-10 scale
-          gap: Math.max(0, Math.round(((item.metaLevel || item.level || item.value || 5) - (item.yourAnswers || item.answers || item.count || 0)) * 10)), // Ensure non-negative
-        }));
-
-        return (
-          <TechGapsChart
-            data={techData}
-            height={360}
-            title="Tech Coverage vs. Meta Threats"
-          />
-        );
-      }
-
-      case "matchup_pains": {
-        // Data is already in the correct format from insight engine
-        return (
-          <MatchupPainsChart
-            data={data as any}
-            height={380}
-            title="Matchup Pain Index"
-          />
-        );
-      }
-
-      case "mana_power_curve": {
-        // Convert data to the expected format for ManaPowerCurve
-        const manaData = data.map((item: any) => ({
-          mana: item.mana || item.cost || 1,
-          value: item.value || item.balance || item.count || 0,
-          ideal: item.ideal || 0,
-        }));
-
-        return (
-          <ManaPowerCurve
-            data={manaData}
-            showIdeal={true}
-            title="Mana Power Curve"
-            caption="Blue squares mark each mana cost. Bars show where you have too many (up) or need more (down)."
-            height={420}
-          />
-        );
-      }
-
-      case "deck_composition": {
-        return (
-          <DeckCompositionChart
-            data={data as any}
-            height={400}
-          />
-        );
-      }
-
-      case "tempo_curve": {
-        return (
-          <TempoCurveKnownGood
-            data={data as any}
-            height={400}
-          />
-        );
-      }
-
-      case "hand_size_pressure": {
-        return (
-          <HandSizePressureChart
-            data={data as any}
-            height={400}
-          />
-        );
-      }
-
-      default: // bar chart
-        return (
-          <ResponsiveContainer width="100%" height={360}>
-            <BarChart data={data}>
-              <CartesianGrid
-                strokeDasharray="3 3"
-                stroke="#8b5cf6"
-                opacity={0.3}
-                strokeWidth={1}
-              />
-              <XAxis
-                dataKey="mana"
-                tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
-                axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
-                tickLine={{ stroke: "#a855f7" }}
-              />
-              <YAxis
-                tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
-                allowDecimals={false}
-                axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
-                tickLine={{ stroke: "#a855f7" }}
-              />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#fef3c7",
-                  border: "2px solid #f59e0b",
-                  borderRadius: "8px",
-                  fontFamily: "cursive"
-                }}
-              />
-              <Legend />
-              <Bar
-                dataKey="count"
-                name="Cards"
-                fill="#f59e0b"
-                stroke="#d97706"
-                radius={[8, 8, 0, 0]}
-                {...sketchStyle}
-              />
-            </BarChart>
-          </ResponsiveContainer>
-        );
+    case "draw_rhythm":
+      return <DrawRhythmChart data={data as any} height={320} />;
+    case "arcane_balance": {
+      const balanceData = (data as any[]).map((item) => ({
+        metric: item.metric || item.role || "Unknown",
+        ideal: typeof item.ideal === "number" ? (item.ideal > 1 ? Math.round(item.ideal) : Math.round(item.ideal * 100)) : 0,
+        current:
+          typeof item.current === "number"
+            ? item.current > 1
+              ? Math.round(item.current)
+              : Math.round(item.current * 100)
+            : 0,
+      }));
+      return <ArcaneBalanceChart data={balanceData} height={360} />;
     }
-  };
-
-  return (
-    <div style={{
-      width: "100%",
-      position: "relative",
-      backgroundColor: "#fefefe",
-      borderRadius: "12px",
-      padding: "10px",
-      boxShadow: "0 4px 12px rgba(139, 92, 246, 0.15)"
-    }}>
-
-      {renderChart()}
-
-      {/* Hand-drawn border effect */}
-      <div style={{
-        position: "absolute",
-        top: "5px",
-        left: "5px",
-        right: "5px",
-        bottom: "5px",
-        border: "2px solid #8b5cf6",
-        borderRadius: "8px",
-        pointerEvents: "none",
-        filter: "url(#sketchFilter)"
-      }} />
-    </div>
-  );
+    case "tech_gaps":
+      return <TechGapsChart data={data as any} height={360} title="Tech Coverage vs. Meta Threats" />;
+    case "matchup_pains":
+      return <MatchupPainsChart data={data as any} height={320} title="Matchup Pain Index" />;
+    case "hand_size_pressure":
+      return <HandSizePressureChart data={data as any} height={340} title="Hand Size Pressure" />;
+    case "tempo_curve":
+      return <TempoGapsChart data={data as any} height={360} />;
+    case "deck_composition":
+      return <DeckCompositionChart data={data as any} height={400} />;
+    case "area":
+      return <GenericArea data={data} />;
+    default:
+      return <GenericBar data={data} />;
+  }
 }

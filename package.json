@@ -9,11 +9,17 @@
     "start": "next start"
   },
   "dependencies": {
+    "deckstrings": "^3.1.2",
+    "framer-motion": "^11.0.3",
+    "lucide-react": "^0.302.0",
     "next": "^15.0.0",
+    "next-themes": "^0.2.1",
     "openai": "^6.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "recharts": "^3.3.0"
+    "recharts": "^3.3.0",
+    "three": "^0.169.0",
+    "three.js": "^0.77.1"
   },
   "engines": {
     "node": ">=18.18.0"
@@ -21,8 +27,12 @@
   "devDependencies": {
     "@types/node": "^24.9.2",
     "@types/react": "^19.2.2",
+    "@types/three": "^0.181.0",
+    "autoprefixer": "^10.4.19",
     "eslint": "^9.39.0",
     "eslint-config-next": "^16.0.1",
+    "postcss": "^8.4.41",
+    "tailwindcss": "^3.4.14",
     "typescript": "^5.9.3"
   }
 }

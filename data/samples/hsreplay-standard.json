@@ -1,0 +1,100 @@
+{
+  "updated_at": "2025-01-15T08:00:00Z",
+  "format": "standard",
+  "time_range": "LAST_7_DAYS",
+  "rank_range": "ALL",
+  "region": "ALL",
+  "archetypes": [
+    {
+      "archetype_id": 1001,
+      "archetype_name": "Control Warrior",
+      "player_class": "warrior",
+      "win_rate": 0.548,
+      "popularity": 0.086,
+      "total_games": 18234,
+      "deck_codes": [
+        "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+      ],
+      "cards": [
+        [785, 2],
+        [1023, 2],
+        [75, 2],
+        [546, 2],
+        [401, 2],
+        [596, 2],
+        [1659, 2],
+        [810, 1],
+        [38530, 2],
+        [2021, 2],
+        [46026, 2],
+        [43277, 1],
+        [41414, 2],
+        [47133, 2],
+        [42395, 2],
+        [49184, 1],
+        [48146, 1]
+      ],
+      "heroes": [7]
+    },
+    {
+      "archetype_id": 1002,
+      "archetype_name": "Beast Hunter",
+      "player_class": "hunter",
+      "win_rate": 0.532,
+      "popularity": 0.078,
+      "total_games": 16212,
+      "deck_codes": [
+        "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+      ],
+      "cards": [
+        [296, 2],
+        [437, 2],
+        [1662, 2],
+        [1261, 2],
+        [1047, 2],
+        [2260, 2],
+        [1243, 2],
+        [585, 2],
+        [1003, 2],
+        [877, 2],
+        [45537, 2],
+        [1281, 2],
+        [289, 2],
+        [559, 1],
+        [606, 2],
+        [141, 1]
+      ],
+      "heroes": [31]
+    },
+    {
+      "archetype_id": 1003,
+      "archetype_name": "Tempo Mage",
+      "player_class": "mage",
+      "win_rate": 0.566,
+      "popularity": 0.094,
+      "total_games": 21488,
+      "deck_codes": [
+        "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+      ],
+      "cards": [
+        [662, 2],
+        [315, 2],
+        [555, 2],
+        [77, 2],
+        [1004, 2],
+        [614, 2],
+        [405, 2],
+        [564, 2],
+        [41496, 2],
+        [43426, 1],
+        [41153, 2],
+        [1084, 2],
+        [587, 2],
+        [43407, 2],
+        [113, 2],
+        [39715, 1]
+      ],
+      "heroes": [637]
+    }
+  ]
+}

@@ -1,148 +1,121 @@
 'use client';
-
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { VERSION, BUILD_DATE, BUILD_NUMBER } from '../lib/version.js';
-
-type ScrylyticsUser = {
-  username: string;
-};
-
-type UserModule = typeof import('../lib/auth/user.js');
+import HeroSigil from '@/components/HeroSigil';
+import FeatureTile from '@/components/FeatureTile';
+import ChartCard from '@/components/ChartCard';
+import { Sparkline, Bars } from '@/components/charts';
+import { ELEMENTS } from '@/lib/theme';
+import { Layers, Table2, Network, Library, Eye, Timer, ScanLine, Gauge, Waves, LineChart as Lc, BarChart as Bc, Sparkles, BrainCircuit, Lightbulb } from 'lucide-react';
 
 export default function Home() {
-  const [user, setUser] = useState<ScrylyticsUser | null>(null);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const loadUserData = async () => {
-      try {
-        const { getCurrentUser }: UserModule = await import('../lib/auth/user.js');
-        const currentUser = getCurrentUser() as ScrylyticsUser | null;
-        setUser(currentUser);
-      } catch (error) {
-        console.warn('Failed to load user data:', error);
-      }
-    };
-
-    loadUserData();
-  }, []);
-
   return (
-    <main style={{padding:"2rem", fontFamily:"system-ui, sans-serif"}}>
-      <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"1rem"}}>
-        <div></div>
-        {user && (
-          <Link href="/dashboard" style={{
-            color:"#4f46e5",
-            textDecoration:"none",
-            fontSize:"0.9rem",
-            padding:"0.5rem 1rem",
-            border:"1px solid #4f46e5",
-            borderRadius:"4px"
-          }}>
-            🎮 {user.username}'s Dashboard
+    <div className="px-6 py-16">
+      {/* Hero Section */}
+      <section className="mx-auto max-w-7xl text-center">
+        <div className="mx-auto flex max-w-3xl flex-col items-center gap-6">
+          <HeroSigil color="#f59e0b" glow="rgba(251,191,36,0.28)" variant="aether" />
+          <h1 className="font-display text-4xl text-white/90 sm:text-5xl">Scrylytics</h1>
+          <p className="text-white/80 text-lg">Where data becomes destiny. AI-powered analytics for collectible card games.</p>
+          <div className="mt-4 flex items-center justify-center gap-3">
+            <Link href="/decklytics" className="rounded-xl bg-emerald-400 px-6 py-3 text-emerald-950 hover:bg-emerald-300 font-medium">
+              Get Started
+            </Link>
+            <button className="rounded-xl border border-white/20 px-6 py-3 text-white/80 hover:bg-white/5">
+              Learn More
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="mx-auto mt-20 max-w-7xl">
+        <div className="mb-12 text-center">
+          <h2 className="font-display text-3xl text-white/90 mb-4">The Elements of Mastery</h2>
+          <p className="text-white/70 text-lg max-w-2xl mx-auto">
+            Five interconnected tools, each channeling the power of a different element to reveal the hidden truths of your games.
+          </p>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <Link href="/decklytics" className="block">
+            <div className="group rounded-2xl border border-emerald-400/20 bg-emerald-400/5 p-6 h-full hover:bg-emerald-400/10 transition-all">
+              <HeroSigil color={ELEMENTS.earth.hue} glow={ELEMENTS.earth.glow} variant="earth" />
+              <h3 className="font-display text-lg text-emerald-200 mt-4 mb-2">{ELEMENTS.earth.name}</h3>
+              <p className="text-white/70 text-sm">{ELEMENTS.earth.headline}</p>
+              <div className="mt-4 inline-flex items-center gap-2 text-emerald-300 text-sm font-medium">
+                {ELEMENTS.earth.cta} →
+              </div>
+            </div>
           </Link>
-        )}
-      </div>
 
-      <h1>🔮 Scrylytics</h1>
-      <p>AI-powered analytics and deck optimization for collectible card games.</p>
+          <Link href="/playlytics" className="block">
+            <div className="group rounded-2xl border border-air-400/20 bg-air-400/5 p-6 h-full hover:bg-air-400/10 transition-all">
+              <HeroSigil color={ELEMENTS.air.hue} glow={ELEMENTS.air.glow} variant="air" />
+              <h3 className="font-display text-lg text-air-200 mt-4 mb-2">{ELEMENTS.air.name}</h3>
+              <p className="text-white/70 text-sm">{ELEMENTS.air.headline}</p>
+              <div className="mt-4 inline-flex items-center gap-2 text-air-300 text-sm font-medium">
+                {ELEMENTS.air.cta} →
+              </div>
+            </div>
+          </Link>
 
-      <div style={{marginTop:"2rem", display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(300px, 1fr))", gap:"1rem"}}>
-        <Link href="/analyzer" style={{
-          display:"block",
-          padding:"2rem",
-          border:"2px solid #4f46e5",
-          borderRadius:"8px",
-          textDecoration:"none",
-          color:"#4f46e5",
-          transition:"all 0.2s"
-        }}>
-          <h2>🧙‍♂️ Decklytics</h2>
-          <p>AI deck analyzer — grades, synergies, and optimization suggestions</p>
-          <div style={{marginTop:"1rem", fontSize:"0.9rem", opacity:0.8}}>
-            → Supports Hearthstone & Magic: The Gathering
-          </div>
-          <div style={{marginTop:"0.5rem", fontSize:"0.8rem", opacity:0.7}}>
-            Features: Card images, AI analysis, synergy detection
-          </div>
-        </Link>
+          <Link href="/the-forge" className="block">
+            <div className="group rounded-2xl border border-fire-400/20 bg-fire-400/5 p-6 h-full hover:bg-fire-400/10 transition-all">
+              <HeroSigil color={ELEMENTS.fire.hue} glow={ELEMENTS.fire.glow} variant="fire" />
+              <h3 className="font-display text-lg text-amber-200 mt-4 mb-2">{ELEMENTS.fire.name}</h3>
+              <p className="text-white/70 text-sm">{ELEMENTS.fire.headline}</p>
+              <div className="mt-4 inline-flex items-center gap-2 text-amber-300 text-sm font-medium">
+                {ELEMENTS.fire.cta} →
+              </div>
+            </div>
+          </Link>
 
-        <Link href="/playlitics" style={{
-          display:"block",
-          padding:"2rem",
-          border:"2px solid #4f46e5",
-          borderRadius:"8px",
-          textDecoration:"none",
-          color:"#4f46e5",
-          transition:"all 0.2s"
-        }}>
-          <h2>⚔️ Playlytics</h2>
-          <p>Game simulation and matchup testing</p>
-          <div style={{marginTop:"1rem", fontSize:"0.9rem", opacity:0.8}}>
-            → Analyze deck matchups now
-          </div>
-        </Link>
+          <Link href="/metalytics" className="block">
+            <div className="group rounded-2xl border border-water-400/20 bg-water-400/5 p-6 h-full hover:bg-water-400/10 transition-all">
+              <HeroSigil color={ELEMENTS.water.hue} glow={ELEMENTS.water.glow} variant="water" />
+              <h3 className="font-display text-lg text-water-200 mt-4 mb-2">{ELEMENTS.water.name}</h3>
+              <p className="text-white/70 text-sm">{ELEMENTS.water.headline}</p>
+              <div className="mt-4 inline-flex items-center gap-2 text-water-300 text-sm font-medium">
+                {ELEMENTS.water.cta} →
+              </div>
+            </div>
+          </Link>
 
-        <Link href="/metalyzer" style={{
-          display:"block",
-          padding:"2rem",
-          border:"2px solid #4f46e5",
-          borderRadius:"8px",
-          textDecoration:"none",
-          color:"#4f46e5",
-          transition:"all 0.2s"
-        }}>
-          <h2>📊 Metalyzer</h2>
-          <p>Meta tracking and statistical reports across formats.</p>
-          <div style={{marginTop:"1rem", fontSize:"0.9rem", opacity:0.8}}>
-            → View meta trends now
-          </div>
-        </Link>
-
-        <Link href="/insights" style={{
-          display:"block",
-          padding:"2rem",
-          border:"2px solid #4f46e5",
-          borderRadius:"8px",
-          textDecoration:"none",
-          color:"#4f46e5",
-          transition:"all 0.2s"
-        }}>
-          <h2>📈 AI Insights</h2>
-          <p>Visual deck analysis with parchment-style charts and AI recommendations.</p>
-          <div style={{marginTop:"1rem", fontSize:"0.9rem", opacity:0.8}}>
-            → Explore deck insights now
-          </div>
-        </Link>
-      </div>
-
-      <footer style={{
-        marginTop:"3rem",
-        paddingTop:"2rem",
-        borderTop:"1px solid #e5e7eb",
-        textAlign:"center",
-        color:"#6b7280",
-        fontSize:"0.9rem"
-      }}>
-        <div style={{marginBottom:"0.5rem"}}>
-          <strong>Scrylytics v{VERSION}</strong> • <span style={{color:"#4f46e5", fontWeight:"bold"}}>Build #{BUILD_NUMBER}</span> • Built {BUILD_DATE}
+          <Link href="/the-oracle" className="block">
+            <div className="group rounded-2xl border border-aether-400/20 bg-aether-400/5 p-6 h-full hover:bg-aether-400/10 transition-all">
+              <HeroSigil color={ELEMENTS.aether.hue} glow={ELEMENTS.aether.glow} variant="aether" />
+              <h3 className="font-display text-lg text-aether-200 mt-4 mb-2">{ELEMENTS.aether.name}</h3>
+              <p className="text-white/70 text-sm">{ELEMENTS.aether.headline}</p>
+              <div className="mt-4 inline-flex items-center gap-2 text-aether-300 text-sm font-medium">
+                {ELEMENTS.aether.cta} →
+              </div>
+            </div>
+          </Link>
         </div>
-        <div style={{fontSize:"0.8rem"}}>
-          AI-powered deck analysis for Hearthstone & Magic: The Gathering
+      </section>
+
+      {/* Sample Charts */}
+      <section className="mx-auto mt-20 max-w-7xl">
+        <div className="text-center mb-12">
+          <h2 className="font-display text-3xl text-white/90 mb-4">Live Analytics Preview</h2>
+          <p className="text-white/70 text-lg">Real-time insights powered by AI and machine learning</p>
         </div>
-        <div style={{marginTop:"0.5rem", fontSize:"0.8rem"}}>
-          <a
-            href="/api/version"
-            target="_blank"
-            style={{color:"#4f46e5", textDecoration:"none"}}
-          >
-            API Version Info →
-          </a>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <ChartCard title="Mana Curve Health">
+            <Sparkline color="#10b981" />
+          </ChartCard>
+          <ChartCard title="Synergy Strength">
+            <Bars color="#10b981" />
+          </ChartCard>
+          <ChartCard title="Tempo Analysis">
+            <Sparkline color="#7bd3f7" />
+          </ChartCard>
+          <ChartCard title="Meta Trends">
+            <Bars color="#5dd6d3" />
+          </ChartCard>
         </div>
-      </footer>
-    </main>
+      </section>
+    </div>
   );
 }

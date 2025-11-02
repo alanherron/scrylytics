@@ -1,425 +1,255 @@
 'use client';
 
 import React, { useMemo, useState } from 'react';
-import { PREBUILT_DECKS, analyzeDeck } from '../../lib/ai/insightEngine';
-import InsightChart from '../../components/InsightChart';
+import HeroSigil from '@/components/HeroSigil';
+import InsightChart from '@/components/InsightChart';
+import { PREBUILT_DECKS, analyzeDeck, type InsightResult } from '@/lib/ai/insightEngine';
+import { ELEMENTS } from '@/lib/theme';
 
-// Helper function to determine chart type from issue
 const getChartType = (issue: string) => {
   switch (issue) {
-    case "MANA_CURVE_SKEW":
-      return "mana_power_curve";
-    case "DRAW_INCONSISTENCY":
-      return "draw_rhythm";
-    case "ROLE_MISMATCH":
-      return "arcane_balance";
-    case "WEAK_SYNERGY_CHAINS":
-      return "area";
-    case "TECH_GAPS":
-      return "tech_gaps";
-    case "MATCHUP_PAINS":
-      return "matchup_pains";
-    case "HAND_SIZE_PRESSURE":
-      return "line";
-    case "BOARD_TEMPO_GAPS":
-      return "area";
+    case 'MANA_CURVE_SKEW':
+      return 'mana_power_curve';
+    case 'DRAW_INCONSISTENCY':
+      return 'draw_rhythm';
+    case 'ROLE_MISMATCH':
+      return 'arcane_balance';
+    case 'WEAK_SYNERGY_CHAINS':
+      return 'area';
+    case 'TECH_GAPS':
+      return 'tech_gaps';
+    case 'MATCHUP_PAINS':
+      return 'matchup_pains';
+    case 'HAND_SIZE_PRESSURE':
+      return 'hand_size_pressure';
+    case 'BOARD_TEMPO_GAPS':
+      return 'tempo_curve';
+    case 'DECK_COMPOSITION':
+      return 'deck_composition';
     default:
-      return "bar";
+      return 'bar';
   }
 };
 
-// Helper function to get display title for analysis
 const getDisplayTitle = (issue: string) => {
   switch (issue) {
-    case "DRAW_INCONSISTENCY":
-      return "Draw Rhythm";
-    case "MANA_CURVE_SKEW":
-      return "Mana Curve Analysis";
-    case "ROLE_MISMATCH":
-      return "Arcane Balance";
-    case "WEAK_SYNERGY_CHAINS":
-      return "Synergy Analysis";
-    case "TECH_GAPS":
-      return "Tech Coverage";
-    case "MATCHUP_PAINS":
-      return "Matchup Analysis";
-    case "HAND_SIZE_PRESSURE":
-      return "Hand Size Pressure";
-    case "BOARD_TEMPO_GAPS":
-      return "Tempo Curve Analysis";
-    case "DECK_COMPOSITION":
-      return "Deck Composition";
+    case 'DRAW_INCONSISTENCY':
+      return 'Draw Rhythm';
+    case 'MANA_CURVE_SKEW':
+      return 'Mana Curve Analysis';
+    case 'ROLE_MISMATCH':
+      return 'Arcane Balance';
+    case 'WEAK_SYNERGY_CHAINS':
+      return 'Synergy Analysis';
+    case 'TECH_GAPS':
+      return 'Tech Coverage';
+    case 'MATCHUP_PAINS':
+      return 'Matchup Analysis';
+    case 'HAND_SIZE_PRESSURE':
+      return 'Hand Size Pressure';
+    case 'BOARD_TEMPO_GAPS':
+      return 'Tempo Curve Analysis';
+    case 'DECK_COMPOSITION':
+      return 'Deck Composition';
     default:
       return issue.replace(/_/g, ' ');
   }
 };
 
+type AnalysisState = {
+  analysis: InsightResult | null;
+  error: string | null;
+};
+
 export default function InsightsPage() {
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const selectedDeck = PREBUILT_DECKS[selectedIndex];
 
-  const result = useMemo(() => {
-    const deck = PREBUILT_DECKS[selectedIndex];
-    if (!deck) return null;
+  const { analysis, error }: AnalysisState = useMemo(() => {
+    if (!selectedDeck) {
+      return { analysis: null, error: 'Deck preset not found.' };
+    }
 
     try {
-      const analysis = analyzeDeck(deck);
-      return analysis;
-    } catch (error) {
-      return { error: 'Analysis failed', issue: 'ERROR', data: [], caption: 'Failed to analyze deck' };
+      const insight = analyzeDeck(selectedDeck);
+      return { analysis: insight, error: null };
+    } catch (err) {
+      return { analysis: null, error: 'Analysis failed. Please try a different preset.' };
     }
-  }, [selectedIndex]);
+  }, [selectedDeck]);
+
+  const theme = ELEMENTS.aether;
+  const chartType = analysis ? getChartType(analysis.issue) : null;
 
   return (
-    <div style={{padding:"2rem", fontFamily:"system-ui, sans-serif", maxWidth:"1200px", margin:"0 auto"}}>
-      <div style={{
-        backgroundColor: "#00ff00",
-        color: "#000000",
-        padding: "1rem",
-        borderRadius: "8px",
-        border: "2px solid #000000",
-        fontSize: "1rem",
-        fontWeight: "bold",
-        textAlign: "center",
-        marginBottom: "1rem"
-      }}>
-        ✅ REACT IS WORKING - Build #44 - RECHARTS v3.3.0 + STYLING UPGRADE! 🎨📊
-      </div>
+    <div className="px-6 pb-16 pt-12">
+      <section className="mx-auto max-w-6xl text-center">
+        <div className="mx-auto flex max-w-3xl flex-col items-center gap-6">
+          <HeroSigil color={theme.hue} glow={theme.glow} variant="aether" />
+          <div className="text-aether-200/80 text-xs font-semibold uppercase tracking-[0.35em]">Insight Lab</div>
+          <h1 className="font-display text-4xl text-aether-200 sm:text-5xl">AI Deck Diagnostics</h1>
+          <p className="text-white/70">
+            Explore how the oracle evaluates different archetypes. Swap between presets to watch the analysis, grades,
+            and charts adapt in real time.
+          </p>
+        </div>
+      </section>
 
-      <header style={{marginBottom:"2rem"}}>
-        <h1>AI Insights (Charts)</h1>
-        <p>Pick a deck to see analysis and charts</p>
-      </header>
-
-          <div style={{marginBottom:"2rem"}}>
-            <label style={{display:"block", marginBottom:"0.5rem", fontWeight:"500"}}>
-              Select Deck to See Different Chart Types:
-            </label>
+      <section className="mx-auto mt-12 grid max-w-6xl gap-6 lg:grid-cols-[340px,1fr]">
+        <div className="space-y-6">
+          <div className="rounded-2xl border border-white/10 bg-black/30 p-6 shadow-glow">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-[0.2em] text-aether-200/70">Deck preset</div>
+                <h2 className="mt-2 font-display text-xl text-white">{selectedDeck?.name ?? 'Select a deck'}</h2>
+              </div>
+              {selectedDeck?.archetype && (
+                <span className="rounded-full border border-aether-400/40 bg-aether-400/10 px-3 py-1 text-xs font-medium text-aether-100">
+                  {selectedDeck.archetype}
+                </span>
+              )}
+            </div>
             <select
               value={selectedIndex}
-              onChange={(e) => setSelectedIndex(parseInt(e.target.value, 10))}
-              style={{
-                width:"100%",
-                padding:"0.5rem",
-                borderRadius:"4px",
-                border: "2px solid #8b5cf6",
-                fontSize:"1rem",
-                backgroundColor: "#fefefe"
-              }}
+              onChange={(event) => setSelectedIndex(Number(event.target.value))}
+              className="mt-4 w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white/90 outline-none ring-0 transition focus:border-aether-400 focus:ring-2 focus:ring-aether-400/40"
             >
-              {PREBUILT_DECKS.map((d, i) => (
-                <option key={d.name} value={i}>
-                  {d.name} - {d.chartType} Chart
+              {PREBUILT_DECKS.map((preset, index) => (
+                <option key={preset.name} value={index} className="bg-slate-900 text-slate-100">
+                  {preset.name} • {preset.chartType}
                 </option>
               ))}
             </select>
-            <div style={{
-              marginTop: "0.5rem",
-              fontSize: "0.9rem",
-              color: "#6b7280",
-              fontStyle: "italic"
-            }}>
-              💡 Try different decks to see Bar, Line, Radar, and Area chart variations!
-            </div>
           </div>
 
-
-      {result && (
-        <div style={{marginTop:"2rem", padding:"2rem", backgroundColor:"#f9fafb", borderRadius:"8px", border:"1px solid #e5e7eb"}}>
-          <h3>Analysis Results</h3>
-          <p><strong>Issue:</strong> {result.issue}</p>
-          <p><strong>Grade:</strong> {(result as any).grade || 'N/A'}</p>
-          <p><strong>Score:</strong> {(result as any).score || 'N/A'}/10</p>
-          <p><strong>Caption:</strong> {result.caption}</p>
-
-          {(result as any).strengths && (
-            <div style={{marginTop:"1rem"}}>
-              <h4>✅ Strengths</h4>
-              <ul>
-                {(result as any).strengths.map((strength: string, i: number) => (
-                  <li key={i}>{strength}</li>
-                ))}
-              </ul>
+          {error && (
+            <div className="rounded-2xl border border-red-500/40 bg-red-500/10 p-5 text-sm text-red-200 shadow-glow">
+              {error}
             </div>
           )}
 
-          {(result as any).weaknesses && (
-            <div style={{marginTop:"1rem"}}>
-              <h4>⚠️ Weaknesses</h4>
-              <ul>
-                {(result as any).weaknesses.map((weakness: string, i: number) => (
-                  <li key={i}>{weakness}</li>
-                ))}
-              </ul>
+          {analysis && (
+            <div className="rounded-2xl border border-white/10 bg-black/30 p-6 shadow-glow">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <div className="text-xs font-semibold uppercase tracking-[0.2em] text-aether-200/70">Primary issue</div>
+                  <h3 className="mt-2 font-display text-2xl text-white">{getDisplayTitle(analysis.issue)}</h3>
+                </div>
+                {analysis.grade && (
+                  <span className="rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs font-semibold text-white/90">
+                    {analysis.grade}
+                  </span>
+                )}
+              </div>
+              <p className="mt-3 text-sm text-white/65">{analysis.caption}</p>
+
+              <dl className="mt-6 space-y-3 text-sm text-white/70">
+                {selectedDeck?.gameType && (
+                  <div className="flex items-center justify-between">
+                    <dt className="text-white/50">Game</dt>
+                    <dd className="text-white/80">{selectedDeck.gameType}</dd>
+                  </div>
+                )}
+                {analysis.score !== undefined && (
+                  <div className="flex items-center justify-between">
+                    <dt className="text-white/50">Score</dt>
+                    <dd className="text-white/80">{analysis.score}/10</dd>
+                  </div>
+                )}
+                {analysis.title && (
+                  <div className="flex items-center justify-between">
+                    <dt className="text-white/50">Focus</dt>
+                    <dd className="text-white/80">{analysis.title}</dd>
+                  </div>
+                )}
+              </dl>
+
+              {(analysis.strengths?.length ?? 0) > 0 && (
+                <div className="mt-6">
+                  <div className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-300/80">Strengths</div>
+                  <ul className="mt-3 space-y-2 text-sm text-emerald-200/80">
+                    {analysis.strengths!.map((item, index) => (
+                      <li key={index} className="rounded-lg border border-emerald-400/10 bg-emerald-400/10 px-3 py-2">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {(analysis.weaknesses?.length ?? 0) > 0 && (
+                <div className="mt-6">
+                  <div className="text-xs font-semibold uppercase tracking-[0.2em] text-rose-300/80">Exposed gaps</div>
+                  <ul className="mt-3 space-y-2 text-sm text-rose-200/80">
+                    {analysis.weaknesses!.map((item, index) => (
+                      <li key={index} className="rounded-lg border border-rose-400/10 bg-rose-400/10 px-3 py-2">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           )}
         </div>
-      )}
 
-          {result && result.issue !== 'ERROR' && (
-            <div style={{marginTop:"2rem"}}>
-              <div style={{
-                backgroundColor: "#fef7ed",
-                border: "3px solid #d97706",
-                borderRadius: "12px",
-                padding: "2rem",
-                margin: "2rem 0",
-                boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-                position: "relative"
-              }}>
-                <div style={{
-                  position: "absolute",
-                  top: "-15px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  backgroundColor: "#fef7ed",
-                  padding: "0.5rem 1.5rem",
-                  borderRadius: "20px",
-                  border: "2px solid #d97706",
-                  fontSize: "1.1rem",
-                  fontWeight: "bold",
-                  color: "#92400e"
-                }}>
-                  📊 {getDisplayTitle(result.issue)}
-                </div>
-
-                <InsightChart
-                  issue={result.issue as any}
-                  data={result.data || []}
-                />
-
-                <div style={{
-                  marginTop: "1.5rem",
-                  padding: "1rem",
-                  backgroundColor: "#f9fafb",
-                  borderRadius: "8px",
-                  border: "1px solid #e5e7eb"
-                }}>
-                  <p style={{
-                    color: "#6b7280",
-                    fontSize: "0.95rem",
-                    lineHeight: "1.6",
-                    margin: 0
-                  }}>
-                    <strong>Analysis:</strong> {result.caption}
-                  </p>
-                </div>
-
-                {/* Debug Panel */}
-                <details style={{
-                  marginTop: "1rem",
-                  padding: "1rem",
-                  backgroundColor: "#fef3c7",
-                  border: "1px solid #f59e0b",
-                  borderRadius: "8px"
-                }}>
-                  <summary style={{
-                    cursor: "pointer",
-                    fontWeight: "bold",
-                    color: "#92400e"
-                  }}>
-                    🔍 Debug: Chart Data & Requirements Check
-                  </summary>
-                  <div style={{ marginTop: "1rem", fontSize: "0.9rem" }}>
-                    <div style={{ marginBottom: "1rem" }}>
-                      <strong>Chart Type:</strong> {getChartType(result.issue) === "mana_power_curve" ? "Mana Power Curve" : getChartType(result.issue)} Chart
-                    </div>
-                    <div style={{ marginBottom: "1rem" }}>
-                      <strong>Issue Type:</strong> {result.issue}
-                    </div>
-                    <div style={{ marginBottom: "1rem" }}>
-                      <strong>Data Length:</strong> {Array.isArray(result.data) ? result.data.length : 'Not an array'}
-                    </div>
-                    <div style={{ marginBottom: "1rem" }}>
-                      <strong>Data Sample:</strong>
-                      <pre style={{
-                        backgroundColor: "#f9fafb",
-                        padding: "0.5rem",
-                        borderRadius: "4px",
-                        fontSize: "0.8rem",
-                        overflow: "auto",
-                        maxHeight: "200px"
-                      }}>
-                        {JSON.stringify(result.data?.slice(0, 3), null, 2)}
-                      </pre>
-                    </div>
-
-                    {(() => {
-                      const chartType: string = getChartType(result.issue);
-                      const data = result.data;
-
-                      switch (chartType) {
-                        case 'bar': {
-                          const hasData = Array.isArray(data);
-                          const hasLength = hasData && data.length > 0;
-                          return (
-                            <div>
-                              <strong>Bar Chart Requirements:</strong>
-                              <ul>
-                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
-                                <li>Each item has 'mana': {hasData && data.every(item => 'mana' in item) ? '✅' : '❌'}</li>
-                                <li>Each item has 'count': {hasData && data.every(item => 'count' in item) ? '✅' : '❌'}</li>
-                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
-                              </ul>
-                            </div>
-                          );
-                        }
-
-                        case 'line': {
-                          const hasData = Array.isArray(data);
-                          const hasLength = hasData && data.length > 0;
-                          return (
-                            <div>
-                              <strong>Line Chart Requirements:</strong>
-                              <ul>
-                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
-                                <li>Each item has 'mana': {hasData && data.every(item => 'mana' in item) ? '✅' : '❌'}</li>
-                                <li>Each item has 'count': {hasData && data.every(item => 'count' in item) ? '✅' : '❌'}</li>
-                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
-                              </ul>
-                            </div>
-                          );
-                        }
-
-                        case 'area': {
-                          const hasData = Array.isArray(data);
-                          const hasLength = hasData && data.length > 0;
-                          return (
-                            <div>
-                              <strong>Area Chart Requirements:</strong>
-                              <ul>
-                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
-                                <li>Each item has 'mana': {hasData && data.every(item => 'mana' in item) ? '✅' : '❌'}</li>
-                                <li>Each item has 'count': {hasData && data.every(item => 'count' in item) ? '✅' : '❌'}</li>
-                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
-                              </ul>
-                            </div>
-                          );
-                        }
-
-                        case "draw_rhythm": {
-                          const hasData = Array.isArray(data);
-                          const hasLength = hasData && data.length > 0;
-                          return (
-                            <div>
-                              <strong>Draw Rhythm Chart Requirements:</strong>
-                              <ul>
-                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
-                                <li>Each item has 'turn', 'actual', or 'target': {hasData && data.every(item => 'turn' in item || 'actual' in item || 'target' in item) ? '✅' : '❌'}</li>
-                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
-                                <li>Shows draw vs target: ✅ (Green = enough, Red = not enough)</li>
-                              </ul>
-                            </div>
-                          );
-                        }
-
-                        case "arcane_balance": {
-                          const hasData = Array.isArray(data);
-                          const hasLength = hasData && data.length > 0;
-                          return (
-                            <div>
-                              <strong>Arcane Balance Chart Requirements:</strong>
-                              <ul>
-                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
-                                <li>Each item has 'metric', 'ideal', or 'current': {hasData && data.every(item => 'metric' in item || 'ideal' in item || 'current' in item) ? '✅' : '❌'}</li>
-                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
-                                <li>Shows ideal vs current balance: ✅ (Blue = ideal, Red = current)</li>
-                              </ul>
-                            </div>
-                          );
-                        }
-
-                        case "tech_gaps": {
-                          const hasData = Array.isArray(data);
-                          const hasLength = hasData && data.length > 0;
-                          return (
-                            <div>
-                              <strong>Tech Gaps Chart Requirements:</strong>
-                              <ul>
-                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
-                                <li>Each item has 'threat', 'metaLevel', 'yourAnswers', or 'gap': {hasData && data.every(item => 'threat' in item || 'metaLevel' in item || 'yourAnswers' in item || 'gap' in item) ? '✅' : '❌'}</li>
-                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
-                                <li>Shows tech coverage vs meta threats: ✅ (Gray = threat level, Blue = your answers, Red = gaps)</li>
-                              </ul>
-                            </div>
-                          );
-                        }
-
-                        case "matchup_pains": {
-                          const hasData = Array.isArray(data);
-                          const hasLength = hasData && data.length > 0;
-                          return (
-                            <div>
-                              <strong>Matchup Pains Chart Requirements:</strong>
-                              <ul>
-                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
-                                <li>Each item has 'matchup' or 'score': {hasData && data.every(item => 'matchup' in item || 'score' in item || 'value' in item) ? '✅' : '❌'}</li>
-                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
-                                <li>Shows matchup strengths/weaknesses: ✅ (Green = strong, Red = weak, centered on 0)</li>
-                              </ul>
-                        </div>
-                      );
-                        }
-
-                        case "mana_power_curve": {
-                          const hasData = Array.isArray(data);
-                          const hasLength = hasData && data.length > 0;
-                          return (
-                            <div>
-                              <strong>Mana Power Curve Requirements:</strong>
-                              <ul>
-                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
-                                <li>Each item has 'mana' and 'value': {hasData && data.every(item => 'mana' in item && 'value' in item) ? '✅' : '❌'}</li>
-                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
-                                <li>Shows mana curve balance: ✅ (Green = surplus, Red = deficit, Blue gems = mana costs)</li>
-                              </ul>
-                            </div>
-                          );
-                        }
-
-                        case "hand_size_pressure": {
-                          const hasData = Array.isArray(data);
-                          const hasLength = hasData && data.length > 0;
-                          return (
-                            <div>
-                              <strong>Hand Size Pressure Requirements:</strong>
-                              <ul>
-                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
-                                <li>Each item has 'turn' and 'hand': {hasData && data.every(item => 'turn' in item && 'hand' in item) ? '✅' : '❌'}</li>
-                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
-                                <li>Shows healthy zone (4-6 cards): ✅ (Green area)</li>
-                                <li>Shows danger zone (&lt;3 cards): ✅ (Red area)</li>
-                              </ul>
-                            </div>
-                          );
-                        }
-
-                        case "tempo_curve": {
-                          const hasData = Array.isArray(data);
-                          const hasLength = hasData && data.length > 0;
-                          return (
-                            <div>
-                              <strong>Tempo Curve Requirements:</strong>
-                              <ul>
-                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
-                                <li>Each item has 'mana', 'count', 'value', 'ideal': {hasData && data.every(item => 'mana' in item && 'count' in item && 'value' in item && 'ideal' in item) ? '✅' : '❌'}</li>
-                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
-                                <li>Shows power vs ideal curve: ✅ (Blue line vs gray area)</li>
-                                <li>Shows card count bars: ✅ (Light blue bars)</li>
-                                <li>Dual Y-axes: ✅ (Power left, Card count right)</li>
-                              </ul>
-                            </div>
-                          );
-                        }
-
-                        default:
-                          return <div>Unknown chart type</div>;
-                      }
-                    })()}
-                  </div>
-                </details>
-              </div>
+        <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-aether-500/15 via-black/40 to-black/80 p-6 shadow-glow">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <div className="text-xs font-semibold uppercase tracking-[0.2em] text-aether-200/70">Visualization</div>
+              <h3 className="mt-2 font-display text-2xl text-white">
+                {analysis ? getDisplayTitle(analysis.issue) : 'Choose a deck'}
+              </h3>
             </div>
+            {chartType && (
+              <span className="rounded-full border border-aether-400/40 bg-aether-400/10 px-3 py-1 text-xs font-medium text-aether-100">
+                {chartType.replace(/_/g, ' ')}
+              </span>
+            )}
+          </div>
+
+          <div className="mt-6 h-[420px]">
+            {analysis ? (
+              <InsightChart issue={analysis.issue} data={analysis.data ?? []} />
+            ) : (
+              <div className="flex h-full items-center justify-center rounded-2xl border border-dashed border-white/10">
+                <p className="text-sm text-white/60">Select a preset to render the diagnostic chart.</p>
+              </div>
+            )}
+          </div>
+
+          {analysis && (
+            <>
+              <p className="mt-5 text-sm text-white/70">
+                <span className="font-semibold text-white/85">Key insight:</span> {analysis.caption}
+              </p>
+
+              <details className="mt-6 rounded-2xl border border-white/10 bg-black/20 p-4 text-sm text-white/70">
+                <summary className="cursor-pointer text-white/80">Debug: chart data snapshot</summary>
+                <div className="mt-4 space-y-3 text-xs text-white/60">
+                  <div className="flex items-center justify-between">
+                    <span>Chart type</span>
+                    <span className="text-white/75">{chartType}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span>Data points</span>
+                    <span className="text-white/75">
+                      {Array.isArray(analysis.data) ? analysis.data.length : 'n/a'}
+                    </span>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-black/30 p-3 font-mono text-[11px] leading-relaxed text-white/70">
+                    {JSON.stringify(
+                      Array.isArray(analysis.data) ? analysis.data.slice(0, 4) : analysis.data,
+                      null,
+                      2,
+                    )}
+                  </div>
+                </div>
+              </details>
+            </>
           )}
+        </div>
+      </section>
     </div>
   );
 }
