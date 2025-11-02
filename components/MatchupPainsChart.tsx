@@ -3,17 +3,7 @@
 "use client";
 
 import React from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  ReferenceLine,
-  Cell,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Cell } from "recharts";
 
 // Sketch style for hand-drawn effect
 const sketchStyle = {
@@ -70,49 +60,6 @@ function CustomTooltip({ active, payload, label }: any) {
       </div>
       <div style={{ opacity: 0.9 }}>{description}</div>
     </div>
-  );
-}
-
-function CustomBar(props: any) {
-  const { x, y, width, height, payload } = props;
-  const score = payload.score;
-  const isPositive = score > 0;
-  const isNegative = score < 0;
-
-  // Calculate bar position based on score
-  const centerX = x + width / 2; // Center of the chart area
-  const barWidth = Math.abs(score) * (width / 10); // Scale based on score magnitude
-
-  let barX = centerX;
-  let fillColor = "#6b7280"; // Default gray for neutral
-
-  if (isPositive) {
-    // Positive bars extend right from center
-    barX = centerX;
-    fillColor = "#27ae60"; // Green
-  } else if (isNegative) {
-    // Negative bars extend left from center
-    barX = centerX - barWidth;
-    fillColor = "#ef4444"; // Red
-  }
-
-  return (
-    <rect
-      x={barX}
-      y={y}
-      width={barWidth}
-      height={height}
-      fill={fillColor}
-      rx={4}
-      ry={4}
-      style={{
-        filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.1))",
-        transition: "all 0.8s ease-out",
-        strokeWidth: 2,
-        strokeLinejoin: "round",
-        strokeLinecap: "round",
-      }}
-    />
   );
 }
 
@@ -186,12 +133,24 @@ export default function MatchupPainsChart({
             {/* Custom bars */}
             <Bar
               dataKey="score"
-              shape={<CustomBar />}
+              radius={[4, 4, 4, 4]}
               isAnimationActive
-              animationBegin={100}
-              animationDuration={800}
-              animationEasing="ease-out"
-            />
+              animationDuration={600}
+            >
+              {data.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={
+                    entry.score > 0
+                      ? "#27ae60"
+                      : entry.score < 0
+                      ? "#ef4444"
+                      : "#9ca3af"
+                  }
+                  stroke="rgba(0,0,0,0.1)"
+                />
+              ))}
+            </Bar>
 
             <Tooltip content={<CustomTooltip />} />
           </BarChart>

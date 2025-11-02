@@ -46,7 +46,7 @@ const getDisplayTitle = (issue: string) => {
     case "HAND_SIZE_PRESSURE":
       return "Hand Size Pressure";
     case "BOARD_TEMPO_GAPS":
-      return "Tempo Analysis";
+      return "Tempo Curve Analysis";
     case "DECK_COMPOSITION":
       return "Deck Composition";
     default:
@@ -421,6 +421,24 @@ export default function InsightsPage() {
                                 <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
                                 <li>Shows healthy zone (4-6 cards): ✅ (Green area)</li>
                                 <li>Shows danger zone (&lt;3 cards): ✅ (Red area)</li>
+                              </ul>
+                            </div>
+                          );
+                        }
+
+                        case "tempo_curve": {
+                          const hasData = Array.isArray(data);
+                          const hasLength = hasData && data.length > 0;
+                          return (
+                            <div>
+                              <strong>Tempo Curve Requirements:</strong>
+                              <ul>
+                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
+                                <li>Each item has 'mana', 'count', 'value', 'ideal': {hasData && data.every(item => 'mana' in item && 'count' in item && 'value' in item && 'ideal' in item) ? '✅' : '❌'}</li>
+                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
+                                <li>Shows power vs ideal curve: ✅ (Blue line vs gray area)</li>
+                                <li>Shows card count bars: ✅ (Light blue bars)</li>
+                                <li>Interactive legend toggles: ✅ (Click to show/hide elements)</li>
                               </ul>
                             </div>
                           );

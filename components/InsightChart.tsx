@@ -2,38 +2,24 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
-import {
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-  Legend,
-  LineChart,
-  Line,
-  RadarChart,
-  Radar,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  AreaChart,
-  Area,
-  ComposedChart,
-  ReferenceLine,
-  Cell,
-  LabelList
-} from "recharts";
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Legend, AreaChart, Area, ComposedChart, ReferenceLine, Cell } from "recharts";
 
 // Dynamically import chart components with SSR disabled
 const DrawRhythmChart = dynamic(() => import("./DrawRhythmChart"), { ssr: false });
-const ArcaneBalanceChart = dynamic(() => import("./ArcaneBalanceChart"), { ssr: false });
+const ArcaneBalanceChart = dynamic(
+  () => import("./ArcaneBalanceChart").then(mod => ({ default: mod.ArcaneBalanceChart })),
+  { ssr: false }
+);
 const TechGapsChart = dynamic(() => import("./TechGapsChart"), { ssr: false });
 const MatchupPainsChart = dynamic(() => import("./MatchupPainsChart"), { ssr: false });
-const ManaPowerCurve = dynamic(() => import("./ManaPowerCurve"), { ssr: false });
+const ManaPowerCurve = dynamic(
+  () => import("./ManaPowerCurve").then(mod => ({ default: mod.ManaPowerCurve })),
+  { ssr: false }
+);
+const TempoGapsChart = dynamic(() => import("./TempoGapsChart"), { ssr: false });
 const HandSizePressureChart = dynamic(() => import("./HandSizePressureChart"), { ssr: false });
 const DeckCompositionChart = dynamic(() => import("./DeckCompositionChart"), { ssr: false });
+const TempoCurveTwoColumn = dynamic(() => import("./TempoCurveTwoColumn"), { ssr: false });
 
 type Props = {
   issue: string;
@@ -45,7 +31,7 @@ type Props = {
     { matchup: string; score: number; value?: number } |
     { mana: number; value: number; ideal?: number } |
     { turn: number; hand: number } |
-    { name: string; value: number; fill?: string }
+    { name: string; value: number; fill?: string; subtypes?: Array<{ name: string; value: number; fill?: string }> }
   >
 };
 
@@ -79,7 +65,7 @@ export default function InsightChart({ issue, data }: Props) {
       case "HAND_SIZE_PRESSURE":
         return "hand_size_pressure";
       case "BOARD_TEMPO_GAPS":
-        return "area";
+        return "tempo_curve";
       case "DECK_COMPOSITION":
         return "deck_composition";
       default:
@@ -129,11 +115,11 @@ export default function InsightChart({ issue, data }: Props) {
               🎯 Your Deck's Magic Power Balance
             </h3>
 
-            <ComposedChart
-              data={manaBalanceData}
-              margin={{ top: 60, right: 30, left: 30, bottom: 40 }}
-              height={300}
-            >
+            <ResponsiveContainer width="100%" height={300}>
+              <ComposedChart
+                data={manaBalanceData}
+                margin={{ top: 60, right: 30, left: 30, bottom: 40 }}
+              >
               <CartesianGrid strokeDasharray="2 2" stroke="#d97706" opacity={0.3} />
 
               {/* Horizontal reference line at y=0 */}
@@ -215,7 +201,8 @@ export default function InsightChart({ issue, data }: Props) {
                   return null;
                 }}
               />
-            </ComposedChart>
+              </ComposedChart>
+            </ResponsiveContainer>
 
             {/* Blue "gems" (circles) at the bottom with numbers */}
             <div style={{
@@ -335,81 +322,47 @@ export default function InsightChart({ issue, data }: Props) {
         );
       }
 
-      case "arcane_balance":
-        const radarData = data.map((item: any) => ({
-          subject: item.role || item.subject || item.metric || `Item ${data.indexOf(item) + 1}`,
-          value: item.value || item.count || item.current || 0,
-          fullMark: Math.max(...data.map((d: any) => d.value || d.count || d.current || 0)) + 2
-        }));
-        return (
-          <RadarChart data={radarData}>
-            <PolarGrid stroke="#8b5cf6" strokeWidth={1} />
-            <PolarAngleAxis
-              dataKey="subject"
-              tick={{ fill: "#7c3aed", fontSize: 11, fontFamily: "cursive" }}
-            />
-            <PolarRadiusAxis
-              angle={90}
-              domain={[0, 'dataMax + 2']}
-              tick={{ fill: "#7c3aed", fontSize: 10, fontFamily: "cursive" }}
-            />
-            <Radar
-              name="Card Count"
-              dataKey="value"
-              stroke="#f59e0b"
-              fill="#fef3c7"
-              fillOpacity={0.6}
-              {...sketchStyle}
-            />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "#fef3c7",
-                border: "2px solid #f59e0b",
-                borderRadius: "8px",
-                fontFamily: "cursive"
-              }}
-            />
-          </RadarChart>
-        );
-
       case "area":
+
         return (
-          <AreaChart data={data}>
-            <CartesianGrid
-              strokeDasharray="3 3"
-              stroke="#8b5cf6"
-              opacity={0.3}
-              strokeWidth={1}
-            />
-            <XAxis
-              dataKey="mana"
-              tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
-              axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
-              tickLine={{ stroke: "#a855f7" }}
-            />
-            <YAxis
-              tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
-              allowDecimals={false}
-              axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
-              tickLine={{ stroke: "#a855f7" }}
-            />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "#fef3c7",
-                border: "2px solid #f59e0b",
-                borderRadius: "8px",
-                fontFamily: "cursive"
-              }}
-            />
-            <Area
-              type="monotone"
-              dataKey="count"
-              stroke="#f59e0b"
-              fill="#fef3c7"
-              fillOpacity={0.8}
-              {...sketchStyle}
-            />
-          </AreaChart>
+          <ResponsiveContainer width="100%" height={360}>
+            <AreaChart data={data}>
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="#8b5cf6"
+                opacity={0.3}
+                strokeWidth={1}
+              />
+              <XAxis
+                dataKey="mana"
+                tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
+                axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
+                tickLine={{ stroke: "#a855f7" }}
+              />
+              <YAxis
+                tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
+                allowDecimals={false}
+                axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
+                tickLine={{ stroke: "#a855f7" }}
+              />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "#fef3c7",
+                  border: "2px solid #f59e0b",
+                  borderRadius: "8px",
+                  fontFamily: "cursive"
+                }}
+              />
+              <Area
+                type="monotone"
+                dataKey="count"
+                stroke="#f59e0b"
+                fill="#fef3c7"
+                fillOpacity={0.8}
+                {...sketchStyle}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
         );
 
       case "draw_rhythm": {
@@ -423,10 +376,15 @@ export default function InsightChart({ issue, data }: Props) {
 
       case "arcane_balance": {
         // Convert data to the expected format for ArcaneBalanceChart
+        const toPercent = (value: number) => {
+          if (Number.isNaN(value)) return 0;
+          return value > 1 ? Math.round(value) : Math.round(value * 100);
+        };
+
         const balanceData = data.map((item: any) => ({
           metric: item.metric || item.role || "Unknown",
-          ideal: Math.round((item.ideal || item.value || 50) * 100), // Convert to 0-100 scale
-          current: Math.round((item.current || item.value || 50) * 100), // Convert to 0-100 scale
+          ideal: toPercent(item.ideal ?? item.value ?? 50),
+          current: toPercent(item.current ?? item.value ?? 50),
         }));
 
         return (
@@ -494,6 +452,15 @@ export default function InsightChart({ issue, data }: Props) {
         );
       }
 
+      case "tempo_curve": {
+        return (
+          <TempoCurveTwoColumn
+            data={data as any}
+            height={400}
+          />
+        );
+      }
+
       case "hand_size_pressure": {
         return (
           <HandSizePressureChart
@@ -505,43 +472,45 @@ export default function InsightChart({ issue, data }: Props) {
 
       default: // bar chart
         return (
-          <BarChart data={data}>
-            <CartesianGrid
-              strokeDasharray="3 3"
-              stroke="#8b5cf6"
-              opacity={0.3}
-              strokeWidth={1}
-            />
-            <XAxis
-              dataKey="mana"
-              tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
-              axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
-              tickLine={{ stroke: "#a855f7" }}
-            />
-            <YAxis
-              tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
-              allowDecimals={false}
-              axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
-              tickLine={{ stroke: "#a855f7" }}
-            />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "#fef3c7",
-                border: "2px solid #f59e0b",
-                borderRadius: "8px",
-                fontFamily: "cursive"
-              }}
-            />
-            <Legend />
-            <Bar
-              dataKey="count"
-              name="Cards"
-              fill="#f59e0b"
-              stroke="#d97706"
-              radius={[8, 8, 0, 0]}
-              {...sketchStyle}
-            />
-          </BarChart>
+          <ResponsiveContainer width="100%" height={360}>
+            <BarChart data={data}>
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="#8b5cf6"
+                opacity={0.3}
+                strokeWidth={1}
+              />
+              <XAxis
+                dataKey="mana"
+                tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
+                axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
+                tickLine={{ stroke: "#a855f7" }}
+              />
+              <YAxis
+                tick={{ fill: "#7c3aed", fontSize: 12, fontFamily: "cursive" }}
+                allowDecimals={false}
+                axisLine={{ stroke: "#a855f7", strokeWidth: 2 }}
+                tickLine={{ stroke: "#a855f7" }}
+              />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "#fef3c7",
+                  border: "2px solid #f59e0b",
+                  borderRadius: "8px",
+                  fontFamily: "cursive"
+                }}
+              />
+              <Legend />
+              <Bar
+                dataKey="count"
+                name="Cards"
+                fill="#f59e0b"
+                stroke="#d97706"
+                radius={[8, 8, 0, 0]}
+                {...sketchStyle}
+              />
+            </BarChart>
+          </ResponsiveContainer>
         );
     }
   };

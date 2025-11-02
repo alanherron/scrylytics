@@ -29,12 +29,13 @@ export interface InsightResult {
 }
 
 // Build mana curve data with balance calculation (surplus/deficit vs ideal)
-function buildManaCurveData(curve: number[]): { mana: number; value: number; ideal: number }[] {
+function buildManaCurveData(curve: number[]): { mana: number; count: number; value: number; ideal: number }[] {
   // Ideal curve: balanced distribution favoring mid-range (2-4 mana)
   const idealCurve = [1, 2, 3, 3, 2, 1, 1, 0]; // Example ideal distribution
 
   return curve.map((count, mana) => ({
     mana,
+    count,
     value: count - (idealCurve[mana] || 0), // Balance: actual - ideal
     ideal: idealCurve[mana] || 0,
   }));
@@ -179,7 +180,7 @@ export function analyzeDeck(deck: DeckMeta): InsightResult {
     const handData = [7, 6, 5, 4, 3, 2, 1, 0];
     return {
       issue: "HAND_SIZE_PRESSURE",
-      data: handData.map((size, turn) => ({ mana: turn + 1, count: size })),
+      data: handData.map((size, turn) => ({ turn: turn + 1, hand: size })),
       caption: "Hand disruption cards are pressuring your hand size. Consider hand protection.",
       title: "Average Hand Size by Turn",
       grade: "Poor",
@@ -190,16 +191,26 @@ export function analyzeDeck(deck: DeckMeta): InsightResult {
   }
 
   if (key.includes("board control") || key.includes("tempo gaps")) {
-    const tempoData = [0, 2, 4, 6, 8, 6, 4, 2];
+    // Tempo curve data: mana cost, card count, actual power, ideal power
+    const tempoData = [
+      { mana: 0, count: 0, value: -1, ideal: 1 },
+      { mana: 1, count: 2, value: 0, ideal: 2 },
+      { mana: 2, count: 4, value: 1, ideal: 3 },
+      { mana: 3, count: 5, value: 2, ideal: 3.5 },
+      { mana: 4, count: 4, value: 2.2, ideal: 3.2 },
+      { mana: 5, count: 3, value: 2.4, ideal: 3.0 },
+      { mana: 6, count: 2, value: 2.6, ideal: 2.8 },
+      { mana: 7, count: 1, value: 2.7, ideal: 2.6 },
+    ];
     return {
       issue: "BOARD_TEMPO_GAPS",
-      data: buildManaCurveData(tempoData),
-      caption: "Strong board presence but tempo gaps allow opponents to stabilize.",
-      title: "Board Tempo/Presence by Turn",
+      data: tempoData,
+      caption: "Tempo curve shows your deck's momentum and board presence over the game.",
+      title: "Tempo Curve Analysis",
       grade: "Good",
       score: 7,
-      strengths: ["Strong board"],
-      weaknesses: ["Tempo gaps"]
+      strengths: ["Good early tempo", "Strong mid-game presence"],
+      weaknesses: ["Late game tempo dips"]
     };
   }
 
@@ -227,10 +238,46 @@ export function analyzeDeck(deck: DeckMeta): InsightResult {
   if (key.includes("deck composition") || key.includes("card types")) {
     // Deck composition data: breakdown by card type
     const compositionData = [
-      { name: "Minions", value: 16, fill: "#8884d8" },
-      { name: "Spells", value: 10, fill: "#82ca9d" },
-      { name: "Weapons", value: 4, fill: "#ffc658" },
-      { name: "Heroes", value: 1, fill: "#ff7300" }
+      {
+        name: "Minions",
+        value: 16,
+        fill: "#8884d8",
+        subtypes: [
+          { name: "Demons", value: 6, fill: "#7c3aed" },
+          { name: "Murlocs", value: 4, fill: "#60a5fa" },
+          { name: "Dragons", value: 3, fill: "#38bdf8" },
+          { name: "Other tribes", value: 3, fill: "#a78bfa" }
+        ]
+      },
+      {
+        name: "Spells",
+        value: 10,
+        fill: "#82ca9d",
+        subtypes: [
+          { name: "Arcane", value: 4, fill: "#34d399" },
+          { name: "Nature", value: 3, fill: "#10b981" },
+          { name: "Fire", value: 2, fill: "#f97316" },
+          { name: "Shadow", value: 1, fill: "#6366f1" }
+        ]
+      },
+      {
+        name: "Weapons",
+        value: 4,
+        fill: "#ffc658",
+        subtypes: [
+          { name: "Swords", value: 2, fill: "#facc15" },
+          { name: "Axes", value: 1, fill: "#fbbf24" },
+          { name: "Staves", value: 1, fill: "#f59e0b" }
+        ]
+      },
+      {
+        name: "Heroes",
+        value: 1,
+        fill: "#ff7300",
+        subtypes: [
+          { name: "Upgraded hero", value: 1, fill: "#fb7185" }
+        ]
+      }
     ];
     return {
       issue: "DECK_COMPOSITION",
