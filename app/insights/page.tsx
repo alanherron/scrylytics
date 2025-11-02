@@ -296,23 +296,6 @@ export default function InsightsPage() {
                           );
                         }
 
-                        case "mana_power_curve": {
-                          const hasData = Array.isArray(data);
-                          const hasLength = hasData && data.length > 0;
-                          return (
-                            <div>
-                              <strong>Mana Balance Chart Requirements:</strong>
-                              <ul>
-                                <li>Data is array: {hasData ? '✅' : '❌'}</li>
-                                <li>Each item has 'mana': {hasData && data.every(item => 'mana' in item) ? '✅' : '❌'}</li>
-                                <li>Each item has 'count': {hasData && data.every(item => 'count' in item) ? '✅' : '❌'}</li>
-                                <li>Data length &gt; 0: {hasLength ? '✅' : '❌'}</li>
-                                <li>Shows balance comparison: ✅ (Current vs Ideal mana curve)</li>
-                              </ul>
-                            </div>
-                          );
-                        }
-
                         case "draw_rhythm": {
                           const hasData = Array.isArray(data);
                           const hasLength = hasData && data.length > 0;
