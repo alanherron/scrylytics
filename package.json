@@ -6,20 +6,27 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "start": "next start"
+    "start": "next start",
+    "oracle:report": "tsx scripts/metaUpdateReporter.ts"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.9",
+    "@heroicons/react": "^2.2.0",
+    "@prisma/client": "^6.19.0",
+    "@tanstack/react-virtual": "^3.13.12",
     "deckstrings": "^3.1.2",
-    "framer-motion": "^11.0.3",
+    "framer-motion": "^11.18.2",
     "lucide-react": "^0.302.0",
     "next": "^15.0.0",
     "next-themes": "^0.2.1",
-    "openai": "^6.7.0",
+    "openai": "^6.8.1",
+    "prisma": "^6.19.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "recharts": "^3.3.0",
+    "sharp": "^0.34.5",
     "three": "^0.169.0",
-    "three.js": "^0.77.1"
+    "three.js": "^0.77.0"
   },
   "engines": {
     "node": ">=18.18.0"
@@ -29,10 +36,12 @@
     "@types/react": "^19.2.2",
     "@types/three": "^0.181.0",
     "autoprefixer": "^10.4.19",
+    "dotenv": "^16.4.5",
     "eslint": "^9.39.0",
     "eslint-config-next": "^16.0.1",
     "postcss": "^8.4.41",
-    "tailwindcss": "^3.4.14",
+    "tailwindcss": "^3.4.18",
+    "tsx": "^4.19.2",
     "typescript": "^5.9.3"
   }
 }

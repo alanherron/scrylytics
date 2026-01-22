@@ -1,0 +1,100 @@
+# GitHub Project Automation Configuration
+# Copy this file to config.yml and customize for your project
+
+# GitHub Project Settings
+project:
+  # Your GitHub username or organization
+  user: "your-username"
+  
+  # Your GitHub Project number (found in project URL)
+  project_id: "1"
+  
+  # Project URL (full URL to your GitHub project)
+  project_url: "https://github.com/users/your-username/projects/1"
+
+# Branch Protection Settings
+branches:
+  # Branches to protect
+  protected:
+    - name: "main"
+      required_reviews: 2
+      strict_status_checks: true
+    - name: "develop"
+      required_reviews: 1
+      strict_status_checks: true
+
+# Project Field Mappings
+# Maps GitHub labels to project fields
+field_mappings:
+  # Area field mappings (label:project_field)
+  area:
+    Library: "Library"
+    Deckbuilder: "Deckbuilder"
+    AI: "AI"
+    Infra: "Infra"
+    Design: "Design"
+    Docs: "Docs"
+  
+  # Priority field mappings
+  priority:
+    P0: "P0"
+    P1: "P1"
+    P2: "P2"
+    P3: "P3"
+  
+  # Status field mappings
+  status:
+    backlog: "Backlog"
+    "in-progress": "In Progress"
+
+# Auto-labeling Configuration
+# Maps file paths to labels
+labeler:
+  Library:
+    - "app/library/**"
+    - "components/library/**"
+  Deckbuilder:
+    - "app/deckbuilder/**"
+    - "components/deckbuilder/**"
+  AI:
+    - "app/ai/**"
+  Infra:
+    - ".github/**"
+    - "vercel.json"
+  Design:
+    - "public/**"
+    - "styles/**"
+  Docs:
+    - "**/*.md"
+
+# Deployment Settings
+deployment:
+  # Skip deployment keywords
+  skip_keywords:
+    - "[skip vercel]"
+    - "[no-deploy]"
+    - "[skip deploy]"
+  
+  # Paths that don't require deployment
+  skip_paths:
+    - "docs/"
+    - "README.md"
+    - "LICENSE"
+
+# Issue Template Settings
+issue_template:
+  areas:
+    - "Library"
+    - "Deckbuilder"
+    - "AI"
+    - "Infra"
+    - "Design"
+    - "Docs"
+  
+  priorities:
+    - "P0"
+    - "P1"
+    - "P2"
+    - "P3"
+  
+  default_priority: "P2"

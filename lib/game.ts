@@ -2,7 +2,7 @@ import type { DeckRecord } from '@/data/deck-editor';
 
 export type GameType = 'magic' | 'hearthstone';
 
-export const DEFAULT_GAME: GameType = 'magic';
+export const DEFAULT_GAME: GameType = 'hearthstone';
 
 export const GAME_OPTIONS: { value: GameType; label: string }[] = [
   { value: 'magic', label: 'Magic: The Gathering' },

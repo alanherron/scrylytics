@@ -1,0 +1,33 @@
+{
+  "name": "github-project-automation",
+  "version": "1.0.0",
+  "description": "AI-driven GitHub project tracking and automation system",
+  "keywords": [
+    "github",
+    "automation",
+    "project-management",
+    "ci-cd",
+    "github-actions",
+    "project-tracking"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "scripts": {
+    "install": "bash scripts/install.sh",
+    "setup-secrets": "bash scripts/setup-secrets.sh",
+    "setup-branches": "bash scripts/setup-branch-protection.sh"
+  },
+  "files": [
+    ".github/**/*",
+    "scripts/**/*",
+    "config.example.yml",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

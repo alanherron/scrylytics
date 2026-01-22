@@ -1,0 +1,33 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="aetherGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7E57C2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B39DDB;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="aetherGlow">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.4" />
+      <stop offset="50%" style="stop-color:#B39DDB;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#7E57C2;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  <circle cx="256" cy="256" r="256" fill="url(#aetherGradient)"/>
+  <!-- Radial glow from center -->
+  <circle cx="256" cy="256" r="200" fill="url(#aetherGlow)"/>
+  <!-- Prismatic crystal shape -->
+  <path d="M 256 120 L 320 200 L 300 280 L 256 360 L 212 280 L 192 200 Z" fill="#CE93D8" opacity="0.8"/>
+  <path d="M 256 120 L 300 200 L 280 260 L 256 320 L 232 260 L 212 200 Z" fill="#E1BEE7" opacity="0.7"/>
+  <!-- Crystal facets -->
+  <line x1="256" y1="120" x2="256" y2="360" stroke="#FFFFFF" stroke-width="2" opacity="0.4"/>
+  <line x1="192" y1="200" x2="320" y2="200" stroke="#FFFFFF" stroke-width="2" opacity="0.3"/>
+  <line x1="212" y1="280" x2="300" y2="280" stroke="#FFFFFF" stroke-width="2" opacity="0.3"/>
+  <!-- Inner highlight -->
+  <circle cx="256" cy="240" r="40" fill="#FFFFFF" opacity="0.2"/>
+</svg>
+
+
+
+
+
+
+
+

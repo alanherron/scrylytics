@@ -1,0 +1,25 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="earthGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#3E2723;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6D4C41;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <circle cx="256" cy="256" r="256" fill="url(#earthGradient)"/>
+  <!-- Layered strata pattern -->
+  <path d="M 80 200 Q 256 180 432 200 L 432 240 Q 256 220 80 240 Z" fill="#4E342E" opacity="0.6"/>
+  <path d="M 80 280 Q 256 260 432 280 L 432 320 Q 256 300 80 320 Z" fill="#5D4037" opacity="0.5"/>
+  <path d="M 80 360 Q 256 340 432 360 L 432 400 Q 256 380 80 400 Z" fill="#4E342E" opacity="0.4"/>
+  <!-- Geometric strata lines -->
+  <line x1="100" y1="220" x2="412" y2="220" stroke="#3E2723" stroke-width="2" opacity="0.3"/>
+  <line x1="120" y1="300" x2="392" y2="300" stroke="#3E2723" stroke-width="2" opacity="0.3"/>
+  <line x1="140" y1="380" x2="372" y2="380" stroke="#3E2723" stroke-width="2" opacity="0.3"/>
+</svg>
+
+
+
+
+
+
+
+

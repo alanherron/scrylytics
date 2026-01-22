@@ -306,8 +306,8 @@ export default async function Page() {
           <h2 className="font-display text-2xl">Historical Snapshots</h2>
         </header>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {meta.history.slice(0, 6).map((snapshot) => (
-            <div key={snapshot.timestamp} className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/70">
+          {meta.history.slice(0, 6).map((snapshot, index) => (
+            <div key={`${snapshot.timestamp}-${String(index)}`} className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/70">
               <p className="text-xs uppercase tracking-wide text-white/40">Captured</p>
               <p className="font-semibold text-white/90">{new Date(snapshot.timestamp).toLocaleString()}</p>
               <div className="mt-3 space-y-2 text-xs">

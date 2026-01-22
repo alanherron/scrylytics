@@ -25,9 +25,11 @@ const GameContext = createContext<GameContextValue | undefined>(undefined);
 
 export function GameProvider({ children }: { children: ReactNode }) {
   const [game, setGameState] = useState<GameType>(() => {
-    if (typeof window === 'undefined') return DEFAULT_GAME;
+    // Always default to Hearthstone for now
+    if (typeof window === 'undefined') return 'hearthstone';
+    // Check localStorage, but default to Hearthstone if not set or invalid
     const stored = window.localStorage.getItem(GAME_STORAGE_KEY);
-    return isGameType(stored) ? stored : DEFAULT_GAME;
+    return isGameType(stored) ? stored : 'hearthstone';
   });
 
   const setGame = useCallback((next: GameType) => {

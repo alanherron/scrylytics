@@ -4,24 +4,33 @@
 
 :root { color-scheme: dark light; }
 html, body { height: 100%; }
-/* Theme variables for light/dark */
+/* Theme variables for light/dark - Updated to Scrylytics Theme */
 :root {
-  --bg:#0b0b10;
-  --ink:#e9e7f2;
-  --ink-rgb:233 231 242;
-  --color-white:233 231 242;
+  --bg: #0F1114;
+  --ink: #FFFFFF;
+  --ink-rgb: 255 255 255;
+  --color-white: 255 255 255;
+  --surface: #1A1C20;
+  --text-muted: #9CA3AF;
+  --border: rgba(255,255,255,0.08);
 }
 .light {
-  --bg:#f7f7fb;
-  --ink:#0e0e12;
-  --ink-rgb:14 14 18;
-  --color-white:14 14 18;
+  --bg: #FFFFFF;
+  --ink: #0F1114;
+  --ink-rgb: 15 17 20;
+  --color-white: 15 17 20;
+  --surface: #F5F5F7;
+  --text-muted: #6B7280;
+  --border: rgba(0,0,0,0.08);
 }
 .dark {
-  --bg:#0b0b10;
-  --ink:#e9e7f2;
-  --ink-rgb:233 231 242;
-  --color-white:233 231 242;
+  --bg: #0F1114;
+  --ink: #FFFFFF;
+  --ink-rgb: 255 255 255;
+  --color-white: 255 255 255;
+  --surface: #1A1C20;
+  --text-muted: #9CA3AF;
+  --border: rgba(255,255,255,0.08);
 }
 body {
   background: var(--bg);

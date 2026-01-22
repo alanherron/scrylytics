@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getHearthstoneMeta } from '@/lib/services/hearthstoneMeta';
 
 export const runtime = 'nodejs';

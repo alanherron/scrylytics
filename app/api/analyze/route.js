@@ -2,8 +2,8 @@
 // Uses OpenAI GPT-4 with HearthstoneJSON data for intelligent deck analysis
 
 import OpenAI from 'openai';
-import { fetchAllCards, parseDeckCode, validateDeck, getCardSynergies, calculateDeckStats } from '../../../lib/hearthstone.js';
-import { parseMagicDeckList, validateMagicDeck, calculateMagicStats, getMagicSynergies, getCardByName, getCardImageUrl } from '../../../lib/magic.js';
+import { parseDeckCode } from '../../../lib/hearthstone.js';
+import { parseMagicDeckList, getCardByName } from '../../../lib/magic.js';
 import guard from '../../../src/analyzer/guard.cjs';
 
 let openai = null;
@@ -34,11 +34,11 @@ export async function POST(request) {
     console.log('AI analysis completed successfully');
 
     // Return analysis immediately with placeholder images
-    const placeholderImages = getPlaceholderImages(deckCode.trim(), gameType, initialAnalysis);
+    const placeholderImages = getPlaceholderImages(deckCode.trim(), gameType);
     initialAnalysis.cardImages = placeholderImages;
 
     // Start background loading of real images (don't wait for it)
-    loadRealImagesInBackground(deckCode.trim(), gameType, initialAnalysis).catch(err => {
+    loadRealImagesInBackground(deckCode.trim(), gameType).catch(err => {
       console.warn('Background image loading failed:', err.message);
     });
 
@@ -387,7 +387,7 @@ async function getCardImages(deckCode, gameType, deckData) {
 }
 
 // Get placeholder images for immediate display
-function getPlaceholderImages(deckCode, gameType, analysis) {
+function getPlaceholderImages(deckCode, gameType) {
   const placeholders = [];
 
   // Try to parse deck to get card count
@@ -420,7 +420,7 @@ function getPlaceholderImages(deckCode, gameType, analysis) {
 }
 
 // Background loading of real images (doesn't block response)
-async function loadRealImagesInBackground(deckCode, gameType, analysis) {
+async function loadRealImagesInBackground(deckCode, gameType) {
   try {
     console.log('Starting background image loading...');
 

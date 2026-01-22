@@ -2,7 +2,7 @@
   "version": 1,
   "cards": {
     "locale": "enUS",
-    "updatedAt": "2025-11-02T20:00:14.062Z",
+    "updatedAt": "2025-11-07T23:05:13.823Z",
     "data": {
       "7": {
         "id": "HERO_01",
@@ -366571,6 +366571,1133 @@
     }
   },
   "meta": {
+    "standard:ALL:DIAMOND_THROUGH_LEGEND:LAST_7_DAYS:enUS": {
+      "updatedAt": "2025-01-15T08:00:00Z",
+      "latest": [
+        {
+          "id": 1001,
+          "name": "Control Warrior",
+          "class": "warrior",
+          "winRate": 54.8,
+          "popularity": 8.6,
+          "deckCodes": [
+            "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+          ],
+          "sampleSize": 18234,
+          "totalGames": 18234,
+          "cardBreakdown": [
+            {
+              "id": "CS2_108",
+              "dbfId": 785,
+              "name": "Execute",
+              "manaCost": 1,
+              "type": "SPELL",
+              "class": "WARRIOR",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/CS2_108.png",
+              "count": 2
+            },
+            {
+              "id": "EX1_606",
+              "dbfId": 1023,
+              "name": "Shield Block",
+              "manaCost": 2,
+              "type": "SPELL",
+              "class": "WARRIOR",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/EX1_606.png",
+              "count": 2
+            },
+            {
+              "id": "EX1_407",
+              "dbfId": 75,
+              "name": "Brawl",
+              "manaCost": 5,
+              "type": "SPELL",
+              "class": "WARRIOR",
+              "rarity": "EPIC",
+              "set": "EXPERT1",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/EX1_407.png",
+              "count": 2
+            },
+            {
+              "id": "EX1_410",
+              "dbfId": 546,
+              "name": "Shield Slam",
+              "manaCost": 1,
+              "type": "SPELL",
+              "class": "WARRIOR",
+              "rarity": "EPIC",
+              "set": "EXPERT1",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/EX1_410.png",
+              "count": 2
+            },
+            {
+              "id": "CS2_106",
+              "dbfId": 401,
+              "name": "Fiery War Axe",
+              "manaCost": 2,
+              "type": "WEAPON",
+              "class": "WARRIOR",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/CS2_106.png",
+              "count": 2
+            },
+            {
+              "id": "EX1_402",
+              "dbfId": 596,
+              "name": "Armorsmith",
+              "manaCost": 2,
+              "type": "MINION",
+              "class": "WARRIOR",
+              "rarity": "RARE",
+              "set": "EXPERT1",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/EX1_402.png",
+              "count": 2
+            },
+            {
+              "id": "EX1_007",
+              "dbfId": 1659,
+              "name": "Acolyte of Pain",
+              "manaCost": 3,
+              "type": "MINION",
+              "class": "NEUTRAL",
+              "rarity": "COMMON",
+              "set": "EXPERT1",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/EX1_007.png",
+              "count": 2
+            },
+            {
+              "id": "EX1_411",
+              "dbfId": 810,
+              "name": "Gorehowl",
+              "manaCost": 7,
+              "type": "WEAPON",
+              "class": "WARRIOR",
+              "rarity": "EPIC",
+              "set": "EXPERT1",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/EX1_411.png",
+              "count": 1
+            },
+            {
+              "id": "OG_149",
+              "dbfId": 38530,
+              "name": "Ravaging Ghoul",
+              "manaCost": 3,
+              "type": "MINION",
+              "class": "WARRIOR",
+              "rarity": "COMMON",
+              "set": "OG",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/OG_149.png",
+              "count": 2
+            },
+            {
+              "id": "GVG_053",
+              "dbfId": 2021,
+              "name": "Shieldmaiden",
+              "manaCost": 5,
+              "type": "MINION",
+              "class": "WARRIOR",
+              "rarity": "RARE",
+              "set": "GVG",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/GVG_053.png",
+              "count": 2
+            },
+            {
+              "id": "LOOT_364",
+              "dbfId": 46026,
+              "name": "Reckless Flurry",
+              "manaCost": 3,
+              "type": "SPELL",
+              "class": "WARRIOR",
+              "rarity": "EPIC",
+              "set": "LOOTAPALOOZA",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/LOOT_364.png",
+              "count": 2
+            },
+            {
+              "id": "LOOT_044",
+              "dbfId": 43277,
+              "name": "Bladed Gauntlet",
+              "manaCost": 2,
+              "type": "WEAPON",
+              "class": "WARRIOR",
+              "rarity": "EPIC",
+              "set": "LOOTAPALOOZA",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/LOOT_044.png",
+              "count": 1
+            },
+            {
+              "id": "CFM_716",
+              "dbfId": 41414,
+              "name": "Sleep with the Fishes",
+              "manaCost": 2,
+              "type": "SPELL",
+              "class": "WARRIOR",
+              "rarity": "EPIC",
+              "set": "GANGS",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/CFM_716.png",
+              "count": 2
+            },
+            {
+              "id": "GIL_580",
+              "dbfId": 47133,
+              "name": "Town Crier",
+              "manaCost": 1,
+              "type": "MINION",
+              "class": "WARRIOR",
+              "rarity": "EPIC",
+              "set": "GILNEAS",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/GIL_580.png",
+              "count": 2
+            },
+            {
+              "id": "ICC_466",
+              "dbfId": 42395,
+              "name": "Saronite Chain Gang",
+              "manaCost": 4,
+              "type": "MINION",
+              "class": "NEUTRAL",
+              "rarity": "RARE",
+              "set": "ICECROWN",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/ICC_466.png",
+              "count": 2
+            },
+            {
+              "id": "BOT_548",
+              "dbfId": 49184,
+              "name": "Zilliax",
+              "manaCost": 5,
+              "type": "MINION",
+              "class": "NEUTRAL",
+              "rarity": "LEGENDARY",
+              "set": "BOOMSDAY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/BOT_548.png",
+              "count": 1
+            },
+            {
+              "id": "BOT_238",
+              "dbfId": 48146,
+              "name": "Dr. Boom, Mad Genius",
+              "manaCost": 7,
+              "type": "HERO",
+              "class": "WARRIOR",
+              "rarity": "LEGENDARY",
+              "set": "BOOMSDAY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/BOT_238.png",
+              "count": 1
+            }
+          ],
+          "heroDbfIds": [
+            7
+          ],
+          "trend": {
+            "winRateDelta": 0,
+            "popularityDelta": 0
+          },
+          "sources": {
+            "archetypeId": 1001,
+            "hsReplayUrl": "file:///Users/alanherron/Documents/GitHub/scrylytics/data/samples/hsreplay-standard.json"
+          }
+        },
+        {
+          "id": 1002,
+          "name": "Beast Hunter",
+          "class": "hunter",
+          "winRate": 53.2,
+          "popularity": 7.8,
+          "deckCodes": [
+            "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+          ],
+          "sampleSize": 16212,
+          "totalGames": 16212,
+          "cardBreakdown": [
+            {
+              "id": "EX1_539",
+              "dbfId": 296,
+              "name": "Kill Command",
+              "manaCost": 3,
+              "type": "SPELL",
+              "class": "HUNTER",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/EX1_539.png",
+              "count": 2
+            },
+            {
+              "id": "NEW1_031",
+              "dbfId": 437,
+              "name": "Animal Companion",
+              "manaCost": 3,
+              "type": "SPELL",
+              "class": "HUNTER",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/NEW1_031.png",
+              "count": 2
+            },
+            {
+              "id": "EX1_536",
+              "dbfId": 1662,
+              "name": "Eaglehorn Bow",
+              "manaCost": 3,
+              "type": "WEAPON",
+              "class": "HUNTER",
+              "rarity": "RARE",
+              "set": "EXPERT1",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/EX1_536.png",
+              "count": 2
+            },
+            {
+              "id": "EX1_534",
+              "dbfId": 1261,
+              "name": "Savannah Highmane",
+              "manaCost": 6,
+              "type": "MINION",
+              "class": "HUNTER",
+              "rarity": "RARE",
+              "set": "EXPERT1",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/EX1_534.png",
+              "count": 2
+            },
+            {
+              "id": "DS1_184",
+              "dbfId": 1047,
+              "name": "Tracking",
+              "manaCost": 1,
+              "type": "SPELL",
+              "class": "HUNTER",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/DS1_184.png",
+              "count": 2
+            },
+            {
+              "id": "BRM_013",
+              "dbfId": 2260,
+              "name": "Quick Shot",
+              "manaCost": 2,
+              "type": "SPELL",
+              "class": "HUNTER",
+              "rarity": "COMMON",
+              "set": "BRM",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/BRM_013.png",
+              "count": 2
+            },
+            {
+              "id": "EX1_538",
+              "dbfId": 1243,
+              "name": "Unleash the Hounds",
+              "manaCost": 3,
+              "type": "SPELL",
+              "class": "HUNTER",
+              "rarity": "COMMON",
+              "set": "EXPERT1",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/EX1_538.png",
+              "count": 2
+            },
+            {
+              "id": "EX1_610",
+              "dbfId": 585,
+              "name": "Explosive Trap",
+              "manaCost": 2,
+              "type": "SPELL",
+              "class": "HUNTER",
+              "rarity": "COMMON",
+              "set": "EXPERT1",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/EX1_610.png",
+              "count": 2
+            },
+            {
+              "id": "DS1_070",
+              "dbfId": 1003,
+              "name": "Houndmaster",
+              "manaCost": 4,
+              "type": "MINION",
+              "class": "HUNTER",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/DS1_070.png",
+              "count": 2
+            },
+            {
+              "id": "DS1_185",
+              "dbfId": 877,
+              "name": "Arcane Shot",
+              "manaCost": 1,
+              "type": "SPELL",
+              "class": "HUNTER",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/DS1_185.png",
+              "count": 2
+            },
+            {
+              "id": "LOOT_222",
+              "dbfId": 45537,
+              "name": "Candleshot",
+              "manaCost": 1,
+              "type": "WEAPON",
+              "class": "HUNTER",
+              "rarity": "COMMON",
+              "set": "LOOTAPALOOZA",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/LOOT_222.png",
+              "count": 2
+            },
+            {
+              "id": "EX1_531",
+              "dbfId": 1281,
+              "name": "Scavenging Hyena",
+              "manaCost": 2,
+              "type": "MINION",
+              "class": "HUNTER",
+              "rarity": "COMMON",
+              "set": "EXPERT1",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/EX1_531.png",
+              "count": 2
+            },
+            {
+              "id": "CS2_124",
+              "dbfId": 289,
+              "name": "Wolfrider",
+              "manaCost": 3,
+              "type": "MINION",
+              "class": "NEUTRAL",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/CS2_124.png",
+              "count": 2
+            },
+            {
+              "id": "EX1_116",
+              "dbfId": 559,
+              "name": "Leeroy Jenkins",
+              "manaCost": 5,
+              "type": "MINION",
+              "class": "NEUTRAL",
+              "rarity": "LEGENDARY",
+              "set": "EXPERT1",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/EX1_116.png",
+              "count": 1
+            },
+            {
+              "id": "DS1_175",
+              "dbfId": 606,
+              "name": "Timber Wolf",
+              "manaCost": 1,
+              "type": "MINION",
+              "class": "HUNTER",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/DS1_175.png",
+              "count": 2
+            },
+            {
+              "id": "CS2_084",
+              "dbfId": 141,
+              "name": "Hunter's Mark",
+              "manaCost": 1,
+              "type": "SPELL",
+              "class": "HUNTER",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/CS2_084.png",
+              "count": 1
+            }
+          ],
+          "heroDbfIds": [
+            31
+          ],
+          "trend": {
+            "winRateDelta": 0,
+            "popularityDelta": 0
+          },
+          "sources": {
+            "archetypeId": 1002,
+            "hsReplayUrl": "file:///Users/alanherron/Documents/GitHub/scrylytics/data/samples/hsreplay-standard.json"
+          }
+        },
+        {
+          "id": 1003,
+          "name": "Tempo Mage",
+          "class": "mage",
+          "winRate": 56.6,
+          "popularity": 9.4,
+          "deckCodes": [
+            "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+          ],
+          "sampleSize": 21488,
+          "totalGames": 21488,
+          "cardBreakdown": [
+            {
+              "id": "CS2_024",
+              "dbfId": 662,
+              "name": "Frostbolt",
+              "manaCost": 2,
+              "type": "SPELL",
+              "class": "MAGE",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/CS2_024.png",
+              "count": 2
+            },
+            {
+              "id": "CS2_029",
+              "dbfId": 315,
+              "name": "Fireball",
+              "manaCost": 4,
+              "type": "SPELL",
+              "class": "MAGE",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/CS2_029.png",
+              "count": 2
+            },
+            {
+              "id": "CS2_023",
+              "dbfId": 555,
+              "name": "Arcane Intellect",
+              "manaCost": 3,
+              "type": "SPELL",
+              "class": "MAGE",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/CS2_023.png",
+              "count": 2
+            },
+            {
+              "id": "CS2_022",
+              "dbfId": 77,
+              "name": "Polymorph",
+              "manaCost": 4,
+              "type": "SPELL",
+              "class": "MAGE",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/CS2_022.png",
+              "count": 2
+            },
+            {
+              "id": "CS2_032",
+              "dbfId": 1004,
+              "name": "Flamestrike",
+              "manaCost": 7,
+              "type": "SPELL",
+              "class": "MAGE",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/CS2_032.png",
+              "count": 2
+            },
+            {
+              "id": "EX1_608",
+              "dbfId": 614,
+              "name": "Sorcerer's Apprentice",
+              "manaCost": 2,
+              "type": "MINION",
+              "class": "MAGE",
+              "rarity": "COMMON",
+              "set": "EXPERT1",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/EX1_608.png",
+              "count": 2
+            },
+            {
+              "id": "NEW1_012",
+              "dbfId": 405,
+              "name": "Mana Wyrm",
+              "manaCost": 1,
+              "type": "MINION",
+              "class": "MAGE",
+              "rarity": "COMMON",
+              "set": "EXPERT1",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/NEW1_012.png",
+              "count": 2
+            },
+            {
+              "id": "EX1_277",
+              "dbfId": 564,
+              "name": "Arcane Missiles",
+              "manaCost": 1,
+              "type": "SPELL",
+              "class": "MAGE",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/EX1_277.png",
+              "count": 2
+            },
+            {
+              "id": "UNG_941",
+              "dbfId": 41496,
+              "name": "Primordial Glyph",
+              "manaCost": 2,
+              "type": "SPELL",
+              "class": "MAGE",
+              "rarity": "EPIC",
+              "set": "UNGORO",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/UNG_941.png",
+              "count": 2
+            },
+            {
+              "id": "LOOT_108",
+              "dbfId": 43426,
+              "name": "Aluneth",
+              "manaCost": 6,
+              "type": "WEAPON",
+              "class": "MAGE",
+              "rarity": "LEGENDARY",
+              "set": "LOOTAPALOOZA",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/LOOT_108.png",
+              "count": 1
+            },
+            {
+              "id": "UNG_020",
+              "dbfId": 41153,
+              "name": "Arcanologist",
+              "manaCost": 2,
+              "type": "MINION",
+              "class": "MAGE",
+              "rarity": "COMMON",
+              "set": "UNGORO",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/UNG_020.png",
+              "count": 2
+            },
+            {
+              "id": "CS2_027",
+              "dbfId": 1084,
+              "name": "Mirror Image",
+              "manaCost": 1,
+              "type": "SPELL",
+              "class": "MAGE",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/CS2_027.png",
+              "count": 2
+            },
+            {
+              "id": "CS2_026",
+              "dbfId": 587,
+              "name": "Frost Nova",
+              "manaCost": 3,
+              "type": "SPELL",
+              "class": "MAGE",
+              "rarity": "FREE",
+              "set": "LEGACY",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/CS2_026.png",
+              "count": 2
+            },
+            {
+              "id": "LOOT_101",
+              "dbfId": 43407,
+              "name": "Explosive Runes",
+              "manaCost": 3,
+              "type": "SPELL",
+              "class": "MAGE",
+              "rarity": "RARE",
+              "set": "LOOTAPALOOZA",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/LOOT_101.png",
+              "count": 2
+            },
+            {
+              "id": "EX1_287",
+              "dbfId": 113,
+              "name": "Counterspell",
+              "manaCost": 3,
+              "type": "SPELL",
+              "class": "MAGE",
+              "rarity": "RARE",
+              "set": "EXPERT1",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/EX1_287.png",
+              "count": 2
+            },
+            {
+              "id": "KAR_076",
+              "dbfId": 39715,
+              "name": "Firelands Portal",
+              "manaCost": 7,
+              "type": "SPELL",
+              "class": "MAGE",
+              "rarity": "COMMON",
+              "set": "KARA",
+              "image": "https://art.hearthstonejson.com/v1/render/latest/enUS/512x/KAR_076.png",
+              "count": 1
+            }
+          ],
+          "heroDbfIds": [
+            637
+          ],
+          "trend": {
+            "winRateDelta": 0,
+            "popularityDelta": 0
+          },
+          "sources": {
+            "archetypeId": 1003,
+            "hsReplayUrl": "file:///Users/alanherron/Documents/GitHub/scrylytics/data/samples/hsreplay-standard.json"
+          }
+        }
+      ],
+      "history": [
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        }
+      ],
+      "params": {
+        "format": "standard",
+        "region": "ALL",
+        "rankRange": "DIAMOND_THROUGH_LEGEND",
+        "timeRange": "LAST_7_DAYS",
+        "locale": "enUS",
+        "hsReplayUrl": "file:///Users/alanherron/Documents/GitHub/scrylytics/data/samples/hsreplay-standard.json"
+      },
+      "lastError": "Request failed: 400 Bad Request"
+    },
     "standard:ALL:ALL:LAST_7_DAYS:enUS": {
       "updatedAt": "2025-01-15T08:00:00Z",
       "latest": [
@@ -366795,8 +367922,8 @@
             7
           ],
           "trend": {
-            "winRateDelta": null,
-            "popularityDelta": null
+            "winRateDelta": 0,
+            "popularityDelta": 0
           },
           "sources": {
             "archetypeId": 1001,
@@ -367012,8 +368139,8 @@
             31
           ],
           "trend": {
-            "winRateDelta": null,
-            "popularityDelta": null
+            "winRateDelta": 0,
+            "popularityDelta": 0
           },
           "sources": {
             "archetypeId": 1002,
@@ -367229,8 +368356,8 @@
             637
           ],
           "trend": {
-            "winRateDelta": null,
-            "popularityDelta": null
+            "winRateDelta": 0,
+            "popularityDelta": 0
           },
           "sources": {
             "archetypeId": 1003,
@@ -367239,6 +368366,422 @@
         }
       ],
       "history": [
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
+        {
+          "timestamp": "2025-01-15T08:00:00Z",
+          "archetypes": [
+            {
+              "id": 1001,
+              "name": "Control Warrior",
+              "winRate": 54.8,
+              "popularity": 8.6,
+              "deckCodes": [
+                "AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA="
+              ]
+            },
+            {
+              "id": 1002,
+              "name": "Beast Hunter",
+              "winRate": 53.2,
+              "popularity": 7.8,
+              "deckCodes": [
+                "AAECAR8CjQGvBA6hAqgCtQPJBN4E7QbrB5cI2wntCYEK/gzUEeHjAgAA"
+              ]
+            },
+            {
+              "id": 1003,
+              "name": "Tempo Mage",
+              "winRate": 56.6,
+              "popularity": 9.4,
+              "deckCodes": [
+                "AAECAf0EAqO2AqLTAg5NcbsClQOrBLQEywTmBJYF7Ae8CMHBApjEAo/TAgAA"
+              ]
+            }
+          ]
+        },
         {
           "timestamp": "2025-01-15T08:00:00Z",
           "archetypes": [
@@ -367280,7 +368823,7 @@
         "locale": "enUS",
         "hsReplayUrl": "file:///Users/alanherron/Documents/GitHub/scrylytics/data/samples/hsreplay-standard.json"
       },
-      "lastError": "Request failed: 400 Bad Request"
+      "lastError": "Dynamic server usage: Route /metalytics couldn't be rendered statically because it used revalidate: 0 fetch https://hsreplay.net/analytics/query/list_decks_by_win_rate/?GameType=RANKED_STANDARD&Region=ALL&RankRange=ALL&TimeRange=LAST_7_DAYS&format=json /metalytics. See more info here: https://nextjs.org/docs/messages/dynamic-server-error"
     }
   }
 }

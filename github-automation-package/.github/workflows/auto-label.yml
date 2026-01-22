@@ -1,0 +1,28 @@
+name: Auto Label
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  CONNECT_TIMEOUT: 5
+  MAX_TIME: 30
+  RETRY_COUNT: 5
+  RETRY_MAX_TIME: 40
+  SPEED_TIME: 10
+  SPEED_LIMIT: 1024
+  EXPECT100_TIMEOUT: 2
+  BACKOFF_BASE: 1
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/labeler@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/labeler.yml

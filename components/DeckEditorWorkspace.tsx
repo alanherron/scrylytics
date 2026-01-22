@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ArchiveRestore,
   DownloadCloud,
@@ -17,7 +17,7 @@ import {
   Clock3,
   ChevronRight,
 } from 'lucide-react';
-import type { DeckRecord, MetaDeck } from '@/data/deck-editor';
+import type { DeckCard, DeckRecord, MetaDeck } from '@/data/deck-editor';
 import { META_DECKS, SAVED_DECKS } from '@/data/deck-editor';
 import { useGame } from '@/context/GameContext';
 import { formatToGameType, GAME_OPTIONS, getGameLabel, type GameType } from '@/lib/game';
@@ -156,9 +156,12 @@ function createDeckFromMeta(meta: MetaDeck): DeckRecord {
 }
 
 export default function DeckEditorWorkspace({ onApplyToAnalyzer }: DeckEditorWorkspaceProps) {
-  const [savedDecks, setSavedDecks] = useState<DeckRecord[]>(SAVED_DECKS);
-  const [activeDeck, setActiveDeck] = useState<DeckRecord>(SAVED_DECKS[0]);
   const { game: selectedGame, setGame } = useGame();
+  const [savedDecks, setSavedDecks] = useState<DeckRecord[]>(SAVED_DECKS);
+  
+  // Initialize with a consistent default to avoid hydration mismatch
+  // Always start with the first deck, then update after hydration
+  const [activeDeck, setActiveDeck] = useState<DeckRecord>(SAVED_DECKS[0]);
   const [showSavedPicker, setShowSavedPicker] = useState(false);
   const [showMetaPicker, setShowMetaPicker] = useState(false);
   const [toast, setToast] = useState<ToastState>(null);
@@ -186,6 +189,73 @@ export default function DeckEditorWorkspace({ onApplyToAnalyzer }: DeckEditorWor
     [sideboardSection],
   );
 
+  // Validation helper functions (defined before useMemo hooks that use them)
+  const isLegendaryCard = useCallback((card: DeckCard): boolean => {
+    return card.tags?.includes('legendary') ?? false;
+  }, []);
+
+  const getCardCountInDeck = useCallback((deck: DeckRecord, cardName: string): number => {
+    return deck.sections.reduce((total, section) => {
+      const card = section.cards.find((c) => c.name === cardName);
+      return total + (card?.count ?? 0);
+    }, 0);
+  }, []);
+
+  // Deck validation
+  const deckValidation = useMemo(() => {
+    const issues: string[] = [];
+    const warnings: string[] = [];
+    const cardCounts = new Map<string, number>();
+
+    // Count all cards
+    mainSections.forEach((section) => {
+      section.cards.forEach((card) => {
+        const current = cardCounts.get(card.name) ?? 0;
+        cardCounts.set(card.name, current + card.count);
+      });
+    });
+
+    // Check deck size
+    if (selectedGame === 'hearthstone') {
+      if (totalMainCount < 30) {
+        issues.push(`Deck must have exactly 30 cards (currently ${totalMainCount})`);
+      } else if (totalMainCount > 30) {
+        issues.push(`Deck exceeds 30 cards (currently ${totalMainCount})`);
+      }
+    } else if (selectedGame === 'magic') {
+      // Magic decks need 60+ cards (except Commander which uses 100)
+      if (totalMainCount < 60) {
+        issues.push(`Main deck must have at least 60 cards (currently ${totalMainCount})`);
+      }
+      if (sideboardCount > 15) {
+        warnings.push(`Sideboard exceeds 15 cards (currently ${sideboardCount})`);
+      }
+    }
+
+    // Check copy limits
+    cardCounts.forEach((count, cardName) => {
+      const card = mainSections
+        .flatMap((s) => s.cards)
+        .find((c) => c.name === cardName);
+      if (!card) return;
+
+      const isLegendary = isLegendaryCard(card);
+      const maxCopies = selectedGame === 'hearthstone' ? (isLegendary ? 1 : 2) : 4;
+
+      if (count > maxCopies) {
+        issues.push(`${cardName}: ${count} copies (max ${maxCopies}${isLegendary ? ' for Legendary' : ''})`);
+      } else if (count === maxCopies && selectedGame === 'hearthstone' && !isLegendary) {
+        // Optional: show info that card is at max
+      }
+    });
+
+    return {
+      valid: issues.length === 0,
+      issues,
+      warnings,
+    };
+  }, [mainSections, totalMainCount, sideboardCount, selectedGame, activeDeck.format, isLegendaryCard]);
+
   const filteredSavedDecks = useMemo(
     () => savedDecks.filter((deck) => formatToGameType(deck.format) === selectedGame),
     [savedDecks, selectedGame],
@@ -201,6 +271,9 @@ export default function DeckEditorWorkspace({ onApplyToAnalyzer }: DeckEditorWor
   const activeDeckGame = formatToGameType(activeDeck.format);
 
   const curveBuckets = ensureCurveBuckets(activeDeck.snapshot.curve.map((bucket) => bucket.label));
+  
+  // Track if this is the initial mount to avoid showing toast on hydration
+  const [isInitialMount, setIsInitialMount] = useState(true);
 
   const derivedCurve = useMemo(() => {
     const bucketValues = new Map<string, number>();
@@ -225,24 +298,106 @@ export default function DeckEditorWorkspace({ onApplyToAnalyzer }: DeckEditorWor
     return () => clearTimeout(timer);
   }, [toast]);
 
+  // Update deck to match selected game after hydration
   useEffect(() => {
-    if (activeDeckGame === selectedGame) return;
+    const currentDeckGame = formatToGameType(activeDeck.format);
+    if (currentDeckGame === selectedGame) {
+      // Mark initial mount as complete once we've matched
+      if (isInitialMount) {
+        setIsInitialMount(false);
+      }
+      return;
+    }
     const nextDeck = savedDecks.find((deck) => formatToGameType(deck.format) === selectedGame);
     if (nextDeck) {
       setActiveDeck(nextDeck);
+      // Only show toast if this isn't the initial mount (to avoid hydration noise)
+      if (!isInitialMount) {
+        setToast({ title: 'Deck switched', description: `Loaded ${nextDeck.name} for ${selectedGameLabel}.` });
+      } else {
+        setIsInitialMount(false);
+      }
     }
-  }, [activeDeckGame, savedDecks, selectedGame]);
+  }, [activeDeck.format, savedDecks, selectedGame, selectedGameLabel, isInitialMount]);
+
+  const validateCardAddition = (deck: DeckRecord, cardName: string, newCount: number): { valid: boolean; message?: string } => {
+    const currentCount = getCardCountInDeck(deck, cardName);
+    const card = deck.sections
+      .flatMap((s) => s.cards)
+      .find((c) => c.name === cardName);
+
+    if (!card) {
+      return { valid: true }; // New card, no validation needed yet
+    }
+
+    const isLegendary = isLegendaryCard(card);
+    const maxCopies = selectedGame === 'hearthstone' ? (isLegendary ? 1 : 2) : 4;
+
+    if (newCount > maxCopies) {
+      return {
+        valid: false,
+        message: `${cardName} can only have ${maxCopies} ${maxCopies === 1 ? 'copy' : 'copies'}${isLegendary ? ' (Legendary)' : ''}`,
+      };
+    }
+
+    // Check deck size limits
+    const mainDeckSections = deck.sections.filter((s) => s.key !== 'sideboard');
+    const currentMainDeckCount = mainDeckSections.reduce(
+      (total, section) => total + section.cards.reduce((sum, c) => sum + c.count, 0),
+      0,
+    );
+    const newMainDeckCount = currentMainDeckCount - currentCount + newCount;
+
+    if (selectedGame === 'hearthstone') {
+      if (newMainDeckCount > 30) {
+        return {
+          valid: false,
+          message: `Hearthstone decks must have exactly 30 cards (currently ${currentMainDeckCount}, would be ${newMainDeckCount})`,
+        };
+      }
+    } else if (selectedGame === 'magic') {
+      // Magic decks need 60+ cards (except Commander which uses 100)
+      if (newMainDeckCount < 60) {
+        return {
+          valid: false,
+          message: `Magic decks must have at least 60 cards in the main deck (currently ${currentMainDeckCount}, would be ${newMainDeckCount})`,
+        };
+      }
+    }
+
+    return { valid: true };
+  };
 
   const adjustCardCount = (sectionKey: string, cardName: string, delta: number) => {
     setActiveDeck((prev) => {
+      const card = prev.sections
+        .find((s) => s.key === sectionKey)
+        ?.cards.find((c) => c.name === cardName);
+
+      if (!card) return prev;
+
+      const currentCount = card.count;
+      const newCount = Math.max(0, currentCount + delta);
+
+      // Validate before applying change
+      if (delta > 0) {
+        const validation = validateCardAddition(prev, cardName, newCount);
+        if (!validation.valid) {
+          setToast({
+            title: 'Cannot add card',
+            description: validation.message ?? 'Invalid card addition',
+          });
+          return prev;
+        }
+      }
+
       const updatedSections = prev.sections.map((section) => {
         if (section.key !== sectionKey) return section;
 
         const updatedCards = section.cards
           .map((card) => {
             if (card.name !== cardName) return card;
-            const nextCount = Math.max(0, card.count + delta);
-            return { ...card, count: nextCount };
+            return { ...card, count: newCount };
           })
           .filter((card) => card.count > 0);
 
@@ -291,16 +446,23 @@ export default function DeckEditorWorkspace({ onApplyToAnalyzer }: DeckEditorWor
   };
 
   const handleSaveVariation = () => {
-    const variationCount = savedDecks.filter((deck) => deck.name.startsWith(activeDeck.name)).length + 1;
+    const baseName = activeDeck.name.split(' · Variation')[0]; // Remove existing variation suffix
+    const variationCount = savedDecks.filter((deck) => {
+      const deckBaseName = deck.name.split(' · Variation')[0];
+      return deckBaseName === baseName;
+    }).length + 1;
     const variation: DeckRecord = {
       ...activeDeck,
       id: `${activeDeck.id}-variation-${Date.now()}`,
-      name: `${activeDeck.name} · Variation ${variationCount}`,
+      name: `${baseName} · Variation ${variationCount}`,
       lastUpdated: 'Just now',
     };
     setActiveDeck(variation);
     setSavedDecks((prev) => [variation, ...prev]);
-    setToast({ title: 'Variation saved', description: `${variation.name} added to saved decks.` });
+    setToast({ 
+      title: 'Deck branched', 
+      description: `Created "${variation.name}" - a new copy you can edit independently.` 
+    });
   };
 
   const sendToAnalyzer = () => {
@@ -413,9 +575,10 @@ export default function DeckEditorWorkspace({ onApplyToAnalyzer }: DeckEditorWor
           type="button"
           onClick={handleSaveVariation}
           className="inline-flex items-center gap-2 rounded-xl bg-emerald-500/15 px-4 py-2 text-sm text-emerald-200 transition hover:bg-emerald-500/25"
+          title="Create a copy of this deck with a new name to test variations"
         >
           <GitBranchPlus className="size-4" />
-          Save Variation
+          Branch Deck
         </button>
       </div>
 
@@ -455,20 +618,44 @@ export default function DeckEditorWorkspace({ onApplyToAnalyzer }: DeckEditorWor
                       <button
                         type="button"
                         onClick={() => adjustCardCount(section.key, card.name, -1)}
-                        className="flex size-8 items-center justify-center rounded-full border border-white/15 bg-white/5 transition hover:border-emerald-400/60 hover:text-emerald-200"
+                        className="flex size-8 items-center justify-center rounded-full border border-white/15 bg-white/5 transition hover:border-emerald-400/60 hover:text-emerald-200 disabled:opacity-30 disabled:cursor-not-allowed"
+                        disabled={card.count <= 0}
                       >
                         <Minus className="size-4" />
                       </button>
                       <div className="min-w-[2ch] text-center text-lg font-semibold text-white">
                         {card.count}
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => adjustCardCount(section.key, card.name, 1)}
-                        className="flex size-8 items-center justify-center rounded-full border border-white/15 bg-white/5 transition hover:border-emerald-400/60 hover:text-emerald-200"
-                      >
-                        <Plus className="size-4" />
-                      </button>
+                      {(() => {
+                        const currentTotal = getCardCountInDeck(activeDeck, card.name);
+                        const isLegendary = isLegendaryCard(card);
+                        const maxCopies = selectedGame === 'hearthstone' ? (isLegendary ? 1 : 2) : 4;
+                        const isAtMax = currentTotal >= maxCopies;
+                        const wouldExceedDeckSize = selectedGame === 'hearthstone' && totalMainCount >= 30;
+                        const isDisabled = isAtMax || wouldExceedDeckSize;
+                        
+                        return (
+                          <button
+                            type="button"
+                            onClick={() => adjustCardCount(section.key, card.name, 1)}
+                            className={`flex size-8 items-center justify-center rounded-full border transition ${
+                              isDisabled
+                                ? 'border-amber-500/40 bg-amber-500/10 text-amber-200/60 cursor-not-allowed'
+                                : 'border-white/15 bg-white/5 hover:border-emerald-400/60 hover:text-emerald-200'
+                            }`}
+                            disabled={isDisabled}
+                            title={
+                              isAtMax
+                                ? `Maximum ${maxCopies} ${maxCopies === 1 ? 'copy' : 'copies'} allowed${isLegendary ? ' (Legendary)' : ''}`
+                                : wouldExceedDeckSize
+                                ? 'Deck is full (30 cards)'
+                                : undefined
+                            }
+                          >
+                            <Plus className="size-4" />
+                          </button>
+                        );
+                      })()}
                       <div className="text-xs uppercase tracking-[0.3em] text-white/40">
                         {card.manaValue === 0 ? 'land' : `${card.manaValue} mv`}
                       </div>
@@ -527,9 +714,51 @@ export default function DeckEditorWorkspace({ onApplyToAnalyzer }: DeckEditorWor
                 );
               })}
             </div>
-            <div className="mt-4 rounded-xl border border-white/10 bg-black/40 p-3 text-xs text-white/60">
-              {totalMainCount} main-deck cards · {sideboardCount} sideboard ·{' '}
-              {activeDeckGame === 'magic' ? '60-card baseline' : '30-card baseline'}
+            <div className="mt-4 space-y-2">
+              <div className="rounded-xl border border-white/10 bg-black/40 p-3 text-xs text-white/60">
+                {totalMainCount} main-deck cards · {sideboardCount} sideboard ·{' '}
+                {activeDeckGame === 'magic' ? '60-card baseline' : '30-card baseline'}
+              </div>
+              {deckValidation.issues.length > 0 && (
+                <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 p-3 text-xs">
+                  <div className="mb-2 flex items-center gap-2 font-semibold text-rose-200">
+                    <ShieldCheck className="size-3 rotate-180" />
+                    Validation Issues
+                  </div>
+                  <ul className="space-y-1 text-rose-100/80">
+                    {deckValidation.issues.map((issue, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <span className="mt-[2px] size-1.5 rounded-full bg-rose-300" />
+                        <span>{issue}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {deckValidation.warnings.length > 0 && (
+                <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs">
+                  <div className="mb-2 flex items-center gap-2 font-semibold text-amber-200">
+                    <ShieldCheck className="size-3" />
+                    Warnings
+                  </div>
+                  <ul className="space-y-1 text-amber-100/80">
+                    {deckValidation.warnings.map((warning, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <span className="mt-[2px] size-1.5 rounded-full bg-amber-300" />
+                        <span>{warning}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {deckValidation.valid && deckValidation.warnings.length === 0 && (
+                <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-xs text-emerald-200">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="size-3" />
+                    <span className="font-semibold">Deck is valid</span>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
