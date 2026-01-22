@@ -1,0 +1,6890 @@
+[
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 64.55,
+    "games": 237,
+    "popularity": 0.009414770702663664
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 61.62,
+    "games": 469,
+    "popularity": 0.018630917550840755
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 61.23,
+    "games": 1646,
+    "popularity": 0.06538697289698056
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 60.94,
+    "games": 379,
+    "popularity": 0.015055688170082402
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 60.77,
+    "games": 311,
+    "popularity": 0.012354403749064978
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 60.62,
+    "games": 320,
+    "popularity": 0.012711926687140813
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 60.12,
+    "games": 1713,
+    "popularity": 0.06804853254710067
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 60.03,
+    "games": 2830,
+    "popularity": 0.11242110163940157
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 59.99,
+    "games": 2127,
+    "popularity": 0.0844945876985891
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 59.74,
+    "games": 5448,
+    "popularity": 0.21642055184857234
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 59.69,
+    "games": 779,
+    "popularity": 0.03094559652900842
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 59.45,
+    "games": 1603,
+    "popularity": 0.06367880774839602
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 59.21,
+    "games": 1253,
+    "popularity": 0.049775137934335745
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 59.17,
+    "games": 218,
+    "popularity": 0.008660000055614679
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 693",
+    "winrate": 58.94,
+    "games": 1598,
+    "popularity": 0.06348018389390944
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 693",
+    "winrate": 58.88,
+    "games": 540,
+    "popularity": 0.021451376284550124
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 58.82,
+    "games": 986,
+    "popularity": 0.03916862410475263
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 58.77,
+    "games": 3847,
+    "popularity": 0.15282119364197097
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 693",
+    "winrate": 58.73,
+    "games": 698,
+    "popularity": 0.0277278900863259
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 58.57,
+    "games": 2170,
+    "popularity": 0.08620275284717364
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 58.54,
+    "games": 661,
+    "popularity": 0.02625807356312524
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 58.48,
+    "games": 16304,
+    "popularity": 0.6476726647098244
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 58.48,
+    "games": 6371,
+    "popularity": 0.2530865153867941
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 58.46,
+    "games": 41630,
+    "popularity": 1.6537422124552252
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 58.42,
+    "games": 534,
+    "popularity": 0.02121302765916623
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 58.3,
+    "games": 307,
+    "popularity": 0.012195504665475719
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 693",
+    "winrate": 58.28,
+    "games": 748,
+    "popularity": 0.02971412863119165
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 58.25,
+    "games": 2333,
+    "popularity": 0.09267789050343599
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 693",
+    "winrate": 58.21,
+    "games": 6345,
+    "popularity": 0.25205367134346396
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 58.02,
+    "games": 586,
+    "popularity": 0.023278715745826614
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 58,
+    "games": 22036,
+    "popularity": 0.8753750514932342
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 57.93,
+    "games": 523,
+    "popularity": 0.020776055179295767
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 57.89,
+    "games": 1223,
+    "popularity": 0.048583394807416296
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 57.86,
+    "games": 337,
+    "popularity": 0.013387247792395168
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 57.84,
+    "games": 7363,
+    "popularity": 0.29249348811693066
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 57.8,
+    "games": 1268,
+    "popularity": 0.05037100949779547
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 57.78,
+    "games": 604,
+    "popularity": 0.023993761621978284
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 663",
+    "winrate": 57.45,
+    "games": 6807,
+    "popularity": 0.2704065154980235
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 693",
+    "winrate": 57.44,
+    "games": 376,
+    "popularity": 0.014936513857390456
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 57.43,
+    "games": 1837,
+    "popularity": 0.07297440413836774
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 663",
+    "winrate": 57.3,
+    "games": 4951,
+    "popularity": 0.19667734071260679
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 57.17,
+    "games": 885,
+    "popularity": 0.03515642224412381
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 57.05,
+    "games": 5062,
+    "popularity": 0.20108679028220874
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 57.04,
+    "games": 1795,
+    "popularity": 0.07130596376068049
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 57.01,
+    "games": 577,
+    "popularity": 0.02292119280775078
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 693",
+    "winrate": 57,
+    "games": 1000,
+    "popularity": 0.03972477089731504
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 56.97,
+    "games": 688,
+    "popularity": 0.027330642377352752
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 56.92,
+    "games": 1488,
+    "popularity": 0.05911045909520478
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 56.91,
+    "games": 896,
+    "popularity": 0.03559339472399428
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 56.87,
+    "games": 262,
+    "popularity": 0.010407889975096542
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 56.73,
+    "games": 423,
+    "popularity": 0.016803578089564265
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 56.53,
+    "games": 329,
+    "popularity": 0.01306944962521665
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 56.49,
+    "games": 1177,
+    "popularity": 0.0467560553461398
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 771",
+    "winrate": 56.47,
+    "games": 1050,
+    "popularity": 0.04171100944218079
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 56.45,
+    "games": 2829,
+    "popularity": 0.11238137686850425
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 56.43,
+    "games": 955,
+    "popularity": 0.037937156206935864
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 56.37,
+    "games": 204,
+    "popularity": 0.008103853263052269
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 56.3,
+    "games": 325,
+    "popularity": 0.01291055054162739
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 56.15,
+    "games": 203,
+    "popularity": 0.008064128492154952
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 663",
+    "winrate": 55.93,
+    "games": 236,
+    "popularity": 0.00937504593176635
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 55.89,
+    "games": 619,
+    "popularity": 0.024589633185438012
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 663",
+    "winrate": 55.77,
+    "games": 11960,
+    "popularity": 0.47510825993188793
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 55.58,
+    "games": 4737,
+    "popularity": 0.18817623974058134
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 55.44,
+    "games": 386,
+    "popularity": 0.015333761566363607
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 771",
+    "winrate": 55.38,
+    "games": 260,
+    "popularity": 0.010328440433301911
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 55.26,
+    "games": 228,
+    "popularity": 0.00905724776458783
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 771",
+    "winrate": 55.24,
+    "games": 3287,
+    "popularity": 0.13057532193947455
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 54.72,
+    "games": 5082,
+    "popularity": 0.20188128570015504
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 663",
+    "winrate": 54.7,
+    "games": 468,
+    "popularity": 0.01859119277994344
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 557",
+    "winrate": 54.7,
+    "games": 998,
+    "popularity": 0.039645321355520416
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 54.65,
+    "games": 333,
+    "popularity": 0.013228348708805909
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 771",
+    "winrate": 54.4,
+    "games": 250,
+    "popularity": 0.00993119272432876
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 54.35,
+    "games": 931,
+    "popularity": 0.036983761705400305
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 54.33,
+    "games": 392,
+    "popularity": 0.015572110191747496
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 54.18,
+    "games": 382,
+    "popularity": 0.015174862482774347
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 693",
+    "winrate": 54.17,
+    "games": 467,
+    "popularity": 0.018551468009046126
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 771",
+    "winrate": 54.17,
+    "games": 371,
+    "popularity": 0.01473789000290388
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 54.1,
+    "games": 6560,
+    "popularity": 0.2605944970863867
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 54.06,
+    "games": 381,
+    "popularity": 0.01513513771187703
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 53.98,
+    "games": 326,
+    "popularity": 0.012950275312524705
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 53.95,
+    "games": 1427,
+    "popularity": 0.056687248070468564
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 808",
+    "winrate": 53.91,
+    "games": 1265,
+    "popularity": 0.050251835185103524
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 771",
+    "winrate": 53.85,
+    "games": 921,
+    "popularity": 0.03658651399642716
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 53.79,
+    "games": 554,
+    "popularity": 0.022007523077112533
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 53.79,
+    "games": 316,
+    "popularity": 0.012553027603551554
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 53.78,
+    "games": 357,
+    "popularity": 0.01418174321034147
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 53.6,
+    "games": 597,
+    "popularity": 0.02371568822569708
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 53.52,
+    "games": 426,
+    "popularity": 0.01692275240225621
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 53.35,
+    "games": 716,
+    "popularity": 0.02844293596247757
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 693",
+    "winrate": 53.26,
+    "games": 1746,
+    "popularity": 0.06935944998671206
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 53.24,
+    "games": 216,
+    "popularity": 0.00858055051382005
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 53.22,
+    "games": 419,
+    "popularity": 0.016644679005975
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 53.07,
+    "games": 2033,
+    "popularity": 0.08076045923424148
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 53.05,
+    "games": 426,
+    "popularity": 0.01692275240225621
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 52.88,
+    "games": 399,
+    "popularity": 0.015850183588028702
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 52.77,
+    "games": 451,
+    "popularity": 0.017915871674689086
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 52.54,
+    "games": 236,
+    "popularity": 0.00937504593176635
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 663",
+    "winrate": 52.48,
+    "games": 684,
+    "popularity": 0.02717174329376349
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 52.45,
+    "games": 305,
+    "popularity": 0.012116055123681087
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 52.29,
+    "games": 654,
+    "popularity": 0.025980000166844038
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 52.06,
+    "games": 1790,
+    "popularity": 0.07110733990619393
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 52.05,
+    "games": 6420,
+    "popularity": 0.25503302916076254
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 52,
+    "games": 275,
+    "popularity": 0.010924311996761636
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 693",
+    "winrate": 51.97,
+    "games": 406,
+    "popularity": 0.016128256984309905
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 51.96,
+    "games": 687,
+    "popularity": 0.027290917606455432
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 51.78,
+    "games": 2375,
+    "popularity": 0.09434633088112324
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 663",
+    "winrate": 51.73,
+    "games": 346,
+    "popularity": 0.013744770730471005
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 51.43,
+    "games": 313,
+    "popularity": 0.012433853290859609
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 51.32,
+    "games": 226,
+    "popularity": 0.0089777982227932
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 51.18,
+    "games": 211,
+    "popularity": 0.008381926659333473
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 51.06,
+    "games": 470,
+    "popularity": 0.01867064232173807
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 50.9,
+    "games": 275,
+    "popularity": 0.010924311996761636
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 808",
+    "winrate": 50.7,
+    "games": 854,
+    "popularity": 0.033924954346307046
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 771",
+    "winrate": 50.63,
+    "games": 393,
+    "popularity": 0.015611834962644811
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 50.43,
+    "games": 579,
+    "popularity": 0.023000642349545408
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 808",
+    "winrate": 50.3,
+    "games": 823,
+    "popularity": 0.03269348644849028
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 50.18,
+    "games": 803,
+    "popularity": 0.03189899103054398
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 50.17,
+    "games": 857,
+    "popularity": 0.03404412865899899
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 50.14,
+    "games": 335,
+    "popularity": 0.01330779825060054
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 771",
+    "winrate": 50,
+    "games": 332,
+    "popularity": 0.013188623937908595
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 49.9,
+    "games": 537,
+    "popularity": 0.02133220197185818
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 49.88,
+    "games": 445,
+    "popularity": 0.017677523049305196
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 49.5,
+    "games": 503,
+    "popularity": 0.019981559761349466
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 49.36,
+    "games": 474,
+    "popularity": 0.01882954140532733
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 48.96,
+    "games": 1252,
+    "popularity": 0.049735413163438436
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 557",
+    "winrate": 48.79,
+    "games": 1291,
+    "popularity": 0.051284679228433716
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 48.53,
+    "games": 410,
+    "popularity": 0.01628715606789917
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 48.45,
+    "games": 291,
+    "popularity": 0.011559908331118677
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype -1",
+    "winrate": 47.76,
+    "games": 1206,
+    "popularity": 0.04790807370216194
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype -1",
+    "winrate": 47.65,
+    "games": 747,
+    "popularity": 0.029674403860294338
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 47.23,
+    "games": 271,
+    "popularity": 0.010765412913172377
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 811",
+    "winrate": 46.28,
+    "games": 471,
+    "popularity": 0.018710367092635384
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 769",
+    "winrate": 45.5,
+    "games": 868,
+    "popularity": 0.03448110113886946
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype -1",
+    "winrate": 45.34,
+    "games": 752,
+    "popularity": 0.02987302771478091
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 693",
+    "winrate": 45.03,
+    "games": 322,
+    "popularity": 0.012791376228935445
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 44.39,
+    "games": 214,
+    "popularity": 0.00850110097202542
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype -1",
+    "winrate": 44.34,
+    "games": 327,
+    "popularity": 0.012990000083422019
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 43.52,
+    "games": 54004,
+    "popularity": 2.145296527538602
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 43.39,
+    "games": 9938,
+    "popularity": 0.3947847731775169
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 729",
+    "winrate": 43.14,
+    "games": 992,
+    "popularity": 0.03940697273013652
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype -1",
+    "winrate": 42.78,
+    "games": 5086,
+    "popularity": 0.20204018478374433
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 803",
+    "winrate": 42.57,
+    "games": 599,
+    "popularity": 0.02379513776749171
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype -1",
+    "winrate": 42.1,
+    "games": 2819,
+    "popularity": 0.1119841291595311
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype -1",
+    "winrate": 41.79,
+    "games": 268,
+    "popularity": 0.010646238600480432
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 771",
+    "winrate": 32.49,
+    "games": 277,
+    "popularity": 0.011003761538556266
+  },
+  {
+    "class": "DEATHKNIGHT",
+    "archetype": "Archetype 771",
+    "winrate": 29.37,
+    "games": 286,
+    "popularity": 0.011361284476632101
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 63.34,
+    "games": 221,
+    "popularity": 0.008779174368306625
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 62.5,
+    "games": 216,
+    "popularity": 0.00858055051382005
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 62.28,
+    "games": 2508,
+    "popularity": 0.09962972541046614
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 61.96,
+    "games": 376,
+    "popularity": 0.014936513857390456
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 61.87,
+    "games": 1133,
+    "popularity": 0.04500816542665794
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 60.84,
+    "games": 1885,
+    "popularity": 0.07488119314143886
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 60.51,
+    "games": 233,
+    "popularity": 0.009255871619074405
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 60.43,
+    "games": 2194,
+    "popularity": 0.0871561473487092
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 60.2,
+    "games": 1093,
+    "popularity": 0.043419174590765344
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 60.17,
+    "games": 39793,
+    "popularity": 1.5807678083168575
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 60.03,
+    "games": 1206,
+    "popularity": 0.04790807370216194
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 59.96,
+    "games": 5175,
+    "popularity": 0.20557568939360535
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 59.69,
+    "games": 531,
+    "popularity": 0.021093853346474286
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 818",
+    "winrate": 59.68,
+    "games": 13591,
+    "popularity": 0.5398993612654087
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 818",
+    "winrate": 59.46,
+    "games": 2075,
+    "popularity": 0.08242889961192872
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 59.42,
+    "games": 1348,
+    "popularity": 0.05354899116958067
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 59.4,
+    "games": 271,
+    "popularity": 0.010765412913172377
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 661",
+    "winrate": 59.37,
+    "games": 699,
+    "popularity": 0.027767614857223212
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 818",
+    "winrate": 59.37,
+    "games": 736,
+    "popularity": 0.02923743138042387
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 818",
+    "winrate": 59.36,
+    "games": 1489,
+    "popularity": 0.059150183866102095
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 59.31,
+    "games": 617,
+    "popularity": 0.02451018364364338
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 58.87,
+    "games": 5381,
+    "popularity": 0.21375899219845226
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 58.28,
+    "games": 3083,
+    "popularity": 0.12247146867642228
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 58.23,
+    "games": 3797,
+    "popularity": 0.1508349550971052
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 818",
+    "winrate": 58,
+    "games": 250,
+    "popularity": 0.00993119272432876
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 57.95,
+    "games": 264,
+    "popularity": 0.01048733951689117
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 57.65,
+    "games": 1228,
+    "popularity": 0.048782018661902876
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 57.14,
+    "games": 805,
+    "popularity": 0.03197844057233861
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 57.07,
+    "games": 671,
+    "popularity": 0.026655321272098395
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 56.95,
+    "games": 3524,
+    "popularity": 0.13999009264213821
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 661",
+    "winrate": 56.72,
+    "games": 2156,
+    "popularity": 0.08564660605461123
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 717",
+    "winrate": 56.61,
+    "games": 2946,
+    "popularity": 0.11702917506349012
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 56.25,
+    "games": 727,
+    "popularity": 0.028879908442348036
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 56.2,
+    "games": 516,
+    "popularity": 0.02049798178301456
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 717",
+    "winrate": 56.2,
+    "games": 895,
+    "popularity": 0.035553669953096965
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 661",
+    "winrate": 56.12,
+    "games": 294,
+    "popularity": 0.011679082643810621
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 661",
+    "winrate": 56.1,
+    "games": 1875,
+    "popularity": 0.07448394543246571
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 716",
+    "winrate": 55.52,
+    "games": 344,
+    "popularity": 0.013665321188676376
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 661",
+    "winrate": 55.38,
+    "games": 3804,
+    "popularity": 0.15111302849338643
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype -14",
+    "winrate": 55.28,
+    "games": 653,
+    "popularity": 0.025940275395946722
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 717",
+    "winrate": 55.27,
+    "games": 1033,
+    "popularity": 0.04103568833692644
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 717",
+    "winrate": 54.93,
+    "games": 881,
+    "popularity": 0.034997523160534554
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 717",
+    "winrate": 54.91,
+    "games": 1872,
+    "popularity": 0.07436477111977376
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 717",
+    "winrate": 54.86,
+    "games": 1203,
+    "popularity": 0.04778889938947
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 717",
+    "winrate": 54.79,
+    "games": 896,
+    "popularity": 0.03559339472399428
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 661",
+    "winrate": 54.64,
+    "games": 441,
+    "popularity": 0.01751862396571593
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 717",
+    "winrate": 54.53,
+    "games": 3829,
+    "popularity": 0.1521061477658193
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 717",
+    "winrate": 53.92,
+    "games": 306,
+    "popularity": 0.012155779894578403
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 717",
+    "winrate": 53.9,
+    "games": 397,
+    "popularity": 0.01577073404623407
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 661",
+    "winrate": 53.89,
+    "games": 681,
+    "popularity": 0.027052568981071543
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 661",
+    "winrate": 53.27,
+    "games": 214,
+    "popularity": 0.00850110097202542
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 717",
+    "winrate": 52.3,
+    "games": 8644,
+    "popularity": 0.3433809196363912
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 661",
+    "winrate": 52.2,
+    "games": 929,
+    "popularity": 0.03690431216360567
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 717",
+    "winrate": 51.71,
+    "games": 292,
+    "popularity": 0.011599633102015993
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 51.44,
+    "games": 208,
+    "popularity": 0.00826275234664153
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 717",
+    "winrate": 51.3,
+    "games": 612,
+    "popularity": 0.024311559789156806
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 717",
+    "winrate": 51.15,
+    "games": 346,
+    "popularity": 0.013744770730471005
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 661",
+    "winrate": 47,
+    "games": 234,
+    "popularity": 0.00929559638997172
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 472",
+    "winrate": 46.97,
+    "games": 1803,
+    "popularity": 0.07162376192785902
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 681",
+    "winrate": 46.95,
+    "games": 345,
+    "popularity": 0.01370504595957369
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 472",
+    "winrate": 44.73,
+    "games": 266,
+    "popularity": 0.010566789058685801
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype -14",
+    "winrate": 41.31,
+    "games": 213,
+    "popularity": 0.008461376201128105
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype -14",
+    "winrate": 41.05,
+    "games": 246,
+    "popularity": 0.009772293640739501
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype 472",
+    "winrate": 40.08,
+    "games": 449,
+    "popularity": 0.017836422132894453
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype -14",
+    "winrate": 33.93,
+    "games": 3062,
+    "popularity": 0.12163724848757865
+  },
+  {
+    "class": "DEMONHUNTER",
+    "archetype": "Archetype -14",
+    "winrate": 25.63,
+    "games": 355,
+    "popularity": 0.01410229366854684
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 149",
+    "winrate": 59.44,
+    "games": 217,
+    "popularity": 0.008620275284717364
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype -2",
+    "winrate": 58.46,
+    "games": 378,
+    "popularity": 0.015015963399185085
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 702",
+    "winrate": 57.65,
+    "games": 666,
+    "popularity": 0.026456697417611818
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 149",
+    "winrate": 57.04,
+    "games": 291,
+    "popularity": 0.011559908331118677
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 702",
+    "winrate": 56.09,
+    "games": 640,
+    "popularity": 0.025423853374281626
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 149",
+    "winrate": 55.66,
+    "games": 300,
+    "popularity": 0.011917431269194513
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 149",
+    "winrate": 55.21,
+    "games": 585,
+    "popularity": 0.023238990974929298
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 54.06,
+    "games": 246,
+    "popularity": 0.009772293640739501
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 702",
+    "winrate": 53.63,
+    "games": 1402,
+    "popularity": 0.055694128798035696
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 804",
+    "winrate": 53.06,
+    "games": 375,
+    "popularity": 0.01489678908649314
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 702",
+    "winrate": 52.58,
+    "games": 985,
+    "popularity": 0.03912889933385532
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 702",
+    "winrate": 52.57,
+    "games": 7680,
+    "popularity": 0.30508624049137956
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 702",
+    "winrate": 52.52,
+    "games": 3869,
+    "popularity": 0.1536951386017119
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype -2",
+    "winrate": 52.48,
+    "games": 5794,
+    "popularity": 0.23016532257904335
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 52.41,
+    "games": 931,
+    "popularity": 0.036983761705400305
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 52.28,
+    "games": 744,
+    "popularity": 0.02955522954760239
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 52.09,
+    "games": 430,
+    "popularity": 0.017081651485845468
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 52.04,
+    "games": 294,
+    "popularity": 0.011679082643810621
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 51.78,
+    "games": 954,
+    "popularity": 0.03789743143603855
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 149",
+    "winrate": 51.76,
+    "games": 10142,
+    "popularity": 0.40288862644056916
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 702",
+    "winrate": 51.64,
+    "games": 457,
+    "popularity": 0.018154220300072976
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 776",
+    "winrate": 51.4,
+    "games": 284,
+    "popularity": 0.011281834934837472
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 51.35,
+    "games": 1731,
+    "popularity": 0.06876357842325234
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 51.32,
+    "games": 339,
+    "popularity": 0.013466697334189799
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 776",
+    "winrate": 51.29,
+    "games": 501,
+    "popularity": 0.019902110219554837
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 51.28,
+    "games": 622,
+    "popularity": 0.024708807498129957
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 702",
+    "winrate": 51.13,
+    "games": 1932,
+    "popularity": 0.07674825737361267
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 51.03,
+    "games": 12143,
+    "popularity": 0.48237789300609657
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 149",
+    "winrate": 50.99,
+    "games": 202,
+    "popularity": 0.00802440372125764
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 50.91,
+    "games": 711,
+    "popularity": 0.028244312107990995
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 149",
+    "winrate": 50.82,
+    "games": 785,
+    "popularity": 0.03118394515439231
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 52",
+    "winrate": 50.76,
+    "games": 1775,
+    "popularity": 0.0705114683427342
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 50.74,
+    "games": 6783,
+    "popularity": 0.26945312099648794
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 149",
+    "winrate": 50.67,
+    "games": 223,
+    "popularity": 0.008858623910101254
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 776",
+    "winrate": 50.46,
+    "games": 539,
+    "popularity": 0.021411651513652808
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 776",
+    "winrate": 50.26,
+    "games": 2091,
+    "popularity": 0.08306449594628576
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype -2",
+    "winrate": 50.17,
+    "games": 584,
+    "popularity": 0.023199266204031985
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 50.12,
+    "games": 411,
+    "popularity": 0.016326880838796482
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 49.87,
+    "games": 1235,
+    "popularity": 0.04906009205818408
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 776",
+    "winrate": 49.62,
+    "games": 540,
+    "popularity": 0.021451376284550124
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 149",
+    "winrate": 49.6,
+    "games": 254,
+    "popularity": 0.010090091807918021
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 702",
+    "winrate": 49.54,
+    "games": 218,
+    "popularity": 0.008660000055614679
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 702",
+    "winrate": 49.48,
+    "games": 289,
+    "popularity": 0.011480458789324048
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype -2",
+    "winrate": 49.17,
+    "games": 608,
+    "popularity": 0.024152660705567548
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 48.72,
+    "games": 392,
+    "popularity": 0.015572110191747496
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 48.35,
+    "games": 213,
+    "popularity": 0.008461376201128105
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 52",
+    "winrate": 48.21,
+    "games": 336,
+    "popularity": 0.013347523021497854
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 47.91,
+    "games": 1054,
+    "popularity": 0.04186990852577006
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 47.44,
+    "games": 1486,
+    "popularity": 0.059031009553410146
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 776",
+    "winrate": 47.23,
+    "games": 3451,
+    "popularity": 0.13709018436663423
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 46.84,
+    "games": 333,
+    "popularity": 0.013228348708805909
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 657",
+    "winrate": 46.68,
+    "games": 332,
+    "popularity": 0.013188623937908595
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 149",
+    "winrate": 46.02,
+    "games": 1471,
+    "popularity": 0.05843513798995043
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 776",
+    "winrate": 46.02,
+    "games": 302,
+    "popularity": 0.011996880810989142
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 149",
+    "winrate": 44.16,
+    "games": 317,
+    "popularity": 0.012592752374448868
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 776",
+    "winrate": 40.17,
+    "games": 463,
+    "popularity": 0.018392568925456862
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 149",
+    "winrate": 39.64,
+    "games": 623,
+    "popularity": 0.02474853226902727
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype 150",
+    "winrate": 37.3,
+    "games": 386,
+    "popularity": 0.015333761566363607
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype -2",
+    "winrate": 28.29,
+    "games": 1481,
+    "popularity": 0.05883238569892357
+  },
+  {
+    "class": "DRUID",
+    "archetype": "Archetype -2",
+    "winrate": 27.27,
+    "games": 286,
+    "popularity": 0.011361284476632101
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 170",
+    "winrate": 62.72,
+    "games": 5862,
+    "popularity": 0.2328666070000608
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 170",
+    "winrate": 62.29,
+    "games": 12432,
+    "popularity": 0.49385835179542065
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 170",
+    "winrate": 61.5,
+    "games": 665,
+    "popularity": 0.026416972646714505
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 170",
+    "winrate": 61.46,
+    "games": 1723,
+    "popularity": 0.06844578025607383
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 170",
+    "winrate": 61.11,
+    "games": 522,
+    "popularity": 0.02073633040839845
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 170",
+    "winrate": 60.45,
+    "games": 40566,
+    "popularity": 1.611475056220482
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 170",
+    "winrate": 60.27,
+    "games": 2394,
+    "popularity": 0.09510110152817222
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 170",
+    "winrate": 60.16,
+    "games": 3216,
+    "popularity": 0.12775486320576518
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 170",
+    "winrate": 60.08,
+    "games": 23764,
+    "popularity": 0.9440194556037947
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 170",
+    "winrate": 59.86,
+    "games": 2469,
+    "popularity": 0.09808045934547084
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 170",
+    "winrate": 59.54,
+    "games": 1137,
+    "popularity": 0.045167064510247205
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 170",
+    "winrate": 59.18,
+    "games": 4023,
+    "popularity": 0.15981275331989842
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 170",
+    "winrate": 58.51,
+    "games": 564,
+    "popularity": 0.022404770786085684
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 170",
+    "winrate": 58.34,
+    "games": 581,
+    "popularity": 0.02308009189134004
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype -3",
+    "winrate": 57.88,
+    "games": 387,
+    "popularity": 0.015373486337260921
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype -3",
+    "winrate": 57.29,
+    "games": 1344,
+    "popularity": 0.053390092085991415
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 170",
+    "winrate": 56.29,
+    "games": 270,
+    "popularity": 0.010725688142275062
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 652",
+    "winrate": 54.06,
+    "games": 209,
+    "popularity": 0.008302477117538844
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 211",
+    "winrate": 52.21,
+    "games": 293,
+    "popularity": 0.011639357872913307
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 805",
+    "winrate": 50.78,
+    "games": 447,
+    "popularity": 0.017756972591099825
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 652",
+    "winrate": 50.22,
+    "games": 663,
+    "popularity": 0.026337523104919876
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 211",
+    "winrate": 49.38,
+    "games": 1229,
+    "popularity": 0.048821743432800185
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 805",
+    "winrate": 48.12,
+    "games": 719,
+    "popularity": 0.028562110275169517
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype -3",
+    "winrate": 46.43,
+    "games": 407,
+    "popularity": 0.016167981755207225
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 805",
+    "winrate": 46.02,
+    "games": 302,
+    "popularity": 0.011996880810989142
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 211",
+    "winrate": 44.9,
+    "games": 550,
+    "popularity": 0.02184862399352327
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 211",
+    "winrate": 44.53,
+    "games": 1033,
+    "popularity": 0.04103568833692644
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 211",
+    "winrate": 44.44,
+    "games": 306,
+    "popularity": 0.012155779894578403
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype -3",
+    "winrate": 33.62,
+    "games": 1942,
+    "popularity": 0.07714550508258582
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 777",
+    "winrate": 28.83,
+    "games": 215,
+    "popularity": 0.008540825742922734
+  },
+  {
+    "class": "HUNTER",
+    "archetype": "Archetype 683",
+    "winrate": 27.58,
+    "games": 203,
+    "popularity": 0.008064128492154952
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 145",
+    "winrate": 61.03,
+    "games": 78318,
+    "popularity": 3.11116460713592
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 145",
+    "winrate": 60.18,
+    "games": 555,
+    "popularity": 0.02204724784800985
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 145",
+    "winrate": 59.17,
+    "games": 1482,
+    "popularity": 0.058872110469820896
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 182",
+    "winrate": 58.95,
+    "games": 6744,
+    "popularity": 0.26790385493149266
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 145",
+    "winrate": 58.61,
+    "games": 1126,
+    "popularity": 0.044730092030376735
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 145",
+    "winrate": 57.8,
+    "games": 1460,
+    "popularity": 0.05799816551007996
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 57.23,
+    "games": 3007,
+    "popularity": 0.11945238608822634
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 56.41,
+    "games": 507,
+    "popularity": 0.020140458844938727
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 145",
+    "winrate": 56.33,
+    "games": 703,
+    "popularity": 0.027926513940812477
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 56.16,
+    "games": 689,
+    "popularity": 0.027370367148250065
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 55.89,
+    "games": 3435,
+    "popularity": 0.13645458803227717
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 55.88,
+    "games": 306,
+    "popularity": 0.012155779894578403
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 145",
+    "winrate": 55.43,
+    "games": 2614,
+    "popularity": 0.10384055112558153
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 55.38,
+    "games": 455,
+    "popularity": 0.018074770758278343
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 55.03,
+    "games": 596,
+    "popularity": 0.023675963454799765
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 54.78,
+    "games": 10258,
+    "popularity": 0.4074966998646577
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 145",
+    "winrate": 54.28,
+    "games": 3060,
+    "popularity": 0.12155779894578403
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 780",
+    "winrate": 54.22,
+    "games": 5359,
+    "popularity": 0.21288504723871132
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 54.14,
+    "games": 1446,
+    "popularity": 0.05744201871751755
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 54,
+    "games": 250,
+    "popularity": 0.00993119272432876
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 53.86,
+    "games": 2072,
+    "popularity": 0.08230972529923677
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 53.56,
+    "games": 786,
+    "popularity": 0.031223669925289622
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 53.39,
+    "games": 1030,
+    "popularity": 0.04091651402423449
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 53.33,
+    "games": 2325,
+    "popularity": 0.09236009233625747
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 53.3,
+    "games": 227,
+    "popularity": 0.009017522993690515
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 145",
+    "winrate": 52.81,
+    "games": 231,
+    "popularity": 0.009176422077279775
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 52.42,
+    "games": 639,
+    "popularity": 0.025384128603384314
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 145",
+    "winrate": 52.22,
+    "games": 337,
+    "popularity": 0.013387247792395168
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 145",
+    "winrate": 51.95,
+    "games": 820,
+    "popularity": 0.03257431213579834
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 51.8,
+    "games": 913,
+    "popularity": 0.036268715829248635
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 51.79,
+    "games": 363,
+    "popularity": 0.014420091835725362
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 51.76,
+    "games": 284,
+    "popularity": 0.011281834934837472
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 51.62,
+    "games": 215,
+    "popularity": 0.008540825742922734
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 51.51,
+    "games": 926,
+    "popularity": 0.036785137850913724
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 51.47,
+    "games": 1053,
+    "popularity": 0.04183018375487274
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 51.44,
+    "games": 6761,
+    "popularity": 0.26857917603674697
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 780",
+    "winrate": 51.36,
+    "games": 366,
+    "popularity": 0.014539266148417307
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 780",
+    "winrate": 51.29,
+    "games": 1197,
+    "popularity": 0.04755055076408611
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 50.92,
+    "games": 487,
+    "popularity": 0.019345963426992425
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 50.81,
+    "games": 246,
+    "popularity": 0.009772293640739501
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 50.74,
+    "games": 201,
+    "popularity": 0.007984678950360324
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 50.73,
+    "games": 479,
+    "popularity": 0.019028165259813906
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 50.55,
+    "games": 358,
+    "popularity": 0.014221467981238784
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 50.41,
+    "games": 609,
+    "popularity": 0.02419238547646486
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 50.21,
+    "games": 472,
+    "popularity": 0.0187500918635327
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 50.12,
+    "games": 830,
+    "popularity": 0.032971559844771486
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 50,
+    "games": 414,
+    "popularity": 0.016446055151488427
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 145",
+    "winrate": 50,
+    "games": 222,
+    "popularity": 0.008818899139203938
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 49.82,
+    "games": 1138,
+    "popularity": 0.045206789281144515
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 49.77,
+    "games": 227,
+    "popularity": 0.009017522993690515
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 49.68,
+    "games": 318,
+    "popularity": 0.012632477145346183
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 49.66,
+    "games": 2652,
+    "popularity": 0.1053500924196795
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 751",
+    "winrate": 49.6,
+    "games": 256,
+    "popularity": 0.01016954134971265
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 182",
+    "winrate": 49.57,
+    "games": 468,
+    "popularity": 0.01859119277994344
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 49.51,
+    "games": 1234,
+    "popularity": 0.04902036728728676
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 49.36,
+    "games": 395,
+    "popularity": 0.01569128450443944
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 49.26,
+    "games": 272,
+    "popularity": 0.010805137684069691
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 49.05,
+    "games": 579,
+    "popularity": 0.023000642349545408
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 48.99,
+    "games": 898,
+    "popularity": 0.03567284426578891
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 48.98,
+    "games": 2519,
+    "popularity": 0.1000666978903366
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 48.98,
+    "games": 1327,
+    "popularity": 0.05271477098073706
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 48.97,
+    "games": 3855,
+    "popularity": 0.1531389918091495
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 48.9,
+    "games": 730,
+    "popularity": 0.02899908275503998
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 48.79,
+    "games": 914,
+    "popularity": 0.03630844060014595
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 48.59,
+    "games": 321,
+    "popularity": 0.012751651458038128
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 48.45,
+    "games": 357,
+    "popularity": 0.01418174321034147
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 48.21,
+    "games": 2993,
+    "popularity": 0.11889623929566392
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 48.16,
+    "games": 299,
+    "popularity": 0.011877706498297197
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 48.08,
+    "games": 366,
+    "popularity": 0.014539266148417307
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 48.08,
+    "games": 1381,
+    "popularity": 0.05485990860919207
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 47.95,
+    "games": 244,
+    "popularity": 0.00969284409894487
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 47.94,
+    "games": 607,
+    "popularity": 0.02411293593467023
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 47.91,
+    "games": 11440,
+    "popularity": 0.4544513790652841
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 47.9,
+    "games": 263,
+    "popularity": 0.010447614745993856
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 47.77,
+    "games": 130975,
+    "popularity": 5.2029518682758376
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 47.63,
+    "games": 508,
+    "popularity": 0.020180183615836043
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 47.5,
+    "games": 14452,
+    "popularity": 0.574102389007997
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 47.28,
+    "games": 664,
+    "popularity": 0.02637724787581719
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 47.27,
+    "games": 550,
+    "popularity": 0.02184862399352327
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 47.16,
+    "games": 282,
+    "popularity": 0.011202385393042842
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 47.09,
+    "games": 1102,
+    "popularity": 0.04377669752884118
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 47.04,
+    "games": 355,
+    "popularity": 0.01410229366854684
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 46.97,
+    "games": 413,
+    "popularity": 0.016406330380591114
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 46.83,
+    "games": 521,
+    "popularity": 0.02069660563750114
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 46.65,
+    "games": 1974,
+    "popularity": 0.07841669775129989
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 46.64,
+    "games": 1295,
+    "popularity": 0.05144357831202298
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 46.61,
+    "games": 562,
+    "popularity": 0.022325321244291055
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 46.48,
+    "games": 1138,
+    "popularity": 0.045206789281144515
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 46.47,
+    "games": 723,
+    "popularity": 0.028721009358758775
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 46.36,
+    "games": 1484,
+    "popularity": 0.05895156001161552
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 46.24,
+    "games": 573,
+    "popularity": 0.022762293724161522
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 46.22,
+    "games": 1404,
+    "popularity": 0.05577357833983032
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 46.2,
+    "games": 277,
+    "popularity": 0.011003761538556266
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 46.17,
+    "games": 379,
+    "popularity": 0.015055688170082402
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 46,
+    "games": 250,
+    "popularity": 0.00993119272432876
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 45.96,
+    "games": 446,
+    "popularity": 0.01771724782020251
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 45.59,
+    "games": 2121,
+    "popularity": 0.0842562390732052
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 45.5,
+    "games": 334,
+    "popularity": 0.013268073479703223
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 45.14,
+    "games": 237,
+    "popularity": 0.009414770702663664
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 44.49,
+    "games": 236,
+    "popularity": 0.00937504593176635
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 42.94,
+    "games": 801,
+    "popularity": 0.03181954148874935
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 42.07,
+    "games": 202,
+    "popularity": 0.00802440372125764
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 39.85,
+    "games": 409,
+    "popularity": 0.016247431297001853
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 39.71,
+    "games": 209,
+    "popularity": 0.008302477117538844
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype -4",
+    "winrate": 37.35,
+    "games": 257,
+    "popularity": 0.010209266120609966
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 142",
+    "winrate": 36.36,
+    "games": 308,
+    "popularity": 0.012235229436373033
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype -4",
+    "winrate": 34.2,
+    "games": 2967,
+    "popularity": 0.11786339525233372
+  },
+  {
+    "class": "MAGE",
+    "archetype": "Archetype 809",
+    "winrate": 27.45,
+    "games": 255,
+    "popularity": 0.010129816578815336
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 171",
+    "winrate": 66.66,
+    "games": 570,
+    "popularity": 0.022643119411469577
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 171",
+    "winrate": 64.57,
+    "games": 42331,
+    "popularity": 1.681589276854243
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 63.72,
+    "games": 25764,
+    "popularity": 1.0234689973984248
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 171",
+    "winrate": 63.6,
+    "games": 15497,
+    "popularity": 0.6156147745956912
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 63.29,
+    "games": 2242,
+    "popularity": 0.08906293635178034
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 171",
+    "winrate": 63.21,
+    "games": 63945,
+    "popularity": 2.5402004750288105
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 63.02,
+    "games": 6288,
+    "popularity": 0.24978935940231697
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 62.99,
+    "games": 4807,
+    "popularity": 0.19095697370339343
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 62.88,
+    "games": 361,
+    "popularity": 0.014340642293930731
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 171",
+    "winrate": 62.85,
+    "games": 5250,
+    "popularity": 0.20855504721090395
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 62.78,
+    "games": 13748,
+    "popularity": 0.5461361502962873
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 62.76,
+    "games": 282,
+    "popularity": 0.011202385393042842
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 171",
+    "winrate": 62.4,
+    "games": 963,
+    "popularity": 0.038254954374114386
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 171",
+    "winrate": 62.35,
+    "games": 1182,
+    "popularity": 0.046954679200626376
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 62.3,
+    "games": 181972,
+    "popularity": 7.228796009726213
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 61.93,
+    "games": 3628,
+    "popularity": 0.14412146881545895
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 61.91,
+    "games": 407,
+    "popularity": 0.016167981755207225
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 61.88,
+    "games": 913,
+    "popularity": 0.036268715829248635
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 171",
+    "winrate": 61.84,
+    "games": 1845,
+    "popularity": 0.07329220230554626
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 61.75,
+    "games": 489,
+    "popularity": 0.019425412968787057
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 61.69,
+    "games": 355,
+    "popularity": 0.01410229366854684
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 61.66,
+    "games": 720,
+    "popularity": 0.028601835046066833
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 61.66,
+    "games": 600,
+    "popularity": 0.023834862538389026
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 61.46,
+    "games": 327,
+    "popularity": 0.012990000083422019
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 61.43,
+    "games": 2803,
+    "popularity": 0.11134853282517407
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 61.34,
+    "games": 1816,
+    "popularity": 0.07214018394952412
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 61.24,
+    "games": 916,
+    "popularity": 0.036387890141940576
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 171",
+    "winrate": 61.22,
+    "games": 245,
+    "popularity": 0.009732568869842185
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 61.15,
+    "games": 2160,
+    "popularity": 0.0858055051382005
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 61.12,
+    "games": 2894,
+    "popularity": 0.11496348697682973
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 61.08,
+    "games": 722,
+    "popularity": 0.028681284587861462
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 60.97,
+    "games": 1694,
+    "popularity": 0.06729376190005168
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 60.86,
+    "games": 253,
+    "popularity": 0.010050367037020705
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 60.8,
+    "games": 625,
+    "popularity": 0.024827981810821905
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 60.67,
+    "games": 1681,
+    "popularity": 0.06677733987838658
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 60.67,
+    "games": 1353,
+    "popularity": 0.05374761502406725
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 60.66,
+    "games": 1754,
+    "popularity": 0.06967724815389059
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 60.65,
+    "games": 2676,
+    "popularity": 0.10630348692121507
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 60.62,
+    "games": 579,
+    "popularity": 0.023000642349545408
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 60.57,
+    "games": 421,
+    "popularity": 0.016724128547769633
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 60.45,
+    "games": 875,
+    "popularity": 0.034759174535150664
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 60.43,
+    "games": 1246,
+    "popularity": 0.04949706453805454
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 60.42,
+    "games": 235,
+    "popularity": 0.009335321160869036
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 171",
+    "winrate": 60.4,
+    "games": 3407,
+    "popularity": 0.13534229444715234
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 171",
+    "winrate": 60.28,
+    "games": 1201,
+    "popularity": 0.04770944984767536
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 60.19,
+    "games": 8900,
+    "popularity": 0.3535504609861039
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 59.93,
+    "games": 4375,
+    "popularity": 0.1737958726757533
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 59.86,
+    "games": 299,
+    "popularity": 0.011877706498297197
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 171",
+    "winrate": 59.85,
+    "games": 284,
+    "popularity": 0.011281834934837472
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 59.7,
+    "games": 3633,
+    "popularity": 0.14432009266994555
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 59.69,
+    "games": 712,
+    "popularity": 0.028284036878888308
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 171",
+    "winrate": 59.69,
+    "games": 861,
+    "popularity": 0.03420302774258825
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 59.61,
+    "games": 208,
+    "popularity": 0.00826275234664153
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 59.53,
+    "games": 2553,
+    "popularity": 0.1014173401008453
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 59.5,
+    "games": 926,
+    "popularity": 0.036785137850913724
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 59.31,
+    "games": 558,
+    "popularity": 0.022166422160701794
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 59.11,
+    "games": 883,
+    "popularity": 0.035076972702329186
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 59,
+    "games": 722,
+    "popularity": 0.028681284587861462
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 58.86,
+    "games": 265,
+    "popularity": 0.010527064287788487
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 58.56,
+    "games": 473,
+    "popularity": 0.018789816634430016
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 171",
+    "winrate": 58.41,
+    "games": 404,
+    "popularity": 0.01604880744251528
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 58.39,
+    "games": 673,
+    "popularity": 0.026734770813893024
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 58.33,
+    "games": 360,
+    "popularity": 0.014300917523033417
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 58.21,
+    "games": 5327,
+    "popularity": 0.21161385456999723
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 57.88,
+    "games": 463,
+    "popularity": 0.018392568925456862
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 57.86,
+    "games": 591,
+    "popularity": 0.023477339600313188
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 57.52,
+    "games": 605,
+    "popularity": 0.0240334863928756
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 57.46,
+    "games": 308,
+    "popularity": 0.012235229436373033
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 782",
+    "winrate": 57.37,
+    "games": 495,
+    "popularity": 0.019663761594170947
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 57.09,
+    "games": 648,
+    "popularity": 0.025741651541460145
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 782",
+    "winrate": 56.86,
+    "games": 1428,
+    "popularity": 0.05672697284136588
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 56.79,
+    "games": 655,
+    "popularity": 0.02601972493774135
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 760",
+    "winrate": 56.65,
+    "games": 233,
+    "popularity": 0.009255871619074405
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 56.6,
+    "games": 424,
+    "popularity": 0.016843302860461578
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 782",
+    "winrate": 56.55,
+    "games": 2288,
+    "popularity": 0.09089027581305681
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 56.45,
+    "games": 271,
+    "popularity": 0.010765412913172377
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 56.42,
+    "games": 436,
+    "popularity": 0.017320000111229358
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 56.22,
+    "games": 297,
+    "popularity": 0.011798256956502568
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 782",
+    "winrate": 56.07,
+    "games": 831,
+    "popularity": 0.033011284615668796
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 56,
+    "games": 800,
+    "popularity": 0.03177981671785203
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 782",
+    "winrate": 55.93,
+    "games": 1028,
+    "popularity": 0.040837064482439865
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 782",
+    "winrate": 55.77,
+    "games": 1074,
+    "popularity": 0.04266440394371636
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 55.74,
+    "games": 296,
+    "popularity": 0.011758532185605254
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 782",
+    "winrate": 55.7,
+    "games": 508,
+    "popularity": 0.020180183615836043
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 782",
+    "winrate": 55.61,
+    "games": 17590,
+    "popularity": 0.6987587200837716
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 55.46,
+    "games": 357,
+    "popularity": 0.01418174321034147
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 54.89,
+    "games": 419,
+    "popularity": 0.016644679005975
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 54.29,
+    "games": 326,
+    "popularity": 0.012950275312524705
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 54.23,
+    "games": 319,
+    "popularity": 0.012672201916243499
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 782",
+    "winrate": 53.96,
+    "games": 404,
+    "popularity": 0.01604880744251528
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 53.49,
+    "games": 415,
+    "popularity": 0.016485779922385743
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 171",
+    "winrate": 53.29,
+    "games": 364,
+    "popularity": 0.014459816606622676
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 79",
+    "winrate": 52.25,
+    "games": 310,
+    "popularity": 0.012314678978167664
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 760",
+    "winrate": 51.86,
+    "games": 295,
+    "popularity": 0.011718807414707938
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 782",
+    "winrate": 49.35,
+    "games": 233,
+    "popularity": 0.009255871619074405
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 782",
+    "winrate": 48.41,
+    "games": 886,
+    "popularity": 0.03519614701502113
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 800",
+    "winrate": 46.75,
+    "games": 648,
+    "popularity": 0.025741651541460145
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 171",
+    "winrate": 40.25,
+    "games": 1749,
+    "popularity": 0.06947862429940402
+  },
+  {
+    "class": "PALADIN",
+    "archetype": "Archetype 760",
+    "winrate": 33.78,
+    "games": 808,
+    "popularity": 0.03209761488503056
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 62.05,
+    "games": 253,
+    "popularity": 0.010050367037020705
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 806",
+    "winrate": 60.73,
+    "games": 6380,
+    "popularity": 0.25344403832487
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 60.12,
+    "games": 3634,
+    "popularity": 0.14435981744084286
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 60.09,
+    "games": 3924,
+    "popularity": 0.15588000100106422
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 60.03,
+    "games": 503,
+    "popularity": 0.019981559761349466
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 806",
+    "winrate": 59.71,
+    "games": 278,
+    "popularity": 0.011043486309453582
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 59.48,
+    "games": 3944,
+    "popularity": 0.15667449641901052
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 59.47,
+    "games": 422,
+    "popularity": 0.016763853318666946
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 704",
+    "winrate": 59.38,
+    "games": 650,
+    "popularity": 0.02582110108325478
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 59.32,
+    "games": 128974,
+    "popularity": 5.12346260171031
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 59.19,
+    "games": 870,
+    "popularity": 0.03456055068066409
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 59.09,
+    "games": 220,
+    "popularity": 0.00873944959740931
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 806",
+    "winrate": 58.95,
+    "games": 14385,
+    "popularity": 0.5714408293578769
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 58.77,
+    "games": 701,
+    "popularity": 0.027847064399017848
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 58.6,
+    "games": 587,
+    "popularity": 0.02331844051672393
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 806",
+    "winrate": 58.55,
+    "games": 1216,
+    "popularity": 0.048305321411135096
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 58.47,
+    "games": 3656,
+    "popularity": 0.1452337624005838
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 58.45,
+    "games": 207,
+    "popularity": 0.008223027575744214
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 58.35,
+    "games": 401,
+    "popularity": 0.01592963312982333
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 58.33,
+    "games": 216,
+    "popularity": 0.00858055051382005
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 58.26,
+    "games": 520,
+    "popularity": 0.020656880866603822
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 704",
+    "winrate": 58.26,
+    "games": 381,
+    "popularity": 0.01513513771187703
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 58.16,
+    "games": 404,
+    "popularity": 0.01604880744251528
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 58.11,
+    "games": 1478,
+    "popularity": 0.05871321138623164
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 58.01,
+    "games": 2563,
+    "popularity": 0.10181458780981845
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 57.93,
+    "games": 1058,
+    "popularity": 0.042028807609359314
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 806",
+    "winrate": 57.92,
+    "games": 1174,
+    "popularity": 0.04663688103344786
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 57.86,
+    "games": 845,
+    "popularity": 0.033567431408231214
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 57.8,
+    "games": 282,
+    "popularity": 0.011202385393042842
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 57.74,
+    "games": 639,
+    "popularity": 0.025384128603384314
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 57.73,
+    "games": 918,
+    "popularity": 0.03646733968373521
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 57.7,
+    "games": 7190,
+    "popularity": 0.28562110275169517
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 57.65,
+    "games": 3077,
+    "popularity": 0.12223312005103838
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 806",
+    "winrate": 57.65,
+    "games": 555,
+    "popularity": 0.02204724784800985
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 57.63,
+    "games": 262,
+    "popularity": 0.010407889975096542
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 36",
+    "winrate": 57.6,
+    "games": 467,
+    "popularity": 0.018551468009046126
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 57.56,
+    "games": 707,
+    "popularity": 0.028085413024401738
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 57.44,
+    "games": 376,
+    "popularity": 0.014936513857390456
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 57.42,
+    "games": 256,
+    "popularity": 0.01016954134971265
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 57.41,
+    "games": 2245,
+    "popularity": 0.08918211066447226
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 704",
+    "winrate": 57.25,
+    "games": 524,
+    "popularity": 0.020815779950193083
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 806",
+    "winrate": 57.15,
+    "games": 1755,
+    "popularity": 0.0697169729247879
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 57.11,
+    "games": 7018,
+    "popularity": 0.27878844215735693
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 57.09,
+    "games": 303,
+    "popularity": 0.012036605581886458
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 36",
+    "winrate": 57.05,
+    "games": 517,
+    "popularity": 0.020537706553911877
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 704",
+    "winrate": 57.04,
+    "games": 2463,
+    "popularity": 0.09784211072008694
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 56.72,
+    "games": 6678,
+    "popularity": 0.26528202005226986
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 56.71,
+    "games": 774,
+    "popularity": 0.030746972674521842
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 56.67,
+    "games": 277,
+    "popularity": 0.011003761538556266
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 56.6,
+    "games": 2067,
+    "popularity": 0.08211110144475019
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 56.54,
+    "games": 474,
+    "popularity": 0.01882954140532733
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 56.43,
+    "games": 241,
+    "popularity": 0.009573669786252926
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 56.38,
+    "games": 470,
+    "popularity": 0.01867064232173807
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 56.27,
+    "games": 773,
+    "popularity": 0.030707247903624526
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 56.19,
+    "games": 18724,
+    "popularity": 0.7438066102813269
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 56.05,
+    "games": 12371,
+    "popularity": 0.4914351407706844
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 55.82,
+    "games": 446,
+    "popularity": 0.01771724782020251
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 55.77,
+    "games": 6437,
+    "popularity": 0.25570835026601696
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 55.76,
+    "games": 321,
+    "popularity": 0.012751651458038128
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 55.73,
+    "games": 750,
+    "popularity": 0.02979357817298628
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 55.73,
+    "games": 244,
+    "popularity": 0.00969284409894487
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 55.69,
+    "games": 316,
+    "popularity": 0.012553027603551554
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 55.58,
+    "games": 842,
+    "popularity": 0.033448257095539266
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 55.55,
+    "games": 288,
+    "popularity": 0.011440734018426732
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 55.41,
+    "games": 397,
+    "popularity": 0.01577073404623407
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 55.4,
+    "games": 370,
+    "popularity": 0.014698165232006566
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 55.17,
+    "games": 232,
+    "popularity": 0.00921614684817709
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 55.14,
+    "games": 9377,
+    "popularity": 0.3724991767041232
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 55.08,
+    "games": 236,
+    "popularity": 0.00937504593176635
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 55.04,
+    "games": 1517,
+    "popularity": 0.06026247745122692
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 55,
+    "games": 280,
+    "popularity": 0.011122935851248211
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 54.97,
+    "games": 884,
+    "popularity": 0.0351166974732265
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 54.93,
+    "games": 324,
+    "popularity": 0.012870825770730072
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 704",
+    "winrate": 54.86,
+    "games": 791,
+    "popularity": 0.0314222937797762
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 54.85,
+    "games": 813,
+    "popularity": 0.032296238739517126
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 54.7,
+    "games": 223,
+    "popularity": 0.008858623910101254
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 54.65,
+    "games": 1224,
+    "popularity": 0.04862311957831361
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 54.52,
+    "games": 552,
+    "popularity": 0.021928073535317904
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 54.45,
+    "games": 303,
+    "popularity": 0.012036605581886458
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 56",
+    "winrate": 54.41,
+    "games": 713,
+    "popularity": 0.028323761649785627
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 54.31,
+    "games": 440,
+    "popularity": 0.01747889919481862
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 54.29,
+    "games": 571,
+    "popularity": 0.02268284418236689
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 54.25,
+    "games": 470,
+    "popularity": 0.01867064232173807
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 54.24,
+    "games": 518,
+    "popularity": 0.020577431324809194
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 704",
+    "winrate": 54.24,
+    "games": 507,
+    "popularity": 0.020140458844938727
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 53.88,
+    "games": 373,
+    "popularity": 0.01481733954469851
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 53.72,
+    "games": 832,
+    "popularity": 0.03305100938656612
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 36",
+    "winrate": 53.5,
+    "games": 228,
+    "popularity": 0.00905724776458783
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 53.46,
+    "games": 838,
+    "popularity": 0.03328935801195
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 53.37,
+    "games": 3129,
+    "popularity": 0.12429880813769877
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 53.29,
+    "games": 486,
+    "popularity": 0.019306238656095112
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 53.01,
+    "games": 664,
+    "popularity": 0.02637724787581719
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 806",
+    "winrate": 52.83,
+    "games": 986,
+    "popularity": 0.03916862410475263
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 52.73,
+    "games": 201,
+    "popularity": 0.007984678950360324
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 52.72,
+    "games": 275,
+    "popularity": 0.010924311996761636
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 52.69,
+    "games": 2543,
+    "popularity": 0.10102009239187217
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 56",
+    "winrate": 52.59,
+    "games": 462,
+    "popularity": 0.01835284415455955
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 36",
+    "winrate": 51.96,
+    "games": 1782,
+    "popularity": 0.0707895417390154
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 51.9,
+    "games": 447,
+    "popularity": 0.017756972591099825
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 56",
+    "winrate": 51.66,
+    "games": 902,
+    "popularity": 0.03583174334937817
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 704",
+    "winrate": 51.56,
+    "games": 287,
+    "popularity": 0.011401009247529417
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 56",
+    "winrate": 51.29,
+    "games": 655,
+    "popularity": 0.02601972493774135
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 56",
+    "winrate": 51.21,
+    "games": 287,
+    "popularity": 0.011401009247529417
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 56",
+    "winrate": 50.94,
+    "games": 1755,
+    "popularity": 0.0697169729247879
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 56",
+    "winrate": 50.79,
+    "games": 1949,
+    "popularity": 0.07742357847886702
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 50.13,
+    "games": 740,
+    "popularity": 0.029396330464013132
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 56",
+    "winrate": 49.89,
+    "games": 469,
+    "popularity": 0.018630917550840755
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 783",
+    "winrate": 48.96,
+    "games": 531,
+    "popularity": 0.021093853346474286
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 48.87,
+    "games": 579,
+    "popularity": 0.023000642349545408
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 36",
+    "winrate": 48.56,
+    "games": 556,
+    "popularity": 0.022086972618907165
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 48.45,
+    "games": 357,
+    "popularity": 0.01418174321034147
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 48.3,
+    "games": 207,
+    "popularity": 0.008223027575744214
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 783",
+    "winrate": 48.13,
+    "games": 455,
+    "popularity": 0.018074770758278343
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 47.96,
+    "games": 319,
+    "popularity": 0.012672201916243499
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 806",
+    "winrate": 46.61,
+    "games": 708,
+    "popularity": 0.02812513779529905
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 36",
+    "winrate": 46.3,
+    "games": 203,
+    "popularity": 0.008064128492154952
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 36",
+    "winrate": 46.1,
+    "games": 295,
+    "popularity": 0.011718807414707938
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 783",
+    "winrate": 45.05,
+    "games": 1265,
+    "popularity": 0.050251835185103524
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 36",
+    "winrate": 44.99,
+    "games": 589,
+    "popularity": 0.023397890058518563
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 36",
+    "winrate": 44.93,
+    "games": 247,
+    "popularity": 0.009812018411636815
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 56",
+    "winrate": 44.49,
+    "games": 481,
+    "popularity": 0.019107614801608535
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 36",
+    "winrate": 42.4,
+    "games": 250,
+    "popularity": 0.00993119272432876
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 41.6,
+    "games": 274,
+    "popularity": 0.010884587225864321
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 38.96,
+    "games": 1686,
+    "popularity": 0.06697596373287316
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 36",
+    "winrate": 38.25,
+    "games": 494,
+    "popularity": 0.01962403682327363
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 783",
+    "winrate": 36.52,
+    "games": 460,
+    "popularity": 0.01827339461276492
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype 753",
+    "winrate": 28.18,
+    "games": 330,
+    "popularity": 0.013109174396113964
+  },
+  {
+    "class": "PRIEST",
+    "archetype": "Archetype -6",
+    "winrate": 24.51,
+    "games": 2023,
+    "popularity": 0.08036321152526833
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 57.48,
+    "games": 207,
+    "popularity": 0.008223027575744214
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 56.17,
+    "games": 502,
+    "popularity": 0.019941834990452153
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 55.9,
+    "games": 542,
+    "popularity": 0.021530825826344753
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 55.67,
+    "games": 819,
+    "popularity": 0.032534587364901016
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 55.64,
+    "games": 257,
+    "popularity": 0.010209266120609966
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 55.41,
+    "games": 812,
+    "popularity": 0.03225651396861981
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 55.39,
+    "games": 352,
+    "popularity": 0.013983119355854895
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 55.24,
+    "games": 391,
+    "popularity": 0.015532385420850182
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 54.89,
+    "games": 470,
+    "popularity": 0.01867064232173807
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 54.83,
+    "games": 496,
+    "popularity": 0.01970348636506826
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 54.82,
+    "games": 1120,
+    "popularity": 0.044491743404992845
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 54.66,
+    "games": 5470,
+    "popularity": 0.21729449680831328
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 54.35,
+    "games": 241,
+    "popularity": 0.009573669786252926
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 54.17,
+    "games": 323,
+    "popularity": 0.01283110099983276
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 54.03,
+    "games": 1836,
+    "popularity": 0.07293467936747042
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 54.02,
+    "games": 335,
+    "popularity": 0.01330779825060054
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 54.01,
+    "games": 10910,
+    "popularity": 0.4333972504897071
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 53.98,
+    "games": 376,
+    "popularity": 0.014936513857390456
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 53.93,
+    "games": 419,
+    "popularity": 0.016644679005975
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 53.92,
+    "games": 204,
+    "popularity": 0.008103853263052269
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 53.92,
+    "games": 4228,
+    "popularity": 0.167956331353848
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 53.9,
+    "games": 1089,
+    "popularity": 0.04326027550717608
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 53.79,
+    "games": 1554,
+    "popularity": 0.06173229397442758
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 53.6,
+    "games": 679,
+    "popularity": 0.026973119439276914
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 53.59,
+    "games": 1306,
+    "popularity": 0.051880550791893444
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 737",
+    "winrate": 53.58,
+    "games": 3092,
+    "popularity": 0.1228289916144981
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 53.56,
+    "games": 7134,
+    "popularity": 0.2833965155814455
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 53.52,
+    "games": 3488,
+    "popularity": 0.13856000088983486
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 53.45,
+    "games": 1259,
+    "popularity": 0.05001348655971964
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 53.06,
+    "games": 441,
+    "popularity": 0.01751862396571593
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 52.82,
+    "games": 867,
+    "popularity": 0.03444137636797214
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 52.8,
+    "games": 481,
+    "popularity": 0.019107614801608535
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 52.69,
+    "games": 3676,
+    "popularity": 0.1460282578185301
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 737",
+    "winrate": 52.65,
+    "games": 245,
+    "popularity": 0.009732568869842185
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 52.47,
+    "games": 202,
+    "popularity": 0.00802440372125764
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 52.41,
+    "games": 269,
+    "popularity": 0.010685963371377746
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 52.27,
+    "games": 220,
+    "popularity": 0.00873944959740931
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 52.12,
+    "games": 589,
+    "popularity": 0.023397890058518563
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 52.06,
+    "games": 774,
+    "popularity": 0.030746972674521842
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 52,
+    "games": 448,
+    "popularity": 0.01779669736199714
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 51.84,
+    "games": 1086,
+    "popularity": 0.04314110119448414
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 51.68,
+    "games": 2494,
+    "popularity": 0.09907357861790372
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 51.3,
+    "games": 764,
+    "popularity": 0.030349724965548695
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 51.28,
+    "games": 273,
+    "popularity": 0.010844862454967007
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 51.21,
+    "games": 289,
+    "popularity": 0.011480458789324048
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 51.16,
+    "games": 7823,
+    "popularity": 0.3107668827296956
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 51.13,
+    "games": 221,
+    "popularity": 0.008779174368306625
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 737",
+    "winrate": 50.87,
+    "games": 456,
+    "popularity": 0.01811449552917566
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 50.84,
+    "games": 238,
+    "popularity": 0.00945449547356098
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 50.56,
+    "games": 1054,
+    "popularity": 0.04186990852577006
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 50.49,
+    "games": 204,
+    "popularity": 0.008103853263052269
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 50.39,
+    "games": 1016,
+    "popularity": 0.040360367231672085
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 799",
+    "winrate": 50.34,
+    "games": 433,
+    "popularity": 0.017200825798537413
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 737",
+    "winrate": 50.21,
+    "games": 916,
+    "popularity": 0.036387890141940576
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 50.1,
+    "games": 1910,
+    "popularity": 0.07587431241387173
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 737",
+    "winrate": 50.07,
+    "games": 3229,
+    "popularity": 0.12827128522743025
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 725",
+    "winrate": 49.48,
+    "games": 875,
+    "popularity": 0.034759174535150664
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 49.4,
+    "games": 251,
+    "popularity": 0.009970917495226076
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 49.23,
+    "games": 260,
+    "popularity": 0.010328440433301911
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 725",
+    "winrate": 48.71,
+    "games": 351,
+    "popularity": 0.01394339458495758
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 48.48,
+    "games": 264,
+    "popularity": 0.01048733951689117
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 48.4,
+    "games": 250,
+    "popularity": 0.00993119272432876
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 725",
+    "winrate": 48.31,
+    "games": 327,
+    "popularity": 0.012990000083422019
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 810",
+    "winrate": 47.65,
+    "games": 235,
+    "popularity": 0.009335321160869036
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 725",
+    "winrate": 46.93,
+    "games": 1208,
+    "popularity": 0.04798752324395657
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 737",
+    "winrate": 46.51,
+    "games": 402,
+    "popularity": 0.015969357900720647
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 799",
+    "winrate": 42.36,
+    "games": 347,
+    "popularity": 0.013784495501368321
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 799",
+    "winrate": 42.02,
+    "games": 207,
+    "popularity": 0.008223027575744214
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 737",
+    "winrate": 41.25,
+    "games": 366,
+    "popularity": 0.014539266148417307
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 725",
+    "winrate": 36.4,
+    "games": 217,
+    "popularity": 0.008620275284717364
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 155",
+    "winrate": 35.34,
+    "games": 382,
+    "popularity": 0.015174862482774347
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 155",
+    "winrate": 34.22,
+    "games": 488,
+    "popularity": 0.01938568819788974
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype -7",
+    "winrate": 34.01,
+    "games": 294,
+    "popularity": 0.011679082643810621
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 155",
+    "winrate": 33.01,
+    "games": 948,
+    "popularity": 0.03765908281065466
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 725",
+    "winrate": 32.3,
+    "games": 226,
+    "popularity": 0.0089777982227932
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 276",
+    "winrate": 31.41,
+    "games": 312,
+    "popularity": 0.012394128519962293
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 276",
+    "winrate": 28.09,
+    "games": 1584,
+    "popularity": 0.06292403710134703
+  },
+  {
+    "class": "ROGUE",
+    "archetype": "Archetype 276",
+    "winrate": 21.78,
+    "games": 358,
+    "popularity": 0.014221467981238784
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 61",
+    "winrate": 60.44,
+    "games": 18901,
+    "popularity": 0.7508378947301516
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 61",
+    "winrate": 60.18,
+    "games": 751,
+    "popularity": 0.0298333029438836
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 61",
+    "winrate": 60.13,
+    "games": 1307,
+    "popularity": 0.05192027556279077
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 61",
+    "winrate": 59.72,
+    "games": 1738,
+    "popularity": 0.06904165181953353
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 61",
+    "winrate": 59,
+    "games": 3037,
+    "popularity": 0.12064412921514579
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 766",
+    "winrate": 58.4,
+    "games": 1457,
+    "popularity": 0.05787899119738802
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 61",
+    "winrate": 58.16,
+    "games": 808,
+    "popularity": 0.03209761488503056
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 766",
+    "winrate": 57.65,
+    "games": 555,
+    "popularity": 0.02204724784800985
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 766",
+    "winrate": 56.72,
+    "games": 647,
+    "popularity": 0.025701926770562832
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 766",
+    "winrate": 56.47,
+    "games": 6667,
+    "popularity": 0.26484504757239935
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 766",
+    "winrate": 56.16,
+    "games": 673,
+    "popularity": 0.026734770813893024
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 766",
+    "winrate": 55,
+    "games": 380,
+    "popularity": 0.015095412940979717
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 766",
+    "winrate": 54.76,
+    "games": 409,
+    "popularity": 0.016247431297001853
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 766",
+    "winrate": 54.51,
+    "games": 310,
+    "popularity": 0.012314678978167664
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 766",
+    "winrate": 54.49,
+    "games": 1745,
+    "popularity": 0.06931972521581474
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 766",
+    "winrate": 54.47,
+    "games": 536,
+    "popularity": 0.021292477200960863
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 306",
+    "winrate": 53.96,
+    "games": 1953,
+    "popularity": 0.07758247756245627
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 755",
+    "winrate": 51.86,
+    "games": 214,
+    "popularity": 0.00850110097202542
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 766",
+    "winrate": 51.25,
+    "games": 3106,
+    "popularity": 0.12338513840706052
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 755",
+    "winrate": 51.09,
+    "games": 3466,
+    "popularity": 0.13768605593009395
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 306",
+    "winrate": 50.78,
+    "games": 3737,
+    "popularity": 0.14845146884326632
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 766",
+    "winrate": 50.67,
+    "games": 221,
+    "popularity": 0.008779174368306625
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 766",
+    "winrate": 50.15,
+    "games": 325,
+    "popularity": 0.01291055054162739
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 755",
+    "winrate": 49.8,
+    "games": 787,
+    "popularity": 0.031263394696186934
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 306",
+    "winrate": 49.68,
+    "games": 316,
+    "popularity": 0.012553027603551554
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 755",
+    "winrate": 49.41,
+    "games": 775,
+    "popularity": 0.030786697445419155
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 766",
+    "winrate": 49.17,
+    "games": 242,
+    "popularity": 0.00961339455715024
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 306",
+    "winrate": 49.09,
+    "games": 1660,
+    "popularity": 0.06594311968954297
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 755",
+    "winrate": 49,
+    "games": 300,
+    "popularity": 0.011917431269194513
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 755",
+    "winrate": 48.91,
+    "games": 597,
+    "popularity": 0.02371568822569708
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 306",
+    "winrate": 48.59,
+    "games": 533,
+    "popularity": 0.021173302888268918
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 726",
+    "winrate": 48.4,
+    "games": 250,
+    "popularity": 0.00993119272432876
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 306",
+    "winrate": 47.96,
+    "games": 859,
+    "popularity": 0.03412357820079362
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 306",
+    "winrate": 45.54,
+    "games": 797,
+    "popularity": 0.03166064240516009
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 726",
+    "winrate": 45.24,
+    "games": 3386,
+    "popularity": 0.13450807425830874
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 61",
+    "winrate": 44.7,
+    "games": 1011,
+    "popularity": 0.040161743377185505
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 306",
+    "winrate": 44.33,
+    "games": 494,
+    "popularity": 0.01962403682327363
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype -8",
+    "winrate": 42.9,
+    "games": 958,
+    "popularity": 0.03805633051962781
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 202",
+    "winrate": 42.29,
+    "games": 1097,
+    "popularity": 0.0435780736743546
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 306",
+    "winrate": 41.45,
+    "games": 234,
+    "popularity": 0.00929559638997172
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 726",
+    "winrate": 41.09,
+    "games": 657,
+    "popularity": 0.026099174479535983
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype -8",
+    "winrate": 38.11,
+    "games": 202,
+    "popularity": 0.00802440372125764
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype 61",
+    "winrate": 32.82,
+    "games": 1569,
+    "popularity": 0.062328165537887295
+  },
+  {
+    "class": "SHAMAN",
+    "archetype": "Archetype -8",
+    "winrate": 27.44,
+    "games": 266,
+    "popularity": 0.010566789058685801
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 63.59,
+    "games": 239,
+    "popularity": 0.009494220244458295
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 58.79,
+    "games": 961,
+    "popularity": 0.038175504832319754
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 58.72,
+    "games": 235,
+    "popularity": 0.009335321160869036
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 58.58,
+    "games": 1282,
+    "popularity": 0.050927156290357885
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 58.48,
+    "games": 1185,
+    "popularity": 0.047073853513318324
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 58.31,
+    "games": 1185,
+    "popularity": 0.047073853513318324
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.86,
+    "games": 17839,
+    "popularity": 0.708650188037203
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.78,
+    "games": 1973,
+    "popularity": 0.07837697298040258
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.77,
+    "games": 611,
+    "popularity": 0.024271835018259493
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.76,
+    "games": 277,
+    "popularity": 0.011003761538556266
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.75,
+    "games": 303,
+    "popularity": 0.012036605581886458
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.66,
+    "games": 933,
+    "popularity": 0.03706321124719494
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.65,
+    "games": 7959,
+    "popularity": 0.31616945157173043
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.64,
+    "games": 1976,
+    "popularity": 0.07849614729309452
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.64,
+    "games": 3837,
+    "popularity": 0.15242394593299782
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.53,
+    "games": 14714,
+    "popularity": 0.5845102789830936
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.53,
+    "games": 1646,
+    "popularity": 0.06538697289698056
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.5,
+    "games": 913,
+    "popularity": 0.036268715829248635
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.45,
+    "games": 1208,
+    "popularity": 0.04798752324395657
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 57.27,
+    "games": 330,
+    "popularity": 0.013109174396113964
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.25,
+    "games": 262,
+    "popularity": 0.010407889975096542
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.23,
+    "games": 318,
+    "popularity": 0.012632477145346183
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.18,
+    "games": 1614,
+    "popularity": 0.06411578022826649
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.09,
+    "games": 3708,
+    "popularity": 0.1472994504872442
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.08,
+    "games": 720,
+    "popularity": 0.028601835046066833
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 57.03,
+    "games": 2409,
+    "popularity": 0.09569697309163193
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 56.93,
+    "games": 3128,
+    "popularity": 0.12425908336680146
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 56.88,
+    "games": 8825,
+    "popularity": 0.35057110316880524
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 56.84,
+    "games": 1439,
+    "popularity": 0.057163945321236344
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 56.79,
+    "games": 243,
+    "popularity": 0.009653119328047556
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 56.76,
+    "games": 6828,
+    "popularity": 0.2712407356868671
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 56.69,
+    "games": 254,
+    "popularity": 0.010090091807918021
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 56.63,
+    "games": 42206,
+    "popularity": 1.6766236804920787
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 56.57,
+    "games": 532,
+    "popularity": 0.021133578117371602
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 56.56,
+    "games": 320,
+    "popularity": 0.012711926687140813
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 56.55,
+    "games": 1685,
+    "popularity": 0.06693623896197586
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 56.52,
+    "games": 621,
+    "popularity": 0.02466908272723264
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 56.46,
+    "games": 866,
+    "popularity": 0.034401651597074825
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 56.44,
+    "games": 574,
+    "popularity": 0.022802018495058834
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 56.37,
+    "games": 353,
+    "popularity": 0.014022844126752209
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 56.21,
+    "games": 59697,
+    "popularity": 2.371449648257016
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 56.14,
+    "games": 1327,
+    "popularity": 0.05271477098073706
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 56.12,
+    "games": 923,
+    "popularity": 0.03666596353822178
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 56.09,
+    "games": 7143,
+    "popularity": 0.28375403851952136
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 56.03,
+    "games": 1144,
+    "popularity": 0.045445137906528404
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 56.03,
+    "games": 232,
+    "popularity": 0.00921614684817709
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 55.98,
+    "games": 2222,
+    "popularity": 0.08826844093383403
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 55.98,
+    "games": 2338,
+    "popularity": 0.09287651435792257
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 55.95,
+    "games": 470,
+    "popularity": 0.01867064232173807
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 55.89,
+    "games": 975,
+    "popularity": 0.038731651624882166
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 55.87,
+    "games": 7830,
+    "popularity": 0.31104495612597677
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 55.83,
+    "games": 840,
+    "popularity": 0.033368807553744634
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 55.83,
+    "games": 394,
+    "popularity": 0.01565155973354213
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 55.74,
+    "games": 818,
+    "popularity": 0.03249486259400371
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 55.65,
+    "games": 814,
+    "popularity": 0.03233596351041445
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 55.59,
+    "games": 23172,
+    "popularity": 0.9205023912325841
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 55.59,
+    "games": 2119,
+    "popularity": 0.08417678953141057
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 55.58,
+    "games": 421,
+    "popularity": 0.016724128547769633
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 55.37,
+    "games": 14399,
+    "popularity": 0.5719969761504393
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 55.26,
+    "games": 778,
+    "popularity": 0.030905871758111103
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 807",
+    "winrate": 55.03,
+    "games": 278,
+    "popularity": 0.011043486309453582
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 55.02,
+    "games": 547,
+    "popularity": 0.021729449680831327
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype -9",
+    "winrate": 54.75,
+    "games": 442,
+    "popularity": 0.01755834873661325
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 54.72,
+    "games": 201,
+    "popularity": 0.007984678950360324
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 54.72,
+    "games": 561,
+    "popularity": 0.02228559647339374
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 54.69,
+    "games": 543,
+    "popularity": 0.02157055059724207
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 54.6,
+    "games": 15876,
+    "popularity": 0.6306704627657737
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype -9",
+    "winrate": 54.59,
+    "games": 1176,
+    "popularity": 0.046716330575242486
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 54.54,
+    "games": 10475,
+    "popularity": 0.4161169751493751
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 54.51,
+    "games": 299,
+    "popularity": 0.011877706498297197
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 54.5,
+    "games": 244,
+    "popularity": 0.00969284409894487
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 54.44,
+    "games": 2068,
+    "popularity": 0.08215082621564751
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 54.38,
+    "games": 1140,
+    "popularity": 0.045286238822939154
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 54.38,
+    "games": 331,
+    "popularity": 0.013148899167011278
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 54.23,
+    "games": 815,
+    "popularity": 0.03237568828131176
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 816",
+    "winrate": 54.22,
+    "games": 308,
+    "popularity": 0.012235229436373033
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 54.15,
+    "games": 554,
+    "popularity": 0.022007523077112533
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 54.12,
+    "games": 970,
+    "popularity": 0.03853302777039559
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 54.12,
+    "games": 1066,
+    "popularity": 0.042346605776537836
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 54.06,
+    "games": 960,
+    "popularity": 0.038135780061422445
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 54.05,
+    "games": 703,
+    "popularity": 0.027926513940812477
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 54,
+    "games": 587,
+    "popularity": 0.02331844051672393
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 53.97,
+    "games": 352,
+    "popularity": 0.013983119355854895
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 53.95,
+    "games": 278,
+    "popularity": 0.011043486309453582
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 53.92,
+    "games": 1248,
+    "popularity": 0.04957651407984917
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 53.92,
+    "games": 7850,
+    "popularity": 0.31183945154392306
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 53.86,
+    "games": 401,
+    "popularity": 0.01592963312982333
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 53.84,
+    "games": 7772,
+    "popularity": 0.3087409194139325
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 53.79,
+    "games": 448,
+    "popularity": 0.01779669736199714
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 53.63,
+    "games": 785,
+    "popularity": 0.03118394515439231
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 53.51,
+    "games": 256,
+    "popularity": 0.01016954134971265
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 53.35,
+    "games": 1372,
+    "popularity": 0.05450238567111623
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 53.24,
+    "games": 1465,
+    "popularity": 0.058196789364566535
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 53.17,
+    "games": 425,
+    "popularity": 0.01688302763135889
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 53.14,
+    "games": 2277,
+    "popularity": 0.09045330333318635
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 53.07,
+    "games": 358,
+    "popularity": 0.014221467981238784
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 53.04,
+    "games": 822,
+    "popularity": 0.032653761677592964
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 53.01,
+    "games": 332,
+    "popularity": 0.013188623937908595
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 53,
+    "games": 283,
+    "popularity": 0.011242110163940156
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 53,
+    "games": 1066,
+    "popularity": 0.042346605776537836
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 52.94,
+    "games": 3041,
+    "popularity": 0.12080302829873504
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 52.92,
+    "games": 2407,
+    "popularity": 0.09561752354983731
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 52.91,
+    "games": 514,
+    "popularity": 0.020418532241219933
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 816",
+    "winrate": 52.86,
+    "games": 227,
+    "popularity": 0.009017522993690515
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 52.73,
+    "games": 402,
+    "popularity": 0.015969357900720647
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 52.62,
+    "games": 515,
+    "popularity": 0.020458257012117245
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 52.55,
+    "games": 274,
+    "popularity": 0.010884587225864321
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 52.55,
+    "games": 980,
+    "popularity": 0.03893027547936874
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 52.4,
+    "games": 645,
+    "popularity": 0.025622477228768203
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 52.4,
+    "games": 1000,
+    "popularity": 0.03972477089731504
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 52.32,
+    "games": 474,
+    "popularity": 0.01882954140532733
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 767",
+    "winrate": 52.14,
+    "games": 652,
+    "popularity": 0.02590055062504941
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 52.12,
+    "games": 658,
+    "popularity": 0.0261388992504333
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 52.09,
+    "games": 933,
+    "popularity": 0.03706321124719494
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 786",
+    "winrate": 51.79,
+    "games": 751,
+    "popularity": 0.0298333029438836
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 51.72,
+    "games": 232,
+    "popularity": 0.00921614684817709
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 727",
+    "winrate": 51.05,
+    "games": 666,
+    "popularity": 0.026456697417611818
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 50.51,
+    "games": 588,
+    "popularity": 0.023358165287621243
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 49.81,
+    "games": 538,
+    "popularity": 0.021371926742755492
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 49.57,
+    "games": 238,
+    "popularity": 0.00945449547356098
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 807",
+    "winrate": 49.36,
+    "games": 705,
+    "popularity": 0.028005963482607102
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 816",
+    "winrate": 48.98,
+    "games": 1131,
+    "popularity": 0.044928715884863316
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype -9",
+    "winrate": 48.13,
+    "games": 1527,
+    "popularity": 0.060659725160200066
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 48.07,
+    "games": 260,
+    "popularity": 0.010328440433301911
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 47.74,
+    "games": 48421,
+    "popularity": 1.9235131316188918
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 727",
+    "winrate": 47.17,
+    "games": 2003,
+    "popularity": 0.07956871610732202
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 727",
+    "winrate": 47.04,
+    "games": 389,
+    "popularity": 0.015452935879055552
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 817",
+    "winrate": 47.01,
+    "games": 302,
+    "popularity": 0.011996880810989142
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 816",
+    "winrate": 46.22,
+    "games": 331,
+    "popularity": 0.013148899167011278
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 45.94,
+    "games": 296,
+    "popularity": 0.011758532185605254
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 727",
+    "winrate": 45.04,
+    "games": 373,
+    "popularity": 0.01481733954469851
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 43.85,
+    "games": 431,
+    "popularity": 0.017121376256742784
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype -9",
+    "winrate": 43.31,
+    "games": 247,
+    "popularity": 0.009812018411636815
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 418",
+    "winrate": 41.59,
+    "games": 440,
+    "popularity": 0.01747889919481862
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 418",
+    "winrate": 41.52,
+    "games": 1852,
+    "popularity": 0.07357027570182745
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 418",
+    "winrate": 41.47,
+    "games": 1331,
+    "popularity": 0.05287367006432632
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 40.87,
+    "games": 844,
+    "popularity": 0.03352770663733389
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 727",
+    "winrate": 39.07,
+    "games": 238,
+    "popularity": 0.00945449547356098
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype -9",
+    "winrate": 38.85,
+    "games": 471,
+    "popularity": 0.018710367092635384
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 307",
+    "winrate": 35.95,
+    "games": 584,
+    "popularity": 0.023199266204031985
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 786",
+    "winrate": 35.63,
+    "games": 275,
+    "popularity": 0.010924311996761636
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype -9",
+    "winrate": 34.11,
+    "games": 425,
+    "popularity": 0.01688302763135889
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 418",
+    "winrate": 33.18,
+    "games": 657,
+    "popularity": 0.026099174479535983
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype 418",
+    "winrate": 31.29,
+    "games": 278,
+    "popularity": 0.011043486309453582
+  },
+  {
+    "class": "WARLOCK",
+    "archetype": "Archetype -9",
+    "winrate": 27.73,
+    "games": 1972,
+    "popularity": 0.07833724820950526
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 670",
+    "winrate": 58.54,
+    "games": 3119,
+    "popularity": 0.1239015604287256
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 19",
+    "winrate": 58.36,
+    "games": 1141,
+    "popularity": 0.04532596359383646
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 670",
+    "winrate": 57.22,
+    "games": 40013,
+    "popularity": 1.5895072579142668
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype -10",
+    "winrate": 57.06,
+    "games": 580,
+    "popularity": 0.023040367120442724
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 670",
+    "winrate": 56.84,
+    "games": 292,
+    "popularity": 0.011599633102015993
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 56.78,
+    "games": 317,
+    "popularity": 0.012592752374448868
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 56.38,
+    "games": 603,
+    "popularity": 0.02395403685108097
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 670",
+    "winrate": 56.32,
+    "games": 1724,
+    "popularity": 0.06848550502697114
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 56.3,
+    "games": 238,
+    "popularity": 0.00945449547356098
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 56.26,
+    "games": 4070,
+    "popularity": 0.16167981755207222
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 56.17,
+    "games": 397,
+    "popularity": 0.01577073404623407
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 670",
+    "winrate": 56.11,
+    "games": 6608,
+    "popularity": 0.26250128608945783
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 670",
+    "winrate": 55.81,
+    "games": 421,
+    "popularity": 0.016724128547769633
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 670",
+    "winrate": 55.75,
+    "games": 226,
+    "popularity": 0.0089777982227932
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 55.67,
+    "games": 1234,
+    "popularity": 0.04902036728728676
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 55.39,
+    "games": 1966,
+    "popularity": 0.07809889958412138
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 55.14,
+    "games": 1137,
+    "popularity": 0.045167064510247205
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 757",
+    "winrate": 55.04,
+    "games": 6775,
+    "popularity": 0.2691353228293094
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 19",
+    "winrate": 54.89,
+    "games": 2310,
+    "popularity": 0.09176422077279775
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 54.73,
+    "games": 877,
+    "popularity": 0.034838624076945296
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 670",
+    "winrate": 54.61,
+    "games": 531,
+    "popularity": 0.021093853346474286
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 19",
+    "winrate": 54.6,
+    "games": 1945,
+    "popularity": 0.07726467939527776
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 54.6,
+    "games": 1663,
+    "popularity": 0.06606229400223491
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 54.5,
+    "games": 3904,
+    "popularity": 0.15508550558311793
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 19",
+    "winrate": 54.47,
+    "games": 402,
+    "popularity": 0.015969357900720647
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 54.38,
+    "games": 616,
+    "popularity": 0.024470458872746067
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 54.26,
+    "games": 726,
+    "popularity": 0.028840183671450723
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 757",
+    "winrate": 54.25,
+    "games": 505,
+    "popularity": 0.020061009303144098
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 53.96,
+    "games": 1827,
+    "popularity": 0.07257715642939458
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 53.96,
+    "games": 404,
+    "popularity": 0.01604880744251528
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 53.88,
+    "games": 887,
+    "popularity": 0.03523587178591844
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 53.88,
+    "games": 913,
+    "popularity": 0.036268715829248635
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 53.84,
+    "games": 429,
+    "popularity": 0.017041926714948155
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 53.84,
+    "games": 1367,
+    "popularity": 0.05430376181662966
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 53.78,
+    "games": 1084,
+    "popularity": 0.043061651652689506
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 53.55,
+    "games": 5124,
+    "popularity": 0.2035497260778423
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 53.53,
+    "games": 226,
+    "popularity": 0.0089777982227932
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 53.52,
+    "games": 213,
+    "popularity": 0.008461376201128105
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 670",
+    "winrate": 53.29,
+    "games": 319,
+    "popularity": 0.012672201916243499
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 53.04,
+    "games": 15865,
+    "popularity": 0.6302334902859031
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 53,
+    "games": 283,
+    "popularity": 0.011242110163940156
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 670",
+    "winrate": 52.94,
+    "games": 221,
+    "popularity": 0.008779174368306625
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 52.82,
+    "games": 778,
+    "popularity": 0.030905871758111103
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 52.8,
+    "games": 873,
+    "popularity": 0.03467972499335603
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 52.8,
+    "games": 534,
+    "popularity": 0.02121302765916623
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 52.59,
+    "games": 270,
+    "popularity": 0.010725688142275062
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 52.54,
+    "games": 236,
+    "popularity": 0.00937504593176635
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 52.42,
+    "games": 597,
+    "popularity": 0.02371568822569708
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 52.41,
+    "games": 2881,
+    "popularity": 0.11444706495516463
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 51.96,
+    "games": 535,
+    "popularity": 0.021252752430063547
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 51.88,
+    "games": 638,
+    "popularity": 0.025344403832486997
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 51.88,
+    "games": 318,
+    "popularity": 0.012632477145346183
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 51.86,
+    "games": 349,
+    "popularity": 0.01386394504316295
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 51.73,
+    "games": 433,
+    "popularity": 0.017200825798537413
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 670",
+    "winrate": 51.62,
+    "games": 430,
+    "popularity": 0.017081651485845468
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 51.46,
+    "games": 239,
+    "popularity": 0.009494220244458295
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 51.42,
+    "games": 385,
+    "popularity": 0.015294036795466292
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 51.4,
+    "games": 640,
+    "popularity": 0.025423853374281626
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 19",
+    "winrate": 51.26,
+    "games": 753,
+    "popularity": 0.029912752485678228
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 50.7,
+    "games": 1767,
+    "popularity": 0.07019367017555568
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 50.64,
+    "games": 310,
+    "popularity": 0.012314678978167664
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 50.62,
+    "games": 239,
+    "popularity": 0.009494220244458295
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 50,
+    "games": 304,
+    "popularity": 0.012076330352783774
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype -10",
+    "winrate": 49.63,
+    "games": 272,
+    "popularity": 0.010805137684069691
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 49.6,
+    "games": 508,
+    "popularity": 0.020180183615836043
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype -10",
+    "winrate": 49.42,
+    "games": 607,
+    "popularity": 0.02411293593467023
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 49.24,
+    "games": 264,
+    "popularity": 0.01048733951689117
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 49.04,
+    "games": 263,
+    "popularity": 0.010447614745993856
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 757",
+    "winrate": 48.74,
+    "games": 1719,
+    "popularity": 0.06828688117248455
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 19",
+    "winrate": 48.61,
+    "games": 216,
+    "popularity": 0.00858055051382005
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 48.45,
+    "games": 549,
+    "popularity": 0.02180889922262596
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 48,
+    "games": 200,
+    "popularity": 0.007944954179463008
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 47.22,
+    "games": 830,
+    "popularity": 0.032971559844771486
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 162",
+    "winrate": 46.88,
+    "games": 593,
+    "popularity": 0.02355678914210782
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 328",
+    "winrate": 44.12,
+    "games": 349,
+    "popularity": 0.01386394504316295
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 19",
+    "winrate": 44,
+    "games": 409,
+    "popularity": 0.016247431297001853
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype 670",
+    "winrate": 38.48,
+    "games": 369,
+    "popularity": 0.014658440461109251
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype -10",
+    "winrate": 36.96,
+    "games": 211,
+    "popularity": 0.008381926659333473
+  },
+  {
+    "class": "WARRIOR",
+    "archetype": "Archetype -10",
+    "winrate": 26.7,
+    "games": 1288,
+    "popularity": 0.05116550491574178
+  }
+]

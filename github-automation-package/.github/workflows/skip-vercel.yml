@@ -1,0 +1,96 @@
+name: Skip Vercel Deployment
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+  push:
+    branches: [main, develop]
+  workflow_call:
+    outputs:
+      should_skip:
+        value: ${{ jobs.skip-vercel.outputs.should_skip }}
+  workflow_dispatch:
+
+env:
+  CONNECT_TIMEOUT: 5
+  MAX_TIME: 30
+  RETRY_COUNT: 5
+  RETRY_MAX_TIME: 40
+  SPEED_TIME: 10
+  SPEED_LIMIT: 1024
+  EXPECT100_TIMEOUT: 2
+  BACKOFF_BASE: 1
+
+jobs:
+  skip-vercel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      should_skip: ${{ steps.check.outputs.should_skip }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+        with:
+          fetch-depth: 0
+
+      - name: Check for skip conditions
+        id: check
+        run: |
+          echo "Checking deployment skip conditions..."
+
+          # Check if PR title/body contains skip keywords
+          if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+            echo "PR Title: $PR_TITLE"
+            echo "PR Body: $PR_BODY"
+
+            # Skip if PR title contains [skip vercel], [no-deploy], etc.
+            if [[ "$PR_TITLE" =~ (\[skip\ vercel\]|\[no-deploy\]|\[skip\ deploy\]) ]] || [[ "$PR_BODY" =~ (skip.*vercel|no.*deploy|skip.*deploy) ]]; then
+              echo "should_skip=true" >> $GITHUB_OUTPUT
+              echo "Skipping Vercel deployment due to skip keywords in PR"
+              exit 0
+            fi
+          fi
+
+          # Check if commit message contains skip keywords
+          if [[ "$GITHUB_EVENT_NAME" == "push" ]]; then
+            COMMIT_MSG=$(git log -1 --pretty=%B)
+            echo "Commit message: $COMMIT_MSG"
+
+            if [[ "$COMMIT_MSG" =~ (\[skip\ vercel\]|\[no-deploy\]|\[skip\ deploy\]) ]]; then
+              echo "should_skip=true" >> $GITHUB_OUTPUT
+              echo "Skipping Vercel deployment due to skip keywords in commit"
+              exit 0
+            fi
+          fi
+
+          # Check for changes that don't require deployment
+          if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+            # Get changed files
+            CHANGED_FILES=$(git diff --name-only $BASE_SHA $HEAD_SHA)
+            echo "Changed files:"
+            echo "$CHANGED_FILES"
+
+            # Skip if only documentation/docs files changed
+            if echo "$CHANGED_FILES" | grep -q '^docs/' && ! echo "$CHANGED_FILES" | grep -v '^docs/'; then
+              echo "should_skip=true" >> $GITHUB_OUTPUT
+              echo "Skipping Vercel deployment - only docs files changed"
+              exit 0
+            fi
+
+            # Skip if only README or license changed
+            if echo "$CHANGED_FILES" | grep -E '^(README\.md|LICENSE)$' && ! echo "$CHANGED_FILES" | grep -v -E '^(README\.md|LICENSE)$'; then
+              echo "should_skip=true" >> $GITHUB_OUTPUT
+              echo "Skipping Vercel deployment - only README/LICENSE changed"
+              exit 0
+            fi
+          fi
+
+          echo "should_skip=false" >> $GITHUB_OUTPUT
+          echo "Proceeding with Vercel deployment"
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}

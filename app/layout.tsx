@@ -21,6 +21,16 @@ const montserrat = Montserrat({
 export const metadata = {
   title: 'Scrylytics',
   description: 'Where data becomes destiny.',
+  icons: {
+    icon: [
+      { url: '/icons/fire-favicon.svg', type: 'image/svg+xml' },
+      { url: '/icons/earth-favicon.svg', type: 'image/svg+xml' },
+      { url: '/icons/water-favicon.svg', type: 'image/svg+xml' },
+      { url: '/icons/air-favicon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/icons/fire-favicon.svg',
+    apple: '/icons/fire-favicon.svg',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -30,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${spectral.variable} ${montserrat.variable}`}
       suppressHydrationWarning
     >
-      <body>
+      <body style={{ backgroundColor: '#0F1114', color: '#FFFFFF' }}>
         <Providers>
           <Header />
           <main className="min-h-[70vh]">{children}</main>

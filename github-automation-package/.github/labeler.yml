@@ -1,0 +1,20 @@
+# Auto-labeling configuration
+# Labels PRs based on file paths changed
+# Customize these paths to match your project structure
+
+Library:
+  - 'app/library/**'
+  - 'components/library/**'
+Deckbuilder:
+  - 'app/deckbuilder/**'
+  - 'components/deckbuilder/**'
+AI:
+  - 'app/ai/**'
+Infra:
+  - '.github/**'
+  - 'vercel.json'
+Design:
+  - 'public/**'
+  - 'styles/**'
+Docs:
+  - '**/*.md'

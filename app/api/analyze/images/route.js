@@ -1,8 +1,8 @@
 // API endpoint for loading real card images
 // Called after initial analysis to replace placeholders
 
-import { fetchAllCards, parseDeckCode, validateDeck, getCardSynergies, calculateDeckStats } from '../../../../lib/hearthstone.js';
-import { parseMagicDeckList, validateMagicDeck, calculateMagicStats, getMagicSynergies, getCardByName, getCardImageUrl } from '../../../../lib/magic.js';
+import { parseDeckCode } from '../../../../lib/hearthstone.js';
+import { parseMagicDeckList, getCardByName } from '../../../../lib/magic.js';
 
 export async function POST(request) {
   try {

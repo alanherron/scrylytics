@@ -59,6 +59,69 @@ export type MetaDeck = {
 
 export const SAVED_DECKS: DeckRecord[] = [
   {
+    id: 'control-warrior-standard-hs',
+    name: 'Control Warrior',
+    format: 'Standard (HS)',
+    archetype: 'Control',
+    colors: ['N'],
+    lastUpdated: 'Today',
+    author: 'Sample Deck',
+    deckCode: 'AAECAQcEqgaN0gKS+AKggAMNS5EDogTUBJEG/wf7DOUPgq0CxsMCm8sCyucCnfACAAA=',
+    sections: [
+      {
+        key: 'removal',
+        label: 'Removal & Control',
+        cards: [
+          { name: 'Shield Slam', count: 2, manaValue: 1, role: 'Removal', tags: ['removal'], note: 'Efficient removal with armor.' },
+          { name: 'Execute', count: 2, manaValue: 1, role: 'Hard removal', tags: ['removal'], note: 'Destroys damaged minions.' },
+          { name: 'Brawl', count: 2, manaValue: 5, role: 'Board clear', tags: ['board clear'], note: 'Clears wide boards.' },
+        ],
+      },
+      {
+        key: 'threats',
+        label: 'Threats & Win Conditions',
+        cards: [
+          { name: 'Dr. Boom, Mad Genius', count: 1, manaValue: 7, role: 'Hero card', tags: ['legendary'], note: 'Transforms hero power for late game.' },
+          { name: 'Grommash Hellscream', count: 1, manaValue: 8, role: 'Finisher', tags: ['legendary'], note: 'Burst damage with enrage.' },
+        ],
+      },
+      {
+        key: 'defense',
+        label: 'Defense & Armor',
+        cards: [
+          { name: 'Armorsmith', count: 2, manaValue: 2, role: 'Armor gain', tags: ['defense'], note: 'Gains armor from minion damage.' },
+          { name: 'Shield Block', count: 2, manaValue: 3, role: 'Armor & draw', tags: ['defense'], note: 'Gains armor and draws a card.' },
+        ],
+      },
+    ],
+    snapshot: {
+      curve: [
+        { label: '1', value: 4 },
+        { label: '2', value: 4 },
+        { label: '3', value: 4 },
+        { label: '4', value: 4 },
+        { label: '5', value: 4 },
+        { label: '6+', value: 10 },
+      ],
+      colorWeight: [{ label: 'Neutral', value: 100 }],
+      gamePlan: 'Control the board with efficient removal, gain armor for survivability, then close the game with powerful late-game threats.',
+      strengths: ['Excellent removal suite.', 'Strong late-game threats.', 'High survivability with armor gain.'],
+      weaknesses: ['Weak to combo decks.', 'Can struggle against aggressive starts.', 'Requires careful resource management.'],
+      winRate: 54.8,
+      metaShare: 8.6,
+      topMatchups: [
+        { archetype: 'Aggro Hunter', winRate: 58 },
+        { archetype: 'Midrange Paladin', winRate: 55 },
+        { archetype: 'Control Priest', winRate: 52 },
+      ],
+      techOptions: [
+        { name: 'Baron Geddon', impact: 'high', note: 'Adds board clear and pressure.' },
+        { name: 'The Lich King', impact: 'medium', note: 'Provides value and threats.' },
+        { name: 'Dead Man\'s Hand', impact: 'low', note: 'Enables fatigue strategy.' },
+      ],
+    },
+  },
+  {
     id: 'esper-legends-standard',
     name: 'Esper Legends',
     format: 'Standard',

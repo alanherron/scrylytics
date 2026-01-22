@@ -118,7 +118,7 @@ export default function Dashboard() {
         <Link href="/" style={{color:"#4f46e5", textDecoration:"none", marginBottom:"1rem", display:"inline-block"}}>
           ← Back to Home
         </Link>
-        <h1>🎮 {user?.username}'s Dashboard</h1>
+        <h1>🎮 {user?.username}&apos;s Dashboard</h1>
         <p>Manage your saved decks and view your analysis history.</p>
       </div>
 

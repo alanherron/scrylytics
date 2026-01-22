@@ -185,6 +185,7 @@ export default function Metalyzer() {
           </div>
 
           {/* Top Decks */}
+          {metaData.topDecks && Array.isArray(metaData.topDecks) && (
           <div style={{marginBottom:"2rem"}}>
             <h3>🏆 Top Performing Decks</h3>
             <div style={{
@@ -238,6 +239,7 @@ export default function Metalyzer() {
               ))}
             </div>
           </div>
+          )}
 
           {/* Strategy Distribution */}
           {metaData.metaEfficiency && (

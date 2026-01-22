@@ -56,24 +56,20 @@ const getDisplayTitle = (issue: string) => {
   }
 };
 
-type AnalysisState = {
+interface AnalysisState {
   analysis: InsightResult | null;
   error: string | null;
-};
+}
 
 export default function InsightsPage() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const selectedDeck = PREBUILT_DECKS[selectedIndex];
 
   const { analysis, error }: AnalysisState = useMemo(() => {
-    if (!selectedDeck) {
-      return { analysis: null, error: 'Deck preset not found.' };
-    }
-
     try {
       const insight = analyzeDeck(selectedDeck);
       return { analysis: insight, error: null };
-    } catch (err) {
+    } catch {
       return { analysis: null, error: 'Analysis failed. Please try a different preset.' };
     }
   }, [selectedDeck]);
@@ -101,9 +97,9 @@ export default function InsightsPage() {
             <div className="flex items-center justify-between gap-3">
               <div>
                 <div className="text-xs font-semibold uppercase tracking-[0.2em] text-aether-200/70">Deck preset</div>
-                <h2 className="mt-2 font-display text-xl text-white">{selectedDeck?.name ?? 'Select a deck'}</h2>
+                <h2 className="mt-2 font-display text-xl text-white">{selectedDeck.name}</h2>
               </div>
-              {selectedDeck?.archetype && (
+              {selectedDeck.archetype && (
                 <span className="rounded-full border border-aether-400/40 bg-aether-400/10 px-3 py-1 text-xs font-medium text-aether-100">
                   {selectedDeck.archetype}
                 </span>
@@ -144,7 +140,7 @@ export default function InsightsPage() {
               <p className="mt-3 text-sm text-white/65">{analysis.caption}</p>
 
               <dl className="mt-6 space-y-3 text-sm text-white/70">
-                {selectedDeck?.gameType && (
+                {selectedDeck.gameType && (
                   <div className="flex items-center justify-between">
                     <dt className="text-white/50">Game</dt>
                     <dd className="text-white/80">{selectedDeck.gameType}</dd>

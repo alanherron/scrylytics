@@ -1,0 +1,28 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="waterGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#004D40;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#26A69A;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="waterReflection" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3" />
+      <stop offset="50%" style="stop-color:#ffffff;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </linearGradient>
+  </defs>
+  <circle cx="256" cy="256" r="256" fill="url(#waterGradient)"/>
+  <!-- Flowing wave curves -->
+  <path d="M 0 300 Q 128 280 256 300 T 512 300 L 512 340 Q 384 320 256 340 T 0 340 Z" fill="#00897B" opacity="0.7"/>
+  <path d="M 0 380 Q 128 360 256 380 T 512 380 L 512 420 Q 384 400 256 420 T 0 420 Z" fill="#00ACC1" opacity="0.6"/>
+  <path d="M 0 220 Q 128 200 256 220 T 512 220 L 512 260 Q 384 240 256 260 T 0 260 Z" fill="#00897B" opacity="0.5"/>
+  <!-- Glossy reflection overlay -->
+  <ellipse cx="256" cy="200" rx="180" ry="120" fill="url(#waterReflection)"/>
+</svg>
+
+
+
+
+
+
+
+

@@ -1,0 +1,27 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="airGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#01579B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#81D4FA;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <circle cx="256" cy="256" r="256" fill="url(#airGradient)"/>
+  <!-- Wind streamline swirl pattern -->
+  <path d="M 256 256 M 200 200 Q 180 240 200 280 Q 220 320 260 340 Q 300 360 340 340 Q 380 320 400 280 Q 420 240 400 200 Q 380 160 340 140 Q 300 120 260 140 Q 220 160 200 200" 
+        fill="none" stroke="#E1F5FE" stroke-width="8" opacity="0.6" stroke-linecap="round"/>
+  <path d="M 256 256 M 220 220 Q 210 250 220 280 Q 230 310 260 320 Q 290 330 320 320 Q 350 310 360 280 Q 370 250 360 220 Q 350 190 320 180 Q 290 170 260 180 Q 230 190 220 220" 
+        fill="none" stroke="#B3E5FC" stroke-width="6" opacity="0.7" stroke-linecap="round"/>
+  <path d="M 256 256 M 240 240 Q 235 255 240 270 Q 245 285 260 290 Q 275 295 290 290 Q 305 285 310 270 Q 315 255 310 240 Q 305 225 290 220 Q 275 215 260 220 Q 245 225 240 240" 
+        fill="none" stroke="#FFFFFF" stroke-width="4" opacity="0.8" stroke-linecap="round"/>
+  <!-- Translucent overlay for light feel -->
+  <circle cx="200" cy="200" r="100" fill="#E1F5FE" opacity="0.2"/>
+  <circle cx="312" cy="312" r="80" fill="#B3E5FC" opacity="0.15"/>
+</svg>
+
+
+
+
+
+
+
+
