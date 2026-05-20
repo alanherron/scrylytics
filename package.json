@@ -12,7 +12,7 @@
     "deckstrings": "^3.1.2",
     "framer-motion": "^11.0.3",
     "lucide-react": "^0.302.0",
-    "next": "^15.0.0",
+    "next": "15.0.7",
     "next-themes": "^0.2.1",
     "openai": "^6.7.0",
     "react": "^18.3.1",
